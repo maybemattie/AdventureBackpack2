@@ -25,8 +25,8 @@ archivesBaseName = "adventurebackpack"
 
 version = "${minecraft_version}-${mod_version}-${buildnumber}"
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 minecraft {
     version = "${minecraft_version}-${forge_version}"
