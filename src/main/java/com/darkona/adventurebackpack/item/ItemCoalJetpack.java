@@ -3,65 +3,96 @@ package com.darkona.adventurebackpack.item;
 import java.util.List;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.init.ModNetwork;
-import com.darkona.adventurebackpack.inventory.ContainerJetpack;
 import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
 import com.darkona.adventurebackpack.network.GUIPacket;
 import com.darkona.adventurebackpack.network.PlayerActionPacket;
 import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
 import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
 import com.darkona.adventurebackpack.proxy.ClientProxy;
-import com.darkona.adventurebackpack.util.EnchUtils;
+import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.Resources;
+import com.darkona.adventurebackpack.util.TipUtils;
+
+import static com.darkona.adventurebackpack.util.TipUtils.l10n;
 
 /**
  * Created on 15/01/2015
  *
  * @author Darkona
  */
-public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
+public class ItemCoalJetpack extends ItemAdventure
 {
     public ItemCoalJetpack()
     {
         super();
         setUnlocalizedName("coalJetpack");
-        setFull3D();
-        setMaxStackSize(1);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void getSubItems(Item item, CreativeTabs tab, List list)
     {
-        ItemStack iStack = new ItemStack(item, 1, 0);
-        NBTTagCompound compound = new NBTTagCompound();
-        iStack.setTagCompound(compound);
+        list.add(BackpackUtils.createJetpackStack());
+    }
 
-        NBTTagCompound jetpackTag = new NBTTagCompound();
-        //jetpackTag.setTag(Constants.JETPACK_WATER_TANK, new FluidTank(Constants.JETPACK_WATER_CAPACITY).writeToNBT(new NBTTagCompound()));
-        //jetpackTag.setTag(Constants.JETPACK_STEAM_TANK, new FluidTank(Constants.JETPACK_STEAM_CAPACITY).writeToNBT(new NBTTagCompound()));
-        //jetpackTag.setTag(Constants.JETPACK_INVENTORY, new NBTTagList());
-        compound.setTag(Constants.JETPACK_COMPOUND_TAG, jetpackTag);
+    @Override
+    @SuppressWarnings({"unchecked"})
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean advanced)
+    {
+        FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
+        FluidTank steamTank = new FluidTank(Constants.Jetpack.STEAM_CAPACITY);
+        NBTTagCompound jetpackTag = BackpackUtils.getWearableCompound(stack);
 
-        list.add(iStack);
+        if (GuiScreen.isShiftKeyDown())
+        {
+            NBTTagList itemList = jetpackTag.getTagList(Constants.TAG_INVENTORY, NBT.TAG_COMPOUND);
+            tooltips.add(l10n("jetpack.fuel") + ": " + TipUtils.slotStackTooltip(itemList, Constants.Jetpack.FUEL_SLOT));
+
+            waterTank.readFromNBT(jetpackTag.getCompoundTag(Constants.Jetpack.TAG_WATER_TANK));
+            tooltips.add(l10n("jetpack.tank.water") + ": " + TipUtils.tankTooltip(waterTank));
+
+            steamTank.readFromNBT(jetpackTag.getCompoundTag(Constants.Jetpack.TAG_STEAM_TANK));
+            // special case for steam, have to set displayed fluid name manually, cuz technically it's water
+            String theSteam = steamTank.getFluidAmount() > 0 ? EnumChatFormatting.AQUA + l10n("steam") : "";
+            tooltips.add(l10n("jetpack.tank.steam") + ": " + TipUtils.tankTooltip(steamTank, false) + theSteam);
+
+            TipUtils.shiftFooter(tooltips);
+        }
+        else if (!GuiScreen.isCtrlKeyDown())
+        {
+            tooltips.add(TipUtils.holdShift());
+        }
+
+        if (GuiScreen.isCtrlKeyDown())
+        {
+            tooltips.add(l10n("max.altitude") + ": " + TipUtils.whiteFormat("185 ") + l10n("meters"));
+            tooltips.add(TipUtils.pressShiftKeyFormat(TipUtils.actionKeyFormat()) + l10n("jetpack.key.onoff1"));
+            tooltips.add(l10n("jetpack.key.onoff2") + " " + l10n("on"));
+        }
     }
 
     @Override
@@ -78,12 +109,11 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
     public void onEquipped(World world, EntityPlayer player, ItemStack stack)
     {
         InventoryCoalJetpack inv = new InventoryCoalJetpack(stack);
-        inv.calculateLostTime(); // debug artifact
         if (inv.getTemperature() == 0) inv.setTemperature(getBiomeMinTemp(player, world));
     }
 
     @Override
-    public void onEquippedUpdate(World world, EntityPlayer player, ItemStack stack)
+    public void onEquippedUpdate(World world, EntityPlayer player, ItemStack stack) //TODO extract behavior to separate class
     {
         InventoryCoalJetpack inv = new InventoryCoalJetpack(stack);
         inv.openInventory();
@@ -226,7 +256,7 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
         if (inv.getBurnTicks() <= 0)
         {
             inv.setBurnTicks(inv.consumeFuel());
-            inv.currentItemBurnTime = inv.getBurnTicks();
+            inv.setCurrentItemBurnTime(inv.getBurnTicks());
         }
         inv.dirtyInventory();
     }
@@ -239,7 +269,7 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
 
         if (burnTicks > 0)
         {
-            if (temperature < Constants.JETPACK_MAX_TEMPERATURE)
+            if (temperature < Constants.Jetpack.MAX_TEMPERATURE)
             {
                 if (burnTicks % inv.getIncreasingFactor() == 0)
                 {
@@ -248,9 +278,9 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
                 }
             }
         }
-        else if (burnTicks <= 0)
+        else
         {
-            inv.currentItemBurnTime = 0;
+            inv.setCurrentItemBurnTime(0);
             if (coolTicks % inv.getDecreasingFactor() == 0)
             {
                 temperature = (temperature - 1 >= getBiomeMinTemp(player, world)) ? temperature - 1 : 0;
@@ -269,18 +299,7 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
         inv.setInUse(false);
         inv.setLeaking(false);
         inv.setStatus(false);
-        inv.setSystemTime(System.currentTimeMillis());
         inv.markDirty();
-    }
-
-    @Override
-    public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player)
-    {
-        if (stack != null && player instanceof EntityPlayerMP && player.openContainer instanceof ContainerJetpack)
-        {
-            player.closeScreen();
-        }
-        return super.onDroppedByPlayer(stack, player);
     }
 
     @Override
@@ -292,12 +311,12 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
     @Override
     public double getDurabilityForDisplay(ItemStack stack)
     {
-        return (float) getTemperature(stack) / Constants.JETPACK_MAX_TEMPERATURE + 50;
+        return (float) getTemperature(stack) / Constants.Jetpack.MAX_TEMPERATURE + 50;
     }
 
     private int getTemperature(ItemStack jetpack)
     {
-        return jetpack.stackTagCompound.getCompoundTag(Constants.JETPACK_COMPOUND_TAG).getInteger("temperature");
+        return BackpackUtils.getWearableCompound(jetpack).getInteger("temperature");
     }
 
     @Override
@@ -329,16 +348,6 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
 
     @Override
     @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type)
-    {
-        String modelTexture;
-        modelTexture = Resources.modelTextures("coalJetpack").toString();
-
-        return modelTexture;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
     public ModelBiped getWearableModel(ItemStack wearable)
     {
         return ClientProxy.modelCoalJetpack.setWearable(wearable);
@@ -351,15 +360,4 @@ public class ItemCoalJetpack extends ItemAB implements IBackWearableItem
         return Resources.modelTextures("coalJetpack");
     }
 
-    @Override
-    public int getItemEnchantability()
-    {
-        return 0;
-    }
-
-    @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book)
-    {
-        return EnchUtils.isSoulBook(book);
-    }
 }

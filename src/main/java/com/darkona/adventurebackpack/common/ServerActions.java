@@ -2,6 +2,7 @@ package com.darkona.adventurebackpack.common;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.block.BlockSleepingBag;
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
@@ -27,15 +30,16 @@ import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.network.WearableModePacket;
 import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.reference.BackpackNames;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.Utils;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.reference.GeneralReference;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Wearing;
 
 import static com.darkona.adventurebackpack.common.Constants.BUCKET;
-import static com.darkona.adventurebackpack.common.Constants.JETPACK_COMPOUND_TAG;
-import static com.darkona.adventurebackpack.common.Constants.LOWER_TOOL;
-import static com.darkona.adventurebackpack.common.Constants.UPPER_TOOL;
+import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
+import static com.darkona.adventurebackpack.common.Constants.TOOL_LOWER;
+import static com.darkona.adventurebackpack.common.Constants.TOOL_UPPER;
 
 /**
  * Created on 23/12/2014
@@ -48,48 +52,26 @@ public class ServerActions
     public static final boolean HOSE_TOGGLE = true;
 
     /**
-     * Cycles tools. In a cycle. The tool in your hand with the tools in the special tool slots of the backpack, to be precise.
+     * Cycles tools. In a cycle. The tool in your hand with the tools in the special tool playerSlot of the backpack,
+     * to be precise.
      *
-     * @param player    - Duh
-     * @param direction - An integer indicating the direction of the switch. Nobody likes to swith always inthe same
-     *                  direction all the timeInSeconds. That's stupid.
-     * @param slot      The slot that will be switched with the backpack.
+     * @param player      Duh
+     * @param isWheelUp   A boolean indicating the direction of the switch. Nobody likes to swith always in the same
+     *                    direction all the timeInSeconds. That's stupid.
+     * @param playerSlot  The slot that will be switched with the backpack.
      */
-    //Using @Sir-Will dupe fixed
-    public static void cycleTool(EntityPlayer player, int direction, int slot)
+    public static void cycleTool(EntityPlayer player, boolean isWheelUp, int playerSlot)
     {
-        if (!Utils.isDimensionAllowed(player.worldObj.provider.dimensionId))
-        {
+        if (!GeneralReference.isDimensionAllowed(player))
             return;
-        }
 
-        try
+        ItemStack current = player.getCurrentEquippedItem();
+        if (SlotTool.isValidTool(current))
         {
+            int backpackSlot = isWheelUp ? TOOL_UPPER : TOOL_LOWER;
             InventoryBackpack backpack = Wearing.getWearingBackpackInv(player);
-            ItemStack current = player.getCurrentEquippedItem();
-            backpack.openInventory();
-            if (SlotTool.isValidTool(current))
-            {
-                if (direction < 0)
-                {
-                    player.inventory.mainInventory[slot] = backpack.getStackInSlot(UPPER_TOOL);
-                    backpack.setInventorySlotContentsNoSave(UPPER_TOOL, backpack.getStackInSlot(LOWER_TOOL));
-                    backpack.setInventorySlotContentsNoSave(LOWER_TOOL, current);
-                }
-                else if (direction > 0)
-                {
-                    player.inventory.mainInventory[slot] = backpack.getStackInSlot(LOWER_TOOL);
-                    backpack.setInventorySlotContentsNoSave(LOWER_TOOL, backpack.getStackInSlot(UPPER_TOOL));
-                    backpack.setInventorySlotContentsNoSave(UPPER_TOOL, current);
-                }
-            }
-            backpack.markDirty();
-            player.inventory.closeInventory();
-        }
-        catch (Exception oops)
-        {
-            LogHelper.debug("Exception trying to cycle tools.");
-            oops.printStackTrace();
+            player.inventory.setInventorySlotContents(playerSlot, backpack.getStackInSlot(backpackSlot));
+            backpack.setInventorySlotContents(backpackSlot, current);
         }
     }
 
@@ -99,7 +81,7 @@ public class ServerActions
      * @param player Is a player. To whom  the nice or evil effects you're going to apply will affect.
      *               See? I know the proper use of the words "effect" & "affect".
      * @param tank   The tank that holds the fluid, whose effect will affect the player that's in the world.
-     * @return If the effect can be applied, and it is actually applied, returns true.
+     * @return       If the effect can be applied, and it is actually applied, returns true.
      */
     public static boolean setFluidEffect(World world, EntityPlayer player, FluidTank tank)
     {
@@ -114,11 +96,11 @@ public class ServerActions
 
     /**
      * @param player    Duh!
-     * @param direction The direction in which the hose modes will switch.
+     * @param isWheelUp The direction in which the hose modes will switch.
      * @param action    The type of the action to be performed on the hose.
      *                  Can be HOSE_SWITCH for mode or HOSE_TOGGLE for tank
      */
-    public static void switchHose(EntityPlayer player, int direction, boolean action)
+    public static void switchHose(EntityPlayer player, boolean isWheelUp, boolean action)
     {
         if (Wearing.isHoldingHose(player))
         {
@@ -132,11 +114,11 @@ public class ServerActions
                 {
                     mode = (mode + 1) % 2;
                 }
-                else if (direction > 0)
+                else if (isWheelUp)
                 {
                     mode = (mode + 1) % 3;
                 }
-                else if (direction < 0)
+                else
                 {
                     mode = (mode - 1 < 0) ? 2 : mode - 1;
                 }
@@ -162,13 +144,14 @@ public class ServerActions
     public static void electrify(EntityPlayer player)
     {
         ItemStack backpack = Wearing.getWearingBackpack(player);
-        if (BackpackNames.getBackpackColorName(backpack).equals("Pig"))
+
+        if (BackpackTypes.getType(backpack) == BackpackTypes.PIG)
         {
-            BackpackNames.setBackpackColorName(backpack, "Pigman");
+            BackpackUtils.setBackpackType(backpack, BackpackTypes.PIGMAN);
         }
-        if (BackpackNames.getBackpackColorName(backpack).equals("Diamond"))
+        if (BackpackTypes.getType(backpack) == BackpackTypes.DIAMOND)
         {
-            BackpackNames.setBackpackColorName(backpack, "Electric");
+            BackpackUtils.setBackpackType(backpack, BackpackTypes.ELECTRIC);
         }
     }
 
@@ -246,18 +229,26 @@ public class ServerActions
         }
     }
 
-    public static void toggleSleepingBag(EntityPlayer player, int coordX, int coordY, int coordZ)
+    public static void toggleSleepingBag(EntityPlayer player, boolean isTile, int cX, int cY, int cZ)
     {
         World world = player.worldObj;
-        if (world.getTileEntity(coordX, coordY, coordZ) instanceof TileAdventureBackpack)
+
+        if (!world.provider.canRespawnHere() || world.getBiomeGenForCoords(cX, cZ) == BiomeGenBase.hell)
         {
-            TileAdventureBackpack te = (TileAdventureBackpack) world.getTileEntity(coordX, coordY, coordZ);
-            if (!te.isSBDeployed())
+            player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.cant.sleep.here"));
+            player.closeScreen();
+            return;
+        }
+
+        if (isTile && world.getTileEntity(cX, cY, cZ) instanceof TileAdventureBackpack)
+        {
+            TileAdventureBackpack te = (TileAdventureBackpack) world.getTileEntity(cX, cY, cZ);
+            if (!te.isSleepingBagDeployed())
             {
-                int can[] = canDeploySleepingBag(world, coordX, coordY, coordZ);
+                int can[] = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, true);
                 if (can[0] > -1)
                 {
-                    if (te.deploySleepingBag(player, world, can[1], can[2], can[3], can[0]))
+                    if (te.deploySleepingBag(player, world, can[0], can[1], can[2], can[3]))
                     {
                         player.closeScreen();
                     }
@@ -273,65 +264,28 @@ public class ServerActions
             }
             player.closeScreen();
         }
-
-    }
-
-    public static int[] canDeploySleepingBag(World world, int coordX, int coordY, int coordZ)
-    {
-        TileAdventureBackpack te = (TileAdventureBackpack) world.getTileEntity(coordX, coordY, coordZ);
-        int newMeta = -1;
-
-        if (!te.isSBDeployed())
+        else if (!isTile && Wearing.isWearingBackpack(player))
         {
-            int meta = world.getBlockMetadata(coordX, coordY, coordZ);
-            switch (meta & 3)
+            int can[] = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, false);
+            if (can[0] > -1)
             {
-                case 0:
-                    --coordZ;
-                    if (world.isAirBlock(coordX, coordY, coordZ) && world.getBlock(coordX, coordY - 1, coordZ).getMaterial().isSolid())
+                InventoryBackpack inv = Wearing.getWearingBackpackInv(player);
+                if (inv.deploySleepingBag(player, world, can[0], can[1], can[2], can[3]))
+                {
+                    Block portableBag = world.getBlock(can[1], can[2], can[3]);
+                    if (portableBag instanceof BlockSleepingBag)
                     {
-                        if (world.isAirBlock(coordX, coordY, coordZ - 1) && world.getBlock(coordX, coordY - 1, coordZ - 1).getMaterial().isSolid())
-                        {
-                            newMeta = 2;
-                        }
+                        inv.getExtendedProperties().setBoolean(Constants.TAG_SLEEPING_IN_BAG, true);
+                        ((BlockSleepingBag) portableBag).onPortableBlockActivated(world, player, can[1], can[2], can[3]);
                     }
-                    break;
-                case 1:
-                    ++coordX;
-                    if (world.isAirBlock(coordX, coordY, coordZ) && world.getBlock(coordX, coordY - 1, coordZ).getMaterial().isSolid())
-                    {
-                        if (world.isAirBlock(coordX + 1, coordY, coordZ) && world.getBlock(coordX + 1, coordY - 1, coordZ).getMaterial().isSolid())
-                        {
-                            newMeta = 3;
-                        }
-                    }
-                    break;
-                case 2:
-                    ++coordZ;
-                    if (world.isAirBlock(coordX, coordY, coordZ) && world.getBlock(coordX, coordY - 1, coordZ).getMaterial().isSolid())
-                    {
-                        if (world.isAirBlock(coordX, coordY, coordZ + 1) && world.getBlock(coordX, coordY - 1, coordZ + 1).getMaterial().isSolid())
-                        {
-                            newMeta = 0;
-                        }
-                    }
-                    break;
-                case 3:
-                    --coordX;
-                    if (world.isAirBlock(coordX, coordY, coordZ) && world.getBlock(coordX, coordY - 1, coordZ).getMaterial().isSolid())
-                    {
-                        if (world.isAirBlock(coordX - 1, coordY, coordZ) && world.getBlock(coordX - 1, coordY - 1, coordZ).getMaterial().isSolid())
-                        {
-                            newMeta = 1;
-                        }
-                    }
-                    break;
-                default:
-                    break;
+                }
             }
+            else if (!world.isRemote)
+            {
+                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.backpack.cant.bag"));
+            }
+            player.closeScreen();
         }
-        int result[] = {newMeta, coordX, coordY, coordZ};
-        return result;
     }
 
     /**
@@ -353,7 +307,7 @@ public class ServerActions
 
     public static void copterSoundAtLogin(EntityPlayer player)
     {
-        byte status = BackpackProperty.get(player).getWearable().getTagCompound().getByte("status");
+        byte status = BackpackUtils.getWearableCompound(BackpackProperty.get(player).getWearable()).getByte(TAG_STATUS);
 
         if (!player.worldObj.isRemote && status != ItemCopterPack.OFF_MODE)
         {
@@ -363,8 +317,7 @@ public class ServerActions
 
     public static void jetpackSoundAtLogin(EntityPlayer player)
     {
-        boolean isBoiling = BackpackProperty.get(player).getWearable().getTagCompound()
-                .getCompoundTag(JETPACK_COMPOUND_TAG).getBoolean("boiling");
+        boolean isBoiling = BackpackUtils.getWearableCompound(BackpackProperty.get(player).getWearable()).getBoolean("boiling");
 
         if (!player.worldObj.isRemote && isBoiling)
         {
@@ -377,7 +330,7 @@ public class ServerActions
     {
         String message = "";
         boolean actionPerformed = false;
-        byte mode = copter.stackTagCompound.getByte("status");
+        byte mode = BackpackUtils.getWearableCompound(copter).getByte(TAG_STATUS);
         byte newMode = ItemCopterPack.OFF_MODE;
 
         if (type == WearableModePacket.COPTER_ON_OFF)
@@ -418,7 +371,7 @@ public class ServerActions
 
         if (actionPerformed)
         {
-            copter.stackTagCompound.setByte("status", newMode);
+            BackpackUtils.getWearableCompound(copter).setByte(TAG_STATUS, newMode);
             if (player.worldObj.isRemote)
             {
                 player.addChatComponentMessage(new ChatComponentTranslation(message));

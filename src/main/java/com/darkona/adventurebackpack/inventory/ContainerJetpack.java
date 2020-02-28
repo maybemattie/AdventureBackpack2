@@ -5,75 +5,51 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidTank;
 
-import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.common.Constants.Source;
 
-import static com.darkona.adventurebackpack.common.Constants.JETPACK_FUEL_SLOT;
+import static com.darkona.adventurebackpack.common.Constants.Jetpack.BUCKET_IN;
+import static com.darkona.adventurebackpack.common.Constants.Jetpack.BUCKET_OUT;
+import static com.darkona.adventurebackpack.common.Constants.Jetpack.FUEL_SLOT;
 
 /**
  * Created on 15/01/2015
  *
  * @author Darkona
  */
-public class ContainerJetpack extends ContainerAdventureBackpack
+public class ContainerJetpack extends ContainerAdventure
 {
     private static final int JETPACK_INV_START = PLAYER_INV_END + 1;
     private static final int JETPACK_FUEL_START = PLAYER_INV_END + 3;
 
-    private InventoryCoalJetpack inventory;
-
-    private int waterAmount;
-    private int steamAmount;
     private ItemStack fuelStack;
 
     public ContainerJetpack(EntityPlayer player, InventoryCoalJetpack jetpack, Source source)
     {
-        this.player = player;
-        inventory = jetpack;
+        super(player, jetpack, source);
         makeSlots(player.inventory);
         inventory.openInventory();
-        this.source = source;
-    }
-
-    @Override
-    public IInventoryTanks getInventoryTanks()
-    {
-        return inventory;
     }
 
     private void makeSlots(InventoryPlayer invPlayer)
     {
         bindPlayerInventory(invPlayer, 8, 84);
 
-        addSlotToContainer(new SlotFluidWater(inventory, Constants.JETPACK_BUCKET_IN, 30, 22));
-        addSlotToContainer(new SlotFluidWater(inventory, Constants.JETPACK_BUCKET_OUT, 30, 52));
-        addSlotToContainer(new SlotFuel(inventory, JETPACK_FUEL_SLOT, 77, 64));
+        addSlotToContainer(new SlotFluidWater(inventory, BUCKET_IN, 30, 22));
+        addSlotToContainer(new SlotFluidWater(inventory, BUCKET_OUT, 30, 52));
+        addSlotToContainer(new SlotFuel(inventory, FUEL_SLOT, 77, 64));
     }
 
     @Override
-    protected boolean detectChanges()
+    protected boolean detectItemChanges()
     {
-        boolean changesDetected = false;
-
+        // determine not only the presence of item in the slot but also check if the item type same as tick before
         ItemStack[] inv = inventory.getInventory();
-        if (inv[JETPACK_FUEL_SLOT] != fuelStack)
+        if (inv[FUEL_SLOT] != fuelStack)
         {
-            fuelStack = inv[JETPACK_FUEL_SLOT];
-            changesDetected = true;
+            fuelStack = inv[FUEL_SLOT];
+            return true;
         }
-
-        if (waterAmount != inventory.getWaterTank().getFluidAmount())
-        {
-            waterAmount = inventory.getWaterTank().getFluidAmount();
-            changesDetected = true;
-        }
-        if (steamAmount != inventory.getSteamTank().getFluidAmount())
-        {
-            steamAmount = inventory.getSteamTank().getFluidAmount();
-            changesDetected = true;
-        }
-
-        return changesDetected;
+        return false;
     }
 
     @Override
@@ -81,7 +57,7 @@ public class ContainerJetpack extends ContainerAdventureBackpack
     {
         if (SlotFluid.isContainer(stack))
         {
-            FluidTank waterTank = inventory.getWaterTank();
+            FluidTank waterTank = ((InventoryCoalJetpack ) inventory).getWaterTank();
             ItemStack stackOut = getSlot(JETPACK_INV_START + 1).getStack();
 
             boolean isWaterTankEmpty = SlotFluid.isEmpty(waterTank);
@@ -91,30 +67,19 @@ public class ContainerJetpack extends ContainerAdventureBackpack
             if (SlotFluid.isFilled(stack))
             {
                 if ((stackOut == null || areSameType) && SlotFluidWater.isValidItem(stack))
-                {
                     if (isWaterTankEmpty || suitableToTank)
-                    {
-                        if (!mergeBucket(stack))
-                            return false;
-                    }
-                }
+                        return mergeBucket(stack);
             }
             else if (SlotFluid.isEmpty(stack))
             {
                 if ((stackOut == null || areSameType) && SlotFluidWater.isValidItem(stack))
-                {
                     if (!isWaterTankEmpty)
-                    {
-                        if (!mergeBucket(stack))
-                            return false;
-                    }
-                }
+                        return mergeBucket(stack);
             }
         }
         else if (SlotFuel.isValidItem(stack))
         {
-            if (!mergeFuel(stack))
-                return false;
+            return mergeFuel(stack);
         }
         return true;
     }

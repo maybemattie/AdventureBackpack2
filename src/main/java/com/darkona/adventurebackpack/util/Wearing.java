@@ -1,8 +1,12 @@
 package com.darkona.adventurebackpack.util;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.darkona.adventurebackpack.init.ModItems;
 import com.darkona.adventurebackpack.inventory.IInventoryTanks;
 import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
@@ -15,7 +19,7 @@ import com.darkona.adventurebackpack.item.ItemCopterPack;
 import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.item.ItemPistonBoots;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.reference.BackpackNames;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
 
 /**
  * Created on 11/10/2014
@@ -24,6 +28,23 @@ import com.darkona.adventurebackpack.reference.BackpackNames;
  */
 public class Wearing
 {
+    public enum WearableType
+    {
+        BACKPACK, COPTERPACK, JETPACK, UNKNOWN;
+
+        public static WearableType get(@Nonnull ItemStack stack)
+        {
+            Item item = stack.getItem();
+            if (item == ModItems.adventureBackpack)
+                return BACKPACK;
+            if (item == ModItems.copterPack)
+                return COPTERPACK;
+            if (item == ModItems.coalJetpack)
+                return JETPACK;
+            return UNKNOWN;
+        }
+    }
+
     // Wearable
     public static boolean isWearingWearable(EntityPlayer player)
     {
@@ -33,6 +54,11 @@ public class Wearing
     public static ItemStack getWearingWearable(EntityPlayer player)
     {
         return isWearingWearable(player) ? BackpackProperty.get(player).getWearable() : null;
+    }
+
+    public static WearableType getWearingWearableType(EntityPlayer player)
+    {
+        return isWearingWearable(player) ? WearableType.get(BackpackProperty.get(player).getWearable()) : WearableType.UNKNOWN;
     }
 
     public static IInventoryTanks getWearingWearableInv(EntityPlayer player)
@@ -58,16 +84,14 @@ public class Wearing
         return BackpackProperty.get(player).getWearable() != null && BackpackProperty.get(player).getWearable().getItem() instanceof ItemAdventureBackpack;
     }
 
-    public static boolean isWearingTheRightBackpack(EntityPlayer player, String... backpacks)
+    public static boolean isWearingTheRightBackpack(EntityPlayer player, BackpackTypes... backpacks)
     {
         if (Wearing.isWearingBackpack(player))
         {
-            for (String name : backpacks)
+            for (BackpackTypes type : backpacks)
             {
-                if (BackpackNames.getBackpackColorName(Wearing.getWearingBackpack(player)).equals(name))
-                {
+                if (BackpackTypes.getType(Wearing.getWearingBackpack(player)) == type)
                     return true;
-                }
             }
         }
         return false;

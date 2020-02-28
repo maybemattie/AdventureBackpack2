@@ -1,10 +1,9 @@
 package com.darkona.adventurebackpack.util;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import com.darkona.adventurebackpack.inventory.IInventoryAdventureBackpack;
-import com.darkona.adventurebackpack.reference.BackpackNames;
+import com.darkona.adventurebackpack.init.ModDates;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ModInfo;
 
 /**
@@ -16,24 +15,26 @@ public class Resources
 {
     private static final String TEXTURE_LOCATION = ModInfo.MOD_ID;
 
-    public static String modelTextureResourceString(String name)
+    public static ResourceLocation getBackpackTexture(BackpackTypes type)
     {
-        return new ResourceLocation(TEXTURE_LOCATION, "textures/models/" + name).toString();
+        return type == BackpackTypes.STANDARD
+               ? backpackTextureFromString(ModDates.getHoliday())
+               : backpackTextureFromType(type);
     }
 
-    public static String backpackTexturesStringFromColor(ItemStack backpack)
-    {
-        return new ResourceLocation(TEXTURE_LOCATION, "textures/backpack/" + BackpackNames.getBackpackColorName(backpack) + ".png").toString();
-    }
-
-    public static ResourceLocation backpackTextureFromString(String color)
+    private static ResourceLocation backpackTextureFromString(String color)
     {
         return new ResourceLocation(TEXTURE_LOCATION, "textures/backpack/" + color + ".png");
     }
 
-    public static ResourceLocation backpackTextureFromColor(IInventoryAdventureBackpack adventureBackpack)
+    private static ResourceLocation backpackTextureFromType(BackpackTypes type)
     {
-        return new ResourceLocation(TEXTURE_LOCATION, "textures/backpack/" + adventureBackpack.getColorName() + ".png");
+        return new ResourceLocation(TEXTURE_LOCATION, "textures/backpack/" + BackpackTypes.getSkinName(type) + ".png");
+    }
+
+    public static String modelTextureResourceString(String name)
+    {
+        return new ResourceLocation(TEXTURE_LOCATION, "textures/models/" + name).toString();
     }
 
     public static ResourceLocation guiTextures(String name)

@@ -4,9 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -35,7 +37,7 @@ import com.darkona.adventurebackpack.handlers.RenderHandler;
 import com.darkona.adventurebackpack.init.ModBlocks;
 import com.darkona.adventurebackpack.init.ModItems;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.util.Utils;
+import com.darkona.adventurebackpack.reference.LoadedMods;
 
 /**
  * Created on 10/10/2014
@@ -55,18 +57,12 @@ public class ClientProxy implements IProxy
         initRenderers();
         registerKeybindings();
         MinecraftForge.EVENT_BUS.register(new GuiOverlay(Minecraft.getMinecraft()));
-    }
 
-    @Override
-    public void initNetwork()
-    {
-
-    }
-
-    @Override
-    public void joinPlayer(EntityPlayer player)
-    {
-
+        if (LoadedMods.NEI)
+        {
+            codechicken.nei.api.API.hideItem(new ItemStack(ModBlocks.blockBackpack, 1, OreDictionary.WILDCARD_VALUE));
+            codechicken.nei.api.API.hideItem(new ItemStack(ModBlocks.blockSleepingBag, 1, OreDictionary.WILDCARD_VALUE));
+        }
     }
 
     @Override
@@ -74,7 +70,7 @@ public class ClientProxy implements IProxy
     {
         Entity entity = Minecraft.getMinecraft().theWorld.getEntityByID(id);
 
-        if (Utils.notNullAndInstanceOf(entity, EntityPlayer.class) && properties != null)
+        if (entity instanceof EntityPlayer && properties != null)
         {
             EntityPlayer player = (EntityPlayer) entity;
 

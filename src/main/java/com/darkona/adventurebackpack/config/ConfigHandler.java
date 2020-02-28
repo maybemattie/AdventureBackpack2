@@ -17,10 +17,6 @@ public class ConfigHandler
 {
     public static Configuration config;
 
-    public static boolean IS_DEVENV = false;
-    public static boolean IS_BUILDCRAFT = false;
-    public static boolean IS_ENDERIO = false;
-
     public static boolean allowSoulBound = true;
     public static boolean backpackDeathPlace = true;
     public static boolean backpackAbilities = true;
@@ -28,11 +24,12 @@ public class ConfigHandler
     public static boolean enableHoseDrink = true;
     public static boolean enableToolsCycling = true;
     public static boolean fixLead = true;
+    public static boolean portableSleepingBag = true;
+    public static boolean tinkerToolsMaintenance = true;
 
     public static boolean enableFullnessBar = false;
     public static boolean enableTemperatureBar = false;
     public static boolean enableToolsRender = true;
-    public static boolean enableTooltips = true;
     public static int typeTankRender = 2;
     public static boolean tanksHoveringText = false;
 
@@ -41,12 +38,13 @@ public class ConfigHandler
     public static boolean statusOverlayTop = true;
     public static int statusOverlayIndentH = 2;
     public static int statusOverlayIndentV = 2;
+    public static boolean statusOverlayThaumcraft = true;
 
     public static boolean tanksOverlay = true;
     public static boolean tanksOverlayRight = true;
     public static boolean tanksOverlayBottom = true;
-    public static int tanksOverlayIndentH = 4;
-    public static int tanksOverlayIndentV = 2;
+    public static int tanksOverlayIndentH = 2;
+    public static int tanksOverlayIndentV = 1;
 
     public static boolean allowSoundCopter = true;
     public static boolean allowSoundJetpack = true;
@@ -54,22 +52,16 @@ public class ConfigHandler
 
     public static boolean enableItemFilters = false;
     public static String[] forbiddenDimensions;
+    public static String[] copterFuels;
+    private static String[] defaultFuels = {"biodiesel, 1.0", "biofuel, 1.0", "bioethanol, 1.5", "creosote, 7.0",
+            "fuel, 0.8", "lava, 5.0", "liquid_light_oil, 3.0", "liquid_medium_oil, 3.0", "liquid_heavy_oil, 3.0",
+            "liquid_light_fuel, 1.0", "liquid_heavy_fuel, 1.3", "nitrofuel, 0.4", "oil, 3.0", "rocket_fuel, 0.8"};
 
     public static String[] nameLocalized;
     public static String[] nameInternalID;
     public static String[] nameInternalIDs;
     public static String[] nameUnlocalized;
-    public static String[] nameDefault = {};
-
-    public static float fuelRateBioDiesel = 1.0f;
-    public static float fuelRateBioEthanol = 1.5f;
-    public static float fuelRateCreosote = 7.0f;
-    public static float fuelRateFuel = 0.8f;
-    public static float fuelRateFuelLight = 1.0f;
-    public static float fuelRateFuelHeavy = 1.3f;
-    public static float fuelRateFuelNitro = 0.4f;
-    public static float fuelRateLava = 5.0f;
-    public static float fuelRateOil = 3.0f;
+    private static String[] nameDefault = {};
 
     public static boolean consumeDragonEgg = false;
     public static boolean recipeAdventuresSet = true;
@@ -96,6 +88,8 @@ public class ConfigHandler
     public static boolean allowGolemGen = true;
     public static boolean allowPigmanGen = false;
 
+    public static int bossBarIndent = 12;
+
     public static void init(File configFile)
     {
         if (config == null)
@@ -116,13 +110,14 @@ public class ConfigHandler
         enableCampfireSpawn = config.getBoolean("Enable Campfire Spawn", "gameplay", false, "Enable/Disable ability to spawn at campfire");
         enableHoseDrink = config.getBoolean("Enable Hose Drink", "gameplay", true, "Enable/Disable hose drink mode");
         enableToolsCycling = config.getBoolean("Enable Tools Cycling", "gameplay", true, "Enable/Disable tool cycling");
+        portableSleepingBag = config.getBoolean("Portable Sleeping Bag", "gameplay", true, "Allows to use sleeping bag directly from wearing backpacks. Sleep by one touch");
+        tinkerToolsMaintenance = config.getBoolean("Maintenance Tinker Tools", "gameplay", true, "Allows to maintenance (repair/upgarde) Tinkers Construct tools in backpacks as if it's Crafting Station");
 
         // Graphics
         typeTankRender = config.getInt("Tank Render Type", "graphics", 3, 1, 3, "1,2 or 3 for different rendering of fluids in the Backpack GUI");
         enableFullnessBar = config.getBoolean("Enable Fullness Bar", "graphics", false, "Enable durability bar showing fullness of backpacks inventory");
         enableTemperatureBar = config.getBoolean("Enable Temperature Bar", "graphics", false, "Enable durability bar showing temperature of jetpack");
-        enableToolsRender = config.getBoolean("Enable Tools Render", "graphics", true, "Enable rendering for tools in the backpack tool slots. May cause visual glitches with Gregtech tools");
-        enableTooltips = config.getBoolean("Enable Tooltips", "graphics", true, "Enable tooltips? Client side");
+        enableToolsRender = config.getBoolean("Enable Tools Render", "graphics", true, "Enable rendering for tools in the backpack tool slots");
         tanksHoveringText = config.getBoolean("Hovering Text", "graphics", false, "Show hovering text on fluid tanks?");
 
         // Graphics.Status
@@ -131,13 +126,14 @@ public class ConfigHandler
         statusOverlayTop = config.getBoolean("Stick To Top", "graphics.status", true, "Stick to top?");
         statusOverlayIndentH = config.getInt("Indent Horizontal", "graphics.status", 2, 0, 1000, "Horizontal indent from the window border");
         statusOverlayIndentV = config.getInt("Indent Vertical", "graphics.status", 2, 0, 500, "Vertical indent from the window border");
+        statusOverlayThaumcraft = config.getBoolean("Respect Thaumcraft", "graphics.status", true, "Take into account Thaumcraft wands GUI and do not overlap it");
 
         // Graphics.Tanks
         tanksOverlay = config.getBoolean("Enable Overlay", "graphics.tanks", true, "Show the different wearable overlays on screen?");
         tanksOverlayRight = config.getBoolean("Stick To Right", "graphics.tanks", true, "Stick to right?");
         tanksOverlayBottom = config.getBoolean("Stick To Bottom", "graphics.tanks", true, "Stick to bottom?");
-        tanksOverlayIndentH = config.getInt("Indent Horizontal", "graphics.tanks", 4, -10, 1000, "Horizontal indent from the window border");
-        tanksOverlayIndentV = config.getInt("Indent Vertical", "graphics.tanks", 2, 0, 500, "Vertical indent from the window border");
+        tanksOverlayIndentH = config.getInt("Indent Horizontal", "graphics.tanks", 2, 0, 1000, "Horizontal indent from the window border");
+        tanksOverlayIndentV = config.getInt("Indent Vertical", "graphics.tanks", 1, 0, 500, "Vertical indent from the window border");
 
         // Sound
         allowSoundCopter = config.getBoolean("Copter Pack", "sound", true, "Allow playing the CopterPack sound (Client Only, other players may hear it)");
@@ -147,23 +143,13 @@ public class ConfigHandler
         // Items
         enableItemFilters = config.getBoolean("Enable Item Filters", "items", true, "Enable filters from Disallow category");
         forbiddenDimensions = config.getStringList("Forbidden Dimensions", "items", nameDefault, "Disallow opening backpack inventory for specific dimension ID");
+        copterFuels = config.getStringList("Valid Copter Fuels", "items", defaultFuels, "List of valid fuels for Copter. Consumption rate range: 0.05 ~ 20.0. Format: 'fluid, rate', ex.: 'water, 0.0'");
 
         // Items.Disallowed
         nameLocalized = config.getStringList("By Displayed Name", "items.disallowed", nameDefault, "Disallow items by displayed (localized) name. Not case sensitive. Worst option, use only when there is no choice. Example: Dirt");
         nameInternalID = config.getStringList("By Internal ID", "items.disallowed", nameDefault, "Disallow items by internal ID. Case sensitive. Example: minecraft:dirt");
         nameInternalIDs = config.getStringList("By Internal IDs", "items.disallowed", nameDefault, "Disallow items by internal ID. Case sensitive. Will be disallowed all items containing that word in their IDs. Use with caution. Example: minecraft:di");
         nameUnlocalized = config.getStringList("By Internal Name", "items.disallowed", nameDefault, "Disallow items by internal (unlocalized) name. Not case sensitive. Example: tile.dirt");
-
-        // Items.Fuel
-        fuelRateBioDiesel = config.getFloat("BioDiesel", "items.fuel", 1.0f, 0.05f, 20.0f, "BioDiesel consumption rate");
-        fuelRateBioEthanol = config.getFloat("BioEthanol", "items.fuel", 1.5f, 0.05f, 20.0f, "BioEthanol consumption rate");
-        fuelRateCreosote = config.getFloat("Creosote", "items.fuel", 7.0f, 0.05f, 20.0f, "Creosote consumption rate");
-        fuelRateFuel = config.getFloat("Fuel", "items.fuel", 0.8f, 0.05f, 20.0f, "Fuel / rocket fuel consumption rate");
-        fuelRateFuelLight = config.getFloat("FuelLight", "items.fuel", 1.0f, 0.05f, 20.0f, "Light Fuel consumption rate");
-        fuelRateFuelHeavy = config.getFloat("FuelHeavy", "items.fuel", 1.3f, 0.05f, 20.0f, "Heavy Fuel consumption rate");
-        fuelRateFuelNitro = config.getFloat("FuelNitro", "items.fuel", 0.4f, 0.05f, 20.0f, "Nitro Fuel consumption rate");
-        fuelRateLava = config.getFloat("Lava", "items.fuel", 5.0f, 0.05f, 20.0f, "Lava consumption rate");
-        fuelRateOil = config.getFloat("Oil", "items.fuel", 3.0f, 0.05f, 20.0f, "Oil consumption rate");
 
         // Items.Recipes
         consumeDragonEgg = config.getBoolean("Consume Dragon Egg", "items.recipes", false, "Consume Dragon Egg when Dragon backpack crafted?");
@@ -193,6 +179,9 @@ public class ConfigHandler
         allowGolemGen = config.getBoolean("IronGolem Backpacks", "worldgen", true, "Allow generation of IronGolem Backpacks in village blacksmith loot. It cannot be obtained by crafting");
         allowPigmanGen = config.getBoolean("Pigman Backpacks", "worldgen", false, "Allow generation of Pigman Backpacks in dungeon loot and villager trades");
 
+        // Experimental
+        bossBarIndent = config.getInt("Boss Bar Indent", "experimental", 0, 0, 500, "Boss health bar indent from top border, 0 = standard Forge render");
+
         if (config.hasChanged())
         {
             config.save();
@@ -207,4 +196,5 @@ public class ConfigHandler
             loadConfiguration();
         }
     }
+
 }

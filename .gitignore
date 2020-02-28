@@ -1,0 +1,5 @@
+.gradle/
+*.bat
+AdvBackPack.iml
+AdvBackPack.ipr
+AdvBackPack.iws

@@ -1,5 +1,7 @@
 package com.darkona.adventurebackpack.inventory;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -15,33 +17,39 @@ import com.darkona.adventurebackpack.common.Constants.Source;
  * @author Ugachaga
  */
 @SuppressWarnings("WeakerAccess")
-abstract class ContainerAdventureBackpack extends Container
+public abstract class ContainerAdventure extends Container
 {
+    protected static final int PLAYER_INV_ROWS = 3;
+    protected static final int PLAYER_INV_COLUMNS = 9;
     protected static final int PLAYER_HOT_START = 0;
-    protected static final int PLAYER_HOT_END = PLAYER_HOT_START + 8;
-    protected static final int PLAYER_INV_START = PLAYER_HOT_END + 1;
-    protected static final int PLAYER_INV_END = PLAYER_INV_START + 26;
+    protected static final int PLAYER_HOT_END = PLAYER_HOT_START + PLAYER_INV_COLUMNS - 1;
+    protected static final int PLAYER_INV_END = PLAYER_HOT_END + PLAYER_INV_COLUMNS * PLAYER_INV_ROWS;
     protected static final int PLAYER_INV_LENGTH = PLAYER_INV_END + 1;
 
-    protected EntityPlayer player;
-    protected Source source;
+    protected final EntityPlayer player;
+    protected final IInventoryTanks inventory;
+    protected final Source source;
 
-    public abstract IInventoryTanks getInventoryTanks();
+    private final int[] fluidsAmount;
+    private int itemsCount;
+    private boolean requestedUpdate;
+
+    protected ContainerAdventure(EntityPlayer player, IInventoryTanks inventory, Source source)
+    {
+        this.player = player;
+        this.inventory = inventory;
+        this.source = source;
+        this.fluidsAmount = new int[this.inventory.getTanksArray().length];
+    }
 
     protected void bindPlayerInventory(InventoryPlayer invPlayer, int startX, int startY)
     {
-        for (int x = 0; x < 9; x++) // hotbar - 9 slots
-        {
-            addSlotToContainer(new Slot(invPlayer, x, (startX + 18 * x), (58 + startY)));
-        }
+        for (int col = 0; col < PLAYER_INV_COLUMNS; col++) // hotbar - 9 slots
+            addSlotToContainer(new Slot(invPlayer, col, (startX + 18 * col), (58 + startY)));
 
-        for (int y = 0; y < 3; y++) // inventory - 9*3, 27 slots
-        {
-            for (int x = 0; x < 9; x++)
-            {
-                addSlotToContainer(new Slot(invPlayer, (x + y * 9 + 9), (startX + 18 * x), (startY + y * 18)));
-            }
-        }
+        for (int row = 0; row < PLAYER_INV_ROWS; row++) // inventory - 3*9, 27 slots
+            for (int col = 0; col < PLAYER_INV_COLUMNS; col++)
+                addSlotToContainer(new Slot(invPlayer, (PLAYER_INV_COLUMNS + row * PLAYER_INV_COLUMNS + col), (startX + 18 * col), (startY + row * 18)));
     }
 
     @Override
@@ -51,15 +59,54 @@ abstract class ContainerAdventureBackpack extends Container
 
         if (source == Source.HOLDING) // used for refresh tooltips and redraw tanks content while GUI is open
         {
-            if (detectChanges() && player instanceof EntityPlayerMP)
+            // intentionally update container with 1 tick delay after detect changes due to visual glitches
+            // in rare cases on some modded items, ex.: shift+q on blood magic lava crystals
+            if (requestedUpdate && player instanceof EntityPlayerMP)
             {
                 ((EntityPlayerMP) player).sendContainerAndContentsToPlayer(this, this.getInventory());
+                requestedUpdate = false;
+            }
+
+            if ((detectItemChanges() | detectFluidChanges()))
+            {
+                requestedUpdate = true;
             }
         }
     }
 
-    protected abstract boolean detectChanges();
+    protected boolean detectItemChanges()
+    {
+        ItemStack[] inv = inventory.getInventory();
+        int tempCount = 0;
+        for (int i = 0; i < inv.length - inventory.getSlotsOnClosing().length; i++)
+        {
+            if (inv[i] != null)
+                tempCount++;
+        }
+        if (itemsCount != tempCount)
+        {
+            itemsCount = tempCount;
+            return true;
+        }
+        return false;
+    }
 
+    private boolean detectFluidChanges()
+    {
+        boolean changesDetected = false;
+        for (int i = 0; i < fluidsAmount.length; i++)
+        {
+            int amount = inventory.getTanksArray()[i].getFluidAmount();
+            if (fluidsAmount[i] != amount)
+            {
+                fluidsAmount[i] = amount;
+                changesDetected = true;
+            }
+        }
+        return changesDetected;
+    }
+
+    @Nullable
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int fromSlot)
     {
@@ -71,15 +118,14 @@ abstract class ContainerAdventureBackpack extends Container
         ItemStack stack = slot.getStack();
         ItemStack result = stack.copy();
 
-        if (fromSlot >= PLAYER_INV_LENGTH)
-        {
-            if (!mergePlayerInv(stack))
-                return null;
-        }
-
         if (fromSlot < PLAYER_INV_LENGTH)
         {
             if (!transferStackToPack(stack))
+                return null;
+        }
+        else
+        {
+            if (!mergePlayerInv(stack))
                 return null;
         }
 
@@ -106,6 +152,7 @@ abstract class ContainerAdventureBackpack extends Container
 
     protected abstract boolean transferStackToPack(ItemStack stack);
 
+    @Nullable
     @Override
     public ItemStack slotClick(int slot, int button, int flag, EntityPlayer player)
     {
@@ -126,7 +173,7 @@ abstract class ContainerAdventureBackpack extends Container
     @Override
     public boolean canInteractWith(EntityPlayer player)
     {
-        return getInventoryTanks().isUseableByPlayer(player);
+        return inventory.isUseableByPlayer(player);
     }
 
     @Override
@@ -203,18 +250,6 @@ abstract class ContainerAdventureBackpack extends Container
         return changesMade;
     }
 
-    /*
-    @Override
-    protected void retrySlotClick(int slotIndex, int p_75133_2_, boolean flag, EntityPlayer player)
-    {
-        super.retrySlotClick(slotIndex, p_75133_2_, flag, player);
-        //this.slotClick(index, p_75133_2_, 1, p_75133_4_);
-        // TODO if (slot instanceof slotFluid), see also mergeItemStack
-    }
-
-    //TODO protected List crafters = new ArrayList();
-    */
-
     @Override
     public void onContainerClosed(EntityPlayer player)
     {
@@ -233,14 +268,12 @@ abstract class ContainerAdventureBackpack extends Container
 
     protected void dropContentOnClose()
     {
-        IInventoryTanks inv = getInventoryTanks();
-
-        for (int i = 0; i < inv.getSizeInventory(); i++)
+        for (int i = 0; i < inventory.getSizeInventory(); i++)
         {
-            ItemStack itemstack = inv.getStackInSlotOnClosing(i);
+            ItemStack itemstack = inventory.getStackInSlotOnClosing(i);
             if (itemstack != null)
             {
-                inv.setInventorySlotContents(i, null);
+                inventory.setInventorySlotContents(i, null);
                 player.dropPlayerItemWithRandomChoice(itemstack, false);
             }
         }

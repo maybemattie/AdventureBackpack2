@@ -4,6 +4,7 @@ import net.minecraft.client.audio.MovingSound;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
+import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.Wearing;
 
@@ -16,18 +17,8 @@ public class NyanMovingSound extends MovingSound
 {
     public static NyanMovingSound instance = new NyanMovingSound();
 
-    public EntityPlayer getPlayer()
-    {
-        return player;
-    }
-
-    public NyanMovingSound setPlayer(EntityPlayer p)
-    {
-        this.player = p;
-        return this;
-    }
-
     private EntityPlayer player;
+
 
     public NyanMovingSound(EntityPlayer player)
     {
@@ -55,7 +46,7 @@ public class NyanMovingSound extends MovingSound
         }
         else
         {
-            if (Wearing.isWearingTheRightBackpack(player, "Rainbow"))
+            if (Wearing.isWearingTheRightBackpack(player, BackpackTypes.RAINBOW))
             {
                 this.volume = 0.8f;
             }

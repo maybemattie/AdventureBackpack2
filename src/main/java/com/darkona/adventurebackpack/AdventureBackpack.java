@@ -1,9 +1,7 @@
 package com.darkona.adventurebackpack;
 
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -17,7 +15,6 @@ import com.darkona.adventurebackpack.handlers.ClientEventHandler;
 import com.darkona.adventurebackpack.handlers.GeneralEventHandler;
 import com.darkona.adventurebackpack.handlers.GuiHandler;
 import com.darkona.adventurebackpack.handlers.PlayerEventHandler;
-import com.darkona.adventurebackpack.handlers.TooltipEventHandler;
 import com.darkona.adventurebackpack.init.ModBlocks;
 import com.darkona.adventurebackpack.init.ModDates;
 import com.darkona.adventurebackpack.init.ModEntities;
@@ -27,8 +24,10 @@ import com.darkona.adventurebackpack.init.ModNetwork;
 import com.darkona.adventurebackpack.init.ModRecipes;
 import com.darkona.adventurebackpack.init.ModWorldGen;
 import com.darkona.adventurebackpack.proxy.IProxy;
+import com.darkona.adventurebackpack.reference.GeneralReference;
+import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.reference.WailaTileAdventureBackpack;
 
 /**
  * Created on 10/10/2014
@@ -59,23 +58,22 @@ public class AdventureBackpack
         FluidEffectRegistry.init();
         ModEntities.init();
         ModNetwork.init();
-        proxy.initNetwork();
 
         //Events
         MinecraftForge.EVENT_BUS.register(new GeneralEventHandler());
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
-        MinecraftForge.EVENT_BUS.register(new TooltipEventHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerEventHandler());
-
         FMLCommonHandler.instance().bus().register(new PlayerEventHandler());
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event)
     {
+        LoadedMods.init();
         proxy.init();
         ModRecipes.init();
         ModWorldGen.init();
+        if (LoadedMods.WAILA) WailaTileAdventureBackpack.init();
 
         //GUIs
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());
@@ -84,40 +82,10 @@ public class AdventureBackpack
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-        ConfigHandler.IS_DEVENV = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
-
-        if (ConfigHandler.IS_DEVENV)
-            LogHelper.info("Dev environment detected. All hail the creator");
-
-        ConfigHandler.IS_BUILDCRAFT = Loader.isModLoaded("BuildCraft|Core");
-        ConfigHandler.IS_ENDERIO = Loader.isModLoaded("EnderIO");
-
-        if (ConfigHandler.IS_BUILDCRAFT)
-            LogHelper.info("Buildcraft is present. Acting accordingly");
-        if (ConfigHandler.IS_ENDERIO)
-            LogHelper.info("EnderIO is present. Acting accordingly");
+        GeneralReference.init();
 
         //ConditionalFluidEffect.init();
         //ModItems.conditionalInit();
         //ModRecipes.conditionalInit();
-
-        /*LogHelper.info("DUMPING FLUID INFORMATION");
-        LogHelper.info("-------------------------------------------------------------------------");
-        for(Fluid fluid : FluidRegistry.getRegisteredFluids().values())
-        {
-
-            LogHelper.info("Unlocalized name: " + fluid.getUnlocalizedName());
-            LogHelper.info("Name: " + fluid.getName());
-            LogHelper.info("");
-        }
-        LogHelper.info("-------------------------------------------------------------------------");*/
-
-        /*LogHelper.info("DUMPING TILE INFORMATION");
-        LogHelper.info("-------------------------------------------------------------------------");
-        for (Block block : GameData.getBlockRegistry().typeSafeIterable())
-        {
-            LogHelper.info("Block= " + block.getUnlocalizedName());
-        }
-        LogHelper.info("-------------------------------------------------------------------------");*/
     }
 }

@@ -1,5 +1,6 @@
 package com.darkona.adventurebackpack.reference;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 
 import com.google.common.collect.BiMap;
@@ -7,9 +8,17 @@ import com.google.common.collect.EnumHashBiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.text.WordUtils;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
+
+import com.darkona.adventurebackpack.util.BackpackUtils;
+
+import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.Props.NIGHT_VISION;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.Props.REMOVAL;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.Props.SPECIAL;
@@ -39,8 +48,8 @@ public enum BackpackTypes
     CHEST           ( 19),
     CHICKEN         ( 28, SPECIAL),
     COAL            (  6),
-    COOKIE          ( 20, SPECIAL),
-    COW             (  1),
+    COOKIE          ( 20),
+    COW             (  1, SPECIAL),
     CREEPER         ( 64, SPECIAL),
     CYAN            ( 21),
     DELUXE          ( 25),
@@ -59,7 +68,7 @@ public enum BackpackTypes
     HAYBALE         ( 33),
     HORSE           ( 34),
     IRON            ( 10),
-    IRON_GOLEM      ( 11),
+    IRON_GOLEM      ( 11), //TODO has other ability, need some prop
     LAPIS           ( 12),
     LEATHER         ( 35),
     LIGHT_BLUE      ( 36),
@@ -108,35 +117,26 @@ public enum BackpackTypes
     // @formatter:on
 
     public static final ImmutableBiMap<Byte, BackpackTypes> BY_META;
-    public static final ImmutableSet<BackpackTypes> SPECIAL_TYPES;
+    public static final ImmutableSet<BackpackTypes> SPECIAL_TYPES; //TODO okay... how can we use all these sets?
     public static final ImmutableSet<BackpackTypes> REMOVAL_TYPES;
     public static final ImmutableSet<BackpackTypes> NIGHT_VISION_TYPES;
 
     private final byte meta;
-    private final String skinName; // equivalent to current colorName
-    private final Props[] props;
-
-    //TODO step1: replace BackpackNames by this , make it work
-    //TODO step2: add support for recipes (see BackpackRecipes[List]). new field 'Object[]'?
-    //TODO step3: rework NBT for wearable packs. unificate and simplify structure.
-    //TODO step4: remove all internal interactions by colorName (skinName), replace by enum. maybe remove NBT field too cuz we need only meta
+    private final String skinName;
+    private final ImmutableSet<Props> props;
 
     BackpackTypes(int meta, String skin, Props... props)
     {
-        Validate.inclusiveBetween(0, 127, meta, "wrong meta value: %s (%s)", meta, this);
+        Validate.inclusiveBetween(0, (int) Byte.MAX_VALUE, meta, "wrong meta value: %s (%s)", meta, this);
 
         this.meta = (byte) meta;
-        this.props = props;
-        this.skinName = skin;
+        this.skinName = skin.isEmpty() ? generateSkinName() : skin;
+        this.props = Sets.immutableEnumSet((Arrays.asList(props)));
     }
 
     BackpackTypes(int meta, Props... props)
     {
-        Validate.inclusiveBetween(0, 127, meta, "wrong meta value: %s (%s)", meta, this);
-
-        this.meta = (byte) meta;
-        this.props = props;
-        this.skinName = generateSkinName();
+        this(meta, StringUtils.EMPTY, props);
     }
 
     private String generateSkinName()
@@ -175,6 +175,7 @@ public enum BackpackTypes
         NIGHT_VISION_TYPES = Sets.immutableEnumSet(nightVisions);
 
         //ImmutableSet.<BackpackTypes>builder().addAll(SPECIAL).addAll(TILE).addAll(OTHER).build();
+        //TODO LogHelper.info("Registered blablabla types, blabla specials...");
     }
 
     public static String getSkinName(BackpackTypes type)
@@ -182,9 +183,38 @@ public enum BackpackTypes
         return type.skinName;
     }
 
+    public static String getSkinName(int meta)
+    {
+        return getType(meta).skinName;
+    }
+
+    public static String getSkinName(ItemStack backpack)
+    {
+        return getSkinName(getType(backpack));
+    }
+
+    public static String getLocalizedName(BackpackTypes type)
+    {
+        return StatCollector.translateToLocal("adventurebackpack:skin.name." + type.name().toLowerCase());
+    }
+
     public static byte getMeta(BackpackTypes type)
     {
         return type.meta;
+    }
+
+    public static BackpackTypes getType(int meta)
+    {
+        Validate.inclusiveBetween(0, (int) Byte.MAX_VALUE, meta, "wrong meta value: %s", meta);
+        BackpackTypes type = BY_META.get((byte) meta);
+        return type != null ? type : UNKNOWN;
+    }
+
+    public static BackpackTypes getType(byte meta)
+    {
+        Validate.inclusiveBetween((byte) 0, Byte.MAX_VALUE, meta, "wrong meta value: %s", meta);
+        BackpackTypes type = BY_META.get(meta);
+        return type != null ? type : UNKNOWN;
     }
 
     public static BackpackTypes getType(String skinName)
@@ -197,26 +227,25 @@ public enum BackpackTypes
         return UNKNOWN;
     }
 
-    public static BackpackTypes getType(int meta)
+    public static BackpackTypes getType(ItemStack backpack)
     {
-        Validate.inclusiveBetween(0, 127, meta, "wrong meta value: %s", meta);
-        BackpackTypes type = BY_META.get((byte) meta);
-        return type != null ? type : UNKNOWN;
-    }
+        if (backpack == null) // well... Wearing.getWearingBackpack() may return null... //TODO solve this damn null
+            return null;
 
-    public static BackpackTypes getType(byte meta)
-    {
-        Validate.inclusiveBetween((byte) 0, (byte) 127, meta, "wrong meta value: %s", meta);
-        BackpackTypes type = BY_META.get(meta);
-        return type != null ? type : UNKNOWN;
+        NBTTagCompound backpackTag = BackpackUtils.getWearableCompound(backpack);
+        if (backpackTag.getByte(TAG_TYPE) == UNKNOWN.meta) //TODO remove? are we rly need to normalize it?
+        {
+            backpackTag.setByte(TAG_TYPE, STANDARD.meta);
+        }
+        return getType(backpackTag.getByte(TAG_TYPE));
     }
 
     public static int getLowestUnusedMeta()
     {
-        for (byte i = 0; i <= 126; i++)
+        for (byte b = 0; b < Byte.MAX_VALUE; b++)
         {
-            if (BY_META.get(i) == null)
-                return i;
+            if (BY_META.get(b) == null)
+                return b;
         }
         return -1;
     }
@@ -233,12 +262,12 @@ public enum BackpackTypes
 
     public static boolean hasProperty(BackpackTypes type, Props prop)
     {
-        for (Props p : type.props)
-        {
-            if (p == prop)
-                return true;
-        }
-        return false;
+        return type.props.contains(prop);
+    }
+
+    public static boolean hasProperties(BackpackTypes type, ImmutableSet<Props> props)
+    {
+        return type.props.containsAll(props);
     }
 
     public enum Props
@@ -250,5 +279,8 @@ public enum BackpackTypes
         //HOLIDAY,
         //OTHER_ABILITY, // creeper or skeleton etc
         ;
+
+        public static final ImmutableSet<Props> POTION_EFFECT = Sets.immutableEnumSet(SPECIAL, REMOVAL);
     }
+
 }
