@@ -80,7 +80,7 @@ public class Constants
         /**
          *  ### Copter Pack ###
          */
-        public static final int FUEL_CAPACITY = BUCKET * 8;
+        public static final int FUEL_CAPACITY = BUCKET * 16;
 
         // Inventory Slots
         public static final int INVENTORY_SIZE = 2;
