@@ -269,7 +269,7 @@ public class PlayerEventHandler
     @SubscribeEvent
     public void playerCraftsBackpack(PlayerEvent.ItemCraftedEvent event)
     {
-        if (event.crafting.getItem() == ModItems.adventureBackpack)
+        if (event.crafting != null && event.crafting.getItem() == ModItems.adventureBackpack)
         {
             LogHelper.info("Player crafted a backpack, and that backpack's appearance is: "
                     + BackpackTypes.getSkinName(event.crafting));
