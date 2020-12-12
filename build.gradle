@@ -16,6 +16,7 @@ repositories {
         name 'CB Repo'
         url "http://chickenbones.net/maven/"
     }
+    maven { url = "http://gregtech.overminddl1.com/" }
 }
 
 apply plugin: 'forge'
