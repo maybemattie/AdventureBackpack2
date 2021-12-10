@@ -1,10 +1,10 @@
 [
 {
-  "modid": "adventurebackpack",
-  "name": "Adventure Backpack",
+  "modid": "${modId}",
+  "name": "${modName}",
   "description": "Useful and pretty backpacks for Minecraft",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
   "url": "https://github.com/runescapejon/AdventureBackpack2/releases",
   "updateUrl": "",
   "authorList": [
