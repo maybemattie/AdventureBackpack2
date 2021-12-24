@@ -16,6 +16,7 @@ import codechicken.lib.render.TextureUtils;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.TipUtils;
 
 /**
  * Created by Darkona on 12/10/2014.
@@ -58,8 +59,8 @@ public class GuiTank
     public List<String> getTankTooltip()
     {
         FluidStack fluid = tank.getFluid();
-        String fluidName = (fluid != null) ? fluid.getLocalizedName() : "None";
-        String fluidAmount = (fluid != null) ? fluid.amount + "/" + Constants.BASIC_TANK_CAPACITY : "Empty";
+        String fluidName = (fluid != null) ? fluid.getLocalizedName() : TipUtils.l10n("empty");
+        String fluidAmount = ((fluid != null) ? fluid.amount : 0) + "/" + Constants.BASIC_TANK_CAPACITY;
         ArrayList<String> tankTips = new ArrayList<String>();
         tankTips.add(fluidName);
         tankTips.add(fluidAmount);

@@ -3,8 +3,12 @@ package com.darkona.adventurebackpack.client.gui;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import codechicken.nei.guihook.GuiContainerManager;
+import codechicken.nei.guihook.IContainerTooltipHandler;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidTank;
@@ -24,6 +28,8 @@ import com.darkona.adventurebackpack.network.SleepingBagPacket;
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.TinkersUtils;
+
+import java.util.List;
 
 /**
  * Created on 12/10/2014
@@ -100,14 +106,6 @@ public class GuiAdvBackpack extends GuiWithTanks
                 equipButton.draw(this, 96, 208);
             else
                 equipButton.draw(this, 77, 208);
-        }
-        if (ConfigHandler.tanksHoveringText)
-        {
-            if (tankLeft.inTank(this, mouseX, mouseY))
-                drawHoveringText(tankLeft.getTankTooltip(), mouseX, mouseY, fontRendererObj);
-
-            if (tankRight.inTank(this, mouseX, mouseY))
-                drawHoveringText(tankRight.getTankTooltip(), mouseX, mouseY, fontRendererObj);
         }
 
         if (LoadedMods.TCONSTRUCT && ConfigHandler.tinkerToolsMaintenance)
@@ -190,6 +188,57 @@ public class GuiAdvBackpack extends GuiWithTanks
                 ModNetwork.net.sendToServer(new PlayerActionPacket.ActionMessage(PlayerActionPacket.GUI_NOT_HOLDING_SPACE));
                 inventory.getExtendedProperties().removeTag(Constants.TAG_HOLDING_SPACE);
             }
+        }
+    }
+
+    /**
+     * An instance of this class will handle tooltips for all instances of GuiAdvBackpack
+     */
+    public static class TooltipHandler implements IContainerTooltipHandler
+    {
+
+        @Override
+        public List<String> handleTooltip(GuiContainer gui, int mouseX, int mouseY, List<String> currenttip) {
+            if (gui.getClass() != GuiAdvBackpack.class)
+                return currenttip;
+
+            GuiWithTanks backpackGui = (GuiWithTanks) gui;
+
+            // Fluid tank tooltips
+            if (GuiContainerManager.shouldShowTooltip(gui)  && currenttip.size() == 0)
+            {
+                if (tankLeft.inTank(backpackGui, mouseX, mouseY))
+                    currenttip.addAll(tankLeft.getTankTooltip());
+    
+                if (tankRight.inTank(backpackGui, mouseX, mouseY))
+                    currenttip.addAll(tankRight.getTankTooltip());
+            }
+
+            return currenttip;
+        }
+
+        /**
+         * Required by IContainerTooltipHandler implementation but not needed here
+         */
+        @Override
+        public List<String> handleItemDisplayName(GuiContainer gui, ItemStack itemstack, List<String> currenttip) {
+            return currenttip;
+        }
+
+        /**
+         * Required by IContainerTooltipHandler implementation but not needed here
+         */
+        @Override
+        public List<String> handleItemTooltip(GuiContainer gui, ItemStack itemstack, int mousex, int mousey,
+                List<String> currenttip) {
+            return currenttip;
+        }
+    }
+
+    static {
+        // Only instantiate TooltipHandler if enabled in config.
+        if (ConfigHandler.tanksHoveringText) {
+            GuiContainerManager.addTooltipHandler(new TooltipHandler());
         }
     }
 }
