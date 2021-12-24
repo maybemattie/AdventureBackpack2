@@ -191,7 +191,9 @@ public class GuiAdvBackpack extends GuiWithTanks
         }
     }
 
-    
+    /**
+     * An instance of this class will handle tooltips for all instances of GuiAdvBackpack
+     */
     public static class TooltipHandler implements IContainerTooltipHandler
     {
 
@@ -203,7 +205,7 @@ public class GuiAdvBackpack extends GuiWithTanks
             GuiWithTanks backpackGui = (GuiWithTanks) gui;
 
             // Fluid tank tooltips
-            if (ConfigHandler.tanksHoveringText && GuiContainerManager.shouldShowTooltip(gui)  && currenttip.size() == 0)
+            if (GuiContainerManager.shouldShowTooltip(gui)  && currenttip.size() == 0)
             {
                 if (tankLeft.inTank(backpackGui, mouseX, mouseY))
                     currenttip.addAll(tankLeft.getTankTooltip());
@@ -234,7 +236,9 @@ public class GuiAdvBackpack extends GuiWithTanks
     }
 
     static {
-        // Creating a single instance of TooltipHandler to handle tooltips for all instances of GuiAdvBackpack
-        GuiContainerManager.addTooltipHandler(new TooltipHandler());
+        // Only instantiate TooltipHandler if enabled in config.
+        if (ConfigHandler.tanksHoveringText) {
+            GuiContainerManager.addTooltipHandler(new TooltipHandler());
+        }
     }
 }
