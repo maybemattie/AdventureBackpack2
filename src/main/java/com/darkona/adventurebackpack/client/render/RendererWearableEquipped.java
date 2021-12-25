@@ -41,40 +41,32 @@ public class RendererWearableEquipped extends RendererLivingEntity
 
     public void render(Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw, float pitch)
     {
+        if (!Wearing.isWearingWearable((EntityPlayer) entity)) return;
+        GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
+
+        ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity).copy();
+        IBackWearableItem wearableItem = (IBackWearableItem) wearable.getItem();
+        modelBipedMain = wearableItem.getWearableModel(wearable);
+        texture = wearableItem.getWearableTexture(wearable);
+        modelBipedMain.bipedBody.rotateAngleX = rotX;
+        modelBipedMain.bipedBody.rotateAngleY = rotY;
+        modelBipedMain.bipedBody.rotateAngleZ = rotZ;
         try
         {
-            if (!Wearing.isWearingWearable((EntityPlayer) entity)) return;
-            ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity).copy();
-            IBackWearableItem wearableItem = (IBackWearableItem) wearable.getItem();
-            modelBipedMain = wearableItem.getWearableModel(wearable);
-            texture = wearableItem.getWearableTexture(wearable);
-            modelBipedMain.bipedBody.rotateAngleX = rotX;
-            modelBipedMain.bipedBody.rotateAngleY = rotY;
-            modelBipedMain.bipedBody.rotateAngleZ = rotZ;
-            GL11.glColor3f(1.0F, 1.0F, 1.0F);
-            GL11.glPushMatrix();
-            try
-            {
-                GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-                renderMainModel((EntityPlayer) entity, 0, 0, 0, 0, 0, 0.0625f);
-            }
-            catch (Exception oops)
-            {
-
-            }
-            OpenGlHelper.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-            GL11.glEnable(GL11.GL_TEXTURE_2D);
-            OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
-            GL11.glPopMatrix();
+            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+            renderMainModel((EntityPlayer) entity, 0, 0, 0, 0, 0, 0.0625f);
         }
         catch (Exception ex)
         {
-            //discard silently because NO ONE CARES
         }
+
+        GL11.glPopAttrib();
     }
 
     protected void renderMainModel(EntityLivingBase entity, float limbSwing1, float limbswing2, float z, float yaw, float whatever, float scale)
     {
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_TEXTURE_BIT);
+
         bindTexture(this.texture);
         if (!entity.isInvisible())
         {
@@ -89,14 +81,13 @@ public class RendererWearableEquipped extends RendererLivingEntity
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
             GL11.glAlphaFunc(GL11.GL_GREATER, 0.003921569F);
             modelBipedMain.render(entity, limbSwing1, limbswing2, z, yaw, whatever, scale);
-            GL11.glDisable(GL11.GL_BLEND);
-            GL11.glAlphaFunc(GL11.GL_GREATER, 0.1F);
             GL11.glPopMatrix();
-            GL11.glDepthMask(true);
         }
         else
         {
             modelBipedMain.setRotationAngles(limbSwing1, limbswing2, z, yaw, whatever, scale, entity);
         }
+
+        GL11.glPopAttrib();
     }
 }

@@ -124,10 +124,12 @@ public class GuiAdvBackpack extends GuiWithTanks
         inventory.openInventory();
         FluidTank lft = inventory.getLeftTank();
         FluidTank rgt = inventory.getRightTank();
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT);
+
         tankLeft.draw(this, lft);
         tankRight.draw(this, rgt);
-        GL11.glDisable(GL11.GL_LIGHTING);
-        GL11.glDisable(GL11.GL_BLEND);
+
+        GL11.glPopAttrib();
     }
 
     @Override

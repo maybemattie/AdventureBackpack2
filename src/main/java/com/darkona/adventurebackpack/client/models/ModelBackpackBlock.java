@@ -367,6 +367,7 @@ public class ModelBackpackBlock extends ModelBase
     private void renderBackpack(IInventoryBackpack backpack, float scale)
     {
         BackpackTypes type = backpack.getType();
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT);
 
         if (type == QUARTZ || type == SLIME || type == SNOW)
         {
@@ -412,6 +413,7 @@ public class ModelBackpackBlock extends ModelBase
             GL11.glDisable(GL11.GL_CULL_FACE);
             GL11.glDisable(GL11.GL_BLEND);
         }*/
+        GL11.glPopAttrib();
     }
 
     /**

@@ -58,7 +58,7 @@ public final class CopygirlRenderUtils
             return;
         }
         Item item = stack.getItem();
-
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_TRANSFORM_BIT);
         GL11.glPushMatrix();
 
         Tessellator tessellator = Tessellator.instance;
@@ -108,14 +108,10 @@ public final class CopygirlRenderUtils
             ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 256, 256, 0.0625F);
             GL11.glPopMatrix();
             GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glDisable(GL11.GL_BLEND);
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glDepthFunc(GL11.GL_LEQUAL);
         }
 
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-
         GL11.glPopMatrix();
+        GL11.glPopAttrib();
     }
 
     public static void setColorFromInt(int color)
