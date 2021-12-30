@@ -30,6 +30,9 @@ public class RendererAdventureBackpackBlock extends TileEntitySpecialRenderer
     public void renderTileEntityAt(TileEntity te, double x, double y, double z, float par8)
     {
         TileAdventureBackpack tileBackpack = (TileAdventureBackpack) te;
+        GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
+        GL11.glPushMatrix();
+
         int dir = te.getBlockMetadata();
         if ((dir & 8) >= 8)
         {
@@ -40,14 +43,9 @@ public class RendererAdventureBackpackBlock extends TileEntitySpecialRenderer
             dir -= 4;
         }
 
-        GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glTranslatef((float) x + 0.5F, (float) y + 0.5f, (float) z + 0.5F);
-
-        GL11.glPushMatrix();
         GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-
-        GL11.glPushMatrix();
         if (dir == 0)
         {
             GL11.glRotatef(-180F, 0.0F, 1.0F, 0.0F);
@@ -65,9 +63,7 @@ public class RendererAdventureBackpackBlock extends TileEntitySpecialRenderer
         bindTexture(modelTexture);
         model.render(null, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1 / 20F, tileBackpack);
 
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
-        GL11.glPopMatrix();
-        GL11.glPopMatrix();
+        GL11.glPopAttrib();
     }
 }

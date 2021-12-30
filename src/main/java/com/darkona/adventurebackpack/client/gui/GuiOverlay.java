@@ -86,6 +86,7 @@ public class GuiOverlay extends Gui
         ScaledResolution resolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
         screenWidth = resolution.getScaledWidth();
         screenHeight = resolution.getScaledHeight();
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_TRANSFORM_BIT);
 
         if (ConfigHandler.bossBarIndent != 0)
         {
@@ -214,10 +215,9 @@ public class GuiOverlay extends Gui
                     GL11.glPopMatrix();
                     RenderHelper.disableStandardItemLighting();
                 }
-                GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-                GL11.glDisable(GL11.GL_BLEND);
             }
         }
+        GL11.glPopAttrib();
     }
 
     private void drawTank(FluidTank tank, int startX, int startY, int height, int width)

@@ -73,6 +73,8 @@ public class GuiCopterPack extends GuiWithTanks
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
     {
+        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT);
+
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDisable(GL11.GL_BLEND);
         inventory.openInventory();
@@ -96,7 +98,9 @@ public class GuiCopterPack extends GuiWithTanks
             String conLev = (rate != null) ? rate.toString() : "0";
             fontRendererObj.drawString("Consumption: " + conLev, 1 + offsetX, 40 + offsetY, 0x373737, false);
         }
+
         GL11.glPopMatrix();
+        GL11.glPopAttrib();
     }
 
     @Override
