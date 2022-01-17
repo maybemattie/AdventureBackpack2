@@ -88,6 +88,8 @@ public class ConfigHandler
     public static boolean allowGolemGen = true;
     public static boolean allowPigmanGen = false;
 
+    public static boolean chatSpam = true;
+
     public static int bossBarIndent = 12;
 
     public static void init(File configFile)
@@ -181,6 +183,7 @@ public class ConfigHandler
 
         // Experimental
         bossBarIndent = config.getInt("Boss Bar Indent", "experimental", 0, 0, 500, "Boss health bar indent from top border, 0 = standard Forge render");
+        chatSpam = config.getBoolean("Chat Spam", "experimental", true, "Set this to false to greatly reduce chat spam.");
 
         if (config.hasChanged())
         {

@@ -372,7 +372,7 @@ public class ServerActions
         if (actionPerformed)
         {
             BackpackUtils.getWearableCompound(copter).setByte(TAG_STATUS, newMode);
-            if (player.worldObj.isRemote)
+            if (player.worldObj.isRemote && ConfigHandler.chatSpam)
             {
                 player.addChatComponentMessage(new ChatComponentTranslation(message));
             }
@@ -415,7 +415,10 @@ public class ServerActions
             if (player.worldObj.isRemote)
             {
                 player.playSound("mob.bat.idle", 0.2F, 1.0F);
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.nightvision.on"));
+                if (ConfigHandler.chatSpam)
+                {
+                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.nightvision.on"));
+                }
             }
         }
         else
@@ -425,7 +428,10 @@ public class ServerActions
             if (player.worldObj.isRemote)
             {
                 player.playSound("mob.bat.death", 0.2F, 2.0F);
-                player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.nightvision.off"));
+                if (ConfigHandler.chatSpam)
+                {
+                    player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.nightvision.off"));
+                }
             }
         }
     }
@@ -437,7 +443,7 @@ public class ServerActions
         {
             inv.setStatus(false);
             inv.markDirty();
-            if (player.worldObj.isRemote)
+            if (player.worldObj.isRemote && ConfigHandler.chatSpam)
             {
                 player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.jetpack.off"));
             }
@@ -446,7 +452,7 @@ public class ServerActions
         {
             inv.setStatus(true);
             inv.markDirty();
-            if (player.worldObj.isRemote)
+            if (player.worldObj.isRemote && ConfigHandler.chatSpam)
             {
                 player.addChatComponentMessage(new ChatComponentTranslation("adventurebackpack:messages.jetpack.on"));
             }
