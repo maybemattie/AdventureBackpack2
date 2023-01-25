@@ -8,46 +8,38 @@ import net.minecraft.block.material.Material;
  *
  * @author Darkona
  */
-public class BackpackMaterial extends Material
-{
-    public BackpackMaterial()
-    {
+public class BackpackMaterial extends Material {
+    public BackpackMaterial() {
         super(MapColor.brownColor);
     }
 
     @Override
-    public boolean getCanBlockGrass()
-    {
+    public boolean getCanBlockGrass() {
         return false;
     }
 
     @Override
-    protected Material setBurning()
-    {
+    protected Material setBurning() {
         return this;
     }
 
     @Override
-    public boolean getCanBurn()
-    {
+    public boolean getCanBurn() {
         return false;
     }
 
     @Override
-    public boolean isReplaceable()
-    {
+    public boolean isReplaceable() {
         return false;
     }
 
     @Override
-    public boolean isToolNotRequired()
-    {
+    public boolean isToolNotRequired() {
         return true;
     }
 
     @Override
-    public boolean isAdventureModeExempt()
-    {
+    public boolean isAdventureModeExempt() {
         return true;
     }
 }

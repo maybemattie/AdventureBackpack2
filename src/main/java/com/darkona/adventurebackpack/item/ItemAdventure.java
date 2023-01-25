@@ -1,11 +1,10 @@
 package com.darkona.adventurebackpack.item;
 
+import com.darkona.adventurebackpack.inventory.ContainerAdventure;
+import com.darkona.adventurebackpack.util.EnchUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-
-import com.darkona.adventurebackpack.inventory.ContainerAdventure;
-import com.darkona.adventurebackpack.util.EnchUtils;
 
 /**
  * Created on 01.03.2018
@@ -13,30 +12,25 @@ import com.darkona.adventurebackpack.util.EnchUtils;
  * @author Ugachaga
  */
 @SuppressWarnings("WeakerAccess")
-public abstract class ItemAdventure extends ItemAB implements IBackWearableItem
-{
-    public ItemAdventure()
-    {
+public abstract class ItemAdventure extends ItemAB implements IBackWearableItem {
+    public ItemAdventure() {
         super();
         setFull3D();
         setMaxStackSize(1);
     }
 
     @Override
-    public boolean isDamageable()
-    {
+    public boolean isDamageable() {
         return false;
     }
 
     @Override
-    public int getItemEnchantability()
-    {
+    public int getItemEnchantability() {
         return 0;
     }
 
     @Override
-    public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player)
-    {
+    public boolean onDroppedByPlayer(ItemStack stack, EntityPlayer player) {
         if (stack != null && player instanceof EntityPlayerMP && player.openContainer instanceof ContainerAdventure)
             player.closeScreen();
 
@@ -44,9 +38,7 @@ public abstract class ItemAdventure extends ItemAB implements IBackWearableItem
     }
 
     @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book)
-    {
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
         return EnchUtils.isSoulBook(book);
     }
-
 }

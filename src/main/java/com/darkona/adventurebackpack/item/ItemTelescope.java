@@ -5,7 +5,6 @@ package com.darkona.adventurebackpack.item;
  *
  * @author Darkona
  */
-public class ItemTelescope extends ItemAB
-{
-    //Make Telescope item doto list
+public class ItemTelescope extends ItemAB {
+    // Make Telescope item doto list
 }

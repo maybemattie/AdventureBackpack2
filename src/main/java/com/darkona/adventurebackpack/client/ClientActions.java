@@ -1,12 +1,5 @@
 package com.darkona.adventurebackpack.client;
 
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import com.darkona.adventurebackpack.client.audio.BoilingBoilerSound;
 import com.darkona.adventurebackpack.client.audio.CopterPackSound;
 import com.darkona.adventurebackpack.client.audio.JetpackSoundOn;
@@ -15,6 +8,12 @@ import com.darkona.adventurebackpack.client.audio.NyanMovingSound;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
 import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * Created on 11/10/2014
@@ -24,16 +23,12 @@ import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
  * @see com.darkona.adventurebackpack.fluids.FluidEffectRegistry
  * @see com.darkona.adventurebackpack.common.BackpackAbilities
  */
-public class ClientActions
-{
+public class ClientActions {
     @SideOnly(Side.CLIENT)
-    public static void showParticlesAtEntity(Entity entity, byte particleCode)
-    {
-        if (entity instanceof EntityPlayer)
-        {
+    public static void showParticlesAtEntity(Entity entity, byte particleCode) {
+        if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
-            switch (particleCode)
-            {
+            switch (particleCode) {
                 case EntityParticlePacket.COPTER_PARTICLE:
                     Visuals.CopterParticles(player, player.worldObj);
                     break;
@@ -51,17 +46,13 @@ public class ClientActions
     }
 
     @SideOnly(Side.CLIENT)
-    public static void playSoundAtEntity(Entity entity, byte soundCode)
-    {
+    public static void playSoundAtEntity(Entity entity, byte soundCode) {
         SoundHandler snd = FMLClientHandler.instance().getClient().getSoundHandler();
-        if (entity instanceof EntityPlayer)
-        {
+        if (entity instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entity;
-            switch (soundCode)
-            {
+            switch (soundCode) {
                 case EntitySoundPacket.COPTER_SOUND:
-                    if (ConfigHandler.allowSoundCopter)
-                    {
+                    if (ConfigHandler.allowSoundCopter) {
                         snd.playSound(new CopterPackSound(player));
                     }
                     break;
@@ -69,20 +60,17 @@ public class ClientActions
                     snd.playSound(new NyanMovingSound(player));
                     break;
                 case EntitySoundPacket.JETPACK_FIZZ:
-                    if (ConfigHandler.allowSoundJetpack)
-                    {
+                    if (ConfigHandler.allowSoundJetpack) {
                         snd.playSound(new JetpackSoundOn(player));
                     }
                     break;
                 case EntitySoundPacket.BOILING_BUBBLES:
-                    if (ConfigHandler.allowSoundJetpack)
-                    {
+                    if (ConfigHandler.allowSoundJetpack) {
                         snd.playSound(new BoilingBoilerSound(player));
                     }
                     break;
                 case EntitySoundPacket.LEAKING_STEAM:
-                    if (ConfigHandler.allowSoundJetpack)
-                    {
+                    if (ConfigHandler.allowSoundJetpack) {
                         snd.playSound(new LeakingBoilerSound(player));
                     }
                     break;

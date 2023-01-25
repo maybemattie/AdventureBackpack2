@@ -1,19 +1,16 @@
 package com.darkona.adventurebackpack.client.models;
 
-import org.lwjgl.opengl.GL11;
-
+import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-
-import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
+import org.lwjgl.opengl.GL11;
 
 /**
  * InflatableBoat - Darkona
  * Created using Tabula 4.1.0
  */
-public class ModelInflatableBoat extends ModelBase
-{
+public class ModelInflatableBoat extends ModelBase {
     public ModelRenderer boatSides1;
     public ModelRenderer boatSides2;
     public ModelRenderer boatSides3;
@@ -34,8 +31,7 @@ public class ModelInflatableBoat extends ModelBase
     public ModelRenderer Blade3;
     public ModelRenderer Blade4;
 
-    public ModelInflatableBoat()
-    {
+    public ModelInflatableBoat() {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.boatSides4 = new ModelRenderer(this, 0, 36);
@@ -123,18 +119,13 @@ public class ModelInflatableBoat extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
-        if (entity instanceof EntityInflatableBoat)
-        {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        if (entity instanceof EntityInflatableBoat) {
             EntityInflatableBoat theBoat = (EntityInflatableBoat) entity;
 
-            if (theBoat.isMotorized() && theBoat.isInflated())
-            {
+            if (theBoat.isMotorized() && theBoat.isInflated()) {
                 Axis.isHidden = EngineBody.isHidden = false;
-            }
-            else
-            {
+            } else {
                 Axis.isHidden = EngineBody.isHidden = true;
             }
 
@@ -150,9 +141,7 @@ public class ModelInflatableBoat extends ModelBase
             this.EngineBody.render(f5);
 
             GL11.glPopMatrix();
-        }
-        else
-        {
+        } else {
             this.boatSides5.render(f5);
             this.boatSides3.render(f5);
             this.boatSides2.render(f5);
@@ -166,8 +155,7 @@ public class ModelInflatableBoat extends ModelBase
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

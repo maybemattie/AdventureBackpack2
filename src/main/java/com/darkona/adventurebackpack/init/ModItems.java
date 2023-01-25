@@ -1,7 +1,5 @@
 package com.darkona.adventurebackpack.init;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-
 import com.darkona.adventurebackpack.item.ArmorAB;
 import com.darkona.adventurebackpack.item.ItemAdventureBackpack;
 import com.darkona.adventurebackpack.item.ItemAdventureHat;
@@ -15,14 +13,14 @@ import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.item.ItemJuiceBottle;
 import com.darkona.adventurebackpack.item.ItemMachete;
 import com.darkona.adventurebackpack.item.ItemPistonBoots;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * Created on 10/10/2014
  *
  * @author Darkona
  */
-public class ModItems
-{
+public class ModItems {
     public static final ItemMachete machete = new ItemMachete();
     public static final ItemCrossbow cwxbow = new ItemCrossbow();
     public static final ArmorAB adventureHat = new ItemAdventureHat();
@@ -36,8 +34,7 @@ public class ModItems
     public static final ItemHose hose = new ItemHose();
     public static final ItemJuiceBottle melonJuiceBottle = new ItemJuiceBottle();
 
-    public static void init()
-    {
+    public static void init() {
         // Sequence affect location in NEI and CreativeTab, so keep it logically grouped
         GameRegistry.registerItem(machete, "machete");
         GameRegistry.registerItem(cwxbow, "clockworkCrossbow");

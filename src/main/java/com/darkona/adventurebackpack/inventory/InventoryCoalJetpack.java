@@ -1,14 +1,5 @@
 package com.darkona.adventurebackpack.inventory;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fluids.FluidTank;
-
-import com.darkona.adventurebackpack.common.Constants;
-
 import static com.darkona.adventurebackpack.common.Constants.Jetpack.BUCKET_IN;
 import static com.darkona.adventurebackpack.common.Constants.Jetpack.BUCKET_OUT;
 import static com.darkona.adventurebackpack.common.Constants.Jetpack.FUEL_SLOT;
@@ -17,13 +8,20 @@ import static com.darkona.adventurebackpack.common.Constants.Jetpack.TAG_WATER_T
 import static com.darkona.adventurebackpack.common.Constants.TAG_INVENTORY;
 import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
 
+import com.darkona.adventurebackpack.common.Constants;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.fluids.FluidTank;
+
 /**
  * Created on 15/01/2015
  *
  * @author Darkona
  */
-public class InventoryCoalJetpack extends InventoryAdventure
-{
+public class InventoryCoalJetpack extends InventoryAdventure {
     private FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
     private FluidTank steamTank = new FluidTank(Constants.Jetpack.STEAM_CAPACITY);
 
@@ -36,44 +34,37 @@ public class InventoryCoalJetpack extends InventoryAdventure
     private int coolTicks = 5000;
     private int currentItemBurnTime = 0;
 
-    public InventoryCoalJetpack(final ItemStack jetpack)
-    {
+    public InventoryCoalJetpack(final ItemStack jetpack) {
         super(jetpack, Constants.Jetpack.INVENTORY_SIZE);
         detectAndConvertFromOldNBTFormat(containerStack.stackTagCompound);
         openInventory();
     }
 
     @Override
-    public ItemStack[] getInventory()
-    {
+    public ItemStack[] getInventory() {
         return inventory;
     }
 
-    public FluidTank getWaterTank()
-    {
+    public FluidTank getWaterTank() {
         return waterTank;
     }
 
-    public FluidTank getSteamTank()
-    {
+    public FluidTank getSteamTank() {
         return steamTank;
     }
 
     @Override
-    public FluidTank[] getTanksArray()
-    {
-        return new FluidTank[]{waterTank, steamTank};
+    public FluidTank[] getTanksArray() {
+        return new FluidTank[] {waterTank, steamTank};
     }
 
     @Override
-    public int[] getSlotsOnClosing()
-    {
-        return new int[]{BUCKET_IN, BUCKET_OUT};
+    public int[] getSlotsOnClosing() {
+        return new int[] {BUCKET_IN, BUCKET_OUT};
     }
 
     @Override
-    public void loadFromNBT(NBTTagCompound compound)
-    {
+    public void loadFromNBT(NBTTagCompound compound) {
         NBTTagCompound jetpackTag = compound.getCompoundTag(TAG_WEARABLE_COMPOUND);
         setInventoryFromTagList(jetpackTag.getTagList(TAG_INVENTORY, NBT.TAG_COMPOUND));
         waterTank.readFromNBT(jetpackTag.getCompoundTag(TAG_WATER_TANK));
@@ -89,8 +80,7 @@ public class InventoryCoalJetpack extends InventoryAdventure
     }
 
     @Override
-    public void saveToNBT(NBTTagCompound compound)
-    {
+    public void saveToNBT(NBTTagCompound compound) {
         NBTTagCompound jetpackTag = new NBTTagCompound();
         jetpackTag.setTag(TAG_INVENTORY, getInventoryTagList());
         jetpackTag.setTag(TAG_WATER_TANK, waterTank.writeToNBT(new NBTTagCompound()));
@@ -108,23 +98,19 @@ public class InventoryCoalJetpack extends InventoryAdventure
     }
 
     @Override
-    public boolean updateTankSlots()
-    {
+    public boolean updateTankSlots() {
         boolean changesMade = false;
-        while (InventoryActions.transferContainerTank(this, getWaterTank(), BUCKET_IN))
-            changesMade = true;
+        while (InventoryActions.transferContainerTank(this, getWaterTank(), BUCKET_IN)) changesMade = true;
         return changesMade;
     }
 
     @Override
-    public void dirtyTanks()
-    {
+    public void dirtyTanks() {
         getWearableCompound().setTag(TAG_WATER_TANK, waterTank.writeToNBT(new NBTTagCompound()));
         getWearableCompound().setTag(TAG_STEAM_TANK, steamTank.writeToNBT(new NBTTagCompound()));
     }
 
-    public void dirtyBoiler()
-    {
+    public void dirtyBoiler() {
         NBTTagCompound jetpackTag = getWearableCompound();
         jetpackTag.setBoolean("boiling", boiling);
         jetpackTag.setBoolean("leaking", leaking);
@@ -134,23 +120,18 @@ public class InventoryCoalJetpack extends InventoryAdventure
         jetpackTag.setInteger("currentBurn", currentItemBurnTime);
     }
 
-    public int getBurnTimeRemainingScaled(int scale)
-    {
-        if (this.currentItemBurnTime == 0)
-            this.currentItemBurnTime = 200;
+    public int getBurnTimeRemainingScaled(int scale) {
+        if (this.currentItemBurnTime == 0) this.currentItemBurnTime = 200;
 
         return this.burnTicks * scale / this.currentItemBurnTime;
     }
 
-    public int consumeFuel()
-    {
+    public int consumeFuel() {
         int result = 0;
-        if (isFuel(inventory[FUEL_SLOT]))
-        {
+        if (isFuel(inventory[FUEL_SLOT])) {
             result = TileEntityFurnace.getItemBurnTime(inventory[FUEL_SLOT]);
             --inventory[FUEL_SLOT].stackSize;
-            if (inventory[FUEL_SLOT].stackSize == 0)
-            {
+            if (inventory[FUEL_SLOT].stackSize == 0) {
                 inventory[FUEL_SLOT] = inventory[FUEL_SLOT].getItem().getContainerItem(inventory[FUEL_SLOT]);
             }
             dirtyInventory();
@@ -158,107 +139,87 @@ public class InventoryCoalJetpack extends InventoryAdventure
         return result;
     }
 
-    private boolean isFuel(ItemStack stack)
-    {
+    private boolean isFuel(ItemStack stack) {
         return TileEntityFurnace.isItemFuel(stack);
     }
 
-    public int getIncreasingFactor()
-    {
+    public int getIncreasingFactor() {
         if (temperature < 50) return 20;
         if (temperature < 100) return 15;
         if (temperature < 150) return 10;
         return 5;
     }
 
-    public int getDecreasingFactor()
-    {
+    public int getDecreasingFactor() {
         if (temperature > 150) return 40;
         if (temperature > 100) return 80;
         if (temperature > 50) return 120;
         return 5;
     }
 
-
-    public boolean isInUse()
-    {
+    public boolean isInUse() {
         return inUse;
     }
 
-    public void setInUse(boolean inUse)
-    {
+    public void setInUse(boolean inUse) {
         this.inUse = inUse;
     }
 
-    public boolean getStatus()
-    {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status)
-    {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
-    public boolean isBoiling()
-    {
+    public boolean isBoiling() {
         return boiling;
     }
 
-    public void setBoiling(boolean boiling)
-    {
+    public void setBoiling(boolean boiling) {
         this.boiling = boiling;
     }
 
-    public boolean isLeaking()
-    {
+    public boolean isLeaking() {
         return leaking;
     }
 
-    public void setLeaking(boolean leaking)
-    {
+    public void setLeaking(boolean leaking) {
         this.leaking = leaking;
     }
 
-    public int getTemperature()
-    {
+    public int getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature)
-    {
+    public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
 
-    public int getBurnTicks()
-    {
+    public int getBurnTicks() {
         return burnTicks;
     }
 
-    public void setBurnTicks(int burnTicks)
-    {
+    public void setBurnTicks(int burnTicks) {
         this.burnTicks = burnTicks;
     }
 
-    public int getCoolTicks()
-    {
+    public int getCoolTicks() {
         return coolTicks;
     }
 
-    public void setCoolTicks(int coolTicks)
-    {
+    public void setCoolTicks(int coolTicks) {
         this.coolTicks = coolTicks;
     }
 
-    public void setCurrentItemBurnTime(int currentItemBurnTime)
-    {
+    public void setCurrentItemBurnTime(int currentItemBurnTime) {
         this.currentItemBurnTime = currentItemBurnTime;
     }
 
     private void detectAndConvertFromOldNBTFormat(NBTTagCompound compound) // backwards compatibility
-    {
-        if (compound == null || !compound.hasKey("jetpackData"))
-            return;
+            {
+        if (compound == null || !compound.hasKey("jetpackData")) return;
 
         NBTTagCompound oldJetpackTag = compound.getCompoundTag("jetpackData");
         NBTTagList oldItems = oldJetpackTag.getTagList("inventory", NBT.TAG_COMPOUND);

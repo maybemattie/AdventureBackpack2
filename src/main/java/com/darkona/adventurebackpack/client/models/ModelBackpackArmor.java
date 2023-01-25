@@ -1,30 +1,26 @@
 package com.darkona.adventurebackpack.client.models;
 
-import java.util.List;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.*;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import codechicken.lib.vec.Vector3;
-
 import com.darkona.adventurebackpack.client.render.RendererStack;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ToolHandler;
-
-import static com.darkona.adventurebackpack.reference.BackpackTypes.*;
+import java.util.List;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 17/12/2014
  *
  * @author Darkona
  */
-public class ModelBackpackArmor extends ModelWearable
-{
+public class ModelBackpackArmor extends ModelWearable {
     public static final ModelBackpackArmor instance = new ModelBackpackArmor();
 
     public ModelRenderer mainBody;
@@ -60,12 +56,11 @@ public class ModelBackpackArmor extends ModelWearable
     public ItemStack backpack;
 
     @SuppressWarnings("unchecked")
-    private void init()
-    {
+    private void init() {
         this.textureWidth = 128;
         this.textureHeight = 64;
 
-        //Main Backpack
+        // Main Backpack
         this.mainBody = new ModelRenderer(this, 0, 9);
         this.mainBody.addBox(-5.0F, 0.0F, -3.0F, 10, 9, 5);
         this.mainBody.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -95,7 +90,7 @@ public class ModelBackpackArmor extends ModelWearable
         this.pocketFace.addBox(-4.0F, -6.0F, 0.0F, 8, 6, 2);
         this.mainBody.addChild(this.pocketFace);
 
-        //Left Tank
+        // Left Tank
         this.tankLeftTop = new ModelRenderer(this, 0, 40);
         this.tankLeftTop.setRotationPoint(5.0F, -1.0F, -2.5F);
         this.tankLeftTop.addBox(0.0F, 0.0F, 0.0F, 4, 1, 4);
@@ -125,7 +120,7 @@ public class ModelBackpackArmor extends ModelWearable
         this.tankLeftWall4.addBox(0.0F, 0.0F, 0.0F, 1, 8, 1);
         this.tankLeftBottom.addChild(this.tankLeftWall4);
 
-        //Right Tank
+        // Right Tank
         this.tankRightTop = new ModelRenderer(this, 17, 40);
         this.tankRightTop.setRotationPoint(-9.0F, -1.0F, -2.5F);
         this.tankRightTop.addBox(0.0F, 0.0F, 0.0F, 4, 1, 4);
@@ -155,7 +150,7 @@ public class ModelBackpackArmor extends ModelWearable
         this.tankRightWall4.addBox(0.0F, 0.0F, 0.0F, 1, 8, 1);
         this.tankRightBottom.addChild(this.tankRightWall4);
 
-        //Bed
+        // Bed
         this.bed = new ModelRenderer(this, 31, 0);
         this.bed.setRotationPoint(-7.0F, 7.0F, 2.0F);
         this.bed.addBox(0.0F, 0.0F, 0.0F, 14, 2, 2);
@@ -190,7 +185,7 @@ public class ModelBackpackArmor extends ModelWearable
         this.bedStrapLeftBottom.addBox(0.0F, 0.0F, 0.0F, 2, 1, 3);
         this.bed.addChild(this.bedStrapLeftBottom);
 
-        //Noses
+        // Noses
         this.villagerNose = new ModelRenderer(this, 64, 0);
         this.villagerNose.setRotationPoint(-1.0F, 4.0F, 4.0F);
         this.villagerNose.addBox(0.0F, 0.0F, 0.0F, 2, 4, 2);
@@ -219,38 +214,31 @@ public class ModelBackpackArmor extends ModelWearable
         float offsetZ = 0.4F;
         float offsetY = 0.2F;
 
-        for (ModelRenderer part : (List<ModelRenderer>) bipedBody.childModels)
-        {
+        for (ModelRenderer part : (List<ModelRenderer>) bipedBody.childModels) {
             setOffset(part, part.offsetX + 0, part.offsetY + offsetY, part.offsetZ + offsetZ);
         }
-
     }
 
-    public ModelBackpackArmor setWearable(ItemStack wearable)
-    {
+    public ModelBackpackArmor setWearable(ItemStack wearable) {
         this.backpack = wearable;
         return this;
     }
 
-    public ModelBackpackArmor()
-    {
+    public ModelBackpackArmor() {
         init();
     }
 
-    public ModelBackpackArmor(ItemStack backpack)
-    {
+    public ModelBackpackArmor(ItemStack backpack) {
         init();
         this.backpack = backpack;
     }
 
     @SuppressWarnings("unchecked")
-    private void renderBackpack(Float scale)
-    {
+    private void renderBackpack(Float scale) {
         InventoryBackpack backpack = new InventoryBackpack(this.backpack);
         backpack.openInventory();
         BackpackTypes type = backpack.getType();
-        for (ModelRenderer model : (List<ModelRenderer>) bipedBody.childModels)
-        {
+        for (ModelRenderer model : (List<ModelRenderer>) bipedBody.childModels) {
             model.mirror = false;
         }
 
@@ -258,22 +246,18 @@ public class ModelBackpackArmor extends ModelWearable
         setOffset(lowerTool, -.28F, 0.8F, -.1F);
         setOffset(upperTool, 0.0f, 0.04f, 0.25f);
 
-        if (ConfigHandler.enableToolsRender)
-        {
+        if (ConfigHandler.enableToolsRender) {
             ItemStack upperStack = backpack.getStackInSlot(Constants.TOOL_UPPER);
             ItemStack lowerStack = backpack.getStackInSlot(Constants.TOOL_LOWER);
             upperTool.setStack(upperStack, ToolHandler.getToolHandler(upperStack));
             lowerTool.setStack(lowerStack, ToolHandler.getToolHandler(lowerStack));
         }
 
-        if (type == QUARTZ || type == SLIME || type == SNOW)
-        {
+        if (type == QUARTZ || type == SLIME || type == SNOW) {
             startBlending();
             this.mainBody.render(scale);
             stopBlending();
-        }
-        else
-        {
+        } else {
             this.mainBody.render(scale);
         }
 
@@ -283,16 +267,13 @@ public class ModelBackpackArmor extends ModelWearable
         tankRightTop.render(scale);
 
         bed.render(scale);
-        if (type == PIG || type == HORSE)
-        {
+        if (type == PIG || type == HORSE) {
             pigNose.render(scale);
         }
-        if (type == VILLAGER || type == IRON_GOLEM)
-        {
+        if (type == VILLAGER || type == IRON_GOLEM) {
             villagerNose.render(scale);
         }
-        if (type == OCELOT)
-        {
+        if (type == OCELOT) {
             ocelotNose.render(scale);
         }
         GL11.glPopMatrix();
@@ -300,15 +281,24 @@ public class ModelBackpackArmor extends ModelWearable
         GL11.glPushMatrix();
         GL11.glTranslatef(bipedBody.offsetX + 0, bipedBody.offsetY + 0.2F, bipedBody.offsetZ + 0.3f);
 
-        renderFluidInTank(backpack.getLeftTank(), new Vector3(0f, .5f, 0f), new Vector3(.17f, 0, .17f), new Vector3(-.17f, .05f, .2f), tankLeftTop);
+        renderFluidInTank(
+                backpack.getLeftTank(),
+                new Vector3(0f, .5f, 0f),
+                new Vector3(.17f, 0, .17f),
+                new Vector3(-.17f, .05f, .2f),
+                tankLeftTop);
 
-        renderFluidInTank(backpack.getRightTank(), new Vector3(0f, .5f, 0f), new Vector3(.17f, 0, .17f), new Vector3(.41f, .05f, .2f), tankRightTop);
+        renderFluidInTank(
+                backpack.getRightTank(),
+                new Vector3(0f, .5f, 0f),
+                new Vector3(.17f, 0, .17f),
+                new Vector3(.41f, .05f, .2f),
+                tankRightTop);
         GL11.glPopMatrix();
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         isSneak = ((entity != null) && (entity).isSneaking());
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         float oV = (isSneak) ? 0 : .3F;
@@ -320,36 +310,32 @@ public class ModelBackpackArmor extends ModelWearable
         GL11.glTranslatef(bipedBody.offsetX, bipedBody.offsetY, bipedBody.offsetZ);
         GL11.glColor4f(1, 1, 1, 1);
 
-        if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F)
-        {
-            if (bipedBody.rotationPointX == 0.0F && bipedBody.rotationPointY == 0.0F && bipedBody.rotationPointZ == 0.0F)
-            {
+        if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F) {
+            if (bipedBody.rotationPointX == 0.0F
+                    && bipedBody.rotationPointY == 0.0F
+                    && bipedBody.rotationPointZ == 0.0F) {
                 renderBackpack(scale);
-            }
-            else
-            {
-                GL11.glTranslatef(bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+            } else {
+                GL11.glTranslatef(
+                        bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
                 renderBackpack(scale);
-                GL11.glTranslatef(-bipedBody.rotationPointX * f5, -bipedBody.rotationPointY * f5, -bipedBody.rotationPointZ * f5);
+                GL11.glTranslatef(
+                        -bipedBody.rotationPointX * f5, -bipedBody.rotationPointY * f5, -bipedBody.rotationPointZ * f5);
             }
-        }
-        else
-        {
+        } else {
             GL11.glPushMatrix();
-            GL11.glTranslatef(bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+            GL11.glTranslatef(
+                    bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
 
-            if (bipedBody.rotateAngleZ != 0.0F)
-            {
+            if (bipedBody.rotateAngleZ != 0.0F) {
                 GL11.glRotatef(bipedBody.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
             }
 
-            if (bipedBody.rotateAngleY != 0.0F)
-            {
+            if (bipedBody.rotateAngleY != 0.0F) {
                 GL11.glRotatef(bipedBody.rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
             }
 
-            if (bipedBody.rotateAngleX != 0.0F)
-            {
+            if (bipedBody.rotateAngleX != 0.0F) {
                 GL11.glRotatef(bipedBody.rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
             }
             renderBackpack(scale);
@@ -360,8 +346,7 @@ public class ModelBackpackArmor extends ModelWearable
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack stack)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack stack) {
         this.backpack = stack;
         render(entity, f, f1, f2, f3, f4, f5);
     }

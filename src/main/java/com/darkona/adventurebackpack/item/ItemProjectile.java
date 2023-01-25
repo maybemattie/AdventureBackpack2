@@ -7,7 +7,4 @@ import net.minecraft.item.Item;
  *
  * @author Darkona
  */
-public class ItemProjectile extends Item
-{
-
-}
+public class ItemProjectile extends Item {}

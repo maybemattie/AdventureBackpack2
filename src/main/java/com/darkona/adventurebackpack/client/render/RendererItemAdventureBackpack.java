@@ -1,37 +1,30 @@
 package com.darkona.adventurebackpack.client.render;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.IItemRenderer;
-
 import com.darkona.adventurebackpack.client.models.ModelBackpackBlock;
 import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Resources;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.IItemRenderer;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 12/10/2014
  *
  * @author Darkona
  */
-
-public class RendererItemAdventureBackpack implements IItemRenderer
-{
+public class RendererItemAdventureBackpack implements IItemRenderer {
     private final ModelBackpackBlock model;
 
-    public RendererItemAdventureBackpack()
-    {
+    public RendererItemAdventureBackpack() {
         model = new ModelBackpackBlock();
     }
 
     @Override
-    public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type)
-    {
-        switch (type)
-        {
+    public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type) {
+        switch (type) {
             case INVENTORY:
                 return true;
             case ENTITY:
@@ -47,10 +40,9 @@ public class RendererItemAdventureBackpack implements IItemRenderer
     }
 
     @Override
-    public boolean shouldUseRenderHelper(IItemRenderer.ItemRenderType type, ItemStack item, IItemRenderer.ItemRendererHelper helper)
-    {
-        switch (type)
-        {
+    public boolean shouldUseRenderHelper(
+            IItemRenderer.ItemRenderType type, ItemStack item, IItemRenderer.ItemRendererHelper helper) {
+        switch (type) {
             case INVENTORY:
                 return true;
             case ENTITY:
@@ -66,60 +58,58 @@ public class RendererItemAdventureBackpack implements IItemRenderer
     }
 
     @Override
-    public void renderItem(IItemRenderer.ItemRenderType renderType, ItemStack backpack, Object... data)
-    {
+    public void renderItem(IItemRenderer.ItemRenderType renderType, ItemStack backpack, Object... data) {
         InventoryBackpack inv = new InventoryBackpack(backpack);
         ResourceLocation modelTexture = Resources.getBackpackTexture(BackpackTypes.getType(backpack));
 
-        switch (renderType)
-        {
+        switch (renderType) {
             case INVENTORY:
                 Minecraft.getMinecraft().renderEngine.bindTexture(modelTexture);
-            {
-                GL11.glPushMatrix();
-                GL11.glColor4f(1, 1, 1, 128);
+                {
+                    GL11.glPushMatrix();
+                    GL11.glColor4f(1, 1, 1, 128);
 
-                GL11.glPushMatrix();
-                GL11.glTranslatef(-0.5f, 0f, -0.5f);
+                    GL11.glPushMatrix();
+                    GL11.glTranslatef(-0.5f, 0f, -0.5f);
 
-                GL11.glPushMatrix();
-                GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
+                    GL11.glPushMatrix();
+                    GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
 
-                GL11.glPushMatrix();
-                GL11.glScalef(1.9f, 1.9f, 1.9f);
+                    GL11.glPushMatrix();
+                    GL11.glScalef(1.9f, 1.9f, 1.9f);
 
-                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F, inv);
+                    model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F, inv);
 
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-            }
-            break;
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                }
+                break;
 
             case ENTITY:
                 Minecraft.getMinecraft().renderEngine.bindTexture(modelTexture);
-            {
-                GL11.glPushMatrix();
-                GL11.glColor4f(1, 1, 1, 128);
+                {
+                    GL11.glPushMatrix();
+                    GL11.glColor4f(1, 1, 1, 128);
 
-                GL11.glPushMatrix();
-                GL11.glTranslatef(0f, 1f, 0f);
+                    GL11.glPushMatrix();
+                    GL11.glTranslatef(0f, 1f, 0f);
 
-                GL11.glPushMatrix();
-                GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
+                    GL11.glPushMatrix();
+                    GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
 
-                GL11.glPushMatrix();
-                GL11.glScalef(1.2f, 1.2f, 1.2f);
+                    GL11.glPushMatrix();
+                    GL11.glScalef(1.2f, 1.2f, 1.2f);
 
-                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F, inv);
+                    model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F, inv);
 
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-            }
-            break;
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                }
+                break;
 
             case EQUIPPED:
                 Minecraft.getMinecraft().renderEngine.bindTexture(modelTexture);
@@ -178,5 +168,4 @@ public class RendererItemAdventureBackpack implements IItemRenderer
                 break;
         }
     }
-
 }

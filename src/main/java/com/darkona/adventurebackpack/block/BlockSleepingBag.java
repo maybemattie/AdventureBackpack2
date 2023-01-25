@@ -1,8 +1,17 @@
 package com.darkona.adventurebackpack.block;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.init.ModBlocks;
+import com.darkona.adventurebackpack.inventory.InventoryBackpack;
+import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.Resources;
+import com.darkona.adventurebackpack.util.Wearing;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Iterator;
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -21,26 +30,14 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.init.ModBlocks;
-import com.darkona.adventurebackpack.inventory.InventoryBackpack;
-import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.util.CoordsUtils;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.Resources;
-import com.darkona.adventurebackpack.util.Wearing;
 
 /**
  * Created on 14/10/2014
  *
  * @author Darkona
  */
-public class BlockSleepingBag extends BlockDirectional
-{
-    private static final int[][] footBlockToHeadBlockMap = new int[][]{{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+public class BlockSleepingBag extends BlockDirectional {
+    private static final int[][] footBlockToHeadBlockMap = new int[][] {{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
 
     private static final String TAG_STORED_SPAWN = "storedSpawn";
     private static final String TAG_SPAWN_POS_X = "posX";
@@ -49,13 +46,14 @@ public class BlockSleepingBag extends BlockDirectional
 
     @SideOnly(Side.CLIENT)
     private IIcon[] endIcons;
+
     @SideOnly(Side.CLIENT)
     private IIcon[] sideIcons;
+
     @SideOnly(Side.CLIENT)
     private IIcon[] topIcons;
 
-    public BlockSleepingBag()
-    {
+    public BlockSleepingBag() {
         super(Material.cloth);
         this.func_149978_e();
         setBlockName(getUnlocalizedName());
@@ -63,69 +61,58 @@ public class BlockSleepingBag extends BlockDirectional
 
     @Override
     @SideOnly(Side.CLIENT)
-    protected String getTextureName()
-    {
-        return this.textureName == null ? "MISSING_ICON_BLOCK_" + getIdFromBlock(this) + "_" + getUnlocalizedName() : this.textureName;
+    protected String getTextureName() {
+        return this.textureName == null
+                ? "MISSING_ICON_BLOCK_" + getIdFromBlock(this) + "_" + getUnlocalizedName()
+                : this.textureName;
     }
 
     @Override
-    public String getUnlocalizedName()
-    {
+    public String getUnlocalizedName() {
         return "blockSleepingBag";
     }
 
-    private void func_149978_e()
-    {
+    private void func_149978_e() {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.1F, 1.0F);
     }
 
     /**
      * Returns whether or not this bed block is the head of the bed.
      */
-    private static boolean isBlockHeadOfBed(int meta)
-    {
+    private static boolean isBlockHeadOfBed(int meta) {
         return (meta & 8) != 0;
     }
 
-    public static boolean isSleepingInPortableBag(EntityPlayer player)
-    {
+    public static boolean isSleepingInPortableBag(EntityPlayer player) {
         return Wearing.isWearingBackpack(player)
                 && Wearing.getWearingBackpackInv(player).getExtendedProperties().hasKey(Constants.TAG_SLEEPING_IN_BAG);
     }
 
-    public static void packPortableSleepingBag(EntityPlayer player)
-    {
-        if (isSleepingInPortableBag(player))
-        {
+    public static void packPortableSleepingBag(EntityPlayer player) {
+        if (isSleepingInPortableBag(player)) {
             InventoryBackpack inv = Wearing.getWearingBackpackInv(player);
             inv.removeSleepingBag(player.worldObj);
             inv.getExtendedProperties().removeTag(Constants.TAG_SLEEPING_IN_BAG);
         }
     }
 
-    public static void storeOriginalSpawn(EntityPlayer player, NBTTagCompound tag)
-    {
+    public static void storeOriginalSpawn(EntityPlayer player, NBTTagCompound tag) {
         ChunkCoordinates spawn = player.getBedLocation(player.worldObj.provider.dimensionId);
-        if (spawn != null)
-        {
+        if (spawn != null) {
             NBTTagCompound storedSpawn = new NBTTagCompound();
             storedSpawn.setInteger(TAG_SPAWN_POS_X, spawn.posX);
             storedSpawn.setInteger(TAG_SPAWN_POS_Y, spawn.posY);
             storedSpawn.setInteger(TAG_SPAWN_POS_Z, spawn.posZ);
             tag.setTag(TAG_STORED_SPAWN, storedSpawn);
-            LogHelper.info("Stored spawn data for " + player.getDisplayName() + ": " + spawn.toString()
-                    + " dimID: " + player.worldObj.provider.dimensionId);
-        }
-        else
-        {
+            LogHelper.info("Stored spawn data for " + player.getDisplayName() + ": " + spawn.toString() + " dimID: "
+                    + player.worldObj.provider.dimensionId);
+        } else {
             LogHelper.warn("Cannot store spawn data for " + player.getDisplayName());
         }
     }
 
-    public static void restoreOriginalSpawn(EntityPlayer player, NBTTagCompound tag)
-    {
-        if (tag.hasKey(TAG_STORED_SPAWN))
-        {
+    public static void restoreOriginalSpawn(EntityPlayer player, NBTTagCompound tag) {
+        if (tag.hasKey(TAG_STORED_SPAWN)) {
             NBTTagCompound storedSpawn = tag.getCompoundTag(TAG_STORED_SPAWN);
             ChunkCoordinates coords = new ChunkCoordinates(
                     storedSpawn.getInteger(TAG_SPAWN_POS_X),
@@ -133,76 +120,62 @@ public class BlockSleepingBag extends BlockDirectional
                     storedSpawn.getInteger(TAG_SPAWN_POS_Z));
             player.setSpawnChunk(coords, false, player.worldObj.provider.dimensionId);
             tag.removeTag(TAG_STORED_SPAWN);
-            LogHelper.info("Restored spawn data for " + player.getDisplayName() + ": " + coords.toString()
-                    + " dimID: " + player.worldObj.provider.dimensionId);
-        }
-        else
-        {
+            LogHelper.info("Restored spawn data for " + player.getDisplayName() + ": " + coords.toString() + " dimID: "
+                    + player.worldObj.provider.dimensionId);
+        } else {
             LogHelper.warn("No spawn data to restore for " + player.getDisplayName());
         }
     }
 
-    public void onPortableBlockActivated(World world, EntityPlayer player, int cX, int cY, int cZ)
-    {
-        if (world.isRemote)
-            return;
-        if (!isSleepingInPortableBag(player))
-            return;
+    public void onPortableBlockActivated(World world, EntityPlayer player, int cX, int cY, int cZ) {
+        if (world.isRemote) return;
+        if (!isSleepingInPortableBag(player)) return;
 
-        if (!onBlockActivated(world, cX, cY, cZ, player, 1, 0f, 0f, 0f))
-            packPortableSleepingBag(player);
+        if (!onBlockActivated(world, cX, cY, cZ, player, 1, 0f, 0f, 0f)) packPortableSleepingBag(player);
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int id, float f1, float f2, float f3)
-    {
-        if (world.isRemote)
-        {
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int id, float f1, float f2, float f3) {
+        if (world.isRemote) {
             return true;
-        }
-        else
-        {
+        } else {
             int meta = world.getBlockMetadata(x, y, z);
 
-            if (!isBlockHeadOfBed(meta))
-            {
+            if (!isBlockHeadOfBed(meta)) {
                 int dir = getDirection(meta);
                 x += footBlockToHeadBlockMap[dir][0];
                 z += footBlockToHeadBlockMap[dir][1];
 
-                if (world.getBlock(x, y, z) != this)
-                {
+                if (world.getBlock(x, y, z) != this) {
                     return false;
                 }
 
                 meta = world.getBlockMetadata(x, y, z);
             }
 
-            if (world.provider.canRespawnHere() && world.getBiomeGenForCoords(x, z) != BiomeGenBase.hell)
-            {
-                if (isBedOccupied(meta))
-                {
+            if (world.provider.canRespawnHere() && world.getBiomeGenForCoords(x, z) != BiomeGenBase.hell) {
+                if (isBedOccupied(meta)) {
                     EntityPlayer entityplayer1 = null;
                     Iterator iterator = world.playerEntities.iterator();
 
-                    while (iterator.hasNext())
-                    {
+                    while (iterator.hasNext()) {
                         EntityPlayer entityplayer2 = (EntityPlayer) iterator.next();
 
-                        if (entityplayer2.isPlayerSleeping())
-                        {
+                        if (entityplayer2.isPlayerSleeping()) {
                             ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
 
-                            if (chunkcoordinates.posX == x && chunkcoordinates.posY == y && chunkcoordinates.posZ == z)
-                            {
+                            if (chunkcoordinates.posX == x
+                                    && chunkcoordinates.posY == y
+                                    && chunkcoordinates.posZ == z) {
                                 entityplayer1 = entityplayer2;
                             }
                         }
                     }
 
-                    if (entityplayer1 != null)
-                    {
-                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied", new Object[0]));
+                    if (entityplayer1 != null) {
+                        player.addChatComponentMessage(
+                                new ChatComponentTranslation("tile.bed.occupied", new Object[0]));
                         return false;
                     }
 
@@ -211,46 +184,36 @@ public class BlockSleepingBag extends BlockDirectional
 
                 EntityPlayer.EnumStatus enumstatus = player.sleepInBedAt(x, y, z);
 
-                if (enumstatus == EntityPlayer.EnumStatus.OK)
-                {
+                if (enumstatus == EntityPlayer.EnumStatus.OK) {
                     setBedOccupied(world, x, y, z, true);
-                    //This is so the wake up event can detect it. It fires before the player wakes up.
-                    //and the bed location isn't set until then, normally.
+                    // This is so the wake up event can detect it. It fires before the player wakes up.
+                    // and the bed location isn't set until then, normally.
 
-                    if (isSleepingInPortableBag(player))
-                    {
-                        storeOriginalSpawn(player, Wearing.getWearingBackpackInv(player).getExtendedProperties());
+                    if (isSleepingInPortableBag(player)) {
+                        storeOriginalSpawn(
+                                player, Wearing.getWearingBackpackInv(player).getExtendedProperties());
                         player.setSpawnChunk(new ChunkCoordinates(x, y, z), true, player.dimension);
-                    }
-                    else
-                    {
+                    } else {
                         player.setSpawnChunk(new ChunkCoordinates(x, y, z), true, player.dimension);
                         LogHelper.info("Looking for a campfire nearby...");
-                        ChunkCoordinates campfire = CoordsUtils.findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
-                        if (campfire != null)
-                        {
+                        ChunkCoordinates campfire =
+                                CoordsUtils.findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
+                        if (campfire != null) {
                             LogHelper.info("Campfire Found, saving coordinates. " + campfire.toString());
                             BackpackProperty.get(player).setCampFire(campfire);
                         }
                     }
                     return true;
-                }
-                else
-                {
-                    if (enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW)
-                    {
+                } else {
+                    if (enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
                         player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep", new Object[0]));
-                    }
-                    else if (enumstatus == EntityPlayer.EnumStatus.NOT_SAFE)
-                    {
+                    } else if (enumstatus == EntityPlayer.EnumStatus.NOT_SAFE) {
                         player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe", new Object[0]));
                     }
 
                     return false;
                 }
-            }
-            else
-            {
+            } else {
                 double d2 = (double) x + 0.5D;
                 double d0 = (double) y + 0.5D;
                 double d1 = (double) z + 0.5D;
@@ -259,115 +222,102 @@ public class BlockSleepingBag extends BlockDirectional
                 x += footBlockToHeadBlockMap[k1][0];
                 z += footBlockToHeadBlockMap[k1][1];
 
-                if (world.getBlock(x, y, z) == this)
-                {
+                if (world.getBlock(x, y, z) == this) {
                     world.setBlockToAir(x, y, z);
                     d2 = (d2 + (double) x + 0.5D) / 2.0D;
                     d0 = (d0 + (double) y + 0.5D) / 2.0D;
                     d1 = (d1 + (double) z + 0.5D) / 2.0D;
                 }
 
-                world.newExplosion((Entity) null, (double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), 5.0F, true, true);
+                world.newExplosion(
+                        (Entity) null,
+                        (double) ((float) x + 0.5F),
+                        (double) ((float) y + 0.5F),
+                        (double) ((float) z + 0.5F),
+                        5.0F,
+                        true,
+                        true);
 
                 return false;
             }
         }
     }
 
-    private static void setBedOccupied(World world, int x, int y, int z, boolean flag)
-    {
+    private static void setBedOccupied(World world, int x, int y, int z, boolean flag) {
         int l = world.getBlockMetadata(x, y, z);
 
-        if (flag)
-        {
+        if (flag) {
             l |= 4;
-        }
-        else
-        {
+        } else {
             l &= -5;
         }
 
         world.setBlockMetadataWithNotify(x, y, z, l, 4);
     }
 
-    private static boolean isBedOccupied(int meta)
-    {
+    private static boolean isBedOccupied(int meta) {
         return (meta & 4) != 0;
     }
 
     @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
         int meta = world.getBlockMetadata(x, y, z);
         int dir = getDirection(meta);
 
-        if (isBlockHeadOfBed(meta))
-        {
-            if (world.getBlock(x - footBlockToHeadBlockMap[dir][0], y, z - footBlockToHeadBlockMap[dir][1]) != this)
-            {
+        if (isBlockHeadOfBed(meta)) {
+            if (world.getBlock(x - footBlockToHeadBlockMap[dir][0], y, z - footBlockToHeadBlockMap[dir][1]) != this) {
                 world.setBlockToAir(x, y, z);
             }
-        }
-        else if (world.getBlock(x + footBlockToHeadBlockMap[dir][0], y, z + footBlockToHeadBlockMap[dir][1]) != this)
-        {
+        } else if (world.getBlock(x + footBlockToHeadBlockMap[dir][0], y, z + footBlockToHeadBlockMap[dir][1])
+                != this) {
             world.setBlockToAir(x, y, z);
 
-            if (!world.isRemote)
-            {
+            if (!world.isRemote) {
                 this.dropBlockAsItem(world, x, y, z, meta, 0);
             }
         }
     }
 
     @Override
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         this.blockBoundsForRender();
     }
 
-    private void blockBoundsForRender()
-    {
+    private void blockBoundsForRender() {
         this.func_149978_e();
     }
 
     @Override
-    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_)
-    {
+    public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
         return null;
     }
 
     @Override
-    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player)
-    {
+    public void onBlockHarvested(World world, int x, int y, int z, int meta, EntityPlayer player) {
         int direction = getDirection(meta);
-        if (player.capabilities.isCreativeMode && isBlockHeadOfBed(meta))
-        {
+        if (player.capabilities.isCreativeMode && isBlockHeadOfBed(meta)) {
             x -= footBlockToHeadBlockMap[direction][0];
             z -= footBlockToHeadBlockMap[direction][1];
 
-            if (world.getBlock(x, y, z) == this)
-            {
+            if (world.getBlock(x, y, z) == this) {
                 world.setBlockToAir(x, y, z);
             }
         }
     }
 
     @Override
-    public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion boom)
-    {
+    public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion boom) {
         this.onBlockDestroyedByPlayer(world, x, y, z, world.getBlockMetadata(x, y, z));
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta)
-    {
-        //TODO make it work if player destroyed head block of sleeping bag (so backpack 1 more tile away)
-        //LogHelper.info("onBlockDestroyedByPlayer() : BlockSleepingBag");
+    public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int meta) {
+        // TODO make it work if player destroyed head block of sleeping bag (so backpack 1 more tile away)
+        // LogHelper.info("onBlockDestroyedByPlayer() : BlockSleepingBag");
         int direction = getDirection(meta);
         int tileZ = z;
         int tileX = x;
-        switch (meta)
-        {
+        switch (meta) {
             case 0:
                 tileZ--;
                 break;
@@ -381,84 +331,83 @@ public class BlockSleepingBag extends BlockDirectional
                 tileX--;
                 break;
         }
-        //LogHelper.info("onBlockDestroyedByPlayer() Looking for tile entity in x=" +tileX+" y="+y+" z="+tileZ+" while breaking the block in x= "+x+" y="+y+" z="+z);
-        if (world.getTileEntity(tileX, y, tileZ) != null && world.getTileEntity(tileX, y, tileZ) instanceof TileAdventureBackpack)
-        {
-            // LogHelper.info("onBlockDestroyedByPlayer() Found the tile entity in x=" +tileX+" y="+y+" z="+z+" while breaking the block in x= "+x+" y="+y+" z="+z+" ...removing.");
+        // LogHelper.info("onBlockDestroyedByPlayer() Looking for tile entity in x=" +tileX+" y="+y+" z="+tileZ+" while
+        // breaking the block in x= "+x+" y="+y+" z="+z);
+        if (world.getTileEntity(tileX, y, tileZ) != null
+                && world.getTileEntity(tileX, y, tileZ) instanceof TileAdventureBackpack) {
+            // LogHelper.info("onBlockDestroyedByPlayer() Found the tile entity in x=" +tileX+" y="+y+" z="+z+" while
+            // breaking the block in x= "+x+" y="+y+" z="+z+" ...removing.");
             ((TileAdventureBackpack) world.getTileEntity(tileX, y, tileZ)).setSleepingBagDeployed(false);
         }
     }
 
     @Override
-    public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player)
-    {
+    public boolean isBed(IBlockAccess world, int x, int y, int z, EntityLivingBase player) {
         return true;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon(int side, int meta)
-    {
-        if (side == 0)
-        {
+    public IIcon getIcon(int side, int meta) {
+        if (side == 0) {
             return Blocks.planks.getBlockTextureFromSide(side);
-        }
-        else
-        {
+        } else {
             int k = getDirection(meta);
             int l = Direction.bedDirection[k][side];
             int isHead = isBlockHeadOfBed(meta) ? 1 : 0;
-            return (isHead != 1 || l != 2) && (isHead != 0 || l != 3) ? (l != 5 && l != 4 ? this.topIcons[isHead] : this.sideIcons[isHead]) : this.endIcons[isHead];
+            return (isHead != 1 || l != 2) && (isHead != 0 || l != 3)
+                    ? (l != 5 && l != 4 ? this.topIcons[isHead] : this.sideIcons[isHead])
+                    : this.endIcons[isHead];
         }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons(IIconRegister iconRegister)
-    {
-        this.topIcons = new IIcon[]{
-                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_feet_top").toString()),
-                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_head_top").toString())
+    public void registerBlockIcons(IIconRegister iconRegister) {
+        this.topIcons = new IIcon[] {
+            iconRegister.registerIcon(
+                    Resources.blockTextures("sleepingBag_feet_top").toString()),
+            iconRegister.registerIcon(
+                    Resources.blockTextures("sleepingBag_head_top").toString())
         };
 
-        this.endIcons = new IIcon[]{
-                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_feet_end").toString()),
-                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_head_end").toString())
+        this.endIcons = new IIcon[] {
+            iconRegister.registerIcon(
+                    Resources.blockTextures("sleepingBag_feet_end").toString()),
+            iconRegister.registerIcon(
+                    Resources.blockTextures("sleepingBag_head_end").toString())
         };
 
-        this.sideIcons = new IIcon[]{
-                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_feet_side").toString()),
-                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_head_side").toString())
+        this.sideIcons = new IIcon[] {
+            iconRegister.registerIcon(
+                    Resources.blockTextures("sleepingBag_feet_side").toString()),
+            iconRegister.registerIcon(
+                    Resources.blockTextures("sleepingBag_head_side").toString())
         };
     }
 
     @Override
-    public int getRenderType()
-    {
+    public int getRenderType() {
         return 14;
     }
 
     @Override
-    public boolean isNormalCube()
-    {
+    public boolean isNormalCube() {
         return false;
     }
 
     @Override
-    public boolean isBlockNormalCube()
-    {
+    public boolean isBlockNormalCube() {
         return false;
     }
 
     @Override
-    public boolean renderAsNormalBlock()
-    {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 }

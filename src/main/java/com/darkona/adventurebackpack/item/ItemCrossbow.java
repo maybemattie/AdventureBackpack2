@@ -16,10 +16,8 @@ import net.minecraft.world.World;
  *
  * @author Darkona
  */
-public class ItemCrossbow extends ItemAB
-{
-    public ItemCrossbow()
-    {
+public class ItemCrossbow extends ItemAB {
+    public ItemCrossbow() {
         super();
         setFull3D();
         setUnlocalizedName("clockworkCrossbow");
@@ -31,26 +29,42 @@ public class ItemCrossbow extends ItemAB
      * when not in creative
      */
     @Override
-    public boolean canItemEditBlocks()
-    {
+    public boolean canItemEditBlocks() {
         return false;
     }
 
     @Override
-    public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-    {
+    public boolean onItemUseFirst(
+            ItemStack stack,
+            EntityPlayer player,
+            World world,
+            int x,
+            int y,
+            int z,
+            int side,
+            float hitX,
+            float hitY,
+            float hitZ) {
         return false;
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-    {
+    public boolean onItemUse(
+            ItemStack stack,
+            EntityPlayer player,
+            World world,
+            int x,
+            int y,
+            int z,
+            int side,
+            float hitX,
+            float hitY,
+            float hitZ) {
         return false;
     }
 
     @Override
-    public EnumAction getItemUseAction(ItemStack p_77661_1_)
-    {
+    public EnumAction getItemUseAction(ItemStack p_77661_1_) {
         return EnumAction.bow;
     }
 
@@ -58,8 +72,7 @@ public class ItemCrossbow extends ItemAB
      * Called when item is crafted/smelted. Used only by maps so far.
      */
     @Override
-    public void onCreated(ItemStack stack, World world, EntityPlayer player)
-    {
+    public void onCreated(ItemStack stack, World world, EntityPlayer player) {
         super.onCreated(stack, world, player);
 
         NBTTagCompound xbowProps = new NBTTagCompound();
@@ -70,23 +83,17 @@ public class ItemCrossbow extends ItemAB
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, EntityPlayer player, int count)
-    {
-
-    }
+    public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {}
 
     @Override
-    public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean current)
-    {
-        if (!stack.hasTagCompound())
-        {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean current) {
+        if (!stack.hasTagCompound()) {
             stack.stackTagCompound = new NBTTagCompound();
             stack.stackTagCompound.setByte("Shot", (byte) 0);
             stack.stackTagCompound.setInteger("Reloading", 0);
         }
 
-        if (current)
-        {
+        if (current) {
             byte shot = stack.stackTagCompound.getByte("Shot");
             int reloading = stack.stackTagCompound.getInteger("Reloading");
             if (shot > 0) stack.stackTagCompound.setByte("Shot", (byte) (shot - 1));
@@ -95,13 +102,11 @@ public class ItemCrossbow extends ItemAB
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-    {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
         if (!stack.stackTagCompound.hasKey("Reloading")) stack.stackTagCompound.setInteger("Reloading", 0);
         int reloading = stack.stackTagCompound.getInteger("Reloading");
-        if (reloading <= 0)
-        {
+        if (reloading <= 0) {
             shootArrow(stack, player.worldObj, player, 1000);
             stack.stackTagCompound.setByte("Shot", (byte) 4);
             int reloadTime = 20;
@@ -111,34 +116,26 @@ public class ItemCrossbow extends ItemAB
     }
 
     @Override
-    public int getMaxItemUseDuration(ItemStack stack)
-    {
+    public int getMaxItemUseDuration(ItemStack stack) {
         return Integer.MAX_VALUE;
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int counter)
-    {
+    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int counter) {}
 
-    }
-
-    private void shootArrow(ItemStack stack, World world, EntityPlayer player, int count)
-    {
+    private void shootArrow(ItemStack stack, World world, EntityPlayer player, int count) {
         boolean flag = EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0
                 || player.capabilities.isCreativeMode;
 
-        if (flag || player.inventory.hasItem(Items.arrow))
-        {
+        if (flag || player.inventory.hasItem(Items.arrow)) {
             float f = count / 20.0F;
             f = (f * f + f * 2.0F) / 3.0F;
 
-            if (f < 0.1D)
-            {
+            if (f < 0.1D) {
                 return;
             }
 
-            if (f > 1.0F)
-            {
+            if (f > 1.0F) {
                 f = 1.0F;
             }
 
@@ -147,36 +144,33 @@ public class ItemCrossbow extends ItemAB
 
             int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, stack);
 
-            if (k > 0)
-            {
+            if (k > 0) {
                 entityarrow.setDamage(entityarrow.getDamage() + k * 0.5D + 0.5D);
             }
 
             int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
 
-            if (l > 0)
-            {
+            if (l > 0) {
                 entityarrow.setKnockbackStrength(l);
             }
 
-            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, stack) > 0)
-            {
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, stack) > 0) {
                 entityarrow.setFire(100);
             }
 
-            world.playSoundAtEntity(player, "adventurebackpack:crossbowshot", 0.5F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+            world.playSoundAtEntity(
+                    player,
+                    "adventurebackpack:crossbowshot",
+                    0.5F,
+                    1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 
-            if (flag)
-            {
+            if (flag) {
                 entityarrow.canBePickedUp = 2;
-            }
-            else
-            {
+            } else {
                 player.inventory.consumeInventoryItem(Items.arrow);
             }
 
-            if (!world.isRemote)
-            {
+            if (!world.isRemote) {
                 world.spawnEntityInWorld(entityarrow);
             }
         }

@@ -10,19 +10,23 @@ import net.minecraft.item.ItemStack;
  *
  * @author Ugachaga
  */
-public class SlotCraftResult extends SlotCrafting
-{
+public class SlotCraftResult extends SlotCrafting {
     private ContainerBackpack eventHandler;
 
-    public SlotCraftResult(ContainerBackpack container, EntityPlayer player, IInventory craftMatrix, IInventory inventory, int slotIndex, int posX, int posY)
-    {
+    public SlotCraftResult(
+            ContainerBackpack container,
+            EntityPlayer player,
+            IInventory craftMatrix,
+            IInventory inventory,
+            int slotIndex,
+            int posX,
+            int posY) {
         super(player, craftMatrix, inventory, slotIndex, posX, posY);
         this.eventHandler = container;
     }
 
     @Override
-    public void onPickupFromSlot(EntityPlayer player, ItemStack stack)
-    {
+    public void onPickupFromSlot(EntityPlayer player, ItemStack stack) {
         eventHandler.syncCraftMatrixWithInventory(true); // pre craft sync
         super.onPickupFromSlot(player, stack);
         eventHandler.syncCraftMatrixWithInventory(false); // post craft sync

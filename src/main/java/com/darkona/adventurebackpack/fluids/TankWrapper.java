@@ -9,30 +9,24 @@ import net.minecraftforge.fluids.FluidTank;
  *
  * @author Darkona
  */
-public class TankWrapper extends FluidTank
-{
-    public TankWrapper(int capacity)
-    {
+public class TankWrapper extends FluidTank {
+    public TankWrapper(int capacity) {
         super(capacity);
     }
 
-    public TankWrapper(FluidStack stack, int capacity)
-    {
+    public TankWrapper(FluidStack stack, int capacity) {
         super(stack, capacity);
     }
 
-    public TankWrapper(Fluid fluid, int amount, int capacity)
-    {
+    public TankWrapper(Fluid fluid, int amount, int capacity) {
         super(fluid, amount, capacity);
     }
 
-    public boolean isFull()
-    {
+    public boolean isFull() {
         return this.fluid != null && this.getFluidAmount() == this.capacity;
     }
 
-    public boolean isEmpty()
-    {
+    public boolean isEmpty() {
         return this.fluid == null || (this.getFluidAmount() == this.capacity);
     }
 }

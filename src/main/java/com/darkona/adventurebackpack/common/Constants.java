@@ -7,11 +7,12 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
  *
  * @author Javier Darkona
  */
-public class Constants
-{
-    public enum Source //TODO move to separate class?
+public class Constants {
+    public enum Source // TODO move to separate class?
     {
-        TILE, HOLDING, WEARING
+        TILE,
+        HOLDING,
+        WEARING
     }
 
     // General
@@ -27,14 +28,14 @@ public class Constants
      *  ### Adventure Backpack ###
      */
     public static final int BASIC_TANK_CAPACITY = BUCKET * 4;
-    //public static final int ADVANCED_TANK_CAPACITY = BUCKET * 8; // upgrade system?
-    //public static final int HEROIC_TANK_CAPACITY = BUCKET * 12;
+    // public static final int ADVANCED_TANK_CAPACITY = BUCKET * 8; // upgrade system?
+    // public static final int HEROIC_TANK_CAPACITY = BUCKET * 12;
 
     // Inventory Slots
     public static final int INVENTORY_SIZE = 54;
     public static final int INVENTORY_SPECIAL_SIZE = 6; // tooSlot * 2, bucketIn * 2, bucketOut * 2
     public static final int INVENTORY_MAIN_SIZE = INVENTORY_SIZE - INVENTORY_SPECIAL_SIZE; // 0 excluded
-    public static final int END_OF_INVENTORY = INVENTORY_MAIN_SIZE - 1;                    // 0 included
+    public static final int END_OF_INVENTORY = INVENTORY_MAIN_SIZE - 1; // 0 included
 
     public static final int TOOL_UPPER = END_OF_INVENTORY + 1;
     public static final int TOOL_LOWER = TOOL_UPPER + 1;
@@ -55,12 +56,12 @@ public class Constants
     public static final String TAG_HOLDING_SPACE = "holdingSpace";
     public static final String TAG_SLEEPING_IN_BAG = "sleepingInBag";
 
-    public class Jetpack
-    {
+    public class Jetpack {
         /**
          *  ### Coal Jetpack ###
          */
         public static final int MAX_TEMPERATURE = 200;
+
         public static final int WATER_CAPACITY = BUCKET * 6;
         public static final int STEAM_CAPACITY = BUCKET * 12;
 
@@ -75,8 +76,7 @@ public class Constants
         public static final String TAG_STEAM_TANK = "steamTank";
     }
 
-    public class Copter
-    {
+    public class Copter {
         /**
          *  ### Copter Pack ###
          */

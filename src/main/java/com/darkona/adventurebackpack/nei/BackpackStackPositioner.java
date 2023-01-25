@@ -4,10 +4,8 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IStackPositioner;
 import codechicken.nei.recipe.GuiRecipe;
 import com.darkona.adventurebackpack.client.gui.GuiAdvBackpack;
-import net.minecraft.client.Minecraft;
-
-
 import java.util.ArrayList;
+import net.minecraft.client.Minecraft;
 
 public class BackpackStackPositioner implements IStackPositioner {
     @Override
