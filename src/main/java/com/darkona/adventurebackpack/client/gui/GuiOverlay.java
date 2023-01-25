@@ -1,15 +1,19 @@
 package com.darkona.adventurebackpack.client.gui;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import codechicken.lib.render.TextureUtils;
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.inventory.IInventoryTanks;
+import com.darkona.adventurebackpack.item.ItemHose;
+import com.darkona.adventurebackpack.reference.LoadedMods;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.reference.ToolHandler;
+import com.darkona.adventurebackpack.util.*;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -25,22 +29,10 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import codechicken.lib.render.TextureUtils;
+import org.lwjgl.opengl.GL11;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.inventory.IInventoryTanks;
-import com.darkona.adventurebackpack.item.ItemHose;
-import com.darkona.adventurebackpack.reference.LoadedMods;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.reference.ToolHandler;
-import com.darkona.adventurebackpack.util.GregtechUtils;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.ThaumcraftUtils;
-import com.darkona.adventurebackpack.util.TinkersUtils;
-import com.darkona.adventurebackpack.util.Wearing;
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Created on 09/01/2015
@@ -77,21 +69,17 @@ public class GuiOverlay extends Gui
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public void onRenderExperienceBar(RenderGameOverlayEvent.Post event)
-    {
+    public void onRenderExperienceBar(RenderGameOverlayEvent.Post event) {
         if (event.type != RenderGameOverlayEvent.ElementType.EXPERIENCE)
             return;
 
         EntityPlayer player = mc.thePlayer;
-        ScaledResolution resolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
-        screenWidth = resolution.getScaledWidth();
-        screenHeight = resolution.getScaledHeight();
+        screenWidth = event.resolution.getScaledWidth();
+        screenHeight = event.resolution.getScaledHeight();
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_TRANSFORM_BIT);
 
-        if (ConfigHandler.bossBarIndent != 0)
-        {
-            if (GuiIngameForge.renderBossHealth)
-            {
+        if (ConfigHandler.bossBarIndent != 0) {
+            if (GuiIngameForge.renderBossHealth) {
                 GuiIngameForge.renderBossHealth = false;
                 LogHelper.info("Forge boss bar render: disabled");
             }
@@ -292,8 +280,7 @@ public class GuiOverlay extends Gui
             case VANILLA:
             default:
                 GL11.glTranslatef(0F, 0F, 32.0F);
-                FontRenderer font = null;
-                font = stack.getItem().getFontRenderer(stack);
+                FontRenderer font = stack.getItem().getFontRenderer(stack);
                 if (font == null) font = fontRenderer;
                 itemRender.renderItemIntoGUI(font, mc.getTextureManager(), stack, x, y);
                 break;
