@@ -1,11 +1,9 @@
 package com.darkona.adventurebackpack.client.render;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import com.darkona.adventurebackpack.item.IBackWearableItem;
+import com.darkona.adventurebackpack.util.Wearing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RendererLivingEntity;
 import net.minecraft.entity.Entity;
@@ -13,9 +11,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
-import com.darkona.adventurebackpack.item.IBackWearableItem;
-import com.darkona.adventurebackpack.util.Wearing;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 /**
  * Created on 25/12/2014
@@ -39,27 +36,24 @@ public class RendererWearableEquipped extends RendererLivingEntity
         return texture;
     }
 
-    public void render(Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw, float pitch)
-    {
-        if (!Wearing.isWearingWearable((EntityPlayer) entity)) return;
+    public void render(Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw, float pitch) {
+        final ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity);
+        if (wearable == null) {
+            return;
+        }
         GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
-
-        ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity).copy();
-        IBackWearableItem wearableItem = (IBackWearableItem) wearable.getItem();
-        modelBipedMain = wearableItem.getWearableModel(wearable);
-        texture = wearableItem.getWearableTexture(wearable);
+        ItemStack wearableCopy = wearable.copy();
+        IBackWearableItem wearableItem = (IBackWearableItem) wearableCopy.getItem();
+        modelBipedMain = wearableItem.getWearableModel(wearableCopy);
+        texture = wearableItem.getWearableTexture(wearableCopy);
         modelBipedMain.bipedBody.rotateAngleX = rotX;
         modelBipedMain.bipedBody.rotateAngleY = rotY;
         modelBipedMain.bipedBody.rotateAngleZ = rotZ;
-        try
-        {
+        try {
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             renderMainModel((EntityPlayer) entity, 0, 0, 0, 0, 0, 0.0625f);
+        } catch (Exception ignored) {
         }
-        catch (Exception ex)
-        {
-        }
-
         GL11.glPopAttrib();
     }
 
