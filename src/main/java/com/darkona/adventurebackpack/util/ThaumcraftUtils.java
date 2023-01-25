@@ -1,17 +1,15 @@
 package com.darkona.adventurebackpack.util;
 
+import com.darkona.adventurebackpack.reference.LoadedMods;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-
-import com.darkona.adventurebackpack.reference.LoadedMods;
 
 /**
  * Created on 06.02.2018
  *
  * @author Ugachaga
  */
-public final class ThaumcraftUtils
-{
+public final class ThaumcraftUtils {
     public static final boolean DIAL_BOTTOM = setDialBottom();
 
     private static final String CLASS_RENDERER = "thaumcraft.client.renderers.item.ItemWandRenderer";
@@ -24,67 +22,48 @@ public final class ThaumcraftUtils
 
     private ThaumcraftUtils() {}
 
-    static
-    {
-        if (LoadedMods.THAUMCRAFT)
-        {
+    static {
+        if (LoadedMods.THAUMCRAFT) {
             createToolRendererInstance();
         }
     }
 
-    private static void createToolRendererInstance()
-    {
-        if (Utils.inClient())
-        {
-            try
-            {
+    private static void createToolRendererInstance() {
+        if (Utils.inClient()) {
+            try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
                 toolRendererInstance = toolRenderer.newInstance();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 LogHelper.error("Error getting instance of Thaumcraft Wands Renderer: " + e);
             }
         }
     }
 
-    private static boolean setDialBottom()
-    {
-        if (!LoadedMods.THAUMCRAFT || Utils.inServer())
-            return false;
+    private static boolean setDialBottom() {
+        if (!LoadedMods.THAUMCRAFT || Utils.inServer()) return false;
 
-        try
-        {
+        try {
             return Class.forName(CLASS_CONFIG).getField(FIELD_DIAL_BOTTOM).getBoolean(null);
-        }
-        catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e)
-        {
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
             return false;
         }
     }
 
-    public static boolean isTool(ItemStack stack)
-    {
-        if (!LoadedMods.THAUMCRAFT || stack == null)
-            return false;
+    public static boolean isTool(ItemStack stack) {
+        if (!LoadedMods.THAUMCRAFT || stack == null) return false;
 
-        try
-        {
+        try {
             return Class.forName(CLASS_WANDS).isInstance(stack.getItem());
-        }
-        catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
             return false;
         }
     }
 
-    public static float getToolRotationAngle(ItemStack stack, boolean isLowerSlot)
-    {
+    public static float getToolRotationAngle(ItemStack stack, boolean isLowerSlot) {
         return isLowerSlot ? 0F : 90F;
     }
 
-    public static void renderTool(ItemStack stack, IItemRenderer.ItemRenderType renderType)
-    {
+    public static void renderTool(ItemStack stack, IItemRenderer.ItemRenderType renderType) {
         ToolRenderHelper.render(stack, renderType, toolRenderer, toolRendererInstance);
     }
 }

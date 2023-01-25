@@ -9,22 +9,18 @@ import net.minecraft.item.ItemStack;
  *
  * @author Ugachaga
  */
-public class SlotCraftMatrix extends SlotAdventure
-{
-    SlotCraftMatrix(IInventory craftMatrix, int slotIndex, int posX, int posY)
-    {
+public class SlotCraftMatrix extends SlotAdventure {
+    SlotCraftMatrix(IInventory craftMatrix, int slotIndex, int posX, int posY) {
         super(craftMatrix, slotIndex, posX, posY);
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack)
-    {
+    public boolean isItemValid(ItemStack stack) {
         return false;
     }
 
     @Override
-    public boolean canTakeStack(EntityPlayer player)
-    {
+    public boolean canTakeStack(EntityPlayer player) {
         return false;
     }
 }

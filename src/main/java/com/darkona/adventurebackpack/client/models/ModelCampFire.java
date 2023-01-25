@@ -8,8 +8,7 @@ import net.minecraft.entity.Entity;
  * campFire - Darkona
  * Created using Tabula 4.1.0
  */
-public class ModelCampFire extends ModelBase
-{
+public class ModelCampFire extends ModelBase {
     public ModelRenderer rock1;
     public ModelRenderer rock2;
     public ModelRenderer rock3;
@@ -33,8 +32,7 @@ public class ModelCampFire extends ModelBase
     public ModelRenderer stick4;
     public ModelRenderer log;
 
-    public ModelCampFire()
-    {
+    public ModelCampFire() {
         this.textureWidth = 32;
         this.textureHeight = 32;
         this.rock1 = new ModelRenderer(this, 0, 8);
@@ -111,8 +109,7 @@ public class ModelCampFire extends ModelBase
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.rock1.render(f5);
         this.rock8.render(f5);
         this.log.render(f5);
@@ -140,8 +137,7 @@ public class ModelCampFire extends ModelBase
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

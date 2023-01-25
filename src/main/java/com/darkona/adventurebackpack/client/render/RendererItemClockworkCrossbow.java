@@ -1,93 +1,82 @@
 package com.darkona.adventurebackpack.client.render;
 
-
-import org.lwjgl.opengl.GL11;
-
+import com.darkona.adventurebackpack.client.models.ModelClockworkCrossbow;
+import com.darkona.adventurebackpack.util.Resources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
-
-import com.darkona.adventurebackpack.client.models.ModelClockworkCrossbow;
-import com.darkona.adventurebackpack.util.Resources;
-
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created by Darkona on 11/10/2014.
  */
-public class RendererItemClockworkCrossbow implements IItemRenderer
-{
+public class RendererItemClockworkCrossbow implements IItemRenderer {
     private final ModelClockworkCrossbow model;
     private ResourceLocation modelTexture = Resources.modelTextures("clockworkCrossbow");
 
-    public RendererItemClockworkCrossbow()
-    {
+    public RendererItemClockworkCrossbow() {
         model = new ModelClockworkCrossbow();
     }
 
-    public boolean handleRenderType(ItemStack item, ItemRenderType type)
-    {
+    public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         return (type != ItemRenderType.FIRST_PERSON_MAP);
     }
 
-    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
-    {
+    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
         return (type != ItemRenderType.FIRST_PERSON_MAP);
     }
 
-    public void renderItem(ItemRenderType type, ItemStack item, Object... data)
-    {
+    public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         Minecraft.getMinecraft().renderEngine.bindTexture(modelTexture);
         EntityPlayer player;
-        switch (type)
-        {
+        switch (type) {
             case INVENTORY:
+                {
+                    GL11.glPushMatrix();
+                    GL11.glColor4f(1, 1, 1, 128);
 
-            {
-                GL11.glPushMatrix();
-                GL11.glColor4f(1, 1, 1, 128);
+                    GL11.glPushMatrix();
+                    GL11.glTranslatef(-0.5f, -.5f, -0.5f);
 
-                GL11.glPushMatrix();
-                GL11.glTranslatef(-0.5f, -.5f, -0.5f);
+                    GL11.glPushMatrix();
+                    GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
+                    GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
+                    GL11.glPushMatrix();
+                    GL11.glScalef(0.7f, 0.7f, 0.7f);
 
-                GL11.glPushMatrix();
-                GL11.glRotatef(180F, 0.0F, 0.0F, 1.0F);
-                GL11.glRotatef(180F, 0.0F, 1.0F, 0.0F);
-                GL11.glPushMatrix();
-                GL11.glScalef(0.7f, 0.7f, 0.7f);
+                    model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
-                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
-
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-            }
-            break;
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                }
+                break;
             case ENTITY:
                 Minecraft.getMinecraft().renderEngine.bindTexture(modelTexture);
-            {
-                GL11.glPushMatrix();
-                GL11.glColor4f(1, 1, 1, 128);
+                {
+                    GL11.glPushMatrix();
+                    GL11.glColor4f(1, 1, 1, 128);
 
-                GL11.glPushMatrix();
-                GL11.glTranslatef(0f, .50f, 0f);
+                    GL11.glPushMatrix();
+                    GL11.glTranslatef(0f, .50f, 0f);
 
-                GL11.glPushMatrix();
-                GL11.glRotatef(180, 0, 0, 1);
+                    GL11.glPushMatrix();
+                    GL11.glRotatef(180, 0, 0, 1);
 
-                GL11.glPushMatrix();
-                GL11.glScalef(1.0f, 1.0f, 1.0f);
+                    GL11.glPushMatrix();
+                    GL11.glScalef(1.0f, 1.0f, 1.0f);
 
-                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                    model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-                GL11.glPopMatrix();
-            }
-            break;
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                    GL11.glPopMatrix();
+                }
+                break;
             case EQUIPPED:
                 Minecraft.getMinecraft().renderEngine.bindTexture(modelTexture);
 

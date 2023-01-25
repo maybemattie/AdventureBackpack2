@@ -1,19 +1,16 @@
 package com.darkona.adventurebackpack.util;
 
+import com.darkona.adventurebackpack.reference.LoadedMods;
 import javax.annotation.Nonnull;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
-
-import com.darkona.adventurebackpack.reference.LoadedMods;
 
 /**
  * Created on 30.01.2018
  *
  * @author Ugachaga
  */
-public final class GregtechUtils
-{
+public final class GregtechUtils {
     private static final String CLASS_RENDERER = "gregtech.common.render.GT_MetaGenerated_Tool_Renderer";
 
     private static final String TOOLS_NAME = "gt.metatool.01";
@@ -25,57 +22,42 @@ public final class GregtechUtils
 
     private GregtechUtils() {}
 
-    static
-    {
-        if (LoadedMods.GREGTECH)
-        {
+    static {
+        if (LoadedMods.GREGTECH) {
             createToolRendererInstance();
         }
     }
 
-    private static void createToolRendererInstance()
-    {
-        if (Utils.inClient())
-        {
-            try
-            {
+    private static void createToolRendererInstance() {
+        if (Utils.inClient()) {
+            try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
                 toolRendererInstance = toolRenderer.newInstance();
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 LogHelper.error("Error getting instance of Gregtech Tools Renderer: " + e);
             }
         }
     }
 
-    public static boolean isTool(@Nonnull ItemStack stack)
-    {
+    public static boolean isTool(@Nonnull ItemStack stack) {
         return LoadedMods.GREGTECH && stack.getItem().getUnlocalizedName().equals(TOOLS_NAME);
     }
 
-    public static boolean isTool(String itemName)
-    {
+    public static boolean isTool(String itemName) {
         return LoadedMods.GREGTECH && itemName.equals(TOOLS_NAME);
     }
 
-    public static float getToolRotationAngle(ItemStack stack, boolean isLowerSlot)
-    {
+    public static float getToolRotationAngle(ItemStack stack, boolean isLowerSlot) {
         int meta = stack.getItemDamage();
 
-        for (int rotated45 : ROTATED_45_TOOLS)
-            if (meta == rotated45)
-                return isLowerSlot ? 0F : 90F;
+        for (int rotated45 : ROTATED_45_TOOLS) if (meta == rotated45) return isLowerSlot ? 0F : 90F;
 
-        for (int rotated90 : ROTATED_90_TOOLS)
-            if (meta == rotated90)
-                return isLowerSlot ? 45F : 135F;
+        for (int rotated90 : ROTATED_90_TOOLS) if (meta == rotated90) return isLowerSlot ? 45F : 135F;
 
         return isLowerSlot ? -45F : 45F;
     }
 
-    public static void renderTool(ItemStack stack, IItemRenderer.ItemRenderType renderType)
-    {
+    public static void renderTool(ItemStack stack, IItemRenderer.ItemRenderType renderType) {
         ToolRenderHelper.render(stack, renderType, toolRenderer, toolRendererInstance);
     }
 }

@@ -1,18 +1,16 @@
 package com.darkona.adventurebackpack.reference;
 
-import net.minecraft.launchwrapper.Launch;
+import com.darkona.adventurebackpack.util.LogHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
-
-import com.darkona.adventurebackpack.util.LogHelper;
+import net.minecraft.launchwrapper.Launch;
 
 /**
  * Created on 24.02.2018
  *
  * @author Ugachaga
  */
-public final class LoadedMods
-{
+public final class LoadedMods {
     public static final boolean DEV_ENV = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
     public static final boolean BUILDCRAFT = registerMod("BuildCraft|Core");
@@ -25,24 +23,18 @@ public final class LoadedMods
 
     private LoadedMods() {}
 
-    public static void init()
-    {
-        if (DEV_ENV)
-        {
+    public static void init() {
+        if (DEV_ENV) {
             LogHelper.info("Dev environment detected. All hail the creator");
         }
     }
 
-    private static boolean registerMod(String modID)
-    {
-        if (!Loader.isModLoaded(modID))
-            return false;
+    private static boolean registerMod(String modID) {
+        if (!Loader.isModLoaded(modID)) return false;
 
         String modName = modID;
-        for (ModContainer mod : Loader.instance().getModList())
-        {
-            if (mod.getModId().equals(modID))
-                modName = mod.getName();
+        for (ModContainer mod : Loader.instance().getModList()) {
+            if (mod.getModId().equals(modID)) modName = mod.getName();
         }
         LogHelper.info(modName + " is present. Acting accordingly");
         return true;

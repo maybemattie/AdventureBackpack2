@@ -19,24 +19,22 @@ import org.lwjgl.opengl.GL12;
  *
  * @author Darkona
  */
-public class RendererWearableEquipped extends RendererLivingEntity
-{
+public class RendererWearableEquipped extends RendererLivingEntity {
     public ResourceLocation texture;
     public ModelBiped modelBipedMain;
 
-    public RendererWearableEquipped()
-    {
+    public RendererWearableEquipped() {
         super(new ModelBiped(0.0F), 0.0F);
         renderManager = RenderManager.instance;
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
-    {
+    protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return texture;
     }
 
-    public void render(Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw, float pitch) {
+    public void render(
+            Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw, float pitch) {
         final ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity);
         if (wearable == null) {
             return;
@@ -57,17 +55,20 @@ public class RendererWearableEquipped extends RendererLivingEntity
         GL11.glPopAttrib();
     }
 
-    protected void renderMainModel(EntityLivingBase entity, float limbSwing1, float limbswing2, float z, float yaw, float whatever, float scale)
-    {
+    protected void renderMainModel(
+            EntityLivingBase entity,
+            float limbSwing1,
+            float limbswing2,
+            float z,
+            float yaw,
+            float whatever,
+            float scale) {
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_TEXTURE_BIT);
 
         bindTexture(this.texture);
-        if (!entity.isInvisible())
-        {
+        if (!entity.isInvisible()) {
             modelBipedMain.render(entity, limbSwing1, limbswing2, z, yaw, whatever, scale);
-        }
-        else if (!entity.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer))
-        {
+        } else if (!entity.isInvisibleToPlayer(Minecraft.getMinecraft().thePlayer)) {
             GL11.glPushMatrix();
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.15F);
             GL11.glDepthMask(false);
@@ -76,9 +77,7 @@ public class RendererWearableEquipped extends RendererLivingEntity
             GL11.glAlphaFunc(GL11.GL_GREATER, 0.003921569F);
             modelBipedMain.render(entity, limbSwing1, limbswing2, z, yaw, whatever, scale);
             GL11.glPopMatrix();
-        }
-        else
-        {
+        } else {
             modelBipedMain.setRotationAngles(limbSwing1, limbswing2, z, yaw, whatever, scale, entity);
         }
 

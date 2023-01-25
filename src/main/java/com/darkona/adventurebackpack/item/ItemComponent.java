@@ -1,8 +1,10 @@
 package com.darkona.adventurebackpack.item;
 
+import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.List;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -16,33 +18,27 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 
 /**
  * Created on 11/10/2014
  *
  * @author Darkona
  */
-public class ItemComponent extends ItemAB
-{
+public class ItemComponent extends ItemAB {
     private HashMap<String, IIcon> componentIcons = new HashMap<>();
     private String[] names = {
-            "sleepingBag",
-            "backpackTank",
-            "hoseHead",
-            "macheteHandle",
-            "copterEngine",
-            "copterBlades",
-            "inflatableBoat",
-            "inflatableBoatMotorized",
-            "hydroBlades",
+        "sleepingBag",
+        "backpackTank",
+        "hoseHead",
+        "macheteHandle",
+        "copterEngine",
+        "copterBlades",
+        "inflatableBoat",
+        "inflatableBoatMotorized",
+        "hydroBlades",
     };
 
-    public ItemComponent()
-    {
+    public ItemComponent() {
         setNoRepair();
         setHasSubtypes(true);
         setMaxStackSize(16);
@@ -51,58 +47,49 @@ public class ItemComponent extends ItemAB
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IIconRegister iconRegister)
-    {
-        for (String name : names)
-        {
-            IIcon temporalIcon = iconRegister.registerIcon(super.getUnlocalizedName(name).substring(this.getUnlocalizedName().indexOf(".") + 1));
+    public void registerIcons(IIconRegister iconRegister) {
+        for (String name : names) {
+            IIcon temporalIcon = iconRegister.registerIcon(super.getUnlocalizedName(name)
+                    .substring(this.getUnlocalizedName().indexOf(".") + 1));
             componentIcons.put(name, temporalIcon);
         }
-        itemIcon = iconRegister.registerIcon(super.getUnlocalizedName("sleepingBag").substring(this.getUnlocalizedName().indexOf(".") + 1));
+        itemIcon = iconRegister.registerIcon(super.getUnlocalizedName("sleepingBag")
+                .substring(this.getUnlocalizedName().indexOf(".") + 1));
     }
 
     @Override
-    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
-    {
+    public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
         return super.getIcon(stack, renderPass, player, usingItem, useRemaining);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int damage)
-    {
+    public IIcon getIconFromDamage(int damage) {
         return componentIcons.get(names[damage - 1]);
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack)
-    {
+    public String getUnlocalizedName(ItemStack stack) {
         return super.getUnlocalizedName(names[getDamage(stack) - 1]);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs creativeTabs, List list)
-    {
-        for (int i = 1; i <= names.length; i++)
-        {
+    public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+        for (int i = 1; i <= names.length; i++) {
             list.add(new ItemStack(this, 1, i));
         }
     }
 
     @Override
-    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-    {
-        if (stack.getItemDamage() == 7)
-            return placeBoat(stack, world, player, false);
-        if (stack.getItemDamage() == 8)
-            return placeBoat(stack, world, player, true);
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        if (stack.getItemDamage() == 7) return placeBoat(stack, world, player, false);
+        if (stack.getItemDamage() == 8) return placeBoat(stack, world, player, true);
         return stack;
     }
 
-    private ItemStack placeBoat(ItemStack stack, World world, EntityPlayer player, boolean motorized)
-    {
+    private ItemStack placeBoat(ItemStack stack, World world, EntityPlayer player, boolean motorized) {
         float f = 1.0F;
         float f1 = player.prevRotationPitch + (player.rotationPitch - player.prevRotationPitch) * f;
         float f2 = player.prevRotationYaw + (player.rotationYaw - player.prevRotationYaw) * f;
@@ -120,66 +107,61 @@ public class ItemComponent extends ItemAB
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
         MovingObjectPosition movingobjectposition = world.rayTraceBlocks(vec3, vec31, true);
 
-        if (movingobjectposition == null)
-        {
+        if (movingobjectposition == null) {
             return stack;
-        }
-        else
-        {
+        } else {
             Vec3 vec32 = player.getLook(f);
             boolean flag = false;
             float f9 = 1.0F;
-            List list = world.getEntitiesWithinAABBExcludingEntity(player, player.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3).expand((double) f9, (double) f9, (double) f9));
+            List list = world.getEntitiesWithinAABBExcludingEntity(
+                    player,
+                    player.boundingBox
+                            .addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
+                            .expand((double) f9, (double) f9, (double) f9));
             int i;
 
-            for (i = 0; i < list.size(); ++i)
-            {
+            for (i = 0; i < list.size(); ++i) {
                 Entity entity = (Entity) list.get(i);
 
-                if (entity.canBeCollidedWith())
-                {
+                if (entity.canBeCollidedWith()) {
                     float f10 = entity.getCollisionBorderSize();
                     AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f10, (double) f10, (double) f10);
 
-                    if (axisalignedbb.isVecInside(vec3))
-                    {
+                    if (axisalignedbb.isVecInside(vec3)) {
                         flag = true;
                     }
                 }
             }
 
-            if (flag)
-            {
+            if (flag) {
                 return stack;
-            }
-            else
-            {
-                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
-                {
+            } else {
+                if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     i = movingobjectposition.blockX;
                     int j = movingobjectposition.blockY;
                     int k = movingobjectposition.blockZ;
 
-                    if (world.getBlock(i, j, k) == Blocks.snow_layer)
-                    {
+                    if (world.getBlock(i, j, k) == Blocks.snow_layer) {
                         --j;
                     }
 
-                    EntityInflatableBoat inflatableBoat = new EntityInflatableBoat(world, i + 0.5, j + 1.0, k + 0.5, motorized);
+                    EntityInflatableBoat inflatableBoat =
+                            new EntityInflatableBoat(world, i + 0.5, j + 1.0, k + 0.5, motorized);
 
-                    inflatableBoat.rotationYaw = (float) (((MathHelper.floor_double((double) (player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1) * 90);
-                    if (!world.getCollidingBoundingBoxes(inflatableBoat, inflatableBoat.boundingBox.expand(-0.1, -0.1, -0.1)).isEmpty())
-                    {
+                    inflatableBoat.rotationYaw = (float)
+                            (((MathHelper.floor_double((double) (player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1)
+                                    * 90);
+                    if (!world.getCollidingBoundingBoxes(
+                                    inflatableBoat, inflatableBoat.boundingBox.expand(-0.1, -0.1, -0.1))
+                            .isEmpty()) {
                         return stack;
                     }
 
-                    if (!world.isRemote)
-                    {
+                    if (!world.isRemote) {
                         world.spawnEntityInWorld(inflatableBoat);
                     }
 
-                    if (!player.capabilities.isCreativeMode)
-                    {
+                    if (!player.capabilities.isCreativeMode) {
                         --stack.stackSize;
                     }
                 }

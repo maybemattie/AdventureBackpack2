@@ -1,19 +1,5 @@
 package com.darkona.adventurebackpack.inventory;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fluids.FluidTank;
-
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.init.ModBlocks;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.CoordsUtils;
-
 import static com.darkona.adventurebackpack.common.Constants.BUCKET_IN_LEFT;
 import static com.darkona.adventurebackpack.common.Constants.BUCKET_IN_RIGHT;
 import static com.darkona.adventurebackpack.common.Constants.BUCKET_OUT_LEFT;
@@ -27,13 +13,25 @@ import static com.darkona.adventurebackpack.common.Constants.TAG_RIGHT_TANK;
 import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
 import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.init.ModBlocks;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.fluids.FluidTank;
+
 /**
  * Created on 12/10/2014
  *
  * @author Darkona
  */
-public class InventoryBackpack extends InventoryAdventure implements IInventoryBackpack
-{
+public class InventoryBackpack extends InventoryAdventure implements IInventoryBackpack {
     private static final String TAG_IS_SLEEPING_BAG = "sleepingBag";
     private static final String TAG_SLEEPING_BAG_X = "sleepingBagX";
     private static final String TAG_SLEEPING_BAG_Y = "sleepingBagY";
@@ -53,58 +51,49 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
     private boolean disableCycling = false;
     private int lastTime = 0;
 
-    public InventoryBackpack(ItemStack backpack)
-    {
+    public InventoryBackpack(ItemStack backpack) {
         super(backpack, Constants.INVENTORY_SIZE);
         detectAndConvertFromOldNBTFormat(containerStack.stackTagCompound);
         openInventory();
     }
 
     @Override
-    public BackpackTypes getType()
-    {
+    public BackpackTypes getType() {
         return type;
     }
 
     @Override
-    public ItemStack[] getInventory()
-    {
+    public ItemStack[] getInventory() {
         return inventory;
     }
 
     @Override
-    public FluidTank getLeftTank()
-    {
+    public FluidTank getLeftTank() {
         return leftTank;
     }
 
     @Override
-    public FluidTank getRightTank()
-    {
+    public FluidTank getRightTank() {
         return rightTank;
     }
 
     @Override
-    public FluidTank[] getTanksArray()
-    {
-        return new FluidTank[]{leftTank, rightTank};
+    public FluidTank[] getTanksArray() {
+        return new FluidTank[] {leftTank, rightTank};
     }
 
     @Override
-    public int[] getSlotsOnClosing()
-    {
-        return new int[]{BUCKET_IN_LEFT, BUCKET_IN_RIGHT, BUCKET_OUT_LEFT, BUCKET_OUT_RIGHT};
+    public int[] getSlotsOnClosing() {
+        return new int[] {BUCKET_IN_LEFT, BUCKET_IN_RIGHT, BUCKET_OUT_LEFT, BUCKET_OUT_RIGHT};
     }
 
     @Override
-    public NBTTagCompound getExtendedProperties()
-    {
+    public NBTTagCompound getExtendedProperties() {
         return extendedProperties;
     }
 
     @Override
-    public void loadFromNBT(NBTTagCompound compound)
-    {
+    public void loadFromNBT(NBTTagCompound compound) {
         if (compound == null)
             return; // this need for NEI and WAILA trying to render tile.backpack and comes here w/o nbt
 
@@ -121,8 +110,7 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
     }
 
     @Override
-    public void saveToNBT(NBTTagCompound compound)
-    {
+    public void saveToNBT(NBTTagCompound compound) {
         NBTTagCompound backpackTag = new NBTTagCompound();
         backpackTag.setByte(TAG_TYPE, BackpackTypes.getMeta(type));
         backpackTag.setTag(TAG_INVENTORY, getInventoryTagList());
@@ -138,109 +126,89 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
     }
 
     @Override
-    public boolean updateTankSlots()
-    {
+    public boolean updateTankSlots() {
         boolean changesMade = false;
-        while (InventoryActions.transferContainerTank(this, getLeftTank(), BUCKET_IN_LEFT))
-            changesMade = true;
-        while (InventoryActions.transferContainerTank(this, getRightTank(), BUCKET_IN_RIGHT))
-            changesMade = true;
+        while (InventoryActions.transferContainerTank(this, getLeftTank(), BUCKET_IN_LEFT)) changesMade = true;
+        while (InventoryActions.transferContainerTank(this, getRightTank(), BUCKET_IN_RIGHT)) changesMade = true;
         return changesMade;
     }
 
     @Override
-    public void dirtyTanks()
-    {
+    public void dirtyTanks() {
         getWearableCompound().setTag(TAG_LEFT_TANK, leftTank.writeToNBT(new NBTTagCompound()));
         getWearableCompound().setTag(TAG_RIGHT_TANK, rightTank.writeToNBT(new NBTTagCompound()));
     }
 
     @Override
-    public void dirtyExtended() //TODO is it redundant?
-    {
-        getWearableCompound().removeTag(TAG_EXTENDED_COMPOUND); //TODO again: why?
+    public void dirtyExtended() // TODO is it redundant?
+            {
+        getWearableCompound().removeTag(TAG_EXTENDED_COMPOUND); // TODO again: why?
         getWearableCompound().setTag(TAG_EXTENDED_COMPOUND, extendedProperties);
     }
 
     @Override
-    public void dirtyTime()
-    {
+    public void dirtyTime() {
         getWearableCompound().setInteger("lastTime", lastTime);
     }
 
     @Override
-    public int getLastTime()
-    {
+    public int getLastTime() {
         return this.lastTime;
     }
 
     @Override
-    public void setLastTime(int time)
-    {
+    public void setLastTime(int time) {
         this.lastTime = time;
     }
 
     @Override
-    public boolean hasItem(Item item)
-    {
+    public boolean hasItem(Item item) {
         return InventoryActions.hasItem(this, item);
     }
 
     @Override
-    public void consumeInventoryItem(Item item)
-    {
+    public void consumeInventoryItem(Item item) {
         InventoryActions.consumeItemInInventory(this, item);
     }
 
-    public boolean getDisableCycling()
-    {
+    public boolean getDisableCycling() {
         return disableCycling;
     }
 
-    public void setDisableCycling(boolean b)
-    {
+    public void setDisableCycling(boolean b) {
         this.disableCycling = b;
     }
 
-    public boolean getDisableNVision()
-    {
+    public boolean getDisableNVision() {
         return disableNVision;
     }
 
-    public void setDisableNVision(boolean b)
-    {
+    public void setDisableNVision(boolean b) {
         this.disableNVision = b;
     }
 
     // Sleeping Bag
     @Override
-    public boolean isSleepingBagDeployed()
-    {
+    public boolean isSleepingBagDeployed() {
         return sleepingBagDeployed;
     }
 
-    private void loadSleepingBag()
-    {
+    private void loadSleepingBag() {
         sleepingBagDeployed = extendedProperties.getBoolean(TAG_IS_SLEEPING_BAG);
-        if (sleepingBagDeployed)
-        {
+        if (sleepingBagDeployed) {
             sleepingBagX = extendedProperties.getInteger(TAG_SLEEPING_BAG_X);
             sleepingBagY = extendedProperties.getInteger(TAG_SLEEPING_BAG_Y);
             sleepingBagZ = extendedProperties.getInteger(TAG_SLEEPING_BAG_Z);
         }
     }
 
-    private void saveSleepingBag()
-    {
-        if (sleepingBagDeployed)
-        {
+    private void saveSleepingBag() {
+        if (sleepingBagDeployed) {
             extendedProperties.setBoolean(TAG_IS_SLEEPING_BAG, sleepingBagDeployed);
             extendedProperties.setInteger(TAG_SLEEPING_BAG_X, sleepingBagX);
             extendedProperties.setInteger(TAG_SLEEPING_BAG_Y, sleepingBagY);
             extendedProperties.setInteger(TAG_SLEEPING_BAG_Z, sleepingBagZ);
-        }
-        else
-        {
+        } else {
             extendedProperties.removeTag(TAG_IS_SLEEPING_BAG);
             extendedProperties.removeTag(TAG_SLEEPING_BAG_X);
             extendedProperties.removeTag(TAG_SLEEPING_BAG_Y);
@@ -248,17 +216,13 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
         }
     }
 
-    public boolean deploySleepingBag(EntityPlayer player, World world, int meta, int cX, int cY, int cZ)
-    {
-        if (world.isRemote)
-            return false;
+    public boolean deploySleepingBag(EntityPlayer player, World world, int meta, int cX, int cY, int cZ) {
+        if (world.isRemote) return false;
 
-        if (sleepingBagDeployed)
-            removeSleepingBag(world);
+        if (sleepingBagDeployed) removeSleepingBag(world);
 
         sleepingBagDeployed = CoordsUtils.spawnSleepingBag(player, world, meta, cX, cY, cZ);
-        if (sleepingBagDeployed)
-        {
+        if (sleepingBagDeployed) {
             sleepingBagX = cX;
             sleepingBagY = cY;
             sleepingBagZ = cZ;
@@ -267,10 +231,8 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
         return sleepingBagDeployed;
     }
 
-    public void removeSleepingBag(World world)
-    {
-        if (this.sleepingBagDeployed)
-        {
+    public void removeSleepingBag(World world) {
+        if (this.sleepingBagDeployed) {
             if (world.getBlock(sleepingBagX, sleepingBagY, sleepingBagZ) == ModBlocks.blockSleepingBag)
                 world.func_147480_a(sleepingBagX, sleepingBagY, sleepingBagZ, false);
         }
@@ -279,9 +241,8 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
     }
 
     private void detectAndConvertFromOldNBTFormat(NBTTagCompound compound) // backwards compatibility
-    {
-        if (compound == null || !compound.hasKey("backpackData"))
-            return;
+            {
+        if (compound == null || !compound.hasKey("backpackData")) return;
 
         NBTTagCompound oldBackpackTag = compound.getCompoundTag("backpackData");
         NBTTagList oldItems = oldBackpackTag.getTagList("ABPItems", NBT.TAG_COMPOUND);

@@ -1,23 +1,20 @@
 package com.darkona.adventurebackpack.handlers;
 
-import net.minecraftforge.client.event.RenderPlayerEvent;
+import com.darkona.adventurebackpack.proxy.ClientProxy;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import com.darkona.adventurebackpack.proxy.ClientProxy;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 
 /**
  * Created on 25/12/2014
  *
  * @author Darkona
  */
-public class RenderHandler
-{
+public class RenderHandler {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void playerSpecialsRendering(RenderPlayerEvent.Specials.Pre event)
-    {
+    public void playerSpecialsRendering(RenderPlayerEvent.Specials.Pre event) {
 
         float rotationY = event.renderer.modelBipedMain.bipedBody.rotateAngleY;
         float rotationX = event.renderer.modelBipedMain.bipedBody.rotateAngleX;

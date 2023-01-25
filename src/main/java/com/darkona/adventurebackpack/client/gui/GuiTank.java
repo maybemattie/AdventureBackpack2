@@ -1,28 +1,24 @@
 package com.darkona.adventurebackpack.client.gui;
 
+import codechicken.lib.render.TextureUtils;
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.TipUtils;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import codechicken.lib.render.TextureUtils;
-
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.TipUtils;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created by Darkona on 12/10/2014.
  */
-public class GuiTank
-{
+public class GuiTank {
     private int height;
     private int width;
     private int startX;
@@ -46,18 +42,15 @@ public class GuiTank
      *                   8, 16. Other values are untested, but i guess they should
      *                   always be integer divisors of the width, with modulus 0;
      */
-    public GuiTank(int X, int Y, int H, int W, int resolution)
-    {
+    public GuiTank(int X, int Y, int H, int W, int resolution) {
         this.startX = X;
         this.startY = Y;
         this.height = H;
         this.width = W;
         this.resolution = resolution > 0 ? W / resolution : W;
-
     }
 
-    public List<String> getTankTooltip()
-    {
+    public List<String> getTankTooltip() {
         FluidStack fluid = tank.getFluid();
         String fluidName = (fluid != null) ? fluid.getLocalizedName() : TipUtils.l10n("empty");
         String fluidAmount = ((fluid != null) ? fluid.amount : 0) + "/" + Constants.BASIC_TANK_CAPACITY;
@@ -67,13 +60,11 @@ public class GuiTank
         return tankTips;
     }
 
-    public void draw(GuiWithTanks gui, FluidTank theFluid)
-    {
+    public void draw(GuiWithTanks gui, FluidTank theFluid) {
         tank = theFluid;
         liquidPerPixel = tank.getCapacity() / this.height;
         this.zLevel = gui.getZLevel() + 1;
-        switch (ConfigHandler.typeTankRender)
-        {
+        switch (ConfigHandler.typeTankRender) {
             case 1:
                 drawMethodOne(gui);
                 break;
@@ -89,27 +80,22 @@ public class GuiTank
         }
     }
 
-    public void draw(GuiWithTanks gui, FluidTank theFluid, int X, int Y)
-    {
+    public void draw(GuiWithTanks gui, FluidTank theFluid, int X, int Y) {
         offsetX = X;
         offsetY = Y;
         draw(gui, theFluid);
     }
 
-    private void drawMethodOne(GuiWithTanks gui)
-    {
-        if (tank.getFluid() != null)
-        {
+    private void drawMethodOne(GuiWithTanks gui) {
+        if (tank.getFluid() != null) {
             FluidStack fluid = tank.getFluid();
 
             IIcon icon = fluid.getFluid().getStillIcon();
             int pixelsY = fluid.amount / liquidPerPixel;
             Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
             int maxY = (startY + offsetY) + height;
-            for (int i = (startX + offsetX); i < (startX + offsetX) + width; i += resolution)
-            {
-                for (int j = maxY - resolution; j >= maxY - pixelsY; j -= resolution)
-                {
+            for (int i = (startX + offsetX); i < (startX + offsetX) + width; i += resolution) {
+                for (int j = maxY - resolution; j >= maxY - pixelsY; j -= resolution) {
                     GL11.glPushMatrix();
                     GL11.glColor4f(1, 1, 1, 1);
                     gui.drawTexturedModelRectFromIcon(i, j, icon, resolution, resolution);
@@ -119,10 +105,8 @@ public class GuiTank
         }
     }
 
-    private void drawMethodTwo()
-    {
-        if (tank.getFluid() != null)
-        {
+    private void drawMethodTwo() {
+        if (tank.getFluid() != null) {
             FluidStack fluid = tank.getFluid();
 
             IIcon icon = fluid.getFluid().getStillIcon();
@@ -130,11 +114,9 @@ public class GuiTank
             Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
             int top = (startY + offsetY) + height - pixelsY;
             int maxY = (startY + offsetY) + height - 1;
-            for (int i = (startX + offsetX); i < (startX + offsetX) + width; i += resolution)
-            {
+            for (int i = (startX + offsetX); i < (startX + offsetX) + width; i += resolution) {
                 int iconY = 7;
-                for (int j = maxY; j >= top; j--)
-                {
+                for (int j = maxY; j >= top; j--) {
                     GL11.glPushMatrix();
                     GL11.glColor4f(1, 1, 1, 1);
                     drawFluidPixelFromIcon(i, j, icon, resolution, 1, 0, iconY, resolution, 0, zLevel);
@@ -145,48 +127,40 @@ public class GuiTank
         }
     }
 
-    private void drawMethodThree()
-    {
-        if (tank.getFluid() != null)
-        {
+    private void drawMethodThree() {
+        if (tank.getFluid() != null) {
             FluidStack fluid = tank.getFluid();
 
-            try
-            {
+            try {
                 IIcon icon = fluid.getFluid().getStillIcon();
                 TextureUtils.bindAtlas(fluid.getFluid().getSpriteNumber());
                 int top = (startY + offsetY) + height - (fluid.amount / liquidPerPixel);
-                for (int j = (startY + offsetY) + height - 1; j >= top; j--)
-                {
-                    for (int i = (startX + offsetX); i <= (startX + offsetX) + width - 1; i++)
-                    {
+                for (int j = (startY + offsetY) + height - 1; j >= top; j--) {
+                    for (int i = (startX + offsetX); i <= (startX + offsetX) + width - 1; i++) {
                         GL11.glPushMatrix();
-                        if (j >= top + 5)
-                        {
+                        if (j >= top + 5) {
                             GL11.glColor4f(0.9f, 0.9f, 0.9f, 1);
-                        }
-                        else
-                        {
+                        } else {
                             GL11.glColor4f(1, 1, 1, 1);
                         }
                         drawFluidPixelFromIcon(i, j, icon, 1, 1, 0, 0, 0, 0, zLevel);
                         GL11.glPopMatrix();
                     }
                 }
-            }
-            catch (Exception oops)
-            {
+            } catch (Exception oops) {
                 LogHelper.error("Exception while trying to render the fluid in the GUI");
-                //oops.printStackTrace();
+                // oops.printStackTrace();
             }
         }
     }
 
-    public boolean inTank(GuiWithTanks gui, int mouseX, int mouseY)
-    {
+    public boolean inTank(GuiWithTanks gui, int mouseX, int mouseY) {
         mouseX -= gui.getLeft();
         mouseY -= gui.getTop();
-        return startX <= mouseX && mouseX <= (startX + offsetX) + width && (startY + offsetY) <= mouseY && mouseY <= (startY + offsetY) + height;
+        return startX <= mouseX
+                && mouseX <= (startX + offsetX) + width
+                && (startY + offsetY) <= mouseY
+                && mouseY <= (startY + offsetY) + height;
     }
 
     /**
@@ -202,8 +176,8 @@ public class GuiTank
      * @param srcW The width of the selection in the icon to draw from. Starts at 0.
      * @param srcH The height of the selection in the icon to draw from. Starts at 0.
      */
-    public static void drawFluidPixelFromIcon(int x, int y, IIcon icon, int w, int h, int srcX, int srcY, int srcW, int srcH, float zLevel)
-    {
+    public static void drawFluidPixelFromIcon(
+            int x, int y, IIcon icon, int w, int h, int srcX, int srcY, int srcW, int srcH, float zLevel) {
         double minU = icon.getMinU();
         double maxU = icon.getMaxU();
         double minV = icon.getMinV();

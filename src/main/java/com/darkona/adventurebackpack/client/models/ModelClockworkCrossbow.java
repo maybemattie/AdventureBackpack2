@@ -1,23 +1,20 @@
 package com.darkona.adventurebackpack.client.models;
 
-import org.lwjgl.opengl.GL11;
-
+import com.darkona.adventurebackpack.client.render.RendererStack;
+import com.darkona.adventurebackpack.reference.ToolHandler;
+import com.darkona.adventurebackpack.util.Utils;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
-import com.darkona.adventurebackpack.client.render.RendererStack;
-import com.darkona.adventurebackpack.reference.ToolHandler;
-import com.darkona.adventurebackpack.util.Utils;
+import org.lwjgl.opengl.GL11;
 
 /**
  * clockworkCrossbow - Darkona
  * Created using Tabula 4.1.0
  */
-public class ModelClockworkCrossbow extends ModelBase
-{
+public class ModelClockworkCrossbow extends ModelBase {
     public ModelRenderer xbowBody;
     public ModelRenderer leftArc1;
     public ModelRenderer rightArc1;
@@ -52,8 +49,7 @@ public class ModelClockworkCrossbow extends ModelBase
     public RendererStack arrow;
     private ItemStack xbow;
 
-    public ModelClockworkCrossbow()
-    {
+    public ModelClockworkCrossbow() {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.hookTooth1 = new ModelRenderer(this, 0, 0);
@@ -196,15 +192,13 @@ public class ModelClockworkCrossbow extends ModelBase
         arrow.setStack(new ItemStack(Items.arrow, 1), ToolHandler.VANILLA);
     }
 
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack xbow)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack xbow) {
         this.xbow = xbow;
         render(entity, f, f1, f2, f3, f4, f5);
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.wheel.render(f5);
         this.reloader1.render(f5);
         this.sniperLeg1.render(f5);
@@ -212,7 +206,7 @@ public class ModelClockworkCrossbow extends ModelBase
 
         this.sniperLeg1_1.render(f5);
         this.xbowBody.render(f5);
-        //this.hookBolt.render(f5);
+        // this.hookBolt.render(f5);
         this.point.render(f5);
 
         this.handle2.render(f5);
@@ -222,36 +216,28 @@ public class ModelClockworkCrossbow extends ModelBase
         ModelRenderer[] arrows = {arrow1, arrow2, arrow3};
 
         setRotateAngle(arrow, Utils.degreesToRadians(-90), Utils.degreesToRadians(0), Utils.degreesToRadians(0));
-        for (ModelRenderer model : arrows)
-        {
+        for (ModelRenderer model : arrows) {
             arrow.setRotationPoint(model.rotationPointX, model.rotationPointY, model.rotationPointZ);
             setOffset(arrow, -.25f, .1f, -.2f);
             arrow.render(f5);
             setOffset(arrow, -.75f, .1f, -.2f);
             arrow.render(f5);
         }
-        if (xbow != null && xbow.hasTagCompound() && xbow.stackTagCompound.hasKey("Shot"))
-        {
-            if ((xbow.stackTagCompound.getByte("Shot") > 0))
-            {
+        if (xbow != null && xbow.hasTagCompound() && xbow.stackTagCompound.hasKey("Shot")) {
+            if ((xbow.stackTagCompound.getByte("Shot") > 0)) {
                 setRotateAngle(stringLeft, 1.5707963267948966F, -0.5235987755982988F, 0.0F);
                 setRotateAngle(stringRight, -1.5707963267948966F, 0.5235987755982988F, 0.0F);
-            }
-            else
-            {
+            } else {
                 renderNormal();
             }
-        }
-        else
-        {
+        } else {
             renderNormal();
         }
         this.leftArc1.render(f5);
         this.rightArc1.render(f5);
     }
 
-    private void renderNormal()
-    {
+    private void renderNormal() {
         setRotateAngle(stringLeft, 1.5707963267948966F, 0.0F, 0.0F);
         setRotateAngle(stringRight, -1.5707963267948966F, 0.0F, 0.0F);
         setOffset(arrow, -.0f, -.0f, -.2f);
@@ -266,15 +252,13 @@ public class ModelClockworkCrossbow extends ModelBase
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
 
-    public void setOffset(ModelRenderer modelRenderer, float x, float y, float z)
-    {
+    public void setOffset(ModelRenderer modelRenderer, float x, float y, float z) {
         modelRenderer.offsetX = x;
         modelRenderer.offsetY = y;
         modelRenderer.offsetZ = z;

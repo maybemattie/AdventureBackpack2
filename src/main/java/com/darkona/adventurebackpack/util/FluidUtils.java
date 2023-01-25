@@ -9,19 +9,16 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
  *
  * @author Darkona
  */
-public class FluidUtils
-{
-    public static boolean isContainerForFluid(ItemStack container, Fluid fluid)
-    {
-        if (container != null && fluid != null)
-        {
-            for (FluidContainerRegistry.FluidContainerData data : FluidContainerRegistry.getRegisteredFluidContainerData())
-            {
-                if (data.fluid != null && data.fluid.getFluid() != null
+public class FluidUtils {
+    public static boolean isContainerForFluid(ItemStack container, Fluid fluid) {
+        if (container != null && fluid != null) {
+            for (FluidContainerRegistry.FluidContainerData data :
+                    FluidContainerRegistry.getRegisteredFluidContainerData()) {
+                if (data.fluid != null
+                        && data.fluid.getFluid() != null
                         && data.fluid.getFluid().getID() == fluid.getID()
                         && (data.emptyContainer.getItem().equals(container.getItem())
-                            || data.filledContainer.getItem().equals(container.getItem())))
-                {
+                                || data.filledContainer.getItem().equals(container.getItem()))) {
                     return true;
                 }
             }
@@ -29,16 +26,14 @@ public class FluidUtils
         return false;
     }
 
-    public static boolean isEmptyContainerForFluid(ItemStack container, Fluid fluid)
-    {
-        if (container != null && fluid != null)
-        {
-            for (FluidContainerRegistry.FluidContainerData data : FluidContainerRegistry.getRegisteredFluidContainerData())
-            {
-                if (data.fluid != null && data.fluid.getFluid() != null
+    public static boolean isEmptyContainerForFluid(ItemStack container, Fluid fluid) {
+        if (container != null && fluid != null) {
+            for (FluidContainerRegistry.FluidContainerData data :
+                    FluidContainerRegistry.getRegisteredFluidContainerData()) {
+                if (data.fluid != null
+                        && data.fluid.getFluid() != null
                         && data.fluid.getFluid().getID() == fluid.getID()
-                        && data.emptyContainer.getItem().equals(container.getItem()))
-                {
+                        && data.emptyContainer.getItem().equals(container.getItem())) {
                     return true;
                 }
             }

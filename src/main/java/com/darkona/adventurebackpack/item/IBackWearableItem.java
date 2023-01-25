@@ -1,20 +1,19 @@
 package com.darkona.adventurebackpack.item;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Created on 08/01/2015
  *
  * @author Darkona
  */
-public interface IBackWearableItem
-{
+public interface IBackWearableItem {
     void onEquippedUpdate(World world, EntityPlayer player, ItemStack stack);
 
     void onPlayerDeath(World world, EntityPlayer player, ItemStack stack);

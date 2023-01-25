@@ -1,29 +1,25 @@
 package com.darkona.adventurebackpack.client.models;
 
-import java.util.List;
+import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import codechicken.lib.vec.Vector3;
-
 import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.item.ItemCopterPack;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.Utils;
-
-import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
+import java.util.List;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 31/12/2014
  *
  * @author Darkona
  */
-public class ModelCopterPack extends ModelWearable
-{
+public class ModelCopterPack extends ModelWearable {
     public static ModelCopterPack instance = new ModelCopterPack();
     public ModelRenderer Base;
     public ModelRenderer EngineBody;
@@ -50,8 +46,7 @@ public class ModelCopterPack extends ModelWearable
     private ItemStack copterPack;
 
     @SuppressWarnings("unchecked")
-    private void init()
-    {
+    private void init() {
         this.textureWidth = 64;
         this.textureHeight = 64;
 
@@ -59,7 +54,7 @@ public class ModelCopterPack extends ModelWearable
         this.Base.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.Base.addBox(-4.0F, 0.0F, 2.0F, 8, 12, 1);
 
-        //TANK
+        // TANK
         this.TankTop = new ModelRenderer(this, 0, 33);
         this.TankTop.setRotationPoint(1.0F, 0.0F, 3.0F);
         this.TankTop.addBox(0.0F, 0.0F, 0.0F, 5, 1, 5, 0.0F);
@@ -100,7 +95,7 @@ public class ModelCopterPack extends ModelWearable
         this.FuelLine2.addBox(1.0F, 1.0F, 2.0F, 1, 1, 1, 0.0F);
         this.TankBottom.addChild(this.FuelLine2);
 
-        //ENGINE
+        // ENGINE
         this.EngineBody = new ModelRenderer(this, 0, 23);
         this.EngineBody.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.EngineBody.addBox(-2.0F, 8.0F, 3.0F, 4, 4, 4);
@@ -121,7 +116,7 @@ public class ModelCopterPack extends ModelWearable
         this.Axis = new ModelRenderer(this, 25, 22);
         this.Axis.setRotationPoint(0.0F, 8.0F, 5.75F);
         this.Axis.addBox(-0.5F, -25.0F, -0.5F, 1, 25, 1);
-        //this.EngineBody.addChild(this.Axis);
+        // this.EngineBody.addChild(this.Axis);
 
         this.Blade1 = new ModelRenderer(this, 29, 0);
         this.Blade1.setRotationPoint(0.0F, -25.0F, 0.0F);
@@ -145,7 +140,7 @@ public class ModelCopterPack extends ModelWearable
         this.setRotateAngle(Blade4, -3.141592653589793F, 0.0F, 0.0F);
         this.Axis.addChild(this.Blade4);
 
-        //ESCAPE
+        // ESCAPE
         this.Escape1 = new ModelRenderer(this, 9, 35);
         this.Escape1.setRotationPoint(-4.0F, 9.0F, 4.0F);
         this.Escape1.addBox(0.0F, 0.0F, 0.0F, 2, 1, 1);
@@ -170,38 +165,30 @@ public class ModelCopterPack extends ModelWearable
 
         float offsetZ = 0.1F;
         float offsetY = 0.0F;
-        for (ModelRenderer part : (List<ModelRenderer>) bipedBody.childModels)
-        {
+        for (ModelRenderer part : (List<ModelRenderer>) bipedBody.childModels) {
             setOffset(part, part.offsetX + 0, part.offsetY + offsetY, part.offsetZ + offsetZ);
         }
     }
 
-    public ModelCopterPack setWearable(ItemStack wearable)
-    {
+    public ModelCopterPack setWearable(ItemStack wearable) {
         this.copterPack = wearable;
         return this;
     }
 
-    public ModelCopterPack()
-    {
+    public ModelCopterPack() {
         init();
     }
 
-    private void renderCopterPack(Entity entity, float scale)
-    {
+    private void renderCopterPack(Entity entity, float scale) {
         InventoryCopterPack copterInv = new InventoryCopterPack(this.copterPack);
         copterInv.openInventory();
         Axis.isHidden = true;
-        if (BackpackUtils.getWearableCompound(copterPack).getByte(TAG_STATUS) != ItemCopterPack.OFF_MODE)
-        {
+        if (BackpackUtils.getWearableCompound(copterPack).getByte(TAG_STATUS) != ItemCopterPack.OFF_MODE) {
             Axis.isHidden = false;
             int degrees;
-            if (entity.onGround || (entity.isSneaking()))
-            {
+            if (entity.onGround || (entity.isSneaking())) {
                 degrees = 16;
-            }
-            else
-            {
+            } else {
                 degrees = entity.motionY > 0 ? 36 : 28;
             }
             float deg = Utils.radiansToDegrees(this.Axis.rotateAngleY);
@@ -209,61 +196,63 @@ public class ModelCopterPack extends ModelWearable
         }
         this.Base.render(scale);
         this.Axis.render(scale);
-        renderFluidInTank(copterInv.getFuelTank(), new Vector3(0, .25f, 0), new Vector3(.25f, 0, .25f), new Vector3(0f, 0.0625f, 0.0f), TankTop);
+        renderFluidInTank(
+                copterInv.getFuelTank(),
+                new Vector3(0, .25f, 0),
+                new Vector3(.25f, 0, .25f),
+                new Vector3(0f, 0.0625f, 0.0f),
+                TankTop);
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack stack)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack stack) {
         this.copterPack = stack;
         render(entity, f, f1, f2, f3, f4, f5);
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         isSneak = (entity != null && entity.isSneaking());
 
         if (entity == null) Axis.isHidden = true;
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        if (entity != null && entity instanceof EntityPlayer)
-        {
+        if (entity != null && entity instanceof EntityPlayer) {
             GL11.glPushMatrix();
 
             GL11.glTranslatef(bipedBody.offsetX, bipedBody.offsetY, bipedBody.offsetZ);
             GL11.glColor4f(1, 1, 1, 1);
 
-            if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F)
-            {
-                if (bipedBody.rotationPointX == 0.0F && bipedBody.rotationPointY == 0.0F && bipedBody.rotationPointZ == 0.0F)
-                {
+            if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F) {
+                if (bipedBody.rotationPointX == 0.0F
+                        && bipedBody.rotationPointY == 0.0F
+                        && bipedBody.rotationPointZ == 0.0F) {
                     renderCopterPack(entity, f5);
 
-                }
-                else
-                {
-                    GL11.glTranslatef(bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                } else {
+                    GL11.glTranslatef(
+                            bipedBody.rotationPointX * f5,
+                            bipedBody.rotationPointY * f5,
+                            bipedBody.rotationPointZ * f5);
                     renderCopterPack(entity, f5);
-                    GL11.glTranslatef(-bipedBody.rotationPointX * f5, -bipedBody.rotationPointY * f5, -bipedBody.rotationPointZ * f5);
+                    GL11.glTranslatef(
+                            -bipedBody.rotationPointX * f5,
+                            -bipedBody.rotationPointY * f5,
+                            -bipedBody.rotationPointZ * f5);
                 }
-            }
-            else
-            {
+            } else {
                 GL11.glPushMatrix();
-                GL11.glTranslatef(bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                GL11.glTranslatef(
+                        bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
 
-                if (bipedBody.rotateAngleZ != 0.0F)
-                {
+                if (bipedBody.rotateAngleZ != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
                 }
 
-                if (bipedBody.rotateAngleY != 0.0F)
-                {
+                if (bipedBody.rotateAngleY != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
                 }
 
-                if (bipedBody.rotateAngleX != 0.0F)
-                {
+                if (bipedBody.rotateAngleX != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
                 }
                 renderCopterPack(entity, f5);

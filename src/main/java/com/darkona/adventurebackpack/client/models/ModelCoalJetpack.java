@@ -1,19 +1,15 @@
 package com.darkona.adventurebackpack.client.models;
 
+import codechicken.lib.vec.Vector3;
+import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
 import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import codechicken.lib.vec.Vector3;
+import org.lwjgl.opengl.GL11;
 
-import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
-
-public class ModelCoalJetpack extends ModelWearable
-{
+public class ModelCoalJetpack extends ModelWearable {
     public ModelRenderer base;
     public ModelRenderer tubeStraightLeft;
     public ModelRenderer tubeStraightRight;
@@ -32,8 +28,7 @@ public class ModelCoalJetpack extends ModelWearable
     private ItemStack jetpack;
 
     @SuppressWarnings("unchecked")
-    public ModelCoalJetpack()
-    {
+    public ModelCoalJetpack() {
         this.textureWidth = 64;
         this.textureHeight = 32;
 
@@ -108,69 +103,64 @@ public class ModelCoalJetpack extends ModelWearable
 
         float offsetZ = 0.08F;
         float offsetY = 0.0F;
-        for (ModelRenderer part : (List<ModelRenderer>) bipedBody.childModels)
-        {
+        for (ModelRenderer part : (List<ModelRenderer>) bipedBody.childModels) {
             setOffset(part, part.offsetX + 0, part.offsetY + offsetY, part.offsetZ + offsetZ);
         }
     }
 
-    public ModelCoalJetpack setWearable(ItemStack wearable)
-    {
+    public ModelCoalJetpack setWearable(ItemStack wearable) {
         this.jetpack = wearable;
         return this;
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack stack)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5, ItemStack stack) {
         this.jetpack = stack;
         render(entity, f, f1, f2, f3, f4, f5);
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-    {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         isSneak = (entity != null && entity.isSneaking());
 
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
-        if (entity != null && entity instanceof EntityPlayer)
-        {
+        if (entity != null && entity instanceof EntityPlayer) {
             GL11.glPushMatrix();
 
             GL11.glTranslatef(bipedBody.offsetX, bipedBody.offsetY, bipedBody.offsetZ);
             GL11.glColor4f(1, 1, 1, 1);
 
-            if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F)
-            {
-                if (bipedBody.rotationPointX == 0.0F && bipedBody.rotationPointY == 0.0F && bipedBody.rotationPointZ == 0.0F)
-                {
+            if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F) {
+                if (bipedBody.rotationPointX == 0.0F
+                        && bipedBody.rotationPointY == 0.0F
+                        && bipedBody.rotationPointZ == 0.0F) {
                     renderCoalJetpack(f5);
-                }
-                else
-                {
-                    GL11.glTranslatef(bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                } else {
+                    GL11.glTranslatef(
+                            bipedBody.rotationPointX * f5,
+                            bipedBody.rotationPointY * f5,
+                            bipedBody.rotationPointZ * f5);
                     renderCoalJetpack(f5);
-                    GL11.glTranslatef(-bipedBody.rotationPointX * f5, -bipedBody.rotationPointY * f5, -bipedBody.rotationPointZ * f5);
+                    GL11.glTranslatef(
+                            -bipedBody.rotationPointX * f5,
+                            -bipedBody.rotationPointY * f5,
+                            -bipedBody.rotationPointZ * f5);
                 }
-            }
-            else
-            {
+            } else {
                 GL11.glPushMatrix();
-                GL11.glTranslatef(bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                GL11.glTranslatef(
+                        bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
 
-                if (bipedBody.rotateAngleZ != 0.0F)
-                {
+                if (bipedBody.rotateAngleZ != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
                 }
 
-                if (bipedBody.rotateAngleY != 0.0F)
-                {
+                if (bipedBody.rotateAngleY != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
                 }
 
-                if (bipedBody.rotateAngleX != 0.0F)
-                {
+                if (bipedBody.rotateAngleX != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
                 }
                 renderCoalJetpack(f5);
@@ -181,8 +171,7 @@ public class ModelCoalJetpack extends ModelWearable
         }
     }
 
-    public void renderCoalJetpack(float f5)
-    {
+    public void renderCoalJetpack(float f5) {
         InventoryCoalJetpack inv = new InventoryCoalJetpack(jetpack);
 
         this.fireBox.setTextureOffset((inv.getBurnTicks() > 0) ? 9 : 26, 25);
@@ -196,7 +185,12 @@ public class ModelCoalJetpack extends ModelWearable
         tubeStraightLeft.render(f5);
 
         GL11.glPushMatrix();
-        renderFluidInTank(inv.getWaterTank(), new Vector3(0, .5f, 0), new Vector3(.155f, 0, .135f), new Vector3(0.18f, 0.0625f, -0.045f), tankTop);
+        renderFluidInTank(
+                inv.getWaterTank(),
+                new Vector3(0, .5f, 0),
+                new Vector3(.155f, 0, .135f),
+                new Vector3(0.18f, 0.0625f, -0.045f),
+                tankTop);
         GL11.glPopMatrix();
     }
 }

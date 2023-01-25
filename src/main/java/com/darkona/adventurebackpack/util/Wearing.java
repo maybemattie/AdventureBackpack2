@@ -8,32 +8,28 @@ import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.item.*;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
+import javax.annotation.Nonnull;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
 
 /**
  * Created on 11/10/2014
  *
  * @author Darkona
  */
-public class Wearing
-{
-    public enum WearableType
-    {
-        BACKPACK, COPTERPACK, JETPACK, UNKNOWN;
+public class Wearing {
+    public enum WearableType {
+        BACKPACK,
+        COPTERPACK,
+        JETPACK,
+        UNKNOWN;
 
-        public static WearableType get(@Nonnull ItemStack stack)
-        {
+        public static WearableType get(@Nonnull ItemStack stack) {
             Item item = stack.getItem();
-            if (item == ModItems.adventureBackpack)
-                return BACKPACK;
-            if (item == ModItems.copterPack)
-                return COPTERPACK;
-            if (item == ModItems.coalJetpack)
-                return JETPACK;
+            if (item == ModItems.adventureBackpack) return BACKPACK;
+            if (item == ModItems.copterPack) return COPTERPACK;
+            if (item == ModItems.coalJetpack) return JETPACK;
             return UNKNOWN;
         }
     }
@@ -66,18 +62,16 @@ public class Wearing
     public static IInventoryTanks getWearingWearableInv(EntityPlayer player) {
         final ItemStack wearable = Wearing.getWearingWearable(player);
         if (wearable != null) {
-            if (wearable.getItem() instanceof ItemAdventureBackpack)
-                return new InventoryBackpack(wearable);
-            if (wearable.getItem() instanceof ItemCoalJetpack)
-                return new InventoryCoalJetpack(wearable);
-            if (wearable.getItem() instanceof ItemCopterPack)
-                return new InventoryCopterPack(wearable);
+            if (wearable.getItem() instanceof ItemAdventureBackpack) return new InventoryBackpack(wearable);
+            if (wearable.getItem() instanceof ItemCoalJetpack) return new InventoryCoalJetpack(wearable);
+            if (wearable.getItem() instanceof ItemCopterPack) return new InventoryCopterPack(wearable);
         }
         return null;
     }
 
     public static boolean isHoldingWearable(EntityPlayer player) {
-        return player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() instanceof IBackWearableItem;
+        return player.inventory.getCurrentItem() != null
+                && player.inventory.getCurrentItem().getItem() instanceof IBackWearableItem;
     }
 
     // Backpack
@@ -115,16 +109,15 @@ public class Wearing
     }
 
     public static boolean isHoldingBackpack(EntityPlayer player) {
-        return player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() instanceof ItemAdventureBackpack;
+        return player.inventory.getCurrentItem() != null
+                && player.inventory.getCurrentItem().getItem() instanceof ItemAdventureBackpack;
     }
 
-    public static ItemStack getHoldingBackpack(EntityPlayer player)
-    {
+    public static ItemStack getHoldingBackpack(EntityPlayer player) {
         return isHoldingBackpack(player) ? player.inventory.getCurrentItem() : null;
     }
 
-    public static InventoryBackpack getHoldingBackpackInv(EntityPlayer player)
-    {
+    public static InventoryBackpack getHoldingBackpackInv(EntityPlayer player) {
         return new InventoryBackpack(player.getCurrentEquippedItem());
     }
 
@@ -146,7 +139,8 @@ public class Wearing
     }
 
     public static boolean isHoldingCopter(EntityPlayer player) {
-        return player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() instanceof ItemCopterPack;
+        return player.inventory.getCurrentItem() != null
+                && player.inventory.getCurrentItem().getItem() instanceof ItemCopterPack;
     }
 
     public static ItemStack getHoldingCopter(EntityPlayer player) {
@@ -171,7 +165,8 @@ public class Wearing
     }
 
     public static boolean isHoldingJetpack(EntityPlayer player) {
-        return player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() instanceof ItemCoalJetpack;
+        return player.inventory.getCurrentItem() != null
+                && player.inventory.getCurrentItem().getItem() instanceof ItemCoalJetpack;
     }
 
     public static ItemStack getHoldingJetpack(EntityPlayer player) {
@@ -179,34 +174,31 @@ public class Wearing
     }
 
     // Hose
-    public static boolean isHoldingHose(EntityPlayer player)
-    {
-        return player.inventory.getCurrentItem() != null && player.inventory.getCurrentItem().getItem() instanceof ItemHose;
+    public static boolean isHoldingHose(EntityPlayer player) {
+        return player.inventory.getCurrentItem() != null
+                && player.inventory.getCurrentItem().getItem() instanceof ItemHose;
     }
 
-    public static ItemStack getHoldingHose(EntityPlayer player)
-    {
+    public static ItemStack getHoldingHose(EntityPlayer player) {
         return isHoldingHose(player) ? player.inventory.getCurrentItem() : null;
     }
 
     // Armor
-    public static boolean isWearingHat(EntityPlayer player)
-    {
-        return player.inventory.armorInventory[3] != null && player.inventory.armorInventory[3].getItem() instanceof ItemAdventureHat;
+    public static boolean isWearingHat(EntityPlayer player) {
+        return player.inventory.armorInventory[3] != null
+                && player.inventory.armorInventory[3].getItem() instanceof ItemAdventureHat;
     }
 
-    public static ItemStack getWearingHat(EntityPlayer player)
-    {
+    public static ItemStack getWearingHat(EntityPlayer player) {
         return isWearingHat(player) ? player.inventory.armorInventory[3] : null;
     }
 
-    public static boolean isWearingBoots(EntityPlayer player)
-    {
-        return player.inventory.armorInventory[0] != null && player.inventory.armorInventory[0].getItem() instanceof ItemPistonBoots;
+    public static boolean isWearingBoots(EntityPlayer player) {
+        return player.inventory.armorInventory[0] != null
+                && player.inventory.armorInventory[0].getItem() instanceof ItemPistonBoots;
     }
 
-    public static ItemStack getWearingBoots(EntityPlayer player)
-    {
+    public static ItemStack getWearingBoots(EntityPlayer player) {
         return isWearingBoots(player) ? player.inventory.armorInventory[0] : null;
     }
 }

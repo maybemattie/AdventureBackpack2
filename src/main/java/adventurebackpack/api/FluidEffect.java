@@ -11,50 +11,42 @@ import net.minecraftforge.fluids.FluidRegistry;
  *
  * @author Darkona
  */
-public abstract class FluidEffect
-{
+public abstract class FluidEffect {
     public Fluid fluid;
     public int timeInSeconds;
     public int timeInTicks;
     public int effectID;
 
-    public FluidEffect(Fluid fluid)
-    {
+    public FluidEffect(Fluid fluid) {
         this(fluid, 5);
     }
 
-    public FluidEffect(Fluid fluid, int timeInSeconds)
-    {
+    public FluidEffect(Fluid fluid, int timeInSeconds) {
         this.timeInSeconds = timeInSeconds;
         this.fluid = fluid;
         this.timeInTicks = this.timeInSeconds * 20;
         this.effectID = 0;
-        if (!(fluid == null))
-        {
+        if (!(fluid == null)) {
             com.darkona.adventurebackpack.fluids.FluidEffectRegistry.registerFluidEffect(this);
         }
     }
 
-    public FluidEffect(String fluidName, int timeInSeconds)
-    {
+    public FluidEffect(String fluidName, int timeInSeconds) {
         Fluid fluid = FluidRegistry.getFluid(fluidName);
         this.timeInSeconds = timeInSeconds;
         this.fluid = fluid;
         this.timeInTicks = this.timeInSeconds * 20;
         this.effectID = 0;
-        if (!(fluid == null))
-        {
+        if (!(fluid == null)) {
             com.darkona.adventurebackpack.fluids.FluidEffectRegistry.registerFluidEffect(this);
         }
     }
 
-    public void setEffectID(int id)
-    {
+    public void setEffectID(int id) {
         effectID = id;
     }
 
-    public int getEffectID()
-    {
+    public int getEffectID() {
         return effectID;
     }
 

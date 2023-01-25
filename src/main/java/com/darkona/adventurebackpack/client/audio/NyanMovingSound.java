@@ -1,57 +1,44 @@
 package com.darkona.adventurebackpack.client.audio;
 
-import net.minecraft.client.audio.MovingSound;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.Wearing;
+import net.minecraft.client.audio.MovingSound;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 /**
  * Created on 16/10/2014
  *
  * @author Darkona
  */
-public class NyanMovingSound extends MovingSound
-{
+public class NyanMovingSound extends MovingSound {
     public static NyanMovingSound instance = new NyanMovingSound();
 
     private EntityPlayer player;
 
-
-    public NyanMovingSound(EntityPlayer player)
-    {
+    public NyanMovingSound(EntityPlayer player) {
         super(new ResourceLocation(ModInfo.MOD_ID, "nyan"));
         this.volume = 0.8f;
         this.player = player;
     }
 
-    public NyanMovingSound()
-    {
+    public NyanMovingSound() {
         super(new ResourceLocation(ModInfo.MOD_ID, "nyan"));
     }
 
-    public void setDonePlaying()
-    {
+    public void setDonePlaying() {
         this.donePlaying = true;
     }
 
     @Override
-    public void update()
-    {
-        if (player == null || player.isDead)
-        {
+    public void update() {
+        if (player == null || player.isDead) {
             this.donePlaying = true;
-        }
-        else
-        {
-            if (Wearing.isWearingTheRightBackpack(player, BackpackTypes.RAINBOW))
-            {
+        } else {
+            if (Wearing.isWearingTheRightBackpack(player, BackpackTypes.RAINBOW)) {
                 this.volume = 0.8f;
-            }
-            else
-            {
+            } else {
                 this.donePlaying = true;
                 // this.volume = 0.0f;
             }
@@ -63,50 +50,42 @@ public class NyanMovingSound extends MovingSound
     }
 
     @Override
-    public boolean canRepeat()
-    {
+    public boolean canRepeat() {
         return false;
     }
 
     @Override
-    public int getRepeatDelay()
-    {
+    public int getRepeatDelay() {
         return super.getRepeatDelay();
     }
 
     @Override
-    public float getVolume()
-    {
+    public float getVolume() {
         return super.getVolume();
     }
 
     @Override
-    public float getPitch()
-    {
+    public float getPitch() {
         return super.getPitch();
     }
 
     @Override
-    public float getXPosF()
-    {
+    public float getXPosF() {
         return super.getXPosF();
     }
 
     @Override
-    public float getYPosF()
-    {
+    public float getYPosF() {
         return super.getYPosF();
     }
 
     @Override
-    public float getZPosF()
-    {
+    public float getZPosF() {
         return super.getZPosF();
     }
 
     @Override
-    public AttenuationType getAttenuationType()
-    {
+    public AttenuationType getAttenuationType() {
         return AttenuationType.LINEAR;
     }
 }

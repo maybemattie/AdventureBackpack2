@@ -1,56 +1,47 @@
 package com.darkona.adventurebackpack.client.render;
 
-import org.lwjgl.opengl.GL11;
-
+import com.darkona.adventurebackpack.config.ConfigHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
-
-import com.darkona.adventurebackpack.config.ConfigHandler;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 13/10/2014
  *
  * @author Darkona
  */
-public class RendererHose implements IItemRenderer
-{
+public class RendererHose implements IItemRenderer {
     private static RenderItem renderHose = new RenderItem();
     private FontRenderer fontRenderer;
 
     @Override
-    public boolean handleRenderType(ItemStack item, ItemRenderType type)
-    {
+    public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         return type == ItemRenderType.INVENTORY;
     }
 
     @Override
-    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper)
-    {
+    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
         return false;
     }
 
     @Override
-    public void renderItem(ItemRenderType type, ItemStack hose, Object... data)
-    {
-        if (type == ItemRenderType.INVENTORY)
-        {
+    public void renderItem(ItemRenderType type, ItemStack hose, Object... data) {
+        if (type == ItemRenderType.INVENTORY) {
             // ====================Render the item===================== //
             GL11.glColor4f(1, 1, 1, 1);
             IIcon icon = hose.getItem().getIcon(hose, 0);
             renderHose.renderIcon(0, 0, icon, 16, 16);
             fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
-            if (hose.hasTagCompound())
-            {
+            if (hose.hasTagCompound()) {
                 String amount = Integer.toString(hose.getTagCompound().getInteger("amount"));
                 String name = hose.getTagCompound().getString("fluid");
                 String mode;
-                switch (hose.getTagCompound().getInteger("mode"))
-                {
+                switch (hose.getTagCompound().getInteger("mode")) {
                     case 0:
                         mode = "Suck";
                         break;
@@ -66,11 +57,9 @@ public class RendererHose implements IItemRenderer
                 }
                 GL11.glPushMatrix();
                 GL11.glScalef(0.5f, 0.5f, 0.5f);
-                if (fontRenderer != null)
-                {
+                if (fontRenderer != null) {
                     fontRenderer.drawString(mode, 0, 0, 0xFFFFFF);
-                    if (!ConfigHandler.tanksOverlay)
-                    {
+                    if (!ConfigHandler.tanksOverlay) {
                         fontRenderer.drawString(amount, 0, 18, 0xFFFFFF);
                         fontRenderer.drawString(name, 0, 24, 0xFFFFFF);
                     }

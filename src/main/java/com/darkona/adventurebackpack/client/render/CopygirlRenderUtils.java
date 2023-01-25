@@ -1,8 +1,7 @@
 package com.darkona.adventurebackpack.client.render;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -12,8 +11,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 /**
  * The MIT License (MIT)
@@ -38,27 +37,21 @@ import cpw.mods.fml.relauncher.SideOnly;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 @SideOnly(Side.CLIENT)
-public final class CopygirlRenderUtils
-{
+public final class CopygirlRenderUtils {
     private static final ResourceLocation glint = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
-    private CopygirlRenderUtils()
-    {
+    private CopygirlRenderUtils() {}
 
-    }
-
-    public static void renderItemIn3d(ItemStack stack)
-    {
+    public static void renderItemIn3d(ItemStack stack) {
         TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
         // Not sure why but this can be null when the world loads.
-        if (textureManager == null)
-        {
+        if (textureManager == null) {
             return;
         }
         Item item = stack.getItem();
-        GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_TRANSFORM_BIT);
+        GL11.glPushAttrib(
+                GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_TRANSFORM_BIT);
         GL11.glPushMatrix();
 
         Tessellator tessellator = Tessellator.instance;
@@ -67,23 +60,24 @@ public final class CopygirlRenderUtils
         GL11.glTranslatef(-0.5F, -0.5F, 1 / 32.0F);
 
         int passes = item.getRenderPasses(stack.getItemDamage());
-        for (int pass = 0; pass < passes; pass++)
-        {
-            textureManager.bindTexture(((stack.getItemSpriteNumber() == 0) ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture));
+        for (int pass = 0; pass < passes; pass++) {
+            textureManager.bindTexture(
+                    ((stack.getItemSpriteNumber() == 0)
+                            ? TextureMap.locationBlocksTexture
+                            : TextureMap.locationItemsTexture));
             IIcon icon = item.getIcon(stack, pass);
-            if (icon != null)
-            {
+            if (icon != null) {
                 float minU = icon.getMinU();
                 float maxU = icon.getMaxU();
                 float minV = icon.getMinV();
                 float maxV = icon.getMaxV();
                 CopygirlRenderUtils.setColorFromInt(item.getColorFromItemStack(stack, pass));
-                ItemRenderer.renderItemIn2D(tessellator, maxU, minV, minU, maxV, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+                ItemRenderer.renderItemIn2D(
+                        tessellator, maxU, minV, minU, maxV, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
             }
         }
 
-        if (stack.hasEffect(0))
-        {
+        if (stack.hasEffect(0)) {
             GL11.glDepthFunc(GL11.GL_EQUAL);
             GL11.glDisable(GL11.GL_LIGHTING);
             textureManager.bindTexture(glint);
@@ -114,16 +108,15 @@ public final class CopygirlRenderUtils
         GL11.glPopAttrib();
     }
 
-    public static void setColorFromInt(int color)
-    {
+    public static void setColorFromInt(int color) {
         float r = (color >> 16 & 255) / 255.0F;
         float g = (color >> 8 & 255) / 255.0F;
         float b = (color & 255) / 255.0F;
         GL11.glColor4f(r, g, b, 1.0F);
     }
 
-    public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height, float zLevel, int textureWidth, int textureHeight)
-    {
+    public static void drawTexturedModalRect(
+            int x, int y, int u, int v, int width, int height, float zLevel, int textureWidth, int textureHeight) {
         float xScale = 1.0F / textureWidth;
         float yScale = 1.0F / textureHeight;
         Tessellator tess = Tessellator.instance;
@@ -135,8 +128,7 @@ public final class CopygirlRenderUtils
         tess.draw();
     }
 
-    public static void bindTexture(ResourceLocation texture)
-    {
+    public static void bindTexture(ResourceLocation texture) {
         Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
     }
 }
