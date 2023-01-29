@@ -6,6 +6,7 @@ import java.util.Calendar;
  * Created by Ugachaga on 06.07.2017.
  */
 public class ModDates {
+
     private static String holiday;
 
     private static int year = Calendar.getInstance().get(Calendar.YEAR);
@@ -23,18 +24,11 @@ public class ModDates {
 
     private static String setHoliday() {
         // here and below commented lines: textures are missing.
-        /*if (ChineseCalendar.isChineseNewYear(year, month, day))
-        {
-            return "ChinaNewYear";
-        }
-        if (JewishCalendar.isHannukah(year, month, day))
-        {
-            return "Hannukah";
-        }
-        if (month == calculateEaster(year)[0] && day == calculateEaster(year)[1])
-        {
-            return "Easter";
-        }*/
+        /*
+         * if (ChineseCalendar.isChineseNewYear(year, month, day)) { return "ChinaNewYear"; } if
+         * (JewishCalendar.isHannukah(year, month, day)) { return "Hannukah"; } if (month == calculateEaster(year)[0] &&
+         * day == calculateEaster(year)[1]) { return "Easter"; }
+         */
 
         String result = "Standard";
         if (month == 1) {
@@ -85,20 +79,10 @@ public class ModDates {
     }
 
     private static int[] calculateEaster(int year) {
-        int a = year % 19,
-                b = year / 100,
-                c = year % 100,
-                d = b / 4,
-                e = b % 4,
-                g = (8 * b + 13) / 25,
-                h = (19 * a + b - d - g + 15) % 30,
-                j = c / 4,
-                k = c % 4,
-                m = (a + 11 * h) / 319,
-                r = (2 * e + 2 * j - k - h + m + 32) % 7,
-                n = (h - m + r + 90) / 25,
-                p = (h - m + r + n + 19) % 32;
+        int a = year % 19, b = year / 100, c = year % 100, d = b / 4, e = b % 4, g = (8 * b + 13) / 25,
+                h = (19 * a + b - d - g + 15) % 30, j = c / 4, k = c % 4, m = (a + 11 * h) / 319,
+                r = (2 * e + 2 * j - k - h + m + 32) % 7, n = (h - m + r + 90) / 25, p = (h - m + r + n + 19) % 32;
 
-        return new int[] {n, p};
+        return new int[] { n, p };
     }
 }

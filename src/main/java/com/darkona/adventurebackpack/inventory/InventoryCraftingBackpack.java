@@ -1,6 +1,7 @@
 package com.darkona.adventurebackpack.inventory;
 
 import javax.annotation.Nullable;
+
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
  * @author Ugachaga
  */
 public class InventoryCraftingBackpack extends InventoryCrafting {
+
     public InventoryCraftingBackpack(Container eventHandler, int columns, int rows) {
         super(eventHandler, columns, rows);
     }

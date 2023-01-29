@@ -1,10 +1,11 @@
 package com.darkona.adventurebackpack.item;
 
-import com.darkona.adventurebackpack.inventory.ContainerAdventure;
-import com.darkona.adventurebackpack.util.EnchUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+
+import com.darkona.adventurebackpack.inventory.ContainerAdventure;
+import com.darkona.adventurebackpack.util.EnchUtils;
 
 /**
  * Created on 01.03.2018
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class ItemAdventure extends ItemAB implements IBackWearableItem {
+
     public ItemAdventure() {
         super();
         setFull3D();

@@ -1,24 +1,29 @@
 package com.darkona.adventurebackpack.client.gui;
 
-import codechicken.lib.render.TextureUtils;
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.TipUtils;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+
 import org.lwjgl.opengl.GL11;
+
+import codechicken.lib.render.TextureUtils;
+
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.TipUtils;
 
 /**
  * Created by Darkona on 12/10/2014.
  */
 public class GuiTank {
+
     private int height;
     private int width;
     private int startX;
@@ -37,10 +42,9 @@ public class GuiTank {
      * @param Y          The startY coordinate to start drawing from.
      * @param H          The height in pixels of the tank.
      * @param W          The width in pixels of the tank.
-     * @param resolution The resolution of the fluid painted in the tank. Higher values
-     *                   mean smaller and more numerous boxes. Values can be 1, 2, 4,
-     *                   8, 16. Other values are untested, but i guess they should
-     *                   always be integer divisors of the width, with modulus 0;
+     * @param resolution The resolution of the fluid painted in the tank. Higher values mean smaller and more numerous
+     *                   boxes. Values can be 1, 2, 4, 8, 16. Other values are untested, but i guess they should always
+     *                   be integer divisors of the width, with modulus 0;
      */
     public GuiTank(int X, int Y, int H, int W, int resolution) {
         this.startX = X;
@@ -157,8 +161,7 @@ public class GuiTank {
     public boolean inTank(GuiWithTanks gui, int mouseX, int mouseY) {
         mouseX -= gui.getLeft();
         mouseY -= gui.getTop();
-        return startX <= mouseX
-                && mouseX <= (startX + offsetX) + width
+        return startX <= mouseX && mouseX <= (startX + offsetX) + width
                 && (startY + offsetY) <= mouseY
                 && mouseY <= (startY + offsetY) + height;
     }
@@ -176,8 +179,8 @@ public class GuiTank {
      * @param srcW The width of the selection in the icon to draw from. Starts at 0.
      * @param srcH The height of the selection in the icon to draw from. Starts at 0.
      */
-    public static void drawFluidPixelFromIcon(
-            int x, int y, IIcon icon, int w, int h, int srcX, int srcY, int srcW, int srcH, float zLevel) {
+    public static void drawFluidPixelFromIcon(int x, int y, IIcon icon, int w, int h, int srcX, int srcY, int srcW,
+            int srcH, float zLevel) {
         double minU = icon.getMinU();
         double maxU = icon.getMaxU();
         double minV = icon.getMinV();

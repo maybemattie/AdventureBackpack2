@@ -1,7 +1,8 @@
 package com.darkona.adventurebackpack.init.recipes;
 
-import com.darkona.adventurebackpack.reference.BackpackTypes;
 import net.minecraft.item.ItemStack;
+
+import com.darkona.adventurebackpack.reference.BackpackTypes;
 
 /**
  * Created on 24/12/2014
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
  * @author Darkona
  */
 public class BackpackRecipe {
+
     public ItemStack[] array;
     public BackpackTypes type;
 

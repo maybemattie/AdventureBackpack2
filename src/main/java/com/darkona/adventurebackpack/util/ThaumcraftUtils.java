@@ -1,8 +1,9 @@
 package com.darkona.adventurebackpack.util;
 
-import com.darkona.adventurebackpack.reference.LoadedMods;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
+import com.darkona.adventurebackpack.reference.LoadedMods;
 
 /**
  * Created on 06.02.2018
@@ -10,6 +11,7 @@ import net.minecraftforge.client.IItemRenderer;
  * @author Ugachaga
  */
 public final class ThaumcraftUtils {
+
     public static final boolean DIAL_BOTTOM = setDialBottom();
 
     private static final String CLASS_RENDERER = "thaumcraft.client.renderers.item.ItemWandRenderer";

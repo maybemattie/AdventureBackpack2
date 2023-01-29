@@ -3,12 +3,14 @@ package com.darkona.adventurebackpack.inventory;
 import static com.darkona.adventurebackpack.common.Constants.TAG_INVENTORY;
 import static com.darkona.adventurebackpack.common.Constants.TAG_SLOT;
 
-import com.darkona.adventurebackpack.util.BackpackUtils;
 import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
+import com.darkona.adventurebackpack.util.BackpackUtils;
 
 /**
  * Created on 15.07.2017
@@ -129,7 +131,7 @@ abstract class InventoryAdventure implements IInventoryTanks {
     @Override
     public void dirtyInventory() {
         if (updateTankSlots()) // TODO this can be generalized too
-        dirtyTanks(); // TODO and also this
+            dirtyTanks(); // TODO and also this
 
         getWearableCompound().removeTag(TAG_INVENTORY); // TODO why? sync related?
         getWearableCompound().setTag(TAG_INVENTORY, getInventoryTagList());

@@ -12,6 +12,7 @@ import net.minecraft.item.EnumAction;
  * @author Darkona
  */
 public class ModelFullArmor extends ModelBiped {
+
     public ModelFullArmor() {
         super(0.2F);
     }
@@ -27,8 +28,7 @@ public class ModelFullArmor extends ModelBiped {
             this.isRiding = entity.isRiding();
             if (owner instanceof EntityPlayer) {
                 EntityPlayer player = (EntityPlayer) owner;
-                this.aimedBow = player.isUsingItem()
-                        && player.getItemInUse() != null
+                this.aimedBow = player.isUsingItem() && player.getItemInUse() != null
                         && player.getItemInUse().getItemUseAction() == EnumAction.bow;
                 this.heldItemRight = (player.getCurrentEquippedItem() != null) ? 1 : 0;
             }

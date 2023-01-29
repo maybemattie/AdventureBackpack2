@@ -1,10 +1,11 @@
 package com.darkona.adventurebackpack.fluids.effects;
 
-import adventurebackpack.api.FluidEffect;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import adventurebackpack.api.FluidEffect;
 
 /**
  * Created on 11/01/2015
@@ -12,6 +13,7 @@ import net.minecraftforge.fluids.FluidRegistry;
  * @author Darkona
  */
 public class MushroomStewEffect extends FluidEffect {
+
     public MushroomStewEffect() {
         super(FluidRegistry.getFluid("mushroomstew"));
     }

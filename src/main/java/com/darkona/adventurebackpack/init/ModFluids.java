@@ -1,12 +1,13 @@
 package com.darkona.adventurebackpack.init;
 
-import com.darkona.adventurebackpack.fluids.FluidMelonJuice;
-import com.darkona.adventurebackpack.fluids.FluidMilk;
-import com.darkona.adventurebackpack.fluids.FluidMushroomStew;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import com.darkona.adventurebackpack.fluids.FluidMelonJuice;
+import com.darkona.adventurebackpack.fluids.FluidMilk;
+import com.darkona.adventurebackpack.fluids.FluidMushroomStew;
 
 /**
  * Created on 12/10/2014.
@@ -14,6 +15,7 @@ import net.minecraftforge.fluids.FluidRegistry;
  * @author Javier Darkona
  */
 public class ModFluids {
+
     public static FluidMilk milk;
     public static FluidMelonJuice melonJuice;
     public static FluidMushroomStew mushroomStew;
@@ -24,15 +26,17 @@ public class ModFluids {
         mushroomStew = new FluidMushroomStew();
 
         FluidRegistry.registerFluid(milk);
-        FluidContainerRegistry.registerFluidContainer(
-                milk, new ItemStack(Items.milk_bucket), FluidContainerRegistry.EMPTY_BUCKET);
+        FluidContainerRegistry
+                .registerFluidContainer(milk, new ItemStack(Items.milk_bucket), FluidContainerRegistry.EMPTY_BUCKET);
 
         FluidRegistry.registerFluid(melonJuice);
         FluidContainerRegistry.registerFluidContainer(
-                melonJuice, new ItemStack(ModItems.melonJuiceBottle), FluidContainerRegistry.EMPTY_BOTTLE);
+                melonJuice,
+                new ItemStack(ModItems.melonJuiceBottle),
+                FluidContainerRegistry.EMPTY_BOTTLE);
 
         FluidRegistry.registerFluid(mushroomStew);
-        FluidContainerRegistry.registerFluidContainer(
-                mushroomStew, new ItemStack(Items.mushroom_stew), new ItemStack(Items.bowl));
+        FluidContainerRegistry
+                .registerFluidContainer(mushroomStew, new ItemStack(Items.mushroom_stew), new ItemStack(Items.bowl));
     }
 }

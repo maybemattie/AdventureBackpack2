@@ -1,14 +1,16 @@
 package com.darkona.adventurebackpack.network.messages;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+
 import com.darkona.adventurebackpack.client.ClientActions;
 import com.darkona.adventurebackpack.init.ModNetwork;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * Created on 06/01/2015
@@ -16,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
  * @author Darkona
  */
 public class EntitySoundPacket implements IMessageHandler<EntitySoundPacket.Message, EntitySoundPacket.Message> {
+
     public static final boolean play = true;
 
     public static final byte NYAN_SOUND = 0;
@@ -28,7 +31,8 @@ public class EntitySoundPacket implements IMessageHandler<EntitySoundPacket.Mess
     public Message onMessage(Message message, MessageContext ctx) {
         if (ctx.side.isClient()) {
             ClientActions.playSoundAtEntity(
-                    Minecraft.getMinecraft().theWorld.getEntityByID(message.entityID), message.soundCode);
+                    Minecraft.getMinecraft().theWorld.getEntityByID(message.entityID),
+                    message.soundCode);
         } else {
             EntityPlayer player = ctx.getServerHandler().playerEntity;
             ModNetwork.sendToNearby(message, player);
@@ -37,6 +41,7 @@ public class EntitySoundPacket implements IMessageHandler<EntitySoundPacket.Mess
     }
 
     public static class Message implements IMessage {
+
         private byte soundCode;
         private int entityID;
 

@@ -1,16 +1,18 @@
 package com.darkona.adventurebackpack.client.models;
 
-import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
+import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
+
 /**
- * InflatableBoat - Darkona
- * Created using Tabula 4.1.0
+ * InflatableBoat - Darkona Created using Tabula 4.1.0
  */
 public class ModelInflatableBoat extends ModelBase {
+
     public ModelRenderer boatSides1;
     public ModelRenderer boatSides2;
     public ModelRenderer boatSides3;

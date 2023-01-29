@@ -5,10 +5,10 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 /**
- * campFire - Darkona
- * Created using Tabula 4.1.0
+ * campFire - Darkona Created using Tabula 4.1.0
  */
 public class ModelCampFire extends ModelBase {
+
     public ModelRenderer rock1;
     public ModelRenderer rock2;
     public ModelRenderer rock3;

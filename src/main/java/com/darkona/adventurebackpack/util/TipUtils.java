@@ -1,10 +1,7 @@
 package com.darkona.adventurebackpack.util;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.Keybindings;
-import com.darkona.adventurebackpack.reference.GeneralReference;
-import cpw.mods.fml.common.registry.GameData;
 import java.util.List;
+
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
@@ -13,12 +10,18 @@ import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.Keybindings;
+import com.darkona.adventurebackpack.reference.GeneralReference;
+import cpw.mods.fml.common.registry.GameData;
+
 /**
  * Created on 24.03.2017
  *
  * @author Ugachaga
  */
 public final class TipUtils {
+
     private TipUtils() {}
 
     public static String l10n(String tip) {
@@ -122,8 +125,8 @@ public final class TipUtils {
     }
 
     private static String switchFormat(boolean status) {
-        String switchFormatted =
-                status ? EnumChatFormatting.WHITE + l10n("on") : EnumChatFormatting.DARK_GRAY + l10n("off");
+        String switchFormatted = status ? EnumChatFormatting.WHITE + l10n("on")
+                : EnumChatFormatting.DARK_GRAY + l10n("off");
         return "[" + switchFormatted + EnumChatFormatting.GRAY + "]";
     }
 
@@ -160,9 +163,7 @@ public final class TipUtils {
 
     public static String fuelConsumptionTooltip(FluidTank tank) {
         return (tank.getFluid() != null)
-                ? String.format(
-                        "x%.2f",
-                        GeneralReference.getFuelRate(tank.getFluid().getFluid().getName()))
+                ? String.format("x%.2f", GeneralReference.getFuelRate(tank.getFluid().getFluid().getName()))
                 : EnumChatFormatting.DARK_GRAY + "-";
     }
 

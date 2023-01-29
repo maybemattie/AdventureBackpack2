@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.client.gui;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+
+import org.lwjgl.input.Mouse;
+
 import com.darkona.adventurebackpack.common.Constants.Source;
 import com.darkona.adventurebackpack.config.Keybindings;
 import com.darkona.adventurebackpack.init.ModNetwork;
 import com.darkona.adventurebackpack.network.EquipUnequipBackWearablePacket;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import org.lwjgl.input.Mouse;
 
 /**
  * Created on 06/01/2015
@@ -15,6 +17,7 @@ import org.lwjgl.input.Mouse;
  * @author Darkona
  */
 public abstract class GuiWithTanks extends GuiContainer {
+
     protected EntityPlayer player;
     protected Source source;
 

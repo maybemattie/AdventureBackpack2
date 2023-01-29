@@ -1,6 +1,5 @@
 package com.darkona.adventurebackpack.client;
 
-import com.darkona.adventurebackpack.entity.fx.SteamFX;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,12 +7,15 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import com.darkona.adventurebackpack.entity.fx.SteamFX;
+
 /**
  * Created on 17/10/2014
  *
  * @author Darkona
  */
 public class Visuals {
+
     public static void NyanParticles(EntityPlayer player, World world) {
         int i = 2;
         for (int j = 0; j < i * 3; ++j) {
@@ -40,7 +42,13 @@ public class Visuals {
             float f2 = MathHelper.sin(f) * i * 0.5F * f1;
             float f3 = MathHelper.cos(f) * i * 0.5F * f1;
             world.spawnParticle(
-                    "slime", player.posX + f2, player.boundingBox.minY, player.posZ + f3, 0.0D, 0.0625D, 0.0D);
+                    "slime",
+                    player.posX + f2,
+                    player.boundingBox.minY,
+                    player.posZ + f3,
+                    0.0D,
+                    0.0625D,
+                    0.0D);
         }
     }
 
@@ -83,8 +91,8 @@ public class Visuals {
     private static Minecraft mc = Minecraft.getMinecraft();
     private static World theWorld = mc.theWorld;
 
-    public static EntityFX spawnParticle(
-            String particleName, double x, double y, double z, double motionX, double motionY, double motionZ) {
+    public static EntityFX spawnParticle(String particleName, double x, double y, double z, double motionX,
+            double motionY, double motionZ) {
         if (mc != null && mc.renderViewEntity != null && mc.effectRenderer != null) {
             int particleSetting = mc.gameSettings.particleSetting;
 

@@ -6,19 +6,22 @@ import static com.darkona.adventurebackpack.reference.BackpackTypes.Props.REMOVA
 import static com.darkona.adventurebackpack.reference.BackpackTypes.Props.SPECIAL;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.Props.TILE;
 
+import java.util.Arrays;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.text.WordUtils;
+
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import java.util.Arrays;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.StatCollector;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.text.WordUtils;
 
 /**
  * Created on 15.08.2017
@@ -27,6 +30,7 @@ import org.apache.commons.lang3.text.WordUtils;
  */
 @SuppressWarnings("unused")
 public enum BackpackTypes {
+
     // @formatter:off
     STANDARD(0),
 
@@ -155,8 +159,7 @@ public enum BackpackTypes {
     }
 
     public static String getLocalizedName(BackpackTypes type) {
-        return StatCollector.translateToLocal(
-                "adventurebackpack:skin.name." + type.name().toLowerCase());
+        return StatCollector.translateToLocal("adventurebackpack:skin.name." + type.name().toLowerCase());
     }
 
     public static byte getMeta(BackpackTypes type) {
@@ -184,7 +187,7 @@ public enum BackpackTypes {
 
     public static BackpackTypes getType(ItemStack backpack) {
         if (backpack == null) // well... Wearing.getWearingBackpack() may return null... //TODO solve this damn null
-        return null;
+            return null;
 
         NBTTagCompound backpackTag = BackpackUtils.getWearableCompound(backpack);
         if (backpackTag.getByte(TAG_TYPE) == UNKNOWN.meta) // TODO remove? are we rly need to normalize it?
@@ -218,13 +221,14 @@ public enum BackpackTypes {
     }
 
     public enum Props {
+
         SPECIAL,
         REMOVAL,
         TILE,
         NIGHT_VISION,
-    // HOLIDAY,
-    // OTHER_ABILITY, // creeper or skeleton etc
-    ;
+        // HOLIDAY,
+        // OTHER_ABILITY, // creeper or skeleton etc
+        ;
 
         public static final ImmutableSet<Props> POTION_EFFECT = Sets.immutableEnumSet(SPECIAL, REMOVAL);
     }

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
  * @author Darkona
  */
 public class EntityBolt extends Entity implements IProjectile {
+
     public EntityBolt(World world) {
         super(world);
     }

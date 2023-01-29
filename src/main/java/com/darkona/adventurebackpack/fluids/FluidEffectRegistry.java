@@ -1,6 +1,14 @@
 package com.darkona.adventurebackpack.fluids;
 
+import java.util.ArrayList;
+import java.util.Map;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+
 import adventurebackpack.api.FluidEffect;
+
 import com.darkona.adventurebackpack.fluids.effects.LavaEffect;
 import com.darkona.adventurebackpack.fluids.effects.MelonJuiceEffect;
 import com.darkona.adventurebackpack.fluids.effects.MilkEffect;
@@ -9,11 +17,6 @@ import com.darkona.adventurebackpack.util.LogHelper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableMap;
-import java.util.ArrayList;
-import java.util.Map;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 
 /**
  * Created on 12/10/2014
@@ -21,6 +24,7 @@ import net.minecraftforge.fluids.Fluid;
  * @author Darkona
  */
 public class FluidEffectRegistry {
+
     static BiMap<String, FluidEffect> EFFECT_REGISTRY = HashBiMap.create();
 
     public static FluidEffect LAVA_EFFECT;
@@ -43,8 +47,12 @@ public class FluidEffectRegistry {
         if (!EFFECT_REGISTRY.containsKey(className) && effect.fluid != null) {
             EFFECT_REGISTRY.put(className, effect);
             effect.setEffectID(effectIDCounter);
-            LogHelper.info("Registered the class " + className + " as a FluidEffect for " + effect.fluid.getName()
-                    + " with the ID " + effectIDCounter);
+            LogHelper.info(
+                    "Registered the class " + className
+                            + " as a FluidEffect for "
+                            + effect.fluid.getName()
+                            + " with the ID "
+                            + effectIDCounter);
             effectIDCounter++;
             return effectIDCounter;
         }

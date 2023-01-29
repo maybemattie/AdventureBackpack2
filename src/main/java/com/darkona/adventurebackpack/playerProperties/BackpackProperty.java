@@ -1,8 +1,5 @@
 package com.darkona.adventurebackpack.playerProperties;
 
-import com.darkona.adventurebackpack.init.ModNetwork;
-import com.darkona.adventurebackpack.item.IBackWearableItem;
-import com.darkona.adventurebackpack.network.SyncPropertiesPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -12,12 +9,17 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
+import com.darkona.adventurebackpack.init.ModNetwork;
+import com.darkona.adventurebackpack.item.IBackWearableItem;
+import com.darkona.adventurebackpack.network.SyncPropertiesPacket;
+
 /**
  * Created on 24/10/2014
  *
  * @author Darkona
  */
 public class BackpackProperty implements IExtendedEntityProperties {
+
     private static final String PROPERTY_NAME = "abp.property";
 
     private EntityPlayer player;
@@ -45,12 +47,10 @@ public class BackpackProperty implements IExtendedEntityProperties {
     private static void syncToNear(EntityPlayerMP player) {
         // Thanks diesieben07!!!
         try {
-            player.getServerForPlayer()
-                    .getEntityTracker()
-                    .func_151248_b(
-                            player,
-                            ModNetwork.net.getPacketFrom(new SyncPropertiesPacket.Message(
-                                    player.getEntityId(), get(player).getData())));
+            player.getServerForPlayer().getEntityTracker().func_151248_b(
+                    player,
+                    ModNetwork.net.getPacketFrom(
+                            new SyncPropertiesPacket.Message(player.getEntityId(), get(player).getData())));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -91,13 +91,13 @@ public class BackpackProperty implements IExtendedEntityProperties {
     public void loadNBTData(NBTTagCompound compound) {
         if (compound != null) {
             setWearable(
-                    compound.hasKey("wearable")
-                            ? ItemStack.loadItemStackFromNBT(compound.getCompoundTag("wearable"))
+                    compound.hasKey("wearable") ? ItemStack.loadItemStackFromNBT(compound.getCompoundTag("wearable"))
                             : null);
-            setCampFire(new ChunkCoordinates(
-                    compound.getInteger("campFireX"),
-                    compound.getInteger("campFireY"),
-                    compound.getInteger("campFireZ")));
+            setCampFire(
+                    new ChunkCoordinates(
+                            compound.getInteger("campFireX"),
+                            compound.getInteger("campFireY"),
+                            compound.getInteger("campFireZ")));
             dimension = compound.getInteger("campFireDim");
             forceCampFire = compound.getBoolean("forceCampFire");
         }

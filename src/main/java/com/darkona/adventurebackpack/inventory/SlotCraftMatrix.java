@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
  * @author Ugachaga
  */
 public class SlotCraftMatrix extends SlotAdventure {
+
     SlotCraftMatrix(IInventory craftMatrix, int slotIndex, int posX, int posY) {
         super(craftMatrix, slotIndex, posX, posY);
     }

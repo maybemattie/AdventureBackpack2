@@ -1,9 +1,10 @@
 package com.darkona.adventurebackpack.util;
 
+import net.minecraft.util.ResourceLocation;
+
 import com.darkona.adventurebackpack.init.ModDates;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ModInfo;
-import net.minecraft.util.ResourceLocation;
 
 /**
  * Created on 10/10/2014
@@ -11,11 +12,11 @@ import net.minecraft.util.ResourceLocation;
  * @author Darkona
  */
 public class Resources {
+
     private static final String TEXTURE_LOCATION = ModInfo.MOD_ID;
 
     public static ResourceLocation getBackpackTexture(BackpackTypes type) {
-        return type == BackpackTypes.STANDARD
-                ? backpackTextureFromString(ModDates.getHoliday())
+        return type == BackpackTypes.STANDARD ? backpackTextureFromString(ModDates.getHoliday())
                 : backpackTextureFromType(type);
     }
 

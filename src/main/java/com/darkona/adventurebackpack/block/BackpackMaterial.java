@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
  * @author Darkona
  */
 public class BackpackMaterial extends Material {
+
     public BackpackMaterial() {
         super(MapColor.brownColor);
     }

@@ -3,17 +3,8 @@ package com.darkona.adventurebackpack.item;
 import static com.darkona.adventurebackpack.common.Constants.BUCKET;
 import static com.darkona.adventurebackpack.util.TipUtils.l10n;
 
-import com.darkona.adventurebackpack.CreativeTabAB;
-import com.darkona.adventurebackpack.common.ServerActions;
-import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
-import com.darkona.adventurebackpack.init.ModFluids;
-import com.darkona.adventurebackpack.inventory.InventoryBackpack;
-import com.darkona.adventurebackpack.util.Resources;
-import com.darkona.adventurebackpack.util.TipUtils;
-import com.darkona.adventurebackpack.util.Wearing;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.GuiScreen;
@@ -38,12 +29,26 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidHandler;
+
 import org.apache.commons.lang3.text.WordUtils;
+
+import com.darkona.adventurebackpack.CreativeTabAB;
+import com.darkona.adventurebackpack.common.ServerActions;
+import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
+import com.darkona.adventurebackpack.init.ModFluids;
+import com.darkona.adventurebackpack.inventory.InventoryBackpack;
+import com.darkona.adventurebackpack.util.Resources;
+import com.darkona.adventurebackpack.util.TipUtils;
+import com.darkona.adventurebackpack.util.Wearing;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Created by Darkona on 12/10/2014.
  */
 public class ItemHose extends ItemAB {
+
     private IIcon drinkIcon;
     private IIcon spillIcon;
     private IIcon suckIcon;
@@ -61,14 +66,15 @@ public class ItemHose extends ItemAB {
     }
 
     @Override
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean advanced) {
         if (GuiScreen.isCtrlKeyDown()) {
             tooltips.add(l10n("hose.key.header"));
             tooltips.add("- " + TipUtils.pressKeyFormat(TipUtils.actionKeyFormat()) + l10n("hose.key.tank"));
-            tooltips.add("- " + TipUtils.pressShiftKeyFormat(TipUtils.whiteFormat(l10n("mouse.wheel")))
-                    + l10n("hose.key.mode"));
+            tooltips.add(
+                    "- " + TipUtils.pressShiftKeyFormat(TipUtils.whiteFormat(l10n("mouse.wheel")))
+                            + l10n("hose.key.mode"));
             tooltips.add("");
             tooltips.add(l10n("hose.dump1"));
             tooltips.add(l10n("hose.dump2"));
@@ -159,9 +165,7 @@ public class ItemHose extends ItemAB {
         if (entity == null || !(entity instanceof EntityPlayer)) return;
 
         EntityPlayer player = (EntityPlayer) entity;
-        if (world.isRemote
-                && player.getItemInUse() != null
-                && player.getItemInUse().getItem().equals(this)) return;
+        if (world.isRemote && player.getItemInUse() != null && player.getItemInUse().getItem().equals(this)) return;
 
         NBTTagCompound nbt = stack.hasTagCompound() ? stack.getTagCompound() : new NBTTagCompound();
         ItemStack backpack = Wearing.getWearingBackpack(player);
@@ -171,8 +175,7 @@ public class ItemHose extends ItemAB {
             InventoryBackpack inv = new InventoryBackpack(backpack);
             FluidTank tank = nbt.getInteger("tank") == 0 ? inv.getLeftTank() : inv.getRightTank();
             if (tank != null && tank.getFluid() != null) {
-                nbt.setString(
-                        "fluid", WordUtils.capitalize(tank.getFluid().getFluid().getName()));
+                nbt.setString("fluid", WordUtils.capitalize(tank.getFluid().getFluid().getName()));
                 nbt.setInteger("amount", tank.getFluidAmount());
             } else {
                 nbt.setInteger("amount", 0);
@@ -188,17 +191,8 @@ public class ItemHose extends ItemAB {
     }
 
     @Override
-    public boolean onItemUse(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         if (!Wearing.isWearingBackpack(player)) return true;
 
         InventoryBackpack inv = new InventoryBackpack(Wearing.getWearingBackpack(player));
@@ -248,8 +242,8 @@ public class ItemHose extends ItemAB {
                             return stack;
                         }
                         // TODO adjust for Adventure Mode
-                        Fluid fluidBlock =
-                                FluidRegistry.lookupFluidForBlock(world.getBlock(mop.blockX, mop.blockY, mop.blockZ));
+                        Fluid fluidBlock = FluidRegistry
+                                .lookupFluidForBlock(world.getBlock(mop.blockX, mop.blockY, mop.blockZ));
                         if (fluidBlock != null) {
                             FluidStack fluid = new FluidStack(fluidBlock, BUCKET);
                             if (tank.getFluid() == null || tank.getFluid().containsFluid(fluid)) {
@@ -301,7 +295,7 @@ public class ItemHose extends ItemAB {
                                     if (!world.isAirBlock(x, y, z) && !flag) {
                                         return stack;
                                     }
-                                    /* IN HELL DIMENSION No, I won't let you put water in the nether. You freak*/
+                                    /* IN HELL DIMENSION No, I won't let you put water in the nether. You freak */
                                     if (world.provider.isHellWorld && fluid.getFluid() == FluidRegistry.WATER) {
                                         tank.drain(BUCKET, true);
                                         world.playSoundEffect(
@@ -337,8 +331,7 @@ public class ItemHose extends ItemAB {
                                                 if (world.setBlock(x, y, z, Blocks.flowing_lava, 0, 3)) {
                                                     tank.drain(BUCKET, true);
                                                 }
-                                            } else if (world.setBlock(
-                                                    x, y, z, fluid.getFluid().getBlock(), 0, 3)) {
+                                            } else if (world.setBlock(x, y, z, fluid.getFluid().getBlock(), 0, 3)) {
                                                 tank.drain(BUCKET, true);
                                             }
                                         }

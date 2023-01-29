@@ -1,25 +1,5 @@
 package com.darkona.adventurebackpack.handlers;
 
-import com.darkona.adventurebackpack.block.BlockSleepingBag;
-import com.darkona.adventurebackpack.common.ServerActions;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
-import com.darkona.adventurebackpack.entity.ai.EntityAIHorseFollowOwner;
-import com.darkona.adventurebackpack.init.ModBlocks;
-import com.darkona.adventurebackpack.init.ModItems;
-import com.darkona.adventurebackpack.item.IBackWearableItem;
-import com.darkona.adventurebackpack.item.ItemAdventureBackpack;
-import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.proxy.ServerProxy;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.EnchUtils;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.Wearing;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
@@ -41,14 +21,36 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 
+import com.darkona.adventurebackpack.block.BlockSleepingBag;
+import com.darkona.adventurebackpack.common.ServerActions;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
+import com.darkona.adventurebackpack.entity.ai.EntityAIHorseFollowOwner;
+import com.darkona.adventurebackpack.init.ModBlocks;
+import com.darkona.adventurebackpack.init.ModItems;
+import com.darkona.adventurebackpack.item.IBackWearableItem;
+import com.darkona.adventurebackpack.item.ItemAdventureBackpack;
+import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
+import com.darkona.adventurebackpack.proxy.ServerProxy;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.EnchUtils;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.Wearing;
+
+import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+
 /**
- * Created on 11/10/2014
- * Handle ALL the events!
+ * Created on 11/10/2014 Handle ALL the events!
  *
  * @author Darkona
  * @see com.darkona.adventurebackpack.client.ClientActions
  */
 public class PlayerEventHandler {
+
     @SubscribeEvent
     public void registerBackpackProperty(EntityEvent.EntityConstructing event) {
         if (event.entity instanceof EntityPlayer && BackpackProperty.get((EntityPlayer) event.entity) == null) {
@@ -134,8 +136,7 @@ public class PlayerEventHandler {
         if (event.entity != null) {
             if (event.entityLiving instanceof EntityCreature && ConfigHandler.fixLead) {
                 EntityCreature creature = (EntityCreature) event.entityLiving;
-                if (creature.getLeashed()
-                        && creature.getLeashedToEntity() != null
+                if (creature.getLeashed() && creature.getLeashedToEntity() != null
                         && creature.getLeashedToEntity() instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) creature.getLeashedToEntity();
                     if (creature.motionY > -2.0f && player.motionY > -2.0f) {
@@ -227,8 +228,9 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public void playerCraftsBackpack(PlayerEvent.ItemCraftedEvent event) {
         if (event.crafting != null && event.crafting.getItem() == ModItems.adventureBackpack) {
-            LogHelper.info("Player crafted a backpack, and that backpack's appearance is: "
-                    + BackpackTypes.getSkinName(event.crafting));
+            LogHelper.info(
+                    "Player crafted a backpack, and that backpack's appearance is: "
+                            + BackpackTypes.getSkinName(event.crafting));
 
             if (!ConfigHandler.consumeDragonEgg && BackpackTypes.getType(event.crafting) == BackpackTypes.DRAGON) {
                 event.player.dropPlayerItemWithRandomChoice(new ItemStack(Blocks.dragon_egg, 1), false);
@@ -260,22 +262,19 @@ public class PlayerEventHandler {
                 EntityHorse horse = (EntityHorse) event.target;
                 ItemStack stack = player.getCurrentEquippedItem();
 
-                if (stack != null
-                        && stack.getItem() != null
+                if (stack != null && stack.getItem() != null
                         && stack.getItem() instanceof ItemNameTag
                         && stack.hasDisplayName()) {
-                    if (horse.getCustomNameTag() == null
-                            || horse.getCustomNameTag().equals("") && horse.isTame()) {
+                    if (horse.getCustomNameTag() == null || horse.getCustomNameTag().equals("") && horse.isTame()) {
                         horse.setTamedBy(player);
                         horse.tasks.addTask(4, new EntityAIHorseFollowOwner(horse, 1.5d, 2.0f, 20.0f));
 
                         if (horse.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.followRange) != null) {
-                            horse.getAttributeMap()
-                                    .getAttributeInstance(SharedMonsterAttributes.followRange)
+                            horse.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.followRange)
                                     .setBaseValue(100.0D);
-                            LogHelper.info("The horse follow range is now: "
-                                    + horse.getEntityAttribute(SharedMonsterAttributes.followRange)
-                                            .getBaseValue());
+                            LogHelper.info(
+                                    "The horse follow range is now: " + horse
+                                            .getEntityAttribute(SharedMonsterAttributes.followRange).getBaseValue());
                         }
                     }
                 }
@@ -290,9 +289,8 @@ public class PlayerEventHandler {
 
         EntityPlayer player = event.entityPlayer;
         ChunkCoordinates bedLocation = player.getBedLocation(player.dimension);
-        if (bedLocation != null
-                && player.worldObj.getBlock(bedLocation.posX, bedLocation.posY, bedLocation.posZ)
-                        == ModBlocks.blockSleepingBag) {
+        if (bedLocation != null && player.worldObj.getBlock(bedLocation.posX, bedLocation.posY, bedLocation.posZ)
+                == ModBlocks.blockSleepingBag) {
             // If the player wakes up in one of those super confortable SleepingBags (tm) (Patent Pending)
             if (BlockSleepingBag.isSleepingInPortableBag(player)) {
                 BlockSleepingBag.packPortableSleepingBag(player);
@@ -320,7 +318,8 @@ public class PlayerEventHandler {
                 if (!player.worldObj.isRemote) {
                     if (BackpackProperty.get(player).isWakingUpInPortableBag() && Wearing.isWearingBackpack(player)) {
                         BlockSleepingBag.restoreOriginalSpawn(
-                                player, Wearing.getWearingBackpackInv(player).getExtendedProperties());
+                                player,
+                                Wearing.getWearingBackpackInv(player).getExtendedProperties());
                         BackpackProperty.get(player).setWakingUpInPortableBag(false);
                     }
                 }

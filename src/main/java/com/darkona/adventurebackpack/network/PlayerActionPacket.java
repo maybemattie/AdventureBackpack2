@@ -1,22 +1,25 @@
 package com.darkona.adventurebackpack.network;
 
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
 import com.darkona.adventurebackpack.inventory.ContainerBackpack;
 import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
 import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
 import com.darkona.adventurebackpack.util.Wearing;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created by Darkona on 12/10/2014.
  */
 public class PlayerActionPacket implements IMessageHandler<PlayerActionPacket.ActionMessage, IMessage> {
+
     public static final byte SPIDER_JUMP = 0;
     public static final byte JETPACK_IN_USE = 1;
     public static final byte JETPACK_NOT_IN_USE = 2;
@@ -54,6 +57,7 @@ public class PlayerActionPacket implements IMessageHandler<PlayerActionPacket.Ac
     }
 
     public static class ActionMessage implements IMessage {
+
         private byte type;
 
         public ActionMessage() {}

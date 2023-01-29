@@ -1,11 +1,10 @@
 package com.darkona.adventurebackpack.util;
 
-import com.darkona.adventurebackpack.reference.LoadedMods;
-import com.mojang.authlib.GameProfile;
-import cpw.mods.fml.common.FMLCommonHandler;
 import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -16,12 +15,17 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.common.util.FakePlayer;
 
+import com.darkona.adventurebackpack.reference.LoadedMods;
+import com.mojang.authlib.GameProfile;
+import cpw.mods.fml.common.FMLCommonHandler;
+
 /**
  * Created on 03.02.2018
  *
  * @author Ugachaga
  */
 public final class TinkersUtils {
+
     public static final ResourceLocation GUI_ICONS = new ResourceLocation("tinker", "textures/gui/icons.png");
 
     private static final String CLASS_CRAFTING_LOGIC = "tconstruct.tools.logic.CraftingStationLogic";
@@ -114,8 +118,7 @@ public final class TinkersUtils {
         try {
             craftingStation.getField(FIELD_CRAFT_MATRIX).set(craftingStationInstance, craftMatrix);
 
-            craftingStation
-                    .getMethod(METHOD_ON_CRAFT_CHANGED, IInventory.class)
+            craftingStation.getMethod(METHOD_ON_CRAFT_CHANGED, IInventory.class)
                     .invoke(craftingStationInstance, craftMatrix);
 
             return ((IInventory) craftingStation.getField(FIELD_CRAFT_RESULT).get(craftingStationInstance))

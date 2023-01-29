@@ -1,17 +1,8 @@
 package com.darkona.adventurebackpack.block;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.init.ModBlocks;
-import com.darkona.adventurebackpack.inventory.InventoryBackpack;
-import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.util.CoordsUtils;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.Resources;
-import com.darkona.adventurebackpack.util.Wearing;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Iterator;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
@@ -31,13 +22,26 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.init.ModBlocks;
+import com.darkona.adventurebackpack.inventory.InventoryBackpack;
+import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.Resources;
+import com.darkona.adventurebackpack.util.Wearing;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Created on 14/10/2014
  *
  * @author Darkona
  */
 public class BlockSleepingBag extends BlockDirectional {
-    private static final int[][] footBlockToHeadBlockMap = new int[][] {{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+
+    private static final int[][] footBlockToHeadBlockMap = new int[][] { { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 0 } };
 
     private static final String TAG_STORED_SPAWN = "storedSpawn";
     private static final String TAG_SPAWN_POS_X = "posX";
@@ -62,8 +66,7 @@ public class BlockSleepingBag extends BlockDirectional {
     @Override
     @SideOnly(Side.CLIENT)
     protected String getTextureName() {
-        return this.textureName == null
-                ? "MISSING_ICON_BLOCK_" + getIdFromBlock(this) + "_" + getUnlocalizedName()
+        return this.textureName == null ? "MISSING_ICON_BLOCK_" + getIdFromBlock(this) + "_" + getUnlocalizedName()
                 : this.textureName;
     }
 
@@ -104,8 +107,12 @@ public class BlockSleepingBag extends BlockDirectional {
             storedSpawn.setInteger(TAG_SPAWN_POS_Y, spawn.posY);
             storedSpawn.setInteger(TAG_SPAWN_POS_Z, spawn.posZ);
             tag.setTag(TAG_STORED_SPAWN, storedSpawn);
-            LogHelper.info("Stored spawn data for " + player.getDisplayName() + ": " + spawn.toString() + " dimID: "
-                    + player.worldObj.provider.dimensionId);
+            LogHelper.info(
+                    "Stored spawn data for " + player.getDisplayName()
+                            + ": "
+                            + spawn.toString()
+                            + " dimID: "
+                            + player.worldObj.provider.dimensionId);
         } else {
             LogHelper.warn("Cannot store spawn data for " + player.getDisplayName());
         }
@@ -120,8 +127,12 @@ public class BlockSleepingBag extends BlockDirectional {
                     storedSpawn.getInteger(TAG_SPAWN_POS_Z));
             player.setSpawnChunk(coords, false, player.worldObj.provider.dimensionId);
             tag.removeTag(TAG_STORED_SPAWN);
-            LogHelper.info("Restored spawn data for " + player.getDisplayName() + ": " + coords.toString() + " dimID: "
-                    + player.worldObj.provider.dimensionId);
+            LogHelper.info(
+                    "Restored spawn data for " + player.getDisplayName()
+                            + ": "
+                            + coords.toString()
+                            + " dimID: "
+                            + player.worldObj.provider.dimensionId);
         } else {
             LogHelper.warn("No spawn data to restore for " + player.getDisplayName());
         }
@@ -135,8 +146,8 @@ public class BlockSleepingBag extends BlockDirectional {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer player, int id, float f1, float f2, float f3) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int id, float f1, float f2,
+            float f3) {
         if (world.isRemote) {
             return true;
         } else {
@@ -165,8 +176,7 @@ public class BlockSleepingBag extends BlockDirectional {
                         if (entityplayer2.isPlayerSleeping()) {
                             ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
 
-                            if (chunkcoordinates.posX == x
-                                    && chunkcoordinates.posY == y
+                            if (chunkcoordinates.posX == x && chunkcoordinates.posY == y
                                     && chunkcoordinates.posZ == z) {
                                 entityplayer1 = entityplayer2;
                             }
@@ -190,14 +200,13 @@ public class BlockSleepingBag extends BlockDirectional {
                     // and the bed location isn't set until then, normally.
 
                     if (isSleepingInPortableBag(player)) {
-                        storeOriginalSpawn(
-                                player, Wearing.getWearingBackpackInv(player).getExtendedProperties());
+                        storeOriginalSpawn(player, Wearing.getWearingBackpackInv(player).getExtendedProperties());
                         player.setSpawnChunk(new ChunkCoordinates(x, y, z), true, player.dimension);
                     } else {
                         player.setSpawnChunk(new ChunkCoordinates(x, y, z), true, player.dimension);
                         LogHelper.info("Looking for a campfire nearby...");
-                        ChunkCoordinates campfire =
-                                CoordsUtils.findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
+                        ChunkCoordinates campfire = CoordsUtils
+                                .findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
                         if (campfire != null) {
                             LogHelper.info("Campfire Found, saving coordinates. " + campfire.toString());
                             BackpackProperty.get(player).setCampFire(campfire);
@@ -268,14 +277,14 @@ public class BlockSleepingBag extends BlockDirectional {
             if (world.getBlock(x - footBlockToHeadBlockMap[dir][0], y, z - footBlockToHeadBlockMap[dir][1]) != this) {
                 world.setBlockToAir(x, y, z);
             }
-        } else if (world.getBlock(x + footBlockToHeadBlockMap[dir][0], y, z + footBlockToHeadBlockMap[dir][1])
-                != this) {
-            world.setBlockToAir(x, y, z);
+        } else
+            if (world.getBlock(x + footBlockToHeadBlockMap[dir][0], y, z + footBlockToHeadBlockMap[dir][1]) != this) {
+                world.setBlockToAir(x, y, z);
 
-            if (!world.isRemote) {
-                this.dropBlockAsItem(world, x, y, z, meta, 0);
+                if (!world.isRemote) {
+                    this.dropBlockAsItem(world, x, y, z, meta, 0);
+                }
             }
-        }
     }
 
     @Override
@@ -365,25 +374,16 @@ public class BlockSleepingBag extends BlockDirectional {
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) {
         this.topIcons = new IIcon[] {
-            iconRegister.registerIcon(
-                    Resources.blockTextures("sleepingBag_feet_top").toString()),
-            iconRegister.registerIcon(
-                    Resources.blockTextures("sleepingBag_head_top").toString())
-        };
+                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_feet_top").toString()),
+                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_head_top").toString()) };
 
         this.endIcons = new IIcon[] {
-            iconRegister.registerIcon(
-                    Resources.blockTextures("sleepingBag_feet_end").toString()),
-            iconRegister.registerIcon(
-                    Resources.blockTextures("sleepingBag_head_end").toString())
-        };
+                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_feet_end").toString()),
+                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_head_end").toString()) };
 
         this.sideIcons = new IIcon[] {
-            iconRegister.registerIcon(
-                    Resources.blockTextures("sleepingBag_feet_side").toString()),
-            iconRegister.registerIcon(
-                    Resources.blockTextures("sleepingBag_head_side").toString())
-        };
+                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_feet_side").toString()),
+                iconRegister.registerIcon(Resources.blockTextures("sleepingBag_head_side").toString()) };
     }
 
     @Override

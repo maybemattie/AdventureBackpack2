@@ -1,17 +1,21 @@
 package com.darkona.adventurebackpack.client.render;
 
-import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
+import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class RenderRideableSpider extends RenderLiving {
+
     private static final ResourceLocation spiderEyesTextures = new ResourceLocation("textures/entity/spider_eyes.png");
     private static final ResourceLocation spiderTextures = new ResourceLocation("textures/entity/spider/spider.png");
     private static final String __OBFID = "CL_00001027";

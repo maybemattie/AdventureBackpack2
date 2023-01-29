@@ -1,7 +1,5 @@
 package com.darkona.adventurebackpack.client.render;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
@@ -11,34 +9,34 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * The MIT License (MIT)
  *
  * Copyright (c) 2014 copygirl
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+ * documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @SideOnly(Side.CLIENT)
 public final class CopygirlRenderUtils {
+
     private static final ResourceLocation glint = new ResourceLocation("textures/misc/enchanted_item_glint.png");
 
     private CopygirlRenderUtils() {}
@@ -62,8 +60,7 @@ public final class CopygirlRenderUtils {
         int passes = item.getRenderPasses(stack.getItemDamage());
         for (int pass = 0; pass < passes; pass++) {
             textureManager.bindTexture(
-                    ((stack.getItemSpriteNumber() == 0)
-                            ? TextureMap.locationBlocksTexture
+                    ((stack.getItemSpriteNumber() == 0) ? TextureMap.locationBlocksTexture
                             : TextureMap.locationItemsTexture));
             IIcon icon = item.getIcon(stack, pass);
             if (icon != null) {
@@ -73,7 +70,14 @@ public final class CopygirlRenderUtils {
                 float maxV = icon.getMaxV();
                 CopygirlRenderUtils.setColorFromInt(item.getColorFromItemStack(stack, pass));
                 ItemRenderer.renderItemIn2D(
-                        tessellator, maxU, minV, minU, maxV, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
+                        tessellator,
+                        maxU,
+                        minV,
+                        minU,
+                        maxV,
+                        icon.getIconWidth(),
+                        icon.getIconHeight(),
+                        0.0625F);
             }
         }
 
@@ -115,8 +119,8 @@ public final class CopygirlRenderUtils {
         GL11.glColor4f(r, g, b, 1.0F);
     }
 
-    public static void drawTexturedModalRect(
-            int x, int y, int u, int v, int width, int height, float zLevel, int textureWidth, int textureHeight) {
+    public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height, float zLevel,
+            int textureWidth, int textureHeight) {
         float xScale = 1.0F / textureWidth;
         float yScale = 1.0F / textureHeight;
         Tessellator tess = Tessellator.instance;

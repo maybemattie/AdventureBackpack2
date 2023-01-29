@@ -1,11 +1,7 @@
 package com.darkona.adventurebackpack.entity;
 
-import com.darkona.adventurebackpack.init.ModItems;
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import io.netty.buffer.ByteBuf;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -23,12 +19,20 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.init.ModItems;
+
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import io.netty.buffer.ByteBuf;
+
 /**
  * Created on 05/01/2015
  *
  * @author Darkona
  */
-public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTanks, */ IEntityAdditionalSpawnData {
+public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTanks, */ IEntityAdditionalSpawnData {
+
     private FluidTank fuelTank;
     private boolean isBoatEmpty;
     private double speedMultiplier;
@@ -105,7 +109,12 @@ public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTank
             double d1 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0 - 0.125D;
             double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0 - 0.125D;
             AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(
-                    this.boundingBox.minX, d1, this.boundingBox.minZ, this.boundingBox.maxX, d3, this.boundingBox.maxZ);
+                    this.boundingBox.minX,
+                    d1,
+                    this.boundingBox.minZ,
+                    this.boundingBox.maxX,
+                    d3,
+                    this.boundingBox.maxZ);
 
             if (this.worldObj.isAABBInMaterial(axisalignedbb, Material.water)) {
                 d0 += 1.0D / (double) b0;
@@ -131,12 +140,24 @@ public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTank
                     d8 = this.posX - d2 * d5 * 0.8D + d4 * d6;
                     d9 = this.posZ - d4 * d5 * 0.8D - d2 * d6;
                     this.worldObj.spawnParticle(
-                            "splash", d8, this.posY - 0.125D, d9, this.motionX, this.motionY, this.motionZ);
+                            "splash",
+                            d8,
+                            this.posY - 0.125D,
+                            d9,
+                            this.motionX,
+                            this.motionY,
+                            this.motionZ);
                 } else {
                     d8 = this.posX + d2 + d4 * d5 * 0.7D;
                     d9 = this.posZ + d4 - d2 * d5 * 0.7D;
                     this.worldObj.spawnParticle(
-                            "splash", d8, this.posY - 0.125D, d9, this.motionX, this.motionY, this.motionZ);
+                            "splash",
+                            d8,
+                            this.posY - 0.125D,
+                            d9,
+                            this.motionX,
+                            this.motionY,
+                            this.motionZ);
                 }
             }
         }
@@ -187,12 +208,10 @@ public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTank
             if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase) {
                 EntityLivingBase entitylivingbase = (EntityLivingBase) this.riddenByEntity;
                 float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
-                this.motionX += -Math.sin((double) (f * (float) Math.PI / 180.0F))
-                        * this.speedMultiplier
+                this.motionX += -Math.sin((double) (f * (float) Math.PI / 180.0F)) * this.speedMultiplier
                         * (double) entitylivingbase.moveForward
                         * 0.05000000074505806D;
-                this.motionZ += Math.cos((double) (f * (float) Math.PI / 180.0F))
-                        * this.speedMultiplier
+                this.motionZ += Math.cos((double) (f * (float) Math.PI / 180.0F)) * this.speedMultiplier
                         * (double) entitylivingbase.moveForward
                         * 0.05000000074505806D;
             }
@@ -248,29 +267,12 @@ public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTank
 
             this.moveEntity(this.motionX, this.motionY, this.motionZ);
 
-            /* if (this.isCollidedHorizontally && d10 > 0.2D)
-            {
-                if (!this.worldObj.isRemote && !this.isDead)
-                {
-                    this.setDead();
-
-                    for (l = 0; l < 3; ++l)
-                    {
-                        this.func_145778_a(Item.getItemFromBlock(Blocks.planks), 1, 0.0F);
-                    }
-
-                    for (l = 0; l < 2; ++l)
-                    {
-                        this.func_145778_a(Items.stick, 1, 0.0F);
-                    }
-                }
-            }
-            else
-            {
-                this.motionX *= 0.9900000095367432D;
-                this.motionY *= 0.949999988079071D;
-                this.motionZ *= 0.9900000095367432D;
-            }*/
+            /*
+             * if (this.isCollidedHorizontally && d10 > 0.2D) { if (!this.worldObj.isRemote && !this.isDead) {
+             * this.setDead(); for (l = 0; l < 3; ++l) { this.func_145778_a(Item.getItemFromBlock(Blocks.planks), 1,
+             * 0.0F); } for (l = 0; l < 2; ++l) { this.func_145778_a(Items.stick, 1, 0.0F); } } } else { this.motionX *=
+             * 0.9900000095367432D; this.motionY *= 0.949999988079071D; this.motionZ *= 0.9900000095367432D; }
+             */
 
             this.rotationPitch = 0.0F;
             d4 = (double) this.rotationYaw;
@@ -296,7 +298,8 @@ public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTank
 
             if (!this.worldObj.isRemote) {
                 List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(
-                        this, this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
+                        this,
+                        this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
                 if (list != null && !list.isEmpty()) {
                     for (int k1 = 0; k1 < list.size(); ++k1) {
@@ -353,8 +356,7 @@ public class EntityInflatableBoat extends EntityBoat implements /*IInventoryTank
     @Override
     public boolean interactFirst(EntityPlayer p_130002_1_) {
         if (inflation < 1.0f) return false;
-        if (this.riddenByEntity != null
-                && this.riddenByEntity instanceof EntityPlayer
+        if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer
                 && this.riddenByEntity != p_130002_1_) {
             return true;
         } else {

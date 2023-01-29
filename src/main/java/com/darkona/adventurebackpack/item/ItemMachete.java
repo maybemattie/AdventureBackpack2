@@ -1,9 +1,7 @@
 package com.darkona.adventurebackpack.item;
 
-import com.darkona.adventurebackpack.CreativeTabAB;
-import com.darkona.adventurebackpack.init.ModMaterials;
-import com.google.common.collect.Sets;
 import java.util.Set;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,12 +15,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.oredict.OreDictionary;
 
+import com.darkona.adventurebackpack.CreativeTabAB;
+import com.darkona.adventurebackpack.init.ModMaterials;
+import com.google.common.collect.Sets;
+
 /**
  * Created on 10/10/2014
  *
  * @author Darkona
  */
 public class ItemMachete extends ToolAB {
+
     private static final Set BREAKABLE_BLOCKS = Sets.newHashSet(
             Blocks.pumpkin,
             Blocks.web,
@@ -69,14 +72,11 @@ public class ItemMachete extends ToolAB {
         for (ItemStack stacky : OreDictionary.getOres("treeLeaves")) {
             if (stacky.getItem() == Item.getItemFromBlock(block)) return 15F;
         }
-        return material == Material.plants
-                        || material == Material.vine
-                        || material == Material.coral
-                        || material == Material.gourd
-                        || material == Material.leaves
-                        || material == Material.cloth
-                ? 12.0F
-                : 0.5F;
+        return material == Material.plants || material == Material.vine
+                || material == Material.coral
+                || material == Material.gourd
+                || material == Material.leaves
+                || material == Material.cloth ? 12.0F : 0.5F;
     }
 
     @Override
@@ -86,10 +86,9 @@ public class ItemMachete extends ToolAB {
     }
 
     @Override
-    public boolean onBlockDestroyed(
-            ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase entityLivingBase) {
-        return block == Blocks.vine
-                || block instanceof IShearable
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int x, int y, int z,
+            EntityLivingBase entityLivingBase) {
+        return block == Blocks.vine || block instanceof IShearable
                 || super.onBlockDestroyed(stack, world, block, x, y, z, entityLivingBase);
     }
 

@@ -1,10 +1,8 @@
 package com.darkona.adventurebackpack.item;
 
-import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -19,24 +17,21 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Created on 11/10/2014
  *
  * @author Darkona
  */
 public class ItemComponent extends ItemAB {
+
     private HashMap<String, IIcon> componentIcons = new HashMap<>();
-    private String[] names = {
-        "sleepingBag",
-        "backpackTank",
-        "hoseHead",
-        "macheteHandle",
-        "copterEngine",
-        "copterBlades",
-        "inflatableBoat",
-        "inflatableBoatMotorized",
-        "hydroBlades",
-    };
+    private String[] names = { "sleepingBag", "backpackTank", "hoseHead", "macheteHandle", "copterEngine",
+            "copterBlades", "inflatableBoat", "inflatableBoatMotorized", "hydroBlades", };
 
     public ItemComponent() {
         setNoRepair();
@@ -49,12 +44,12 @@ public class ItemComponent extends ItemAB {
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
         for (String name : names) {
-            IIcon temporalIcon = iconRegister.registerIcon(super.getUnlocalizedName(name)
-                    .substring(this.getUnlocalizedName().indexOf(".") + 1));
+            IIcon temporalIcon = iconRegister
+                    .registerIcon(super.getUnlocalizedName(name).substring(this.getUnlocalizedName().indexOf(".") + 1));
             componentIcons.put(name, temporalIcon);
         }
-        itemIcon = iconRegister.registerIcon(super.getUnlocalizedName("sleepingBag")
-                .substring(this.getUnlocalizedName().indexOf(".") + 1));
+        itemIcon = iconRegister.registerIcon(
+                super.getUnlocalizedName("sleepingBag").substring(this.getUnlocalizedName().indexOf(".") + 1));
     }
 
     @Override
@@ -115,8 +110,7 @@ public class ItemComponent extends ItemAB {
             float f9 = 1.0F;
             List list = world.getEntitiesWithinAABBExcludingEntity(
                     player,
-                    player.boundingBox
-                            .addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
+                    player.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
                             .expand((double) f9, (double) f9, (double) f9));
             int i;
 
@@ -145,15 +139,18 @@ public class ItemComponent extends ItemAB {
                         --j;
                     }
 
-                    EntityInflatableBoat inflatableBoat =
-                            new EntityInflatableBoat(world, i + 0.5, j + 1.0, k + 0.5, motorized);
+                    EntityInflatableBoat inflatableBoat = new EntityInflatableBoat(
+                            world,
+                            i + 0.5,
+                            j + 1.0,
+                            k + 0.5,
+                            motorized);
 
-                    inflatableBoat.rotationYaw = (float)
-                            (((MathHelper.floor_double((double) (player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1)
-                                    * 90);
+                    inflatableBoat.rotationYaw = (float) (((MathHelper
+                            .floor_double((double) (player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1) * 90);
                     if (!world.getCollidingBoundingBoxes(
-                                    inflatableBoat, inflatableBoat.boundingBox.expand(-0.1, -0.1, -0.1))
-                            .isEmpty()) {
+                            inflatableBoat,
+                            inflatableBoat.boundingBox.expand(-0.1, -0.1, -0.1)).isEmpty()) {
                         return stack;
                     }
 

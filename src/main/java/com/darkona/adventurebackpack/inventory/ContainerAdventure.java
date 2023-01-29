@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.inventory;
 
-import com.darkona.adventurebackpack.common.Constants.Source;
 import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import com.darkona.adventurebackpack.common.Constants.Source;
 
 /**
  * Created on 10.04.2017
@@ -16,6 +18,7 @@ import net.minecraft.item.ItemStack;
  */
 @SuppressWarnings("WeakerAccess")
 public abstract class ContainerAdventure extends Container {
+
     protected static final int PLAYER_INV_ROWS = 3;
     protected static final int PLAYER_INV_COLUMNS = 9;
     protected static final int PLAYER_HOT_START = 0;
@@ -40,15 +43,15 @@ public abstract class ContainerAdventure extends Container {
 
     protected void bindPlayerInventory(InventoryPlayer invPlayer, int startX, int startY) {
         for (int col = 0; col < PLAYER_INV_COLUMNS; col++) // hotbar - 9 slots
-        addSlotToContainer(new Slot(invPlayer, col, (startX + 18 * col), (58 + startY)));
+            addSlotToContainer(new Slot(invPlayer, col, (startX + 18 * col), (58 + startY)));
 
         for (int row = 0; row < PLAYER_INV_ROWS; row++) // inventory - 3*9, 27 slots
-        for (int col = 0; col < PLAYER_INV_COLUMNS; col++)
-                addSlotToContainer(new Slot(
-                        invPlayer,
-                        (PLAYER_INV_COLUMNS + row * PLAYER_INV_COLUMNS + col),
-                        (startX + 18 * col),
-                        (startY + row * 18)));
+            for (int col = 0; col < PLAYER_INV_COLUMNS; col++) addSlotToContainer(
+                    new Slot(
+                            invPlayer,
+                            (PLAYER_INV_COLUMNS + row * PLAYER_INV_COLUMNS + col),
+                            (startX + 18 * col),
+                            (startY + row * 18)));
     }
 
     @Override
@@ -161,8 +164,7 @@ public abstract class ContainerAdventure extends Container {
                 activeSlot = (Slot) this.inventorySlots.get(activeIndex);
                 activeStack = activeSlot.getStack();
 
-                if (activeStack != null
-                        && activeStack.getItem() == initStack.getItem()
+                if (activeStack != null && activeStack.getItem() == initStack.getItem()
                         && (!initStack.getHasSubtypes() || initStack.getItemDamage() == activeStack.getItemDamage())
                         && ItemStack.areItemStackTagsEqual(initStack, activeStack)) {
                     int mergedSize = activeStack.stackSize + initStack.stackSize;
@@ -191,10 +193,10 @@ public abstract class ContainerAdventure extends Container {
                 activeSlot = (Slot) this.inventorySlots.get(activeIndex);
                 activeStack = activeSlot.getStack();
 
-                if (activeStack == null /*&& activeSlot.isItemValid(initStack)*/) {
+                if (activeStack == null /* && activeSlot.isItemValid(initStack) */) {
                     ItemStack copyStack = initStack.copy();
-                    int mergedSize =
-                            copyStack.stackSize = Math.min(copyStack.stackSize, activeSlot.getSlotStackLimit());
+                    int mergedSize = copyStack.stackSize = Math
+                            .min(copyStack.stackSize, activeSlot.getSlotStackLimit());
 
                     activeSlot.putStack(copyStack);
                     if (mergedSize >= initStack.stackSize) {

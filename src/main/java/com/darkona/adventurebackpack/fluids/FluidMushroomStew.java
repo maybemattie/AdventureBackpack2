@@ -1,10 +1,11 @@
 package com.darkona.adventurebackpack.fluids;
 
-import com.darkona.adventurebackpack.client.Icons;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import com.darkona.adventurebackpack.client.Icons;
 
 /**
  * Created on 11/01/2015
@@ -12,6 +13,7 @@ import net.minecraftforge.fluids.FluidStack;
  * @author Darkona
  */
 public class FluidMushroomStew extends Fluid {
+
     public FluidMushroomStew() {
         super("mushroomStew");
         setDensity(1200);

@@ -1,18 +1,8 @@
 package com.darkona.adventurebackpack.client.gui;
 
-import codechicken.lib.render.TextureUtils;
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.inventory.IInventoryTanks;
-import com.darkona.adventurebackpack.item.ItemHose;
-import com.darkona.adventurebackpack.reference.LoadedMods;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.reference.ToolHandler;
-import com.darkona.adventurebackpack.util.*;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.Collection;
 import java.util.Iterator;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -31,7 +21,22 @@ import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
+
 import org.lwjgl.opengl.GL11;
+
+import codechicken.lib.render.TextureUtils;
+
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.inventory.IInventoryTanks;
+import com.darkona.adventurebackpack.item.ItemHose;
+import com.darkona.adventurebackpack.reference.LoadedMods;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.reference.ToolHandler;
+import com.darkona.adventurebackpack.util.*;
+
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created on 09/01/2015
@@ -39,10 +44,12 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class GuiOverlay extends Gui {
+
     private static final ResourceLocation GUI_ICONS = new ResourceLocation("textures/gui/icons.png");
     private static final ResourceLocation GUI_INVENTORY = new ResourceLocation("textures/gui/container/inventory.png");
-    private static final ResourceLocation TANKS_OVERLAY =
-            new ResourceLocation(ModInfo.MOD_ID, "textures/gui/overlay.png");
+    private static final ResourceLocation TANKS_OVERLAY = new ResourceLocation(
+            ModInfo.MOD_ID,
+            "textures/gui/overlay.png");
     private static final int BUFF_ICON_SIZE = 18;
     private static final int BUFF_ICON_SPACING = 2; // 2 pixels between buff icons
     private static final int BUFF_ICON_BASE_U_OFFSET = 0;
@@ -84,18 +91,14 @@ public class GuiOverlay extends Gui {
         }
 
         if (ConfigHandler.statusOverlay) {
-            int xStep = ConfigHandler.statusOverlayLeft
-                    ? BUFF_ICON_SIZE + BUFF_ICON_SPACING
+            int xStep = ConfigHandler.statusOverlayLeft ? BUFF_ICON_SIZE + BUFF_ICON_SPACING
                     : -BUFF_ICON_SIZE - BUFF_ICON_SPACING;
-            int xPos = ConfigHandler.statusOverlayLeft
-                    ? ConfigHandler.statusOverlayIndentH
+            int xPos = ConfigHandler.statusOverlayLeft ? ConfigHandler.statusOverlayIndentH
                     : screenWidth - BUFF_ICON_SIZE - ConfigHandler.statusOverlayIndentH;
-            int yPos = ConfigHandler.statusOverlayTop
-                    ? ConfigHandler.statusOverlayIndentV
+            int yPos = ConfigHandler.statusOverlayTop ? ConfigHandler.statusOverlayIndentV
                     : screenHeight - BUFF_ICON_SIZE - ConfigHandler.statusOverlayIndentV;
 
-            if (LoadedMods.THAUMCRAFT
-                    && ConfigHandler.statusOverlayThaumcraft
+            if (LoadedMods.THAUMCRAFT && ConfigHandler.statusOverlayThaumcraft
                     && ConfigHandler.statusOverlayLeft
                     && ConfigHandler.statusOverlayTop == !ThaumcraftUtils.DIAL_BOTTOM
                     && ThaumcraftUtils.isTool(player.inventory.getCurrentItem())) {
@@ -160,10 +163,10 @@ public class GuiOverlay extends Gui {
                     tankX += textureWidth;
                 }
                 if (Wearing.isWearingBackpack(player)) {
-                    int[] u = {10, 10};
-                    int[] v = {0, 0};
-                    int[] xStart = {xPos, xPos + textureWidth + 1};
-                    int[] yStart = {yPos, yPos};
+                    int[] u = { 10, 10 };
+                    int[] v = { 0, 0 };
+                    int[] xStart = { xPos, xPos + textureWidth + 1 };
+                    int[] yStart = { yPos, yPos };
                     short tank = -1;
                     if (Wearing.isHoldingHose(player)) {
                         tank = (short) (ItemHose.getHoseTank(player.getHeldItem()));
@@ -276,8 +279,8 @@ public class GuiOverlay extends Gui {
             this.drawTexturedModalRect(posX, posY, 0, 74, barWidth, 5);
             if (bossHealthWidth > 0) this.drawTexturedModalRect(posX, posY, 0, 79, bossHealthWidth, 5);
             String s = BossStatus.bossName;
-            fontRenderer.drawStringWithShadow(
-                    s, screenWidth / 2 - fontRenderer.getStringWidth(s) / 2, posY - 10, 16777215);
+            fontRenderer
+                    .drawStringWithShadow(s, screenWidth / 2 - fontRenderer.getStringWidth(s) / 2, posY - 10, 16777215);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glDisable(GL11.GL_BLEND);
         }

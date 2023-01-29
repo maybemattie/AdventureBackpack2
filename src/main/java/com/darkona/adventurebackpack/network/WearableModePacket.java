@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.network;
 
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+
 import com.darkona.adventurebackpack.common.ServerActions;
 import com.darkona.adventurebackpack.util.Wearing;
+
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created on 12/10/2014
@@ -15,6 +17,7 @@ import net.minecraft.item.ItemStack;
  * @author Darkona
  */
 public class WearableModePacket implements IMessageHandler<WearableModePacket.Message, WearableModePacket.Message> {
+
     public static final byte COPTER_ON_OFF = 0;
     public static final byte COPTER_TOGGLE = 1;
     public static final byte JETPACK_ON_OFF = 2;
@@ -38,7 +41,7 @@ public class WearableModePacket implements IMessageHandler<WearableModePacket.Me
             } else if (message.type == JETPACK_ON_OFF) {
                 ItemStack jetpack = Wearing.getWearingJetpack(player);
                 if (jetpack != null) // so now we are well-defended
-                ServerActions.toggleCoalJetpack(player, jetpack);
+                    ServerActions.toggleCoalJetpack(player, jetpack);
             } else if (message.type == CYCLING_ON_OFF || message.type == NIGHTVISION_ON_OFF) {
                 ItemStack backpack = Wearing.getWearingBackpack(player);
                 if (backpack != null) // null shall not pass!
@@ -52,6 +55,7 @@ public class WearableModePacket implements IMessageHandler<WearableModePacket.Me
     }
 
     public static class Message implements IMessage {
+
         private byte type;
 
         public Message() {}

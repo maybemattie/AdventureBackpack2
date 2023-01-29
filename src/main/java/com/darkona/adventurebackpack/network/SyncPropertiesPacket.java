@@ -1,15 +1,17 @@
 package com.darkona.adventurebackpack.network;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.NBTTagCompound;
+
 import com.darkona.adventurebackpack.AdventureBackpack;
 import com.darkona.adventurebackpack.init.ModNetwork;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
+
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Created on 08/01/2015
@@ -18,6 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
  */
 public class SyncPropertiesPacket
         implements IMessageHandler<SyncPropertiesPacket.Message, SyncPropertiesPacket.Message> {
+
     public static final byte DATA_ONLY = 0;
     public static final byte TANKS_ONLY = 1;
     public static final byte INVENTORY_ONLY = 2;
@@ -39,6 +42,7 @@ public class SyncPropertiesPacket
     }
 
     public static class Message implements IMessage {
+
         private int ID;
         private NBTTagCompound properties;
 

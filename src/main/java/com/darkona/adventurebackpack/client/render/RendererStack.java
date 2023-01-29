@@ -1,20 +1,24 @@
 package com.darkona.adventurebackpack.client.render;
 
-import com.darkona.adventurebackpack.reference.ToolHandler;
-import com.darkona.adventurebackpack.util.GregtechUtils;
-import com.darkona.adventurebackpack.util.ThaumcraftUtils;
-import com.darkona.adventurebackpack.util.TinkersUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 
+import com.darkona.adventurebackpack.reference.ToolHandler;
+import com.darkona.adventurebackpack.util.GregtechUtils;
+import com.darkona.adventurebackpack.util.ThaumcraftUtils;
+import com.darkona.adventurebackpack.util.TinkersUtils;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class RendererStack extends ModelRenderer {
+
     private static final Minecraft MC = Minecraft.getMinecraft();
 
     private boolean isLowerSlot;
@@ -33,6 +37,7 @@ public class RendererStack extends ModelRenderer {
     }
 
     private class Thing extends ModelRenderer {
+
         public Thing(ModelBase modelBase) {
             super(modelBase);
         }

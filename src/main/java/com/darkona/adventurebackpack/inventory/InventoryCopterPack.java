@@ -7,12 +7,13 @@ import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
 import static com.darkona.adventurebackpack.common.Constants.TAG_INVENTORY;
 import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.item.ItemCopterPack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.item.ItemCopterPack;
 
 /**
  * Created on 02/01/2015
@@ -20,6 +21,7 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class InventoryCopterPack extends InventoryAdventure {
+
     private FluidTank fuelTank = new FluidTank(Constants.Copter.FUEL_CAPACITY);
 
     private byte status = ItemCopterPack.OFF_MODE;
@@ -42,12 +44,12 @@ public class InventoryCopterPack extends InventoryAdventure {
 
     @Override
     public FluidTank[] getTanksArray() {
-        return new FluidTank[] {fuelTank};
+        return new FluidTank[] { fuelTank };
     }
 
     @Override
     public int[] getSlotsOnClosing() {
-        return new int[] {BUCKET_IN, BUCKET_OUT};
+        return new int[] { BUCKET_IN, BUCKET_OUT };
     }
 
     @Override
@@ -112,7 +114,7 @@ public class InventoryCopterPack extends InventoryAdventure {
     }
 
     private void detectAndConvertFromOldNBTFormat(NBTTagCompound compound) // backwards compatibility
-            {
+    {
         if (compound == null || compound.hasKey(TAG_WEARABLE_COMPOUND)) return;
 
         if (compound.hasKey("status")) compound.removeTag("status");

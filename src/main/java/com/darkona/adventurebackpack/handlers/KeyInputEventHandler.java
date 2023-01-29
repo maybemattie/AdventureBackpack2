@@ -1,5 +1,8 @@
 package com.darkona.adventurebackpack.handlers;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+
 import com.darkona.adventurebackpack.common.ServerActions;
 import com.darkona.adventurebackpack.config.Keybindings;
 import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
@@ -11,15 +14,15 @@ import com.darkona.adventurebackpack.network.SyncPropertiesPacket;
 import com.darkona.adventurebackpack.network.WearableModePacket;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Wearing;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * Created by Darkona on 11/10/2014.
  */
 public class KeyInputEventHandler {
+
     public enum Key {
         UNKNOWN,
         INVENTORY,
@@ -61,8 +64,7 @@ public class KeyInputEventHandler {
                 ServerActions.switchHose(player, false, ServerActions.HOSE_TOGGLE);
             } else if (Wearing.isWearingBackpack(player)) {
                 if (player.isSneaking()) {
-                    if (BackpackTypes.isNightVision(
-                            Wearing.getWearingBackpackInv(player).getType())) {
+                    if (BackpackTypes.isNightVision(Wearing.getWearingBackpackInv(player).getType())) {
                         sendWearableModePacket(WearableModePacket.NIGHTVISION_ON_OFF);
                         ServerActions.toggleNightVision(player, Wearing.getWearingBackpack(player));
                     }
@@ -74,11 +76,15 @@ public class KeyInputEventHandler {
                 if (player.isSneaking()) {
                     sendWearableModePacket(WearableModePacket.COPTER_ON_OFF);
                     ServerActions.toggleCopterPack(
-                            player, Wearing.getWearingCopter(player), WearableModePacket.COPTER_ON_OFF);
+                            player,
+                            Wearing.getWearingCopter(player),
+                            WearableModePacket.COPTER_ON_OFF);
                 } else {
                     sendWearableModePacket(WearableModePacket.COPTER_TOGGLE);
                     ServerActions.toggleCopterPack(
-                            player, Wearing.getWearingCopter(player), WearableModePacket.COPTER_TOGGLE);
+                            player,
+                            Wearing.getWearingCopter(player),
+                            WearableModePacket.COPTER_TOGGLE);
                 }
             } else if (Wearing.isWearingJetpack(player)) {
                 if (player.isSneaking()) {

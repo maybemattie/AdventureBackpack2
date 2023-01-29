@@ -1,15 +1,17 @@
 package com.darkona.adventurebackpack.item;
 
-import com.darkona.adventurebackpack.CreativeTabAB;
-import com.darkona.adventurebackpack.init.ModMaterials;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.util.Resources;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+
+import com.darkona.adventurebackpack.CreativeTabAB;
+import com.darkona.adventurebackpack.init.ModMaterials;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.util.Resources;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Created on 11/10/2014.
@@ -17,6 +19,7 @@ import net.minecraft.item.ItemStack;
  * @author Javier Darkona
  */
 public class ArmorAB extends ItemArmor {
+
     /**
      * @param type        2 Chain
      * @param renderIndex 0 Helmet, 1 Plate, 2 Pants, 3 Boots
@@ -37,15 +40,15 @@ public class ArmorAB extends ItemArmor {
 
     @Override
     public String getUnlocalizedName() {
-        return String.format(
-                "item.%s%s", ModInfo.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
+        return String
+                .format("item.%s%s", ModInfo.MOD_ID + ":", getUnwrappedUnlocalizedName(super.getUnlocalizedName()));
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        itemIcon = iconRegister.registerIcon(
-                this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1));
+        itemIcon = iconRegister
+                .registerIcon(this.getUnlocalizedName().substring(this.getUnlocalizedName().indexOf(".") + 1));
     }
 
     @Override

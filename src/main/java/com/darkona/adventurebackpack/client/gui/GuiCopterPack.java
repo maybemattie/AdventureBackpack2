@@ -1,16 +1,18 @@
 package com.darkona.adventurebackpack.client.gui;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidTank;
+
+import org.apache.commons.lang3.text.WordUtils;
+import org.lwjgl.opengl.GL11;
+
 import com.darkona.adventurebackpack.common.Constants.Source;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.inventory.ContainerCopter;
 import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.reference.GeneralReference;
 import com.darkona.adventurebackpack.util.Resources;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidTank;
-import org.apache.commons.lang3.text.WordUtils;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 03/01/2015
@@ -18,6 +20,7 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class GuiCopterPack extends GuiWithTanks {
+
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiCopterPack");
 
     private static GuiImageButtonNormal equipButton = new GuiImageButtonNormal(150, 64, 18, 18);

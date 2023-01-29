@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 
 public class ColorReplacer {
+
     public static BufferedImage colorImage(int colour, BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();

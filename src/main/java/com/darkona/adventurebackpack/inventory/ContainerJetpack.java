@@ -4,11 +4,12 @@ import static com.darkona.adventurebackpack.common.Constants.Jetpack.BUCKET_IN;
 import static com.darkona.adventurebackpack.common.Constants.Jetpack.BUCKET_OUT;
 import static com.darkona.adventurebackpack.common.Constants.Jetpack.FUEL_SLOT;
 
-import com.darkona.adventurebackpack.common.Constants.Source;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.darkona.adventurebackpack.common.Constants.Source;
 
 /**
  * Created on 15/01/2015
@@ -16,6 +17,7 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class ContainerJetpack extends ContainerAdventure {
+
     private static final int JETPACK_INV_START = PLAYER_INV_END + 1;
     private static final int JETPACK_FUEL_START = PLAYER_INV_END + 3;
 

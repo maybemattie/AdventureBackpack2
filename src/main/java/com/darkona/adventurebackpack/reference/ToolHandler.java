@@ -1,9 +1,10 @@
 package com.darkona.adventurebackpack.reference;
 
+import net.minecraft.item.ItemStack;
+
 import com.darkona.adventurebackpack.util.GregtechUtils;
 import com.darkona.adventurebackpack.util.ThaumcraftUtils;
 import com.darkona.adventurebackpack.util.TinkersUtils;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created on 06.02.2018
@@ -11,11 +12,11 @@ import net.minecraft.item.ItemStack;
  * @author Ugachaga
  */
 public enum ToolHandler {
+
     VANILLA,
     GREGTECH,
     TCONSTRUCT,
-    THAUMCRAFT,
-    ;
+    THAUMCRAFT,;
 
     public static ToolHandler getToolHandler(ItemStack stack) {
         if (stack == null) return VANILLA;

@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
  * @author Darkona
  */
 public class TileCampfire extends TileEntity {
+
     private int burnTicks;
     private ItemStack[] foodCooking = new ItemStack[4];
 

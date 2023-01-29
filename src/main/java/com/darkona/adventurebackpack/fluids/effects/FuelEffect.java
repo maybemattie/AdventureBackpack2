@@ -1,7 +1,5 @@
 package com.darkona.adventurebackpack.fluids.effects;
 
-import adventurebackpack.api.FluidEffect;
-import com.darkona.adventurebackpack.util.Utils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
@@ -9,12 +7,17 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import adventurebackpack.api.FluidEffect;
+
+import com.darkona.adventurebackpack.util.Utils;
+
 /**
  * Created on 12/10/2014
  *
  * @author Darkona
  */
 public class FuelEffect extends FluidEffect {
+
     public FuelEffect() {
         super(FluidRegistry.getFluid("fuel"), 20);
     }

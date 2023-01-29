@@ -1,11 +1,12 @@
 package com.darkona.adventurebackpack.client.audio;
 
-import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.util.Wearing;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+
+import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.util.Wearing;
 
 /**
  * Created on 16/01/2015
@@ -13,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
  * @author Darkona
  */
 public class LeakingBoilerSound extends MovingSound {
+
     private EntityPlayer thePlayer;
     private boolean repeat = true;
     private int repeatDelay = 0;
@@ -38,8 +40,7 @@ public class LeakingBoilerSound extends MovingSound {
 
     @Override
     public void update() {
-        if (thePlayer == null
-                || thePlayer.isDead
+        if (thePlayer == null || thePlayer.isDead
                 || thePlayer.worldObj == null
                 || !Wearing.isWearingJetpack(thePlayer)) {
             setDonePlaying();

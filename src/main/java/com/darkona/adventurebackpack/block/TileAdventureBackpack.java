@@ -15,20 +15,6 @@ import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOU
 import static com.darkona.adventurebackpack.common.Constants.TOOL_LOWER;
 import static com.darkona.adventurebackpack.common.Constants.TOOL_UPPER;
 
-import com.darkona.adventurebackpack.common.BackpackAbilities;
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.init.ModBlocks;
-import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
-import com.darkona.adventurebackpack.inventory.InventoryActions;
-import com.darkona.adventurebackpack.inventory.SlotBackpack;
-import com.darkona.adventurebackpack.inventory.SlotTool;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.reference.GeneralReference;
-import com.darkona.adventurebackpack.util.BackpackUtils;
-import com.darkona.adventurebackpack.util.CoordsUtils;
-import com.darkona.adventurebackpack.util.Utils;
-import com.darkona.adventurebackpack.util.Wearing;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -45,10 +31,26 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.common.BackpackAbilities;
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.init.ModBlocks;
+import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
+import com.darkona.adventurebackpack.inventory.InventoryActions;
+import com.darkona.adventurebackpack.inventory.SlotBackpack;
+import com.darkona.adventurebackpack.inventory.SlotTool;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.reference.GeneralReference;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+import com.darkona.adventurebackpack.util.Utils;
+import com.darkona.adventurebackpack.util.Wearing;
+
 /**
  * Created by Darkona on 12/10/2014.
  */
 public class TileAdventureBackpack extends TileAdventure implements IInventoryBackpack, ISidedInventory {
+
     private static final int[] MAIN_INVENTORY_SLOTS = Utils.createSlotArray(0, Constants.INVENTORY_MAIN_SIZE);
 
     private BackpackTypes type = BackpackTypes.STANDARD;
@@ -96,12 +98,12 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
 
     @Override
     public FluidTank[] getTanksArray() {
-        return new FluidTank[] {leftTank, rightTank};
+        return new FluidTank[] { leftTank, rightTank };
     }
 
     @Override
     public int[] getSlotsOnClosing() {
-        return new int[] {BUCKET_IN_LEFT, BUCKET_IN_RIGHT, BUCKET_OUT_LEFT, BUCKET_OUT_RIGHT};
+        return new int[] { BUCKET_IN_LEFT, BUCKET_IN_RIGHT, BUCKET_OUT_LEFT, BUCKET_OUT_RIGHT };
     }
 
     @Override
@@ -218,10 +220,9 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
 
         if (BackpackUtils.equipWearable(stacky, player) != BackpackUtils.Reasons.SUCCESSFUL) {
             Wearing.WearableType wtype = Wearing.getWearingWearableType(player);
-            if (wtype != Wearing.WearableType.UNKNOWN)
-                player.addChatComponentMessage(
-                        new ChatComponentTranslation("adventurebackpack:messages.already.equipped."
-                                + wtype.name().toLowerCase()));
+            if (wtype != Wearing.WearableType.UNKNOWN) player.addChatComponentMessage(
+                    new ChatComponentTranslation(
+                            "adventurebackpack:messages.already.equipped." + wtype.name().toLowerCase()));
 
             if (!player.inventory.addItemStackToInventory(stacky)) return drop(world, player, x, y, z);
         }
@@ -313,8 +314,8 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
     }
 
     /**
-     * Send sync packet. This is necessary for the TileEntity to load the nbt as soon as it is loaded
-     * and be rendered properly when the custom renderer reads it
+     * Send sync packet. This is necessary for the TileEntity to load the nbt as soon as it is loaded and be rendered
+     * properly when the custom renderer reads it
      */
     @Override
     public Packet getDescriptionPacket() {
@@ -324,8 +325,8 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
     }
 
     /**
-     * Receive sync packet. This is necessary for the TileEntity to load the nbt as soon as it is loaded
-     * and be rendered properly when the custom renderer reads it
+     * Receive sync packet. This is necessary for the TileEntity to load the nbt as soon as it is loaded and be rendered
+     * properly when the custom renderer reads it
      */
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
@@ -344,12 +345,8 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
         // Check for backpack luminosity and a deployed sleeping bag, just in case because i'm super paranoid.
         if (checkTime == 0) {
             int lastLumen = luminosity;
-            int left = (leftTank.getFluid() != null)
-                    ? leftTank.getFluid().getFluid().getLuminosity()
-                    : 0;
-            int right = (rightTank.getFluid() != null)
-                    ? rightTank.getFluid().getFluid().getLuminosity()
-                    : 0;
+            int left = (leftTank.getFluid() != null) ? leftTank.getFluid().getFluid().getLuminosity() : 0;
+            int right = (rightTank.getFluid() != null) ? rightTank.getFluid().getFluid().getLuminosity() : 0;
             luminosity = Math.max(left, right);
             if (luminosity != lastLumen) {
                 int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
@@ -371,7 +368,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
     }
 
     private void convertFromOldNBTFormat(NBTTagCompound compound) // backwards compatibility
-            {
+    {
         NBTTagCompound oldBackpackTag = compound.getCompoundTag("backpackData");
         NBTTagList oldItems = oldBackpackTag.getTagList("ABPItems", NBT.TAG_COMPOUND);
         leftTank.readFromNBT(oldBackpackTag.getCompoundTag("leftTank"));

@@ -1,13 +1,17 @@
 package com.darkona.adventurebackpack.nei;
 
+import java.util.ArrayList;
+
+import net.minecraft.client.Minecraft;
+
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IStackPositioner;
 import codechicken.nei.recipe.GuiRecipe;
+
 import com.darkona.adventurebackpack.client.gui.GuiAdvBackpack;
-import java.util.ArrayList;
-import net.minecraft.client.Minecraft;
 
 public class BackpackStackPositioner implements IStackPositioner {
+
     @Override
     public ArrayList<PositionedStack> positionStacks(ArrayList<PositionedStack> stacks) {
         if (Minecraft.getMinecraft().currentScreen instanceof GuiRecipe) {

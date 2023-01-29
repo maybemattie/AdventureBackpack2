@@ -1,15 +1,18 @@
 package com.darkona.adventurebackpack.reference;
 
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.util.LogHelper;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.util.LogHelper;
 
 /**
  * Created on 16/01/2015
@@ -17,6 +20,7 @@ import net.minecraftforge.fluids.FluidRegistry;
  * @author Darkona
  */
 public class GeneralReference {
+
     private static HashMap<String, Float> liquidFuels = new HashMap<>();
     private static Set<Integer> dimensionBlacklist = new HashSet<>();
 
@@ -80,10 +84,12 @@ public class GeneralReference {
         }
 
         if (wrongCount > 0 || unregCount > 0) {
-            LogHelper.info("Skipped "
-                    + (wrongCount > 0 ? (wrongCount + " incorrect entr" + (wrongCount > 1 ? "ies" : "y")) : "")
-                    + (wrongCount > 0 && unregCount > 0 ? " and " : "")
-                    + (unregCount > 0 ? (unregCount + " unregistered fluid" + (unregCount > 1 ? "s" : "")) : ""));
+            LogHelper.info(
+                    "Skipped "
+                            + (wrongCount > 0 ? (wrongCount + " incorrect entr" + (wrongCount > 1 ? "ies" : "y")) : "")
+                            + (wrongCount > 0 && unregCount > 0 ? " and " : "")
+                            + (unregCount > 0 ? (unregCount + " unregistered fluid" + (unregCount > 1 ? "s" : ""))
+                                    : ""));
         }
     }
 

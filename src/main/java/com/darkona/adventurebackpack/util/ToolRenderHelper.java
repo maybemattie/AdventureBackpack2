@@ -9,6 +9,7 @@ import net.minecraftforge.client.IItemRenderer.ItemRenderType;
  * @author Ugachaga
  */
 public final class ToolRenderHelper {
+
     private static final String METHOD_RENDERER = "renderItem";
     private static final Object[] EMPTY_OBJECT = {};
 

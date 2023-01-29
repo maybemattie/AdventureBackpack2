@@ -1,5 +1,11 @@
 package com.darkona.adventurebackpack.util;
 
+import javax.annotation.Nonnull;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import com.darkona.adventurebackpack.init.ModItems;
 import com.darkona.adventurebackpack.inventory.IInventoryTanks;
 import com.darkona.adventurebackpack.inventory.InventoryBackpack;
@@ -8,10 +14,6 @@ import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.item.*;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
-import javax.annotation.Nonnull;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created on 11/10/2014
@@ -19,7 +21,9 @@ import net.minecraft.item.ItemStack;
  * @author Darkona
  */
 public class Wearing {
+
     public enum WearableType {
+
         BACKPACK,
         COPTERPACK,
         JETPACK,

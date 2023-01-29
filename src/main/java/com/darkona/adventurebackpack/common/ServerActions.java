@@ -5,6 +5,23 @@ import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
 import static com.darkona.adventurebackpack.common.Constants.TOOL_LOWER;
 import static com.darkona.adventurebackpack.common.Constants.TOOL_UPPER;
 
+import java.util.Random;
+
+import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+
 import com.darkona.adventurebackpack.block.BlockSleepingBag;
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.config.ConfigHandler;
@@ -23,21 +40,6 @@ import com.darkona.adventurebackpack.reference.GeneralReference;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Wearing;
-import java.util.Random;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentTranslation;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
 
 /**
  * Created on 23/12/2014
@@ -45,12 +47,13 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class ServerActions {
+
     public static final boolean HOSE_SWITCH = false;
     public static final boolean HOSE_TOGGLE = true;
 
     /**
-     * Cycles tools. In a cycle. The tool in your hand with the tools in the special tool playerSlot of the backpack,
-     * to be precise.
+     * Cycles tools. In a cycle. The tool in your hand with the tools in the special tool playerSlot of the backpack, to
+     * be precise.
      *
      * @param player    Duh
      * @param isWheelUp A boolean indicating the direction of the switch. Nobody likes to swith always in the same
@@ -70,10 +73,10 @@ public class ServerActions {
     }
 
     /**
-     * @param world  The world. Like, the WHOLE world. That's a lot of stuff. Do stuff with it, like detecting biomes
-     *               or whatever.
-     * @param player Is a player. To whom  the nice or evil effects you're going to apply will affect.
-     *               See? I know the proper use of the words "effect" & "affect".
+     * @param world  The world. Like, the WHOLE world. That's a lot of stuff. Do stuff with it, like detecting biomes or
+     *               whatever.
+     * @param player Is a player. To whom the nice or evil effects you're going to apply will affect. See? I know the
+     *               proper use of the words "effect" & "affect".
      * @param tank   The tank that holds the fluid, whose effect will affect the player that's in the world.
      * @return If the effect can be applied, and it is actually applied, returns true.
      */
@@ -89,8 +92,8 @@ public class ServerActions {
     /**
      * @param player    Duh!
      * @param isWheelUp The direction in which the hose modes will switch.
-     * @param action    The type of the action to be performed on the hose.
-     *                  Can be HOSE_SWITCH for mode or HOSE_TOGGLE for tank
+     * @param action    The type of the action to be performed on the hose. Can be HOSE_SWITCH for mode or HOSE_TOGGLE
+     *                  for tank
      */
     public static void switchHose(EntityPlayer player, boolean isWheelUp, boolean action) {
         if (Wearing.isHoldingHose(player)) {
@@ -175,17 +178,13 @@ public class ServerActions {
                 entityarrow.canBePickedUp = 2;
             } else {
                 /*
-                 * From here, instead of leaking an arrow to the player inventory, which may be full and then it would be
-                 * pointless, leak an arrow straight from the backpack ^_^
-                 *
-                 * It could be possible to switch a whole stack with the player inventory, fire the arrow, and then
-                 * switch back, but that's stupid.
-                 *
-                 * That's how you make a quiver (for vanilla bows at least, or anything that uses the events and vanilla
-                 * arrows) Until we have an event that fires when a player consumes items in his/her inventory.
-                 *
-                 * I should make a pull request. Too lazy, though.
-                 * */
+                 * From here, instead of leaking an arrow to the player inventory, which may be full and then it would
+                 * be pointless, leak an arrow straight from the backpack ^_^ It could be possible to switch a whole
+                 * stack with the player inventory, fire the arrow, and then switch back, but that's stupid. That's how
+                 * you make a quiver (for vanilla bows at least, or anything that uses the events and vanilla arrows)
+                 * Until we have an event that fires when a player consumes items in his/her inventory. I should make a
+                 * pull request. Too lazy, though.
+                 */
                 backpack.consumeInventoryItem(Items.arrow);
                 backpack.dirtyInventory();
             }
@@ -242,9 +241,8 @@ public class ServerActions {
     }
 
     /**
-     * Adds vertical inertia to the movement in the Y axis of the player, and makes Newton's Laws cry.
-     * In other words, makes you jump higher.
-     * Also it plays a nice sound effect that will probably get annoying after a while.
+     * Adds vertical inertia to the movement in the Y axis of the player, and makes Newton's Laws cry. In other words,
+     * makes you jump higher. Also it plays a nice sound effect that will probably get annoying after a while.
      *
      * @param player - The player performing the jump.
      */
@@ -257,9 +255,7 @@ public class ServerActions {
     }
 
     public static void copterSoundAtLogin(EntityPlayer player) {
-        byte status = BackpackUtils.getWearableCompound(
-                        BackpackProperty.get(player).getWearable())
-                .getByte(TAG_STATUS);
+        byte status = BackpackUtils.getWearableCompound(BackpackProperty.get(player).getWearable()).getByte(TAG_STATUS);
 
         if (!player.worldObj.isRemote && status != ItemCopterPack.OFF_MODE) {
             ModNetwork.sendToNearby(new EntitySoundPacket.Message(EntitySoundPacket.COPTER_SOUND, player), player);
@@ -267,15 +263,15 @@ public class ServerActions {
     }
 
     public static void jetpackSoundAtLogin(EntityPlayer player) {
-        boolean isBoiling = BackpackUtils.getWearableCompound(
-                        BackpackProperty.get(player).getWearable())
+        boolean isBoiling = BackpackUtils.getWearableCompound(BackpackProperty.get(player).getWearable())
                 .getBoolean("boiling");
 
         if (!player.worldObj.isRemote && isBoiling) {
             // ModNetwork.sendToNearby(new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player),
             // player); //TODO difference?
             ModNetwork.net.sendTo(
-                    new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player), (EntityPlayerMP) player);
+                    new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player),
+                    (EntityPlayerMP) player);
         }
     }
 
@@ -292,7 +288,8 @@ public class ServerActions {
                 actionPerformed = true;
                 if (!player.worldObj.isRemote) {
                     ModNetwork.sendToNearby(
-                            new EntitySoundPacket.Message(EntitySoundPacket.COPTER_SOUND, player), player);
+                            new EntitySoundPacket.Message(EntitySoundPacket.COPTER_SOUND, player),
+                            player);
                 }
             } else {
                 newMode = ItemCopterPack.OFF_MODE;

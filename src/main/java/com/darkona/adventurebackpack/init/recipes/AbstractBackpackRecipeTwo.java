@@ -2,13 +2,14 @@ package com.darkona.adventurebackpack.init.recipes;
 
 import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
 
-import com.darkona.adventurebackpack.init.ModItems;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import com.darkona.adventurebackpack.init.ModItems;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
 
 /**
  * Created on 24/12/2014
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
  */
 public class AbstractBackpackRecipeTwo implements IRecipe // TODO unused class
 {
+
     private ItemStack result;
     private ItemStack[] recipe;
     private BackpackTypes type;

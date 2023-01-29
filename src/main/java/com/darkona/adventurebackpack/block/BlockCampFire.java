@@ -1,11 +1,7 @@
 package com.darkona.adventurebackpack.block;
 
-import com.darkona.adventurebackpack.CreativeTabAB;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.util.CoordsUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,12 +13,20 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.darkona.adventurebackpack.CreativeTabAB;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Created on 05/01/2015
  *
  * @author Darkona
  */
 public class BlockCampFire extends BlockContainer {
+
     private IIcon icon;
 
     public BlockCampFire() {
@@ -131,8 +135,8 @@ public class BlockCampFire extends BlockContainer {
     @Override
     public ChunkCoordinates getBedSpawnPosition(IBlockAccess world, int x, int y, int z, EntityPlayer player) {
         for (int i = y - 5; i <= y + 5; i++) {
-            ChunkCoordinates spawn =
-                    CoordsUtils.getNearestEmptyChunkCoordinatesSpiral(world, x, z, x, i, z, 8, true, 1, (byte) 0, true);
+            ChunkCoordinates spawn = CoordsUtils
+                    .getNearestEmptyChunkCoordinatesSpiral(world, x, z, x, i, z, 8, true, 1, (byte) 0, true);
 
             if (spawn != null) {
                 return spawn;

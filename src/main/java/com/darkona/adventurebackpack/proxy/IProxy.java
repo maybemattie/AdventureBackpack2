@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author Darkona
  */
 public interface IProxy {
+
     void init();
 
     void registerKeybindings();

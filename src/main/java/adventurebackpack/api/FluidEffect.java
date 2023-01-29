@@ -6,12 +6,13 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 /**
- * A Class you must extend to add player effects when drinking different fluids.
- * The timeInSeconds and timeInSeconds in ticks may serve to set the duration of the effect.
+ * A Class you must extend to add player effects when drinking different fluids. The timeInSeconds and timeInSeconds in
+ * ticks may serve to set the duration of the effect.
  *
  * @author Darkona
  */
 public abstract class FluidEffect {
+
     public Fluid fluid;
     public int timeInSeconds;
     public int timeInTicks;
@@ -51,9 +52,8 @@ public abstract class FluidEffect {
     }
 
     /**
-     * This method determines what will happen to the player (or world!) when drinking the
-     * corresponding fluid. For example set potion effects, set player on fire,
-     * heal, fill hunger, etc. You can use the world parameter to make
+     * This method determines what will happen to the player (or world!) when drinking the corresponding fluid. For
+     * example set potion effects, set player on fire, heal, fill hunger, etc. You can use the world parameter to make
      * conditions based on where the player is.
      *
      * @param world  The World.

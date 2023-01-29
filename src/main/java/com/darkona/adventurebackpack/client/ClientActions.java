@@ -1,5 +1,9 @@
 package com.darkona.adventurebackpack.client;
 
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+
 import com.darkona.adventurebackpack.client.audio.BoilingBoilerSound;
 import com.darkona.adventurebackpack.client.audio.CopterPackSound;
 import com.darkona.adventurebackpack.client.audio.JetpackSoundOn;
@@ -8,12 +12,10 @@ import com.darkona.adventurebackpack.client.audio.NyanMovingSound;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
 import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 
 /**
  * Created on 11/10/2014
@@ -24,6 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
  * @see com.darkona.adventurebackpack.common.BackpackAbilities
  */
 public class ClientActions {
+
     @SideOnly(Side.CLIENT)
     public static void showParticlesAtEntity(Entity entity, byte particleCode) {
         if (entity instanceof EntityPlayer) {

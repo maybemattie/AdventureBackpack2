@@ -1,34 +1,27 @@
 package com.darkona.adventurebackpack.util.calendar;
 
 /**
- * Created on 22/12/2014
- * Copyright © by Ulrich and David Greve (2005)
+ * Created on 22/12/2014 Copyright © by Ulrich and David Greve (2005)
  *
  * @author Darkona
  */
 public class CalendarImpl {
     /*
-    public static int getWeekday(int absDate)
-    public int getLastDayOfGregorianMonth(int month, int year)
-    public int absoluteFromGregorianDate(CalendarDate date)
-    public CalendarDate gregorianDateFromAbsolute(int absDate)
-
-    public int getLastMonthOfJewishYear(int year)
-    public int getLastDayOfJewishMonth(int month, int year)
-    public int absoluteFromJewishDate(CalendarDate date)
-    public CalendarDate jewishDateFromAbsolute(int absDate)
-    */
+     * public static int getWeekday(int absDate) public int getLastDayOfGregorianMonth(int month, int year) public int
+     * absoluteFromGregorianDate(CalendarDate date) public CalendarDate gregorianDateFromAbsolute(int absDate) public
+     * int getLastMonthOfJewishYear(int year) public int getLastDayOfJewishMonth(int month, int year) public int
+     * absoluteFromJewishDate(CalendarDate date) public CalendarDate jewishDateFromAbsolute(int absDate)
+     */
 
     // ------------------------------------------------
     public static int getWeekday(int absDate) {
         return (absDate % 7);
     }
 
-    private int month_list[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private int month_list[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public int getLastDayOfGregorianMonth(int month, int year) {
-        if ((month == 2)
-                && ((year % 4) == 0)
+        if ((month == 2) && ((year % 4) == 0)
                 && ((year % 400) != 100)
                 && ((year % 400) != 200)
                 && ((year % 400) != 300)) {
@@ -70,7 +63,7 @@ public class CalendarImpl {
 
         /* Search forward from the approximation */
         y = approx;
-        for (; ; ) {
+        for (;;) {
             temp = absoluteFromGregorianDate(new CalendarDate(1, 1, y + 1));
             if (absDate < temp) break;
             y++;
@@ -79,7 +72,7 @@ public class CalendarImpl {
 
         /* Search forward from January */
         m = 1;
-        for (; ; ) {
+        for (;;) {
             temp = absoluteFromGregorianDate(new CalendarDate(getLastDayOfGregorianMonth(m, year), m, year));
             if (absDate <= temp) break;
             m++;
@@ -151,25 +144,20 @@ public class CalendarImpl {
         parts = ((hoursElapsed % 24) * 1080) + (partsElapsed % 1080);
 
         /* If new moon is at or after midday, */
-        if ((parts >= 19440)
-                ||
+        if ((parts >= 19440) ||
 
-                /* ...or is on a Tuesday... */
-                (((day % 7) == 2)
-                        &&
-                        /* at 9 hours, 204 parts or later */
-                        (parts >= 9924)
-                        &&
+        /* ...or is on a Tuesday... */
+                (((day % 7) == 2) &&
+                /* at 9 hours, 204 parts or later */
+                        (parts >= 9924) &&
                         /* of a common year */
                         (!hebrewLeapYear(year)))
                 ||
 
                 /* ...or is on a Monday at... */
-                (((day % 7) == 1)
-                        &&
-                        /* 15 hours, 589 parts or later... */
-                        (parts >= 16789)
-                        &&
+                (((day % 7) == 1) &&
+                /* 15 hours, 589 parts or later... */
+                        (parts >= 16789) &&
                         /* at the end of a leap year */
                         (hebrewLeapYear(year - 1))))
         /* Then postpone Rosh HaShanah one day */
@@ -255,7 +243,7 @@ public class CalendarImpl {
 
         /* Search forward from the approximation */
         y = approx;
-        for (; ; ) {
+        for (;;) {
             temp = absoluteFromJewishDate(new CalendarDate(1, 7, y + 1));
             if (absDate < temp) break;
             y++;
@@ -272,7 +260,7 @@ public class CalendarImpl {
 
         /* Search forward from either Tishri or Nisan */
         m = start;
-        for (; ; ) {
+        for (;;) {
             temp = absoluteFromJewishDate(new CalendarDate(getLastDayOfJewishMonth(m, year), m, year));
             if (absDate <= temp) {
                 break;

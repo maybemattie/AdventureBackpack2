@@ -5,19 +5,8 @@ import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_FUEL_TAN
 import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
 import static com.darkona.adventurebackpack.util.TipUtils.l10n;
 
-import com.darkona.adventurebackpack.init.ModNetwork;
-import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
-import com.darkona.adventurebackpack.network.GUIPacket;
-import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
-import com.darkona.adventurebackpack.proxy.ClientProxy;
-import com.darkona.adventurebackpack.reference.GeneralReference;
-import com.darkona.adventurebackpack.util.BackpackUtils;
-import com.darkona.adventurebackpack.util.Resources;
-import com.darkona.adventurebackpack.util.TipUtils;
-import com.darkona.adventurebackpack.util.Wearing;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
@@ -34,12 +23,27 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.init.ModNetwork;
+import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
+import com.darkona.adventurebackpack.network.GUIPacket;
+import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
+import com.darkona.adventurebackpack.proxy.ClientProxy;
+import com.darkona.adventurebackpack.reference.GeneralReference;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import com.darkona.adventurebackpack.util.Resources;
+import com.darkona.adventurebackpack.util.TipUtils;
+import com.darkona.adventurebackpack.util.Wearing;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Created on 31/12/2014
  *
  * @author Darkona
  */
 public class ItemCopterPack extends ItemAdventure {
+
     public static byte OFF_MODE = 0;
     public static byte NORMAL_MODE = 1;
     public static byte HOVER_MODE = 2;
@@ -58,7 +62,7 @@ public class ItemCopterPack extends ItemAdventure {
     }
 
     @Override
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean advanced) {
         FluidTank fuelTank = new FluidTank(FUEL_CAPACITY);
@@ -101,9 +105,9 @@ public class ItemCopterPack extends ItemAdventure {
     }
 
     @Override
-    public void onEquippedUpdate(
-            World world, EntityPlayer player, ItemStack stack) // TODO extract behavior to separate class
-            {
+    public void onEquippedUpdate(World world, EntityPlayer player, ItemStack stack) // TODO extract behavior to separate
+                                                                                    // class
+    {
         InventoryCopterPack inv = new InventoryCopterPack(Wearing.getWearingCopter(player));
         inv.openInventory();
         boolean canElevate = true;
@@ -167,7 +171,8 @@ public class ItemCopterPack extends ItemAdventure {
             // Smoke
             if (!world.isRemote) {
                 ModNetwork.sendToNearby(
-                        new EntityParticlePacket.Message(EntityParticlePacket.COPTER_PARTICLE, player), player);
+                        new EntityParticlePacket.Message(EntityParticlePacket.COPTER_PARTICLE, player),
+                        player);
             }
             // Sound
 
@@ -196,11 +201,8 @@ public class ItemCopterPack extends ItemAdventure {
             }
             int ticks = inv.getTickCounter() - 1;
             FluidTank tank = inv.getFuelTank();
-            if (tank.getFluid() != null
-                    && GeneralReference.isValidFuel(tank.getFluid().getFluid().getName())) {
-                fuelConsumption = fuelConsumption
-                        * GeneralReference.getFuelRate(
-                                tank.getFluid().getFluid().getName());
+            if (tank.getFluid() != null && GeneralReference.isValidFuel(tank.getFluid().getFluid().getName())) {
+                fuelConsumption = fuelConsumption * GeneralReference.getFuelRate(tank.getFluid().getFluid().getName());
             }
             if (ticks <= 0) {
                 inv.setTickCounter(3);

@@ -13,10 +13,6 @@ import static com.darkona.adventurebackpack.common.Constants.TAG_RIGHT_TANK;
 import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
 import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.init.ModBlocks;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.CoordsUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -26,12 +22,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.init.ModBlocks;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+
 /**
  * Created on 12/10/2014
  *
  * @author Darkona
  */
 public class InventoryBackpack extends InventoryAdventure implements IInventoryBackpack {
+
     private static final String TAG_IS_SLEEPING_BAG = "sleepingBag";
     private static final String TAG_SLEEPING_BAG_X = "sleepingBagX";
     private static final String TAG_SLEEPING_BAG_Y = "sleepingBagY";
@@ -79,12 +81,12 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
 
     @Override
     public FluidTank[] getTanksArray() {
-        return new FluidTank[] {leftTank, rightTank};
+        return new FluidTank[] { leftTank, rightTank };
     }
 
     @Override
     public int[] getSlotsOnClosing() {
-        return new int[] {BUCKET_IN_LEFT, BUCKET_IN_RIGHT, BUCKET_OUT_LEFT, BUCKET_OUT_RIGHT};
+        return new int[] { BUCKET_IN_LEFT, BUCKET_IN_RIGHT, BUCKET_OUT_LEFT, BUCKET_OUT_RIGHT };
     }
 
     @Override
@@ -94,8 +96,8 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
 
     @Override
     public void loadFromNBT(NBTTagCompound compound) {
-        if (compound == null)
-            return; // this need for NEI and WAILA trying to render tile.backpack and comes here w/o nbt
+        if (compound == null) return; // this need for NEI and WAILA trying to render tile.backpack and comes here w/o
+                                      // nbt
 
         NBTTagCompound backpackTag = compound.getCompoundTag(TAG_WEARABLE_COMPOUND);
         type = BackpackTypes.getType(backpackTag.getByte(TAG_TYPE));
@@ -141,7 +143,7 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
 
     @Override
     public void dirtyExtended() // TODO is it redundant?
-            {
+    {
         getWearableCompound().removeTag(TAG_EXTENDED_COMPOUND); // TODO again: why?
         getWearableCompound().setTag(TAG_EXTENDED_COMPOUND, extendedProperties);
     }
@@ -241,7 +243,7 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
     }
 
     private void detectAndConvertFromOldNBTFormat(NBTTagCompound compound) // backwards compatibility
-            {
+    {
         if (compound == null || !compound.hasKey("backpackData")) return;
 
         NBTTagCompound oldBackpackTag = compound.getCompoundTag("backpackData");

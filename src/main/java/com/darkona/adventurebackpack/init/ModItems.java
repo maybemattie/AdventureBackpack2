@@ -21,6 +21,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author Darkona
  */
 public class ModItems {
+
     public static final ItemMachete machete = new ItemMachete();
     public static final ItemCrossbow cwxbow = new ItemCrossbow();
     public static final ArmorAB adventureHat = new ItemAdventureHat();
@@ -50,16 +51,8 @@ public class ModItems {
         GameRegistry.registerItem(melonJuiceBottle, "melonJuiceBottle");
     }
 
-    /*public static void conditionalInit()
-    {
-        if (LoadedMods.BUILDCRAFT)
-        {
-            GameRegistry.registerItem(copterPack, "copterPack");
-        }
-
-        if (LoadedMods.RAILCRAFT)
-        {
-            GameRegistry.registerItem(steamJetpack, "steamJetpack");
-        }
-    }*/
+    /*
+     * public static void conditionalInit() { if (LoadedMods.BUILDCRAFT) { GameRegistry.registerItem(copterPack,
+     * "copterPack"); } if (LoadedMods.RAILCRAFT) { GameRegistry.registerItem(steamJetpack, "steamJetpack"); } }
+     */
 }

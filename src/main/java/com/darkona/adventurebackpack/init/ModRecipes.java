@@ -1,5 +1,12 @@
 package com.darkona.adventurebackpack.init;
 
+import java.lang.reflect.Field;
+
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.init.recipes.BackpackRecipesList;
 import com.darkona.adventurebackpack.init.recipes.ShapedBackpackRecipe;
@@ -7,11 +14,6 @@ import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.LogHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
-import java.lang.reflect.Field;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * Created on 20/10/2014
@@ -19,16 +21,34 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  * @author Darkona
  */
 public class ModRecipes {
+
     public static void init() {
         if (ConfigHandler.recipeSaddle) {
             // Saddle
             GameRegistry.addRecipe(
-                    new ItemStack(Items.saddle), "LLL", "L L", "I I", 'L', Items.leather, 'I', Items.iron_ingot);
+                    new ItemStack(Items.saddle),
+                    "LLL",
+                    "L L",
+                    "I I",
+                    'L',
+                    Items.leather,
+                    'I',
+                    Items.iron_ingot);
         }
 
         // CampFire
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                ModBlocks.blockCampFire, " S ", "SxS", "ccc", 'S', "stickWood", 'x', Items.coal, 'c', "cobblestone"));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        ModBlocks.blockCampFire,
+                        " S ",
+                        "SxS",
+                        "ccc",
+                        'S',
+                        "stickWood",
+                        'x',
+                        Items.coal,
+                        'c',
+                        "cobblestone"));
 
         if (ConfigHandler.recipeCopterPack) {
             // Copter Pack
@@ -205,12 +225,19 @@ public class ModRecipes {
                 new ItemStack(Items.dye, 1, 2));
 
         // Sleeping Bag
-        GameRegistry.addRecipe(
-                new ItemStack(ModItems.component, 1, 1), "  X", "CCC", 'X', Blocks.wool, 'C', Blocks.carpet);
+        GameRegistry
+                .addRecipe(new ItemStack(ModItems.component, 1, 1), "  X", "CCC", 'X', Blocks.wool, 'C', Blocks.carpet);
 
         // Backpack Tank
         GameRegistry.addRecipe(
-                new ItemStack(ModItems.component, 1, 2), "GIG", "GGG", "GIG", 'G', Blocks.glass, 'I', Items.iron_ingot);
+                new ItemStack(ModItems.component, 1, 2),
+                "GIG",
+                "GGG",
+                "GIG",
+                'G',
+                Blocks.glass,
+                'I',
+                Items.iron_ingot);
 
         if (ConfigHandler.recipeCopterPack) {
             // Copter Engine
@@ -249,7 +276,14 @@ public class ModRecipes {
         if (ConfigHandler.recipeInflatableBoat) {
             // Inflatable Boat
             GameRegistry.addRecipe(
-                    new ItemStack(ModItems.component, 1, 7), "   ", "w w", "sws", 'w', Blocks.wool, 's', Blocks.sand);
+                    new ItemStack(ModItems.component, 1, 7),
+                    "   ",
+                    "w w",
+                    "sws",
+                    'w',
+                    Blocks.wool,
+                    's',
+                    Blocks.sand);
 
             if (ConfigHandler.recipeInflatableBoatM) {
                 // Inflatable Boat (Motorized)
@@ -284,13 +318,16 @@ public class ModRecipes {
             for (Field field : BackpackRecipesList.class.getFields()) {
                 try {
                     if (field.getName().equals(BackpackTypes.getSkinName(type))) {
-                        GameRegistry.addRecipe(new ShapedBackpackRecipe(
-                                BackpackUtils.createBackpackStack(type), (Object[]) field.get(br)));
+                        GameRegistry.addRecipe(
+                                new ShapedBackpackRecipe(
+                                        BackpackUtils.createBackpackStack(type),
+                                        (Object[]) field.get(br)));
                         counter++;
                     }
                 } catch (Exception oops) {
-                    LogHelper.error("Huge mistake during reflection. Some bad things might happen: "
-                            + oops.getClass().getName());
+                    LogHelper.error(
+                            "Huge mistake during reflection. Some bad things might happen: "
+                                    + oops.getClass().getName());
                     oops.printStackTrace();
                 }
             }
@@ -298,11 +335,7 @@ public class ModRecipes {
         LogHelper.info("Loaded " + counter + " backpack recipes.");
     }
 
-    /*public static void conditionalInit()
-    {
-        if (LoadedMods.BUILDCRAFT)
-        {
-
-        }
-    }*/
+    /*
+     * public static void conditionalInit() { if (LoadedMods.BUILDCRAFT) { } }
+     */
 }

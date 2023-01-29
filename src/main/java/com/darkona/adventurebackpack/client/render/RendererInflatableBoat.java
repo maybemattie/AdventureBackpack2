@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.client.render;
 
-import com.darkona.adventurebackpack.client.models.ModelInflatableBoat;
-import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
-import com.darkona.adventurebackpack.util.Resources;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
+import com.darkona.adventurebackpack.client.models.ModelInflatableBoat;
+import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
+import com.darkona.adventurebackpack.util.Resources;
 
 /**
  * Created on 05/01/2015
@@ -15,6 +17,7 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class RendererInflatableBoat extends Render {
+
     private ResourceLocation boatTexture = Resources.modelTextures("inflatableBoat");
     private ModelInflatableBoat boatModel = new ModelInflatableBoat();
 
@@ -35,7 +38,10 @@ public class RendererInflatableBoat extends Render {
 
         if (f2 > 0.0F) {
             GL11.glRotatef(
-                    MathHelper.sin(f2) * f2 * f3 / 10.0F * (float) entity.getForwardDirection(), 1.0F, 0.0F, 0.0F);
+                    MathHelper.sin(f2) * f2 * f3 / 10.0F * (float) entity.getForwardDirection(),
+                    1.0F,
+                    0.0F,
+                    0.0F);
         }
 
         float f4 = 0.75F;

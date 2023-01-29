@@ -2,17 +2,21 @@ package com.darkona.adventurebackpack.client.models;
 
 import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
 
-import codechicken.lib.vec.Vector3;
-import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
-import com.darkona.adventurebackpack.item.ItemCopterPack;
-import com.darkona.adventurebackpack.util.BackpackUtils;
-import com.darkona.adventurebackpack.util.Utils;
 import java.util.List;
+
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
+
+import codechicken.lib.vec.Vector3;
+
+import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
+import com.darkona.adventurebackpack.item.ItemCopterPack;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import com.darkona.adventurebackpack.util.Utils;
 
 /**
  * Created on 31/12/2014
@@ -20,6 +24,7 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class ModelCopterPack extends ModelWearable {
+
     public static ModelCopterPack instance = new ModelCopterPack();
     public ModelRenderer Base;
     public ModelRenderer EngineBody;
@@ -223,8 +228,7 @@ public class ModelCopterPack extends ModelWearable {
             GL11.glColor4f(1, 1, 1, 1);
 
             if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F) {
-                if (bipedBody.rotationPointX == 0.0F
-                        && bipedBody.rotationPointY == 0.0F
+                if (bipedBody.rotationPointX == 0.0F && bipedBody.rotationPointY == 0.0F
                         && bipedBody.rotationPointZ == 0.0F) {
                     renderCopterPack(entity, f5);
 
@@ -242,7 +246,9 @@ public class ModelCopterPack extends ModelWearable {
             } else {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(
-                        bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                        bipedBody.rotationPointX * f5,
+                        bipedBody.rotationPointY * f5,
+                        bipedBody.rotationPointZ * f5);
 
                 if (bipedBody.rotateAngleZ != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);

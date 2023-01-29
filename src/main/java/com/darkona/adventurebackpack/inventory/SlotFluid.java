@@ -1,13 +1,14 @@
 package com.darkona.adventurebackpack.inventory;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.item.ItemHose;
-import com.darkona.adventurebackpack.util.Utils;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.item.ItemHose;
+import com.darkona.adventurebackpack.util.Utils;
 
 /**
  * Created on 12/10/2014
@@ -15,6 +16,7 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class SlotFluid extends SlotAdventure {
+
     SlotFluid(IInventory inventory, int slotIndex, int posX, int posY) {
         super(inventory, slotIndex, posX, posY);
     }

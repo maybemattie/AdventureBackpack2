@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public interface IInventoryTanks extends IAsynchronousInventory {
+
     ItemStack[] getInventory();
 
     FluidTank[] getTanksArray();

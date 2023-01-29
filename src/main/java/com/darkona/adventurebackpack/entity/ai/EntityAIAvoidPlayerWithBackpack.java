@@ -1,8 +1,7 @@
 package com.darkona.adventurebackpack.entity.ai;
 
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.Wearing;
 import java.util.List;
+
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -14,10 +13,14 @@ import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.Vec3;
 
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.Wearing;
+
 /**
  * Created by Darkona on 12/10/2014.
  */
 public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
+
     private BackpackTypes type;
 
     public final IEntitySelector field_98218_a = new AvoidEntitySelector(this);
@@ -47,13 +50,8 @@ public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
      */
     private Class targetEntityClass;
 
-    public EntityAIAvoidPlayerWithBackpack(
-            EntityCreature par1EntityCreature,
-            Class par2Class,
-            float par3,
-            double par4,
-            double par6,
-            BackpackTypes type) {
+    public EntityAIAvoidPlayerWithBackpack(EntityCreature par1EntityCreature, Class par2Class, float par3, double par4,
+            double par6, BackpackTypes type) {
         this.theEntity = par1EntityCreature;
         this.targetEntityClass = par2Class;
         this.distanceFromEntity = par3;
@@ -103,11 +101,12 @@ public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
                 return false;
             } else if (this.closestLivingEntity.getDistanceSq(vec3.xCoord, vec3.yCoord, vec3.zCoord)
                     < this.closestLivingEntity.getDistanceSqToEntity(this.theEntity)) {
-                return false;
-            } else {
-                this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord);
-                return this.entityPathEntity != null && this.entityPathEntity.isDestinationSame(vec3);
-            }
+                        return false;
+                    } else {
+                        this.entityPathEntity = this.entityPathNavigate
+                                .getPathToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord);
+                        return this.entityPathEntity != null && this.entityPathEntity.isDestinationSame(vec3);
+                    }
         }
         return false;
     }

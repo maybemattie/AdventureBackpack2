@@ -1,8 +1,5 @@
 package com.darkona.adventurebackpack.inventory;
 
-import com.darkona.adventurebackpack.util.GregtechUtils;
-import com.darkona.adventurebackpack.util.ThaumcraftUtils;
-import com.darkona.adventurebackpack.util.TinkersUtils;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
@@ -12,21 +9,22 @@ import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 
+import com.darkona.adventurebackpack.util.GregtechUtils;
+import com.darkona.adventurebackpack.util.ThaumcraftUtils;
+import com.darkona.adventurebackpack.util.TinkersUtils;
+
 /**
  * Created on 12/10/2014
  *
  * @author Darkona
  */
 public class SlotTool extends SlotAdventure {
-    private static final String[] VALID_TOOL_NAMES = {
-        "axe", "crowbar", "drill", "grafter", "hammer", "scoop", "shovel", "wrench",
-    };
-    private static final String[] INVALID_TOOL_NAMES = {
-        "bow", "bucket", "shield", "sword",
-    };
-    private static final String[] INVALID_TINKER_NAMES = {
-        "battleaxe", "bow", "cleaver", "cutlass", "dagger", "rapier", "sabre", "shield", "sign", "sword",
-    };
+
+    private static final String[] VALID_TOOL_NAMES = { "axe", "crowbar", "drill", "grafter", "hammer", "scoop",
+            "shovel", "wrench", };
+    private static final String[] INVALID_TOOL_NAMES = { "bow", "bucket", "shield", "sword", };
+    private static final String[] INVALID_TINKER_NAMES = { "battleaxe", "bow", "cleaver", "cutlass", "dagger", "rapier",
+            "sabre", "shield", "sign", "sword", };
 
     SlotTool(IInventory inventory, int slotIndex, int posX, int posY) {
         super(inventory, slotIndex, posX, posY);
@@ -46,8 +44,7 @@ public class SlotTool extends SlotAdventure {
         String itemName = item.getUnlocalizedName().toLowerCase();
 
         // Vanilla
-        if (item instanceof ItemTool
-                || item instanceof ItemHoe
+        if (item instanceof ItemTool || item instanceof ItemHoe
                 || item instanceof ItemShears
                 || item instanceof ItemFishingRod
                 || item instanceof ItemFlintAndSteel) {

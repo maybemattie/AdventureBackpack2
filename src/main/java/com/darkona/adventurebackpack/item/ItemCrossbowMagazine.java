@@ -5,4 +5,5 @@ package com.darkona.adventurebackpack.item;
  *
  * @author Darkona
  */
-public class ItemCrossbowMagazine {}
+public class ItemCrossbowMagazine {
+}

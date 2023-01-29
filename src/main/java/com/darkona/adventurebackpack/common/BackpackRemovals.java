@@ -1,13 +1,14 @@
 package com.darkona.adventurebackpack.common;
 
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.inventory.InventoryBackpack;
-import com.darkona.adventurebackpack.util.Wearing;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.inventory.InventoryBackpack;
+import com.darkona.adventurebackpack.util.Wearing;
 
 /**
  * Created on 09/01/2015
@@ -15,6 +16,7 @@ import net.minecraft.world.World;
  * @author Darkona
  */
 public class BackpackRemovals {
+
     public void itemBat(EntityPlayer player, World world, ItemStack backpack) {
         PotionEffect potion = null;
         if (player.isPotionActive(Potion.nightVision.id)) {

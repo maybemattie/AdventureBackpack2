@@ -1,9 +1,5 @@
 package com.darkona.adventurebackpack.item;
 
-import com.darkona.adventurebackpack.CreativeTabAB;
-import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
-import com.darkona.adventurebackpack.init.ModFluids;
-import com.darkona.adventurebackpack.util.Resources;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -11,12 +7,18 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.darkona.adventurebackpack.CreativeTabAB;
+import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
+import com.darkona.adventurebackpack.init.ModFluids;
+import com.darkona.adventurebackpack.util.Resources;
+
 /**
  * Created on 19/10/2014
  *
  * @author Darkona
  */
 public class ItemJuiceBottle extends ItemAB {
+
     public ItemJuiceBottle() {
         super();
         setCreativeTab(CreativeTabAB.TAB_AB);

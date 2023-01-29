@@ -6,18 +6,8 @@ import static com.darkona.adventurebackpack.reference.BackpackTypes.GLOWSTONE;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.REDSTONE;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.UNKNOWN;
 
-import com.darkona.adventurebackpack.AdventureBackpack;
-import com.darkona.adventurebackpack.client.Icons;
-import com.darkona.adventurebackpack.handlers.GuiHandler;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.reference.GeneralReference;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.util.BackpackUtils;
-import com.darkona.adventurebackpack.util.CoordsUtils;
-import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -42,12 +32,26 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import com.darkona.adventurebackpack.AdventureBackpack;
+import com.darkona.adventurebackpack.client.Icons;
+import com.darkona.adventurebackpack.handlers.GuiHandler;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.reference.GeneralReference;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import com.darkona.adventurebackpack.util.CoordsUtils;
+
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Created on 12/10/2014.
  *
  * @author Javier Darkona
  */
 public class BlockAdventureBackpack extends BlockContainer {
+
     public BlockAdventureBackpack() {
         super(new BackpackMaterial());
         setHardness(1.0f);
@@ -171,7 +175,7 @@ public class BlockAdventureBackpack extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister iconRegister) // TODO why this is HERE?
-            {
+    {
         Icons.milkStill = iconRegister.registerIcon(ModInfo.MOD_ID + ":fluid.milk");
         Icons.melonJuiceStill = iconRegister.registerIcon(ModInfo.MOD_ID + ":fluid.melonJuiceStill");
         Icons.melonJuiceFlowing = iconRegister.registerIcon(ModInfo.MOD_ID + ":fluid.melonJuiceFlowing");
@@ -183,12 +187,12 @@ public class BlockAdventureBackpack extends BlockContainer {
     public int getLightValue(IBlockAccess world, int x, int y, int z) {
         if (getAssociatedTileBackpackType(world, x, y, z) == GLOWSTONE) {
             return 15;
-        } else if (world.getTileEntity(x, y, z) != null
-                && world.getTileEntity(x, y, z) instanceof TileAdventureBackpack) {
-            return ((TileAdventureBackpack) world.getTileEntity(x, y, z)).getLuminosity();
-        } else {
-            return 0;
-        }
+        } else
+            if (world.getTileEntity(x, y, z) != null && world.getTileEntity(x, y, z) instanceof TileAdventureBackpack) {
+                return ((TileAdventureBackpack) world.getTileEntity(x, y, z)).getLuminosity();
+            } else {
+                return 0;
+            }
     }
 
     @Override
@@ -202,8 +206,8 @@ public class BlockAdventureBackpack extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+            float hitY, float hitZ) {
         if (!world.isRemote && GeneralReference.isDimensionAllowed(player)) {
             FMLNetworkHandler.openGui(player, AdventureBackpack.instance, GuiHandler.BACKPACK_TILE, world, x, y, z);
             return true;
@@ -304,12 +308,7 @@ public class BlockAdventureBackpack extends BlockContainer {
     }
 
     @Override
-    public boolean canReplace(
-            World p_149705_1_,
-            int p_149705_2_,
-            int p_149705_3_,
-            int p_149705_4_,
-            int p_149705_5_,
+    public boolean canReplace(World p_149705_1_, int p_149705_2_, int p_149705_3_, int p_149705_4_, int p_149705_5_,
             ItemStack p_149705_6_) {
         return false;
     }
@@ -319,8 +318,7 @@ public class BlockAdventureBackpack extends BlockContainer {
         TileEntity tile = world.getTileEntity(x, y, z);
 
         if (tile instanceof TileAdventureBackpack && !world.isRemote && player != null) {
-            if ((player.isSneaking())
-                    ? ((TileAdventureBackpack) tile).equip(world, player, x, y, z)
+            if ((player.isSneaking()) ? ((TileAdventureBackpack) tile).equip(world, player, x, y, z)
                     : ((TileAdventureBackpack) tile).drop(world, player, x, y, z)) {
                 return world.func_147480_a(x, y, z, false);
             }

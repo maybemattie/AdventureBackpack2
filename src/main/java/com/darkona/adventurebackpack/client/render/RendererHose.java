@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.client.render;
 
-import com.darkona.adventurebackpack.config.ConfigHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
+import com.darkona.adventurebackpack.config.ConfigHandler;
 
 /**
  * Created on 13/10/2014
@@ -15,6 +17,7 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class RendererHose implements IItemRenderer {
+
     private static RenderItem renderHose = new RenderItem();
     private FontRenderer fontRenderer;
 

@@ -1,7 +1,5 @@
 package com.darkona.adventurebackpack.client.render;
 
-import com.darkona.adventurebackpack.item.IBackWearableItem;
-import com.darkona.adventurebackpack.util.Wearing;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -11,8 +9,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
+import com.darkona.adventurebackpack.item.IBackWearableItem;
+import com.darkona.adventurebackpack.util.Wearing;
 
 /**
  * Created on 25/12/2014
@@ -20,6 +22,7 @@ import org.lwjgl.opengl.GL12;
  * @author Darkona
  */
 public class RendererWearableEquipped extends RendererLivingEntity {
+
     public ResourceLocation texture;
     public ModelBiped modelBipedMain;
 
@@ -33,8 +36,8 @@ public class RendererWearableEquipped extends RendererLivingEntity {
         return texture;
     }
 
-    public void render(
-            Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw, float pitch) {
+    public void render(Entity entity, double x, double y, double z, float rotX, float rotY, float rotZ, float yaw,
+            float pitch) {
         final ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity);
         if (wearable == null) {
             return;
@@ -50,19 +53,12 @@ public class RendererWearableEquipped extends RendererLivingEntity {
         try {
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             renderMainModel((EntityPlayer) entity, 0, 0, 0, 0, 0, 0.0625f);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
         GL11.glPopAttrib();
     }
 
-    protected void renderMainModel(
-            EntityLivingBase entity,
-            float limbSwing1,
-            float limbswing2,
-            float z,
-            float yaw,
-            float whatever,
-            float scale) {
+    protected void renderMainModel(EntityLivingBase entity, float limbSwing1, float limbswing2, float z, float yaw,
+            float whatever, float scale) {
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_TEXTURE_BIT);
 
         bindTexture(this.texture);

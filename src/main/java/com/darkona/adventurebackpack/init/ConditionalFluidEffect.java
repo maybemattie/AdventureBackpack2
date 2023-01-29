@@ -1,6 +1,7 @@
 package com.darkona.adventurebackpack.init;
 
 import adventurebackpack.api.FluidEffect;
+
 import com.darkona.adventurebackpack.fluids.effects.FuelEffect;
 import com.darkona.adventurebackpack.fluids.effects.OilEffect;
 import com.darkona.adventurebackpack.reference.LoadedMods;
@@ -11,6 +12,7 @@ import com.darkona.adventurebackpack.reference.LoadedMods;
  * @author Darkona
  */
 public class ConditionalFluidEffect {
+
     public static FluidEffect oilEffect;
     public static FluidEffect fuelEffect;
 

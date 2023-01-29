@@ -2,6 +2,7 @@ package com.darkona.adventurebackpack.config;
 
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
+
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -10,6 +11,7 @@ import org.lwjgl.input.Keyboard;
  * @author Darkona
  */
 public class Keybindings {
+
     private static final String KEYS_CATEGORY = "keys.adventureBackpack.category";
     private static final String OPEN_INVENTORY = "keys.adventureBackpack.openInventory";
     private static final String TOGGLE_ACTIONS = "keys.adventureBackpack.toggleActions";

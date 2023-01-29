@@ -1,10 +1,11 @@
 package com.darkona.adventurebackpack.entity.fx;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Created on 19/01/2015
@@ -13,6 +14,7 @@ import net.minecraft.world.World;
  */
 @SideOnly(Side.CLIENT)
 public class SteamFX extends EntityFX {
+
     private float smokeParticleScale;
 
     public SteamFX(World world, double x, double y, double z, double velX, double velY, double velZ) {
@@ -39,8 +41,8 @@ public class SteamFX extends EntityFX {
     }
 
     @Override
-    public void renderParticle(
-            Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6, float par7) {
+    public void renderParticle(Tessellator par1Tessellator, float par2, float par3, float par4, float par5, float par6,
+            float par7) {
         float age = (this.particleAge + par2) / this.particleMaxAge * 32.0F;
         if (age < 0.0F) {
             age = 0.0F;

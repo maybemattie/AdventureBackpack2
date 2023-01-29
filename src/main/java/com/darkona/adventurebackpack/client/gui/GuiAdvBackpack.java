@@ -1,7 +1,21 @@
 package com.darkona.adventurebackpack.client.gui;
 
+import java.util.List;
+
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidTank;
+
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
+
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.guihook.IContainerTooltipHandler;
+
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.common.Constants.Source;
@@ -15,18 +29,9 @@ import com.darkona.adventurebackpack.network.SleepingBagPacket;
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.TinkersUtils;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.List;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidTank;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 12/10/2014
@@ -35,6 +40,7 @@ import org.lwjgl.opengl.GL11;
  */
 @SideOnly(Side.CLIENT)
 public class GuiAdvBackpack extends GuiWithTanks {
+
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiBackpackNew");
     private static final int TINKERS_SLOT = 38; // ContainerBackpack.CRAFT_MATRIX_EMULATION[4]
 
@@ -125,8 +131,8 @@ public class GuiAdvBackpack extends GuiWithTanks {
         if (isBedButtonCase() && bedButton.inButton(this, mouseX, mouseY)) {
             if (source == Source.TILE) {
                 TileAdventureBackpack te = (TileAdventureBackpack) inventory;
-                ModNetwork.net.sendToServer(
-                        new SleepingBagPacket.SleepingBagMessage(true, te.xCoord, te.yCoord, te.zCoord));
+                ModNetwork.net
+                        .sendToServer(new SleepingBagPacket.SleepingBagMessage(true, te.xCoord, te.yCoord, te.zCoord));
             } else {
                 int posX = MathHelper.floor_double(player.posX);
                 int posY = MathHelper.floor_double(player.posY) - 1;
@@ -151,8 +157,8 @@ public class GuiAdvBackpack extends GuiWithTanks {
         } else {
             if (!Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
                 isHoldingSpace = false;
-                ModNetwork.net.sendToServer(
-                        new PlayerActionPacket.ActionMessage(PlayerActionPacket.GUI_NOT_HOLDING_SPACE));
+                ModNetwork.net
+                        .sendToServer(new PlayerActionPacket.ActionMessage(PlayerActionPacket.GUI_NOT_HOLDING_SPACE));
                 inventory.getExtendedProperties().removeTag(Constants.TAG_HOLDING_SPACE);
             }
         }
@@ -191,8 +197,8 @@ public class GuiAdvBackpack extends GuiWithTanks {
          * Required by IContainerTooltipHandler implementation but not needed here
          */
         @Override
-        public List<String> handleItemTooltip(
-                GuiContainer gui, ItemStack itemstack, int mousex, int mousey, List<String> currenttip) {
+        public List<String> handleItemTooltip(GuiContainer gui, ItemStack itemstack, int mousex, int mousey,
+                List<String> currenttip) {
             return currenttip;
         }
     }

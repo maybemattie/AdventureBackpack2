@@ -6,11 +6,8 @@ import static com.darkona.adventurebackpack.reference.BackpackTypes.PIGMAN;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.STANDARD;
 import static com.darkona.adventurebackpack.reference.BackpackTypes.VILLAGER;
 
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.BackpackUtils;
-import cpw.mods.fml.common.registry.VillagerRegistry;
 import java.util.Random;
+
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -19,12 +16,18 @@ import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.common.ChestGenHooks;
 
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+
 /**
  * Created on 24/12/2014
  *
  * @author Darkona
  */
 public class ModWorldGen {
+
     public static void init() {
         {
             ItemStack backpack = BackpackUtils.createBackpackStack(VILLAGER);
@@ -43,8 +46,8 @@ public class ModWorldGen {
         }
         if (ConfigHandler.allowPigmanGen) {
             ItemStack backpack = BackpackUtils.createBackpackStack(PIGMAN);
-            ChestGenHooks.addItem(
-                    ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(backpack, 1, 1, 12));
+            ChestGenHooks
+                    .addItem(ChestGenHooks.PYRAMID_DESERT_CHEST, new WeightedRandomChestContent(backpack, 1, 1, 12));
             VillagerRegistry.instance()
                     .registerVillageTradeHandler(BackpackTypes.getMeta(PIGMAN), new ModWorldGen.TradeHandler(backpack));
         }
@@ -55,6 +58,7 @@ public class ModWorldGen {
     }
 
     public static class TradeHandler implements VillagerRegistry.IVillageTradeHandler {
+
         ItemStack backpack;
 
         TradeHandler(ItemStack backpack) {

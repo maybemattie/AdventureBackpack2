@@ -11,6 +11,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelSleepingBag extends ModelBase {
+
     ModelRenderer footer;
     ModelRenderer header;
     ModelRenderer pillow;

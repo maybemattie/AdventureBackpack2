@@ -1,11 +1,12 @@
 package com.darkona.adventurebackpack.client.audio;
 
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.reference.ModInfo;
-import com.darkona.adventurebackpack.util.Wearing;
 import net.minecraft.client.audio.MovingSound;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.reference.ModInfo;
+import com.darkona.adventurebackpack.util.Wearing;
 
 /**
  * Created on 16/10/2014
@@ -13,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
  * @author Darkona
  */
 public class NyanMovingSound extends MovingSound {
+
     public static NyanMovingSound instance = new NyanMovingSound();
 
     private EntityPlayer player;

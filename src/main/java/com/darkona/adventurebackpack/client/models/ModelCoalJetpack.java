@@ -1,15 +1,20 @@
 package com.darkona.adventurebackpack.client.models;
 
-import codechicken.lib.vec.Vector3;
-import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
 import java.util.List;
+
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
+import codechicken.lib.vec.Vector3;
+
+import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
+
 public class ModelCoalJetpack extends ModelWearable {
+
     public ModelRenderer base;
     public ModelRenderer tubeStraightLeft;
     public ModelRenderer tubeStraightRight;
@@ -132,8 +137,7 @@ public class ModelCoalJetpack extends ModelWearable {
             GL11.glColor4f(1, 1, 1, 1);
 
             if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F) {
-                if (bipedBody.rotationPointX == 0.0F
-                        && bipedBody.rotationPointY == 0.0F
+                if (bipedBody.rotationPointX == 0.0F && bipedBody.rotationPointY == 0.0F
                         && bipedBody.rotationPointZ == 0.0F) {
                     renderCoalJetpack(f5);
                 } else {
@@ -150,7 +154,9 @@ public class ModelCoalJetpack extends ModelWearable {
             } else {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(
-                        bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                        bipedBody.rotationPointX * f5,
+                        bipedBody.rotationPointY * f5,
+                        bipedBody.rotationPointZ * f5);
 
                 if (bipedBody.rotateAngleZ != 0.0F) {
                     GL11.glRotatef(bipedBody.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);

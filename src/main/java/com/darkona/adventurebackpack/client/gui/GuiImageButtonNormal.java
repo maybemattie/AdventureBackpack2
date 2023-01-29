@@ -6,6 +6,7 @@ package com.darkona.adventurebackpack.client.gui;
  * @author Darkona
  */
 public class GuiImageButtonNormal {
+
     private int X;
     private int Y;
     private int W;

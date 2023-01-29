@@ -1,20 +1,22 @@
 package com.darkona.adventurebackpack.client.models;
 
-import com.darkona.adventurebackpack.client.render.RendererStack;
-import com.darkona.adventurebackpack.reference.ToolHandler;
-import com.darkona.adventurebackpack.util.Utils;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
+import com.darkona.adventurebackpack.client.render.RendererStack;
+import com.darkona.adventurebackpack.reference.ToolHandler;
+import com.darkona.adventurebackpack.util.Utils;
+
 /**
- * clockworkCrossbow - Darkona
- * Created using Tabula 4.1.0
+ * clockworkCrossbow - Darkona Created using Tabula 4.1.0
  */
 public class ModelClockworkCrossbow extends ModelBase {
+
     public ModelRenderer xbowBody;
     public ModelRenderer leftArc1;
     public ModelRenderer rightArc1;
@@ -213,7 +215,7 @@ public class ModelClockworkCrossbow extends ModelBase {
         this.handle.render(1 / 18f);
         this.magazine.render(f5);
 
-        ModelRenderer[] arrows = {arrow1, arrow2, arrow3};
+        ModelRenderer[] arrows = { arrow1, arrow2, arrow3 };
 
         setRotateAngle(arrow, Utils.degreesToRadians(-90), Utils.degreesToRadians(0), Utils.degreesToRadians(0));
         for (ModelRenderer model : arrows) {

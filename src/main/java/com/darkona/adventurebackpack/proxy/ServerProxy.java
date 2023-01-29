@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.proxy;
 
-import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
-import com.darkona.adventurebackpack.util.LogHelper;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
+import com.darkona.adventurebackpack.util.LogHelper;
 
 /**
  * Created on 22/12/2014
@@ -15,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
  * @author Darkona
  */
 public class ServerProxy implements IProxy {
+
     private static final Map<UUID, NBTTagCompound> extendedEntityData = new HashMap<>();
 
     @Override
@@ -30,9 +33,9 @@ public class ServerProxy implements IProxy {
         try {
             NBTTagCompound data = BackpackProperty.get(player).getData();
             if (data.hasKey("wearable")) {
-                LogHelper.info("Storing wearable: "
-                        + ItemStack.loadItemStackFromNBT(data.getCompoundTag("wearable"))
-                                .getDisplayName());
+                LogHelper.info(
+                        "Storing wearable: "
+                                + ItemStack.loadItemStackFromNBT(data.getCompoundTag("wearable")).getDisplayName());
             }
             extendedEntityData.put(player.getUniqueID(), data);
             LogHelper.info("Stored player properties for dead player");

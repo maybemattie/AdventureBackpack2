@@ -8,7 +8,6 @@ import static com.darkona.adventurebackpack.common.Constants.Jetpack.TAG_WATER_T
 import static com.darkona.adventurebackpack.common.Constants.TAG_INVENTORY;
 import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
 
-import com.darkona.adventurebackpack.common.Constants;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -16,12 +15,15 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.common.Constants;
+
 /**
  * Created on 15/01/2015
  *
  * @author Darkona
  */
 public class InventoryCoalJetpack extends InventoryAdventure {
+
     private FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
     private FluidTank steamTank = new FluidTank(Constants.Jetpack.STEAM_CAPACITY);
 
@@ -55,12 +57,12 @@ public class InventoryCoalJetpack extends InventoryAdventure {
 
     @Override
     public FluidTank[] getTanksArray() {
-        return new FluidTank[] {waterTank, steamTank};
+        return new FluidTank[] { waterTank, steamTank };
     }
 
     @Override
     public int[] getSlotsOnClosing() {
-        return new int[] {BUCKET_IN, BUCKET_OUT};
+        return new int[] { BUCKET_IN, BUCKET_OUT };
     }
 
     @Override
@@ -218,7 +220,7 @@ public class InventoryCoalJetpack extends InventoryAdventure {
     }
 
     private void detectAndConvertFromOldNBTFormat(NBTTagCompound compound) // backwards compatibility
-            {
+    {
         if (compound == null || !compound.hasKey("jetpackData")) return;
 
         NBTTagCompound oldJetpackTag = compound.getCompoundTag("jetpackData");

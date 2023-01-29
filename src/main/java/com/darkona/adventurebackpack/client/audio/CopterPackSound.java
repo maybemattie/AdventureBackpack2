@@ -2,15 +2,16 @@ package com.darkona.adventurebackpack.client.audio;
 
 import static com.darkona.adventurebackpack.common.Constants.Copter.TAG_STATUS;
 
+import net.minecraft.client.audio.MovingSound;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+
 import com.darkona.adventurebackpack.item.ItemCopterPack;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.LogHelper;
 import com.darkona.adventurebackpack.util.Wearing;
-import net.minecraft.client.audio.MovingSound;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 /**
  * Created on 16/10/2014
@@ -18,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
  * @author Darkona
  */
 public class CopterPackSound extends MovingSound {
+
     private EntityPlayer thePlayer;
     private boolean repeat = true;
     private int repeatDelay = 0;
@@ -50,8 +52,7 @@ public class CopterPackSound extends MovingSound {
     public void update() {
         ItemStack copter = Wearing.getWearingCopter(thePlayer);
         byte status = 0;
-        if (thePlayer == null
-                || thePlayer.isDead
+        if (thePlayer == null || thePlayer.isDead
                 || thePlayer.worldObj == null
                 || copter == null
                 || !(copter.getItem() instanceof ItemCopterPack)) {

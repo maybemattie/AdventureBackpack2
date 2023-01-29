@@ -3,11 +3,12 @@ package com.darkona.adventurebackpack.inventory;
 import static com.darkona.adventurebackpack.common.Constants.Copter.BUCKET_IN;
 import static com.darkona.adventurebackpack.common.Constants.Copter.BUCKET_OUT;
 
-import com.darkona.adventurebackpack.common.Constants.Source;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidTank;
+
+import com.darkona.adventurebackpack.common.Constants.Source;
 
 /**
  * Created on 03/01/2015
@@ -15,6 +16,7 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class ContainerCopter extends ContainerAdventure {
+
     private static final int COPTER_INV_START = PLAYER_INV_END + 1;
 
     public ContainerCopter(EntityPlayer player, InventoryCopterPack copter, Source source) {

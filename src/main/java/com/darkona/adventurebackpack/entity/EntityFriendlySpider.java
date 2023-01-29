@@ -1,8 +1,7 @@
 package com.darkona.adventurebackpack.entity;
 
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.Wearing;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
@@ -25,12 +24,16 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.Wearing;
+
 /**
  * Created on 11/01/2015
  *
  * @author Darkona
  */
 public class EntityFriendlySpider extends EntityCreature {
+
     private float prevRearingAmount;
     private int jumpTicks;
     private EntityPlayer owner;
@@ -347,8 +350,8 @@ public class EntityFriendlySpider extends EntityCreature {
             this.jumpMovementFactor = this.getAIMoveSpeed() * 0.2F;
 
             if (!this.worldObj.isRemote) {
-                this.setAIMoveSpeed((float) this.getEntityAttribute(SharedMonsterAttributes.movementSpeed)
-                        .getAttributeValue());
+                this.setAIMoveSpeed(
+                        (float) this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
                 super.moveEntityWithHeading(strafe, forward);
             }
 
@@ -391,12 +394,13 @@ public class EntityFriendlySpider extends EntityCreature {
     }
 
     public void spiderJump() // TODO
-            {
+    {
         this.getJumpHelper().setJumping();
         // this.getJumpHelper().doJump();
     }
 
     public static class GroupData implements IEntityLivingData {
+
         public int field_111105_a;
         private static final String __OBFID = "CL_00001700";
 

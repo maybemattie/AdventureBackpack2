@@ -11,16 +11,11 @@ import net.minecraft.item.ItemStack;
  * @author Ugachaga
  */
 public class SlotCraftResult extends SlotCrafting {
+
     private ContainerBackpack eventHandler;
 
-    public SlotCraftResult(
-            ContainerBackpack container,
-            EntityPlayer player,
-            IInventory craftMatrix,
-            IInventory inventory,
-            int slotIndex,
-            int posX,
-            int posY) {
+    public SlotCraftResult(ContainerBackpack container, EntityPlayer player, IInventory craftMatrix,
+            IInventory inventory, int slotIndex, int posX, int posY) {
         super(player, craftMatrix, inventory, slotIndex, posX, posY);
         this.eventHandler = container;
     }

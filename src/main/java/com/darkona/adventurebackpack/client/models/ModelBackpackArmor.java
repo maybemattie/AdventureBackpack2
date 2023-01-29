@@ -2,18 +2,22 @@ package com.darkona.adventurebackpack.client.models;
 
 import static com.darkona.adventurebackpack.reference.BackpackTypes.*;
 
+import java.util.List;
+
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+
+import org.lwjgl.opengl.GL11;
+
 import codechicken.lib.vec.Vector3;
+
 import com.darkona.adventurebackpack.client.render.RendererStack;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ToolHandler;
-import java.util.List;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import org.lwjgl.opengl.GL11;
 
 /**
  * Created on 17/12/2014
@@ -21,6 +25,7 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class ModelBackpackArmor extends ModelWearable {
+
     public static final ModelBackpackArmor instance = new ModelBackpackArmor();
 
     public ModelRenderer mainBody;
@@ -311,21 +316,26 @@ public class ModelBackpackArmor extends ModelWearable {
         GL11.glColor4f(1, 1, 1, 1);
 
         if (bipedBody.rotateAngleX == 0.0F && bipedBody.rotateAngleY == 0.0F && bipedBody.rotateAngleZ == 0.0F) {
-            if (bipedBody.rotationPointX == 0.0F
-                    && bipedBody.rotationPointY == 0.0F
+            if (bipedBody.rotationPointX == 0.0F && bipedBody.rotationPointY == 0.0F
                     && bipedBody.rotationPointZ == 0.0F) {
                 renderBackpack(scale);
             } else {
                 GL11.glTranslatef(
-                        bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                        bipedBody.rotationPointX * f5,
+                        bipedBody.rotationPointY * f5,
+                        bipedBody.rotationPointZ * f5);
                 renderBackpack(scale);
                 GL11.glTranslatef(
-                        -bipedBody.rotationPointX * f5, -bipedBody.rotationPointY * f5, -bipedBody.rotationPointZ * f5);
+                        -bipedBody.rotationPointX * f5,
+                        -bipedBody.rotationPointY * f5,
+                        -bipedBody.rotationPointZ * f5);
             }
         } else {
             GL11.glPushMatrix();
             GL11.glTranslatef(
-                    bipedBody.rotationPointX * f5, bipedBody.rotationPointY * f5, bipedBody.rotationPointZ * f5);
+                    bipedBody.rotationPointX * f5,
+                    bipedBody.rotationPointY * f5,
+                    bipedBody.rotationPointZ * f5);
 
             if (bipedBody.rotateAngleZ != 0.0F) {
                 GL11.glRotatef(bipedBody.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);

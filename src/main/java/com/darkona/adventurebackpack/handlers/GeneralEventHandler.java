@@ -1,17 +1,7 @@
 package com.darkona.adventurebackpack.handlers;
 
-import com.darkona.adventurebackpack.common.ServerActions;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.entity.ai.EntityAIHorseFollowOwner;
-import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
-import com.darkona.adventurebackpack.init.ModNetwork;
-import com.darkona.adventurebackpack.inventory.InventoryBackpack;
-import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.Utils;
-import com.darkona.adventurebackpack.util.Wearing;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.UUID;
+
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITasks;
 import net.minecraft.entity.passive.EntityHorse;
@@ -27,12 +17,25 @@ import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.PlayerUseItemEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import com.darkona.adventurebackpack.common.ServerActions;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.entity.ai.EntityAIHorseFollowOwner;
+import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
+import com.darkona.adventurebackpack.init.ModNetwork;
+import com.darkona.adventurebackpack.inventory.InventoryBackpack;
+import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.Utils;
+import com.darkona.adventurebackpack.util.Wearing;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 /**
  * Created on 17/10/2014
  *
  * @author Darkona
  */
 public class GeneralEventHandler {
+
     @SubscribeEvent
     public void eatGoldenApple(PlayerUseItemEvent.Finish event) {
         EntityPlayer player = event.entityPlayer;
@@ -48,8 +51,8 @@ public class GeneralEventHandler {
                 if (!player.worldObj.isRemote) {
                     String nyanString = Utils.makeItRainbow("NYANCAT");
                     player.addChatComponentMessage(new ChatComponentText(nyanString));
-                    ModNetwork.sendToNearby(
-                            new EntitySoundPacket.Message(EntitySoundPacket.NYAN_SOUND, player), player);
+                    ModNetwork
+                            .sendToNearby(new EntitySoundPacket.Message(EntitySoundPacket.NYAN_SOUND, player), player);
                 }
             }
         }
@@ -114,8 +117,7 @@ public class GeneralEventHandler {
                         horse.tasks.addTask(4, new EntityAIHorseFollowOwner(horse, 1.5d, 2.0f, 20.0f));
 
                         if (horse.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.followRange) != null) {
-                            horse.getAttributeMap()
-                                    .getAttributeInstance(SharedMonsterAttributes.followRange)
+                            horse.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.followRange)
                                     .setBaseValue(100.0D);
                         }
                     }
@@ -124,15 +126,12 @@ public class GeneralEventHandler {
         }
     }
 
-    /*@SubscribeEvent
-    public void backpackUnequipped(WearableEvent.UnequipWearableEvent event)
-    {
+    /*
+     * @SubscribeEvent public void backpackUnequipped(WearableEvent.UnequipWearableEvent event) { }
+     */
 
-    }*/
-
-    /*@SubscribeEvent
-    public void listFluids(FluidRegistry.FluidRegisterEvent event)
-    {
-        LogHelper.info("Registered fluid " + event.fluidName + " with id " +  event.fluidID);
-    }*/
+    /*
+     * @SubscribeEvent public void listFluids(FluidRegistry.FluidRegisterEvent event) {
+     * LogHelper.info("Registered fluid " + event.fluidName + " with id " + event.fluidID); }
+     */
 }

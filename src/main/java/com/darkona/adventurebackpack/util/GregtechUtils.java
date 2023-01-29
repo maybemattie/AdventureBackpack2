@@ -1,9 +1,11 @@
 package com.darkona.adventurebackpack.util;
 
-import com.darkona.adventurebackpack.reference.LoadedMods;
 import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
+import com.darkona.adventurebackpack.reference.LoadedMods;
 
 /**
  * Created on 30.01.2018
@@ -11,11 +13,12 @@ import net.minecraftforge.client.IItemRenderer;
  * @author Ugachaga
  */
 public final class GregtechUtils {
+
     private static final String CLASS_RENDERER = "gregtech.common.render.GT_MetaGenerated_Tool_Renderer";
 
     private static final String TOOLS_NAME = "gt.metatool.01";
-    private static final int[] ROTATED_45_TOOLS = {16, 26, 30, 130};
-    private static final int[] ROTATED_90_TOOLS = {10, 14, 18, 22, 34, 150, 160};
+    private static final int[] ROTATED_45_TOOLS = { 16, 26, 30, 130 };
+    private static final int[] ROTATED_90_TOOLS = { 10, 14, 18, 22, 34, 150, 160 };
 
     private static Class<?> toolRenderer;
     private static Object toolRendererInstance;

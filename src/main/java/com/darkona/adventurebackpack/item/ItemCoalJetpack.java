@@ -2,21 +2,8 @@ package com.darkona.adventurebackpack.item;
 
 import static com.darkona.adventurebackpack.util.TipUtils.l10n;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.init.ModNetwork;
-import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
-import com.darkona.adventurebackpack.network.GUIPacket;
-import com.darkona.adventurebackpack.network.PlayerActionPacket;
-import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
-import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
-import com.darkona.adventurebackpack.proxy.ClientProxy;
-import com.darkona.adventurebackpack.util.BackpackUtils;
-import com.darkona.adventurebackpack.util.Resources;
-import com.darkona.adventurebackpack.util.TipUtils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.model.ModelBiped;
@@ -36,12 +23,29 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.init.ModNetwork;
+import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
+import com.darkona.adventurebackpack.network.GUIPacket;
+import com.darkona.adventurebackpack.network.PlayerActionPacket;
+import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
+import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
+import com.darkona.adventurebackpack.proxy.ClientProxy;
+import com.darkona.adventurebackpack.util.BackpackUtils;
+import com.darkona.adventurebackpack.util.Resources;
+import com.darkona.adventurebackpack.util.TipUtils;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * Created on 15/01/2015
  *
  * @author Darkona
  */
 public class ItemCoalJetpack extends ItemAdventure {
+
     public ItemCoalJetpack() {
         super();
         setUnlocalizedName("coalJetpack");
@@ -54,7 +58,7 @@ public class ItemCoalJetpack extends ItemAdventure {
     }
 
     @Override
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean advanced) {
         FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
@@ -101,9 +105,9 @@ public class ItemCoalJetpack extends ItemAdventure {
     }
 
     @Override
-    public void onEquippedUpdate(
-            World world, EntityPlayer player, ItemStack stack) // TODO extract behavior to separate class
-            {
+    public void onEquippedUpdate(World world, EntityPlayer player, ItemStack stack) // TODO extract behavior to separate
+                                                                                    // class
+    {
         InventoryCoalJetpack inv = new InventoryCoalJetpack(stack);
         inv.openInventory();
         boolean mustFizzz = !inv.isInUse();
@@ -124,9 +128,7 @@ public class ItemCoalJetpack extends ItemAdventure {
 
         // Elevation
         if (world.isRemote) {
-            if (inv.getStatus()
-                    && canUse
-                    && Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed()) {
+            if (inv.getStatus() && canUse && Minecraft.getMinecraft().gameSettings.keyBindJump.getIsKeyPressed()) {
                 inv.setInUse(true);
                 ModNetwork.net.sendToServer(new PlayerActionPacket.ActionMessage(PlayerActionPacket.JETPACK_IN_USE));
                 if (mustFizzz) {
@@ -134,8 +136,8 @@ public class ItemCoalJetpack extends ItemAdventure {
                 }
             } else {
                 inv.setInUse(false);
-                ModNetwork.net.sendToServer(
-                        new PlayerActionPacket.ActionMessage(PlayerActionPacket.JETPACK_NOT_IN_USE));
+                ModNetwork.net
+                        .sendToServer(new PlayerActionPacket.ActionMessage(PlayerActionPacket.JETPACK_NOT_IN_USE));
             }
         }
 
@@ -152,17 +154,16 @@ public class ItemCoalJetpack extends ItemAdventure {
             if (player.motionY >= 0) {
                 player.fallDistance = 0;
             }
-            if (!world.isRemote)
-                ModNetwork.sendToNearby(
-                        new EntityParticlePacket.Message(EntityParticlePacket.JETPACK_PARTICLE, player), player);
+            if (!world.isRemote) ModNetwork.sendToNearby(
+                    new EntityParticlePacket.Message(EntityParticlePacket.JETPACK_PARTICLE, player),
+                    player);
         }
         inv.closeInventory();
     }
 
     private static void elevate(EntityPlayer player) {
-        if (player.posY < 135)
-            if (player.motionY <= 0.32) player.motionY += 0.1;
-            else player.motionY = Math.max(player.motionY, 0.32);
+        if (player.posY < 135) if (player.motionY <= 0.32) player.motionY += 0.1;
+        else player.motionY = Math.max(player.motionY, 0.32);
         else if (player.posY < 185) player.motionY = 0.32 - (player.posY - 135) / 160;
         else if (player.posY >= 185) player.motionY += 0;
     }
@@ -278,8 +279,8 @@ public class ItemCoalJetpack extends ItemAdventure {
     }
 
     private int getBiomeMinTemp(EntityPlayer player, World world) {
-        BiomeDictionary.Type[] thisBiomeTypes =
-                BiomeDictionary.getTypesForBiome(world.getBiomeGenForCoords((int) player.posX, (int) player.posZ));
+        BiomeDictionary.Type[] thisBiomeTypes = BiomeDictionary
+                .getTypesForBiome(world.getBiomeGenForCoords((int) player.posX, (int) player.posZ));
         for (BiomeDictionary.Type type : thisBiomeTypes) {
             if (type == BiomeDictionary.Type.COLD || type == BiomeDictionary.Type.SNOWY) {
                 return 0;

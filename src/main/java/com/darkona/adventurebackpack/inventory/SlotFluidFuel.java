@@ -1,10 +1,11 @@
 package com.darkona.adventurebackpack.inventory;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.reference.GeneralReference;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 
 /**
  * Created on 10.04.2017
@@ -12,14 +13,13 @@ import net.minecraft.item.ItemStack;
  * @author Ugachaga
  */
 public class SlotFluidFuel extends SlotFluid {
+
     SlotFluidFuel(IInventory inventory, int slotIndex, int posX, int posY) {
         super(inventory, slotIndex, posX, posY);
     }
 
     private static boolean isValidContainer(ItemStack stack) {
-        return isEmpty(stack)
-                || (isFilled(stack)
-                        && GeneralReference.isValidFuel(getFluid(stack).getName()));
+        return isEmpty(stack) || (isFilled(stack) && GeneralReference.isValidFuel(getFluid(stack).getName()));
     }
 
     static boolean isValidItem(ItemStack stack) {

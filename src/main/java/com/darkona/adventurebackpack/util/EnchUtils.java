@@ -1,12 +1,13 @@
 package com.darkona.adventurebackpack.util;
 
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.reference.LoadedMods;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants.NBT;
+
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.reference.LoadedMods;
 
 /**
  * Created on 24.03.2017
@@ -14,6 +15,7 @@ import net.minecraftforge.common.util.Constants.NBT;
  * @author Ugachaga
  */
 public final class EnchUtils {
+
     // -3 - disabled by config
     // -2 - EnderIO not found
     // -1 - enchantment not found

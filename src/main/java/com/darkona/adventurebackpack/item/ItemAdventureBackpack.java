@@ -9,6 +9,25 @@ import static com.darkona.adventurebackpack.common.Constants.TAG_RIGHT_TANK;
 import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
 import static com.darkona.adventurebackpack.util.TipUtils.l10n;
 
+import java.util.List;
+
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ChunkCoordinates;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.FluidTank;
+
 import com.darkona.adventurebackpack.block.BlockAdventureBackpack;
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.common.BackpackAbilities;
@@ -27,25 +46,9 @@ import com.darkona.adventurebackpack.util.EnchUtils;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.TipUtils;
 import com.darkona.adventurebackpack.util.Utils;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import java.util.List;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ChunkCoordinates;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidTank;
 
 /**
  * Created on 12/10/2014
@@ -53,13 +56,14 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class ItemAdventureBackpack extends ItemAdventure {
+
     public ItemAdventureBackpack() {
         super();
         setUnlocalizedName("adventureBackpack");
     }
 
     @Override
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List subItems) {
         for (BackpackTypes type : BackpackTypes.values()) {
@@ -70,7 +74,7 @@ public class ItemAdventureBackpack extends ItemAdventure {
     }
 
     @Override
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean advanced) {
         NBTTagCompound backpackTag = BackpackUtils.getWearableCompound(stack);
@@ -117,17 +121,8 @@ public class ItemAdventureBackpack extends ItemAdventure {
     }
 
     @Override
-    public boolean onItemUse(
-            ItemStack stack,
-            EntityPlayer player,
-            World world,
-            int x,
-            int y,
-            int z,
-            int side,
-            float hitX,
-            float hitY,
-            float hitZ) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            float hitX, float hitY, float hitZ) {
         return player.canPlayerEdit(x, y, z, side, stack) && placeBackpack(stack, player, world, x, y, z, side, true);
     }
 
@@ -144,8 +139,7 @@ public class ItemAdventureBackpack extends ItemAdventure {
 
     @Override
     public void onPlayerDeath(World world, EntityPlayer player, ItemStack stack) {
-        if (world.isRemote
-                || !ConfigHandler.backpackDeathPlace
+        if (world.isRemote || !ConfigHandler.backpackDeathPlace
                 || EnchUtils.isSoulBounded(stack)
                 || player.getEntityWorld().getGameRules().getGameRuleBooleanValue("keepInventory")) {
             return;
@@ -158,9 +152,9 @@ public class ItemAdventureBackpack extends ItemAdventure {
         BackpackProperty.get(player).setWearable(null);
     }
 
-    private boolean tryPlace(
-            World world, EntityPlayer player, ItemStack backpack) // TODO extract behavior to CoordsUtils
-            {
+    private boolean tryPlace(World world, EntityPlayer player, ItemStack backpack) // TODO extract behavior to
+                                                                                   // CoordsUtils
+    {
         int X = (int) player.posX;
         if (player.posX < 0) X--;
         int Z = (int) player.posZ;
@@ -168,12 +162,22 @@ public class ItemAdventureBackpack extends ItemAdventure {
         int Y = (int) player.posY;
         if (Y < 1) Y = 1;
 
-        int positions[] = {0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6};
+        int positions[] = { 0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6 };
 
         for (int shiftY : positions) {
             if (Y + shiftY >= 1) {
                 ChunkCoordinates spawn = CoordsUtils.getNearestEmptyChunkCoordinatesSpiral(
-                        world, X, Z, X, Y + shiftY, Z, 6, true, 1, (byte) 0, false);
+                        world,
+                        X,
+                        Z,
+                        X,
+                        Y + shiftY,
+                        Z,
+                        6,
+                        true,
+                        1,
+                        (byte) 0,
+                        false);
                 if (spawn != null) {
                     return placeBackpack(
                             backpack,
@@ -190,8 +194,8 @@ public class ItemAdventureBackpack extends ItemAdventure {
         return false;
     }
 
-    private boolean placeBackpack(
-            ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, boolean from) {
+    private boolean placeBackpack(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+            boolean from) {
         if (stack.stackSize == 0 || !player.canPlayerEdit(x, y, z, side, stack)) return false;
         if (!stack.hasTagCompound()) stack.setTagCompound(new NBTTagCompound());
         if (!stack.stackTagCompound.hasKey(TAG_TYPE)) {
@@ -234,7 +238,10 @@ public class ItemAdventureBackpack extends ItemAdventure {
                 if (world.setBlock(x, y, z, ModBlocks.blockBackpack)) {
                     backpack.onBlockPlacedBy(world, x, y, z, player, stack);
                     world.playSoundAtEntity(
-                            player, BlockAdventureBackpack.soundTypeCloth.getStepResourcePath(), 0.5f, 1.0f);
+                            player,
+                            BlockAdventureBackpack.soundTypeCloth.getStepResourcePath(),
+                            0.5f,
+                            1.0f);
                     ((TileAdventureBackpack) world.getTileEntity(x, y, z)).loadFromNBT(stack.stackTagCompound);
                     if (from) {
                         stack.stackSize--;

@@ -1,18 +1,8 @@
 package com.darkona.adventurebackpack.common;
 
-import com.darkona.adventurebackpack.block.TileAdventureBackpack;
-import com.darkona.adventurebackpack.config.ConfigHandler;
-import com.darkona.adventurebackpack.entity.ai.EntityAIAvoidPlayerWithBackpack;
-import com.darkona.adventurebackpack.init.ModFluids;
-import com.darkona.adventurebackpack.init.ModNetwork;
-import com.darkona.adventurebackpack.inventory.InventoryBackpack;
-import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.LogHelper;
-import com.darkona.adventurebackpack.util.Utils;
-import com.darkona.adventurebackpack.util.Wearing;
 import java.util.Iterator;
 import java.util.List;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -30,6 +20,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+import com.darkona.adventurebackpack.block.TileAdventureBackpack;
+import com.darkona.adventurebackpack.config.ConfigHandler;
+import com.darkona.adventurebackpack.entity.ai.EntityAIAvoidPlayerWithBackpack;
+import com.darkona.adventurebackpack.init.ModFluids;
+import com.darkona.adventurebackpack.init.ModNetwork;
+import com.darkona.adventurebackpack.inventory.InventoryBackpack;
+import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.Utils;
+import com.darkona.adventurebackpack.util.Wearing;
+
 /**
  * Created on 12/10/2014
  *
@@ -40,6 +42,7 @@ import net.minecraftforge.fluids.FluidStack;
  */
 @SuppressWarnings("unused")
 public class BackpackAbilities {
+
     public static BackpackAbilities backpackAbilities = new BackpackAbilities();
     public static BackpackRemovals backpackRemovals = new BackpackRemovals();
 
@@ -50,8 +53,7 @@ public class BackpackAbilities {
         String skinName = BackpackTypes.getSkinName(backpack);
         try {
             // This is black magic and shouldn't be attempted by the faint of heart.
-            this.getClass()
-                    .getMethod("item" + skinName, EntityPlayer.class, World.class, ItemStack.class)
+            this.getClass().getMethod("item" + skinName, EntityPlayer.class, World.class, ItemStack.class)
                     .invoke(backpackAbilities, player, world, backpack);
         } catch (Exception oops) {
             // NOBODY CARES
@@ -62,15 +64,12 @@ public class BackpackAbilities {
         String skinName = BackpackTypes.getSkinName(backpack.getType());
         try {
             /*
-            This is witchery, witchery I say!
-            But seriously, if you want to know how this works just pay very close attention:
-            invoke will execute any method of a given class, okay? so this should be obvious.
-            Look at the names of the methods in this class and you'll figure it out.
-            You have to indicate exactly the classes that the method should use as parameters so
-            be very careful with "getMethod".
-            */
-            this.getClass()
-                    .getMethod("tile" + skinName, World.class, TileAdventureBackpack.class)
+             * This is witchery, witchery I say! But seriously, if you want to know how this works just pay very close
+             * attention: invoke will execute any method of a given class, okay? so this should be obvious. Look at the
+             * names of the methods in this class and you'll figure it out. You have to indicate exactly the classes
+             * that the method should use as parameters so be very careful with "getMethod".
+             */
+            this.getClass().getMethod("tile" + skinName, World.class, TileAdventureBackpack.class)
                     .invoke(backpackAbilities, world, backpack);
         } catch (Exception oops) {
             // Seriously, nobody cares if this can't work, this is just so the game won't explode.
@@ -81,9 +80,7 @@ public class BackpackAbilities {
         String skinName = BackpackTypes.getSkinName(backpack);
         try {
             // This is black magic and shouldn't be attempted by the faint of heart.
-            backpackRemovals
-                    .getClass()
-                    .getMethod("item" + skinName, EntityPlayer.class, World.class, ItemStack.class)
+            backpackRemovals.getClass().getMethod("item" + skinName, EntityPlayer.class, World.class, ItemStack.class)
                     .invoke(backpackRemovals, player, world, backpack);
         } catch (Exception oops) {
             LogHelper.error("---Something bad happened when removing a backpack---");
@@ -100,9 +97,9 @@ public class BackpackAbilities {
      */
     private boolean isUnderRain(EntityPlayer player) {
         return player.worldObj.canLightningStrikeAt(
-                        MathHelper.floor_double(player.posX),
-                        MathHelper.floor_double(player.posY),
-                        MathHelper.floor_double(player.posZ))
+                MathHelper.floor_double(player.posX),
+                MathHelper.floor_double(player.posY),
+                MathHelper.floor_double(player.posZ))
                 || player.worldObj.canLightningStrikeAt(
                         MathHelper.floor_double(player.posX),
                         MathHelper.floor_double(player.posY + player.height),
@@ -116,9 +113,8 @@ public class BackpackAbilities {
         InventoryBackpack inv = new InventoryBackpack(backpack);
 
         if (inv.getLastTime() <= 0) {
-            if (world.isDaytime()
-                    &&
-                    /*!world.isRemote &&*/
+            if (world.isDaytime() &&
+            /* !world.isRemote && */
                     world.canBlockSeeTheSky(
                             MathHelper.floor_double(player.posX),
                             MathHelper.floor_double(player.posY + 1),
@@ -159,8 +155,8 @@ public class BackpackAbilities {
             itemBat(player, world, backpack);
         } else if (player.isPotionActive(Potion.waterBreathing.id)
                 && player.getActivePotionEffect(Potion.waterBreathing).getAmplifier() == -1) {
-            backpackRemovals.itemSquid(player, world, backpack);
-        }
+                    backpackRemovals.itemSquid(player, world, backpack);
+                }
     }
 
     public void itemPigman(EntityPlayer player, World world, ItemStack backpack) {
@@ -189,8 +185,12 @@ public class BackpackAbilities {
             }
             if (player.getHealth() < player.getMaxHealth()) {
                 if (potion == null || potion.getDuration() < 20) {
-                    player.addPotionEffect(new PotionEffect(
-                            Potion.regeneration.getId(), 900, ConfigHandler.dragonBackpackRegen - 1, true));
+                    player.addPotionEffect(
+                            new PotionEffect(
+                                    Potion.regeneration.getId(),
+                                    900,
+                                    ConfigHandler.dragonBackpackRegen - 1,
+                                    true));
                 }
             } else if (potion != null && potion.getAmplifier() == ConfigHandler.dragonBackpackRegen - 1) {
                 if (player.worldObj.isRemote) {
@@ -206,8 +206,12 @@ public class BackpackAbilities {
                 potion = player.getActivePotionEffect(Potion.damageBoost);
             }
             if (potion == null || potion.getDuration() < 222) {
-                player.addPotionEffect(new PotionEffect(
-                        Potion.damageBoost.getId(), 239, ConfigHandler.dragonBackpackDamage - 1, true));
+                player.addPotionEffect(
+                        new PotionEffect(
+                                Potion.damageBoost.getId(),
+                                239,
+                                ConfigHandler.dragonBackpackDamage - 1,
+                                true));
             }
         }
     }
@@ -230,7 +234,8 @@ public class BackpackAbilities {
                 // Visuals.NyanParticles(player, world);
                 if (!world.isRemote) {
                     ModNetwork.sendToNearby(
-                            new EntityParticlePacket.Message(EntityParticlePacket.NYAN_PARTICLE, player), player);
+                            new EntityParticlePacket.Message(EntityParticlePacket.NYAN_PARTICLE, player),
+                            player);
                 }
             }
         }
@@ -252,14 +257,13 @@ public class BackpackAbilities {
 
     /**
      * Mirroring real life cactii, the Cactus Backpack fills with water slowly or rapidly depending where is the player.
-     * If it's raining it will fill 1milibucket of water each tick.
-     * If the player is in water it will fill 2milibuckets of water each tick.
-     * The quantities can be combined.
+     * If it's raining it will fill 1milibucket of water each tick. If the player is in water it will fill 2milibuckets
+     * of water each tick. The quantities can be combined.
      *
      * @param player   The player. No, seriously.
      * @param world    The world the player is in.
-     * @param backpack The backpack the player is wearing. This should be rechecked like 20 times by now, so
-     *                 I'm not checking.
+     * @param backpack The backpack the player is wearing. This should be rechecked like 20 times by now, so I'm not
+     *                 checking.
      */
     public void itemCactus(EntityPlayer player, World world, ItemStack backpack) {
         // lastTime is in ticks for this backpack.
@@ -288,8 +292,8 @@ public class BackpackAbilities {
     /**
      * The Pig Backpack will annoy you and your friends! This beautiful design by 豚, will do as the pigs do when they
      * are frolicking around in the green pastures and terrifying slaughterhouses of the Minecraft world, after a random
-     * number of seconds. It's not so frequent as I'd like.
-     * Translation for pigs: Oink oink oink Oink! squee oink oink Minecraft Oink oink. "Oink" oink oink.
+     * number of seconds. It's not so frequent as I'd like. Translation for pigs: Oink oink oink Oink! squee oink oink
+     * Minecraft Oink oink. "Oink" oink oink.
      *
      * @param player   The player
      * @param world    The world object
@@ -330,10 +334,14 @@ public class BackpackAbilities {
                 if (slimeTime <= 0) {
                     if (!world.isRemote) {
                         ModNetwork.sendToNearby(
-                                new EntityParticlePacket.Message(EntityParticlePacket.SLIME_PARTICLE, player), player);
+                                new EntityParticlePacket.Message(EntityParticlePacket.SLIME_PARTICLE, player),
+                                player);
                     }
                     world.playSoundAtEntity(
-                            player, "mob.slime.small", 0.6F, (world.rand.nextFloat() - world.rand.nextFloat()) * 1F);
+                            player,
+                            "mob.slime.small",
+                            0.6F,
+                            (world.rand.nextFloat() - world.rand.nextFloat()) * 1F);
                     slimeTime = 5;
                 }
                 inv.setLastTime(slimeTime);
@@ -358,8 +366,8 @@ public class BackpackAbilities {
     }
 
     /**
-     * The Melon Backpack, like his cousin the Cactus Backpack, will fill itself, but with delicious
-     * and refreshing Melon Juice, if the backpack is wet in any way.
+     * The Melon Backpack, like his cousin the Cactus Backpack, will fill itself, but with delicious and refreshing
+     * Melon Juice, if the backpack is wet in any way.
      */
     public void itemMelon(EntityPlayer player, World world, ItemStack backpack) {
         // lastTime is in ticks for this backpack.
@@ -386,9 +394,9 @@ public class BackpackAbilities {
     }
 
     /**
-     * Sneaky! Scare your friends! Or your enemies!
-     * Sneak on another player to make them jump in confusion as they think one of those green bastards is behind him/her.
-     * You can only do it once every so often. A couple of minutes. Remember, you must be sneaking.
+     * Sneaky! Scare your friends! Or your enemies! Sneak on another player to make them jump in confusion as they think
+     * one of those green bastards is behind him/her. You can only do it once every so often. A couple of minutes.
+     * Remember, you must be sneaking.
      *
      * @see com.darkona.adventurebackpack.handlers.PlayerEventHandler
      */
@@ -404,13 +412,12 @@ public class BackpackAbilities {
                 List<Entity> entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(
                         player,
                         AxisAlignedBB.getBoundingBox(
-                                        player.posX,
-                                        player.posY,
-                                        player.posZ,
-                                        player.posX + 1.0D,
-                                        player.posY + 1.0D,
-                                        player.posZ + 1.0D)
-                                .expand(5.0D, 1.0D, 5.0D));
+                                player.posX,
+                                player.posY,
+                                player.posZ,
+                                player.posX + 1.0D,
+                                player.posY + 1.0D,
+                                player.posZ + 1.0D).expand(5.0D, 1.0D, 5.0D));
                 if (entities.isEmpty()) {
                     pssstTime -= 1;
                     return;
@@ -440,8 +447,8 @@ public class BackpackAbilities {
      * when it is being worn. For not-player related milk generation go get a cow. Moo!
      */
     public void itemCow(EntityPlayer player, World world, ItemStack backpack) {
-        if (world.isRemote)
-            return; // TODO not syncing properly with client if GUI is open (see unused CowAbilityPacket?)
+        if (world.isRemote) return; // TODO not syncing properly with client if GUI is open (see unused
+                                    // CowAbilityPacket?)
         InventoryBackpack inv = new InventoryBackpack(backpack);
         inv.openInventory();
 
@@ -562,13 +569,12 @@ public class BackpackAbilities {
             List<EntityWolf> wolves = world.getEntitiesWithinAABB(
                     EntityWolf.class,
                     AxisAlignedBB.getBoundingBox(
-                                    player.posX,
-                                    player.posY,
-                                    player.posZ,
-                                    player.posX + 1.0D,
-                                    player.posY + 1.0D,
-                                    player.posZ + 1.0D)
-                            .expand(16.0D, 4.0D, 16.0D));
+                            player.posX,
+                            player.posY,
+                            player.posZ,
+                            player.posX + 1.0D,
+                            player.posY + 1.0D,
+                            player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
             if (wolves.isEmpty()) return;
 
             for (EntityWolf wolf : wolves) {
@@ -596,7 +602,8 @@ public class BackpackAbilities {
 
     /**
      * Like actual Ocelots and Cats, the Ocelot Backpack will scare the hell out of Creepers, so they won't creep on you
-     * while you're busy doing something else, paying no attention whatsoever at your surroundings like a mindless chicken.
+     * while you're busy doing something else, paying no attention whatsoever at your surroundings like a mindless
+     * chicken.
      */
     @SuppressWarnings("unchecked")
     public void itemOcelot(EntityPlayer player, World world, ItemStack backpack) {
@@ -608,18 +615,22 @@ public class BackpackAbilities {
             List<EntityCreeper> creepers = player.worldObj.getEntitiesWithinAABB(
                     EntityCreeper.class,
                     AxisAlignedBB.getBoundingBox(
-                                    player.posX,
-                                    player.posY,
-                                    player.posZ,
-                                    player.posX + 1.0D,
-                                    player.posY + 1.0D,
-                                    player.posZ + 1.0D)
-                            .expand(16.0D, 4.0D, 16.0D));
+                            player.posX,
+                            player.posY,
+                            player.posZ,
+                            player.posX + 1.0D,
+                            player.posY + 1.0D,
+                            player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
 
             for (EntityCreeper creeper : creepers) {
                 boolean set = true;
                 EntityAIAvoidPlayerWithBackpack task = new EntityAIAvoidPlayerWithBackpack(
-                        creeper, EntityPlayer.class, 10.0F, 1.0, 1.3, BackpackTypes.OCELOT);
+                        creeper,
+                        EntityPlayer.class,
+                        10.0F,
+                        1.0,
+                        1.3,
+                        BackpackTypes.OCELOT);
                 for (Object entry : creeper.tasks.taskEntries) {
                     if (((EntityAITasks.EntityAITaskEntry) entry).action instanceof EntityAIAvoidPlayerWithBackpack) {
                         set = false;
@@ -637,7 +648,7 @@ public class BackpackAbilities {
         inv.markDirty();
     }
 
-    /* ==================================== TILE ABILITIES ==========================================*/
+    /* ==================================== TILE ABILITIES ========================================== */
 
     private void fillWithRain(World world, TileAdventureBackpack backpack, FluidStack fluid, int time) {
         if (world.isRaining() && world.canBlockSeeTheSky(backpack.xCoord, backpack.yCoord, backpack.zCoord)) {
@@ -663,8 +674,8 @@ public class BackpackAbilities {
         fillWithRain(world, backpack, new FluidStack(ModFluids.melonJuice, 2), 5);
     }
 
-    /*public void tileCow(World world, TileAdventureBackpack backpack)
-    {
-        IInventoryBackpack inv = backpack; //TODO make CowBackpack (and others) working in tile form
-    }*/
+    /*
+     * public void tileCow(World world, TileAdventureBackpack backpack) { IInventoryBackpack inv = backpack; //TODO make
+     * CowBackpack (and others) working in tile form }
+     */
 }

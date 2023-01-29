@@ -1,13 +1,15 @@
 package com.darkona.adventurebackpack.entity.ai;
 
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.util.Wearing;
 import java.util.UUID;
+
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.world.World;
+
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.util.Wearing;
 
 /**
  * Created on 09/01/2015
@@ -15,6 +17,7 @@ import net.minecraft.world.World;
  * @author Darkona
  */
 public class EntityAIHorseFollowOwner extends EntityAIBase {
+
     private EntityHorse theHorse;
     private EntityPlayer theOwner;
     World theWorld;
@@ -61,8 +64,7 @@ public class EntityAIHorseFollowOwner extends EntityAIBase {
 
     @Override
     public boolean continueExecuting() {
-        return (Wearing.isWearingTheRightBackpack(theOwner, BackpackTypes.HORSE)
-                && !this.petPathfinder.noPath()
+        return (Wearing.isWearingTheRightBackpack(theOwner, BackpackTypes.HORSE) && !this.petPathfinder.noPath()
                 && theHorse.getDistanceSqToEntity(theOwner) > this.maxDist * this.maxDist * 2);
     }
 

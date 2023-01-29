@@ -2,18 +2,21 @@ package com.darkona.adventurebackpack.client.models;
 
 import static com.darkona.adventurebackpack.reference.BackpackTypes.*;
 
-import codechicken.lib.render.CCRenderState;
-import codechicken.lib.render.RenderUtils;
-import codechicken.lib.vec.Cuboid6;
-import codechicken.lib.vec.Vector3;
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fluids.FluidTank;
+
 import org.lwjgl.opengl.GL11;
+
+import codechicken.lib.render.CCRenderState;
+import codechicken.lib.render.RenderUtils;
+import codechicken.lib.vec.Cuboid6;
+import codechicken.lib.vec.Vector3;
+
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
 
 /**
  * Created on 17/12/2014
@@ -21,6 +24,7 @@ import org.lwjgl.opengl.GL11;
  * @author Darkona
  */
 public class ModelBackpackBlock extends ModelBase {
+
     public ModelRenderer mainBody;
     public ModelRenderer lampLight;
     public ModelRenderer tankLeftTop;
@@ -264,8 +268,8 @@ public class ModelBackpackBlock extends ModelBase {
         this.pigNose.addBox(0.0F, 0.0F, 0.0F, 4, 3, 1);
     }
 
-    public void render(
-            Entity entity, float f, float f1, float f2, float f3, float f4, float scale, IInventoryBackpack backpack) {
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale,
+            IInventoryBackpack backpack) {
         // scale*=0.9;
         boolean sleepingbag = backpack.isSleepingBagDeployed();
         FluidTank tankLeft = backpack.getLeftTank();
@@ -277,9 +281,7 @@ public class ModelBackpackBlock extends ModelBase {
         // renderFluidsInTanks(backpack.getLeftTank(),backpack.getRightTank(),scale);
         GL11.glPopMatrix();
 
-        if (tankLeft != null
-                && tankLeft.getFluid() != null
-                && tankLeft.getFluid().getFluid().getIcon() != null) {
+        if (tankLeft != null && tankLeft.getFluid() != null && tankLeft.getFluid().getFluid().getIcon() != null) {
             Vector3 victor = new Vector3(
                     (tankLeftTop.rotationPointX * 0.1f - 0.22f),
                     (tankLeftTop.rotationPointY * 0.1f + 0.05f),
@@ -296,9 +298,7 @@ public class ModelBackpackBlock extends ModelBase {
             GL11.glPopMatrix();
         }
 
-        if (tankRight != null
-                && tankRight.getFluid() != null
-                && tankRight.getFluid().getFluid().getIcon() != null) {
+        if (tankRight != null && tankRight.getFluid() != null && tankRight.getFluid().getFluid().getIcon() != null) {
             Vector3 victor = new Vector3(
                     (tankRightTop.rotationPointX * 0.1f + 0.48f),
                     (tankRightTop.rotationPointY * 0.1f + 0.05f),
@@ -327,9 +327,7 @@ public class ModelBackpackBlock extends ModelBase {
         float maxY = 0f;
         float maxZ = 0.17f;
 
-        if (tankLeft != null
-                && tankLeft.getFluid() != null
-                && tankLeft.getFluid().getFluid().getIcon() != null) {
+        if (tankLeft != null && tankLeft.getFluid() != null && tankLeft.getFluid().getFluid().getIcon() != null) {
             // 0.5F, -0.1F, -0.25F - Rotation Points of the top
             // X++ to the right, X-- to the left
             // Z-- to the front, Z++ to the back
@@ -351,9 +349,7 @@ public class ModelBackpackBlock extends ModelBase {
                     0.2);
         }
 
-        if (tankRight != null
-                && tankRight.getFluid() != null
-                && tankRight.getFluid().getFluid().getIcon() != null) {
+        if (tankRight != null && tankRight.getFluid() != null && tankRight.getFluid().getFluid().getIcon() != null) {
             // -0.9F, -0.1F, -0.25F - Rotation points of the top
             // X-- to the right, X++ to the left
             // Z-- to the front, Z++ to the back
@@ -408,15 +404,11 @@ public class ModelBackpackBlock extends ModelBase {
             ocelotNose.render(scale);
         }
 
-        /*if(type == STANDARD)
-        {
-            GL11.glEnable(GL11.GL_BLEND);
-            GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            this.lampPole1.render(scale);
-            GL11.glDisable(GL11.GL_CULL_FACE);
-            GL11.glDisable(GL11.GL_BLEND);
-        }*/
+        /*
+         * if(type == STANDARD) { GL11.glEnable(GL11.GL_BLEND); GL11.glBlendFunc(GL11.GL_SRC_ALPHA,
+         * GL11.GL_ONE_MINUS_SRC_ALPHA); GL11.glEnable(GL11.GL_CULL_FACE); this.lampPole1.render(scale);
+         * GL11.glDisable(GL11.GL_CULL_FACE); GL11.glDisable(GL11.GL_BLEND); }
+         */
         GL11.glPopAttrib();
     }
 

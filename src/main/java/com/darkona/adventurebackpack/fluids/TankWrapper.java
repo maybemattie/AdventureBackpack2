@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidTank;
  * @author Darkona
  */
 public class TankWrapper extends FluidTank {
+
     public TankWrapper(int capacity) {
         super(capacity);
     }

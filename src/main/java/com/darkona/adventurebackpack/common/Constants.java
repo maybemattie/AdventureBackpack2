@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
  * @author Javier Darkona
  */
 public class Constants {
+
     public enum Source // TODO move to separate class?
     {
         TILE,
@@ -25,7 +26,7 @@ public class Constants {
     public static final String TAG_SLOT = "Slot";
 
     /**
-     *  ### Adventure Backpack ###
+     * ### Adventure Backpack ###
      */
     public static final int BASIC_TANK_CAPACITY = BUCKET * 4;
     // public static final int ADVANCED_TANK_CAPACITY = BUCKET * 8; // upgrade system?
@@ -57,8 +58,9 @@ public class Constants {
     public static final String TAG_SLEEPING_IN_BAG = "sleepingInBag";
 
     public class Jetpack {
+
         /**
-         *  ### Coal Jetpack ###
+         * ### Coal Jetpack ###
          */
         public static final int MAX_TEMPERATURE = 200;
 
@@ -77,8 +79,9 @@ public class Constants {
     }
 
     public class Copter {
+
         /**
-         *  ### Copter Pack ###
+         * ### Copter Pack ###
          */
         public static final int FUEL_CAPACITY = BUCKET * 16;
 

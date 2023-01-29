@@ -2,13 +2,15 @@ package com.darkona.adventurebackpack.block;
 
 import static com.darkona.adventurebackpack.common.Constants.TAG_SLOT;
 
-import com.darkona.adventurebackpack.inventory.IInventoryTanks;
 import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+
+import com.darkona.adventurebackpack.inventory.IInventoryTanks;
 
 /**
  * Created on 26.02.2018

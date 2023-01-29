@@ -1,10 +1,12 @@
 package com.darkona.adventurebackpack.util;
 
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.EnumChatFormatting;
+
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * Created on 12/10/2014
@@ -12,6 +14,7 @@ import net.minecraft.util.EnumChatFormatting;
  * @author Darkona
  */
 public class Utils {
+
     public static boolean inServer() {
         return FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER;
     }
@@ -40,15 +43,9 @@ public class Utils {
         return slots;
     }
 
-    private static final EnumChatFormatting[] RAINBOW_SEQUENCE = {
-        EnumChatFormatting.RED,
-        EnumChatFormatting.GOLD,
-        EnumChatFormatting.YELLOW,
-        EnumChatFormatting.GREEN,
-        EnumChatFormatting.AQUA,
-        EnumChatFormatting.BLUE,
-        EnumChatFormatting.DARK_PURPLE
-    };
+    private static final EnumChatFormatting[] RAINBOW_SEQUENCE = { EnumChatFormatting.RED, EnumChatFormatting.GOLD,
+            EnumChatFormatting.YELLOW, EnumChatFormatting.GREEN, EnumChatFormatting.AQUA, EnumChatFormatting.BLUE,
+            EnumChatFormatting.DARK_PURPLE };
 
     public static String makeItRainbow(String stringIn) {
         StringBuilder rainbowed = new StringBuilder(stringIn.length() * 3); // special characters = length * 2
@@ -123,8 +120,8 @@ public class Utils {
         return stringIn;
     }
 
-    private static String decorateCharInString(
-            String stringIn, int charID, EnumChatFormatting regular, EnumChatFormatting bold, boolean dir) {
+    private static String decorateCharInString(String stringIn, int charID, EnumChatFormatting regular,
+            EnumChatFormatting bold, boolean dir) {
         int len = stringIn.length();
         StringBuilder decorated = new StringBuilder();
         for (int i = dir ? 0 : len - 1; dir ? i < len : i >= 0; i = dir ? ++i : --i) {

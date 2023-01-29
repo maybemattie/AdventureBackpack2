@@ -1,16 +1,19 @@
 package com.darkona.adventurebackpack.network;
 
+import java.util.UUID;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+
 import com.darkona.adventurebackpack.inventory.ContainerBackpack;
 import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
+
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
-import java.util.UUID;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 
 /**
  * Created on 16/10/2014
@@ -18,6 +21,7 @@ import net.minecraft.init.Items;
  * @author Darkona
  */
 public class CowAbilityPacket implements IMessageHandler<CowAbilityPacket.CowAbilityMessage, IMessage> {
+
     public static final byte CONSUME_WHEAT = 0;
 
     @Override
@@ -39,6 +43,7 @@ public class CowAbilityPacket implements IMessageHandler<CowAbilityPacket.CowAbi
     }
 
     public static class CowAbilityMessage implements IMessage {
+
         private byte action;
         private String playerID;
 
