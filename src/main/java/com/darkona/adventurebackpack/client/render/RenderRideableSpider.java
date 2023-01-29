@@ -18,7 +18,6 @@ public class RenderRideableSpider extends RenderLiving {
 
     private static final ResourceLocation spiderEyesTextures = new ResourceLocation("textures/entity/spider_eyes.png");
     private static final ResourceLocation spiderTextures = new ResourceLocation("textures/entity/spider/spider.png");
-    private static final String __OBFID = "CL_00001027";
 
     public RenderRideableSpider() {
         super(new ModelSpider(), 1.0F);
