@@ -16,8 +16,8 @@ public class Keybindings {
     private static final String OPEN_INVENTORY = "keys.adventureBackpack.openInventory";
     private static final String TOGGLE_ACTIONS = "keys.adventureBackpack.toggleActions";
 
-    public static KeyBinding openInventory = new KeyBinding(OPEN_INVENTORY, Keyboard.KEY_B, KEYS_CATEGORY);
-    public static KeyBinding toggleActions = new KeyBinding(TOGGLE_ACTIONS, Keyboard.KEY_N, KEYS_CATEGORY);
+    public static KeyBinding openInventory = new KeyBinding(OPEN_INVENTORY, Keyboard.KEY_NONE, KEYS_CATEGORY);
+    public static KeyBinding toggleActions = new KeyBinding(TOGGLE_ACTIONS, Keyboard.KEY_NONE, KEYS_CATEGORY);
 
     public static String getInventoryKeyName() {
         return GameSettings.getKeyDisplayString(openInventory.getKeyCode());
