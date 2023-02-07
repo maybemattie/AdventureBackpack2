@@ -86,9 +86,5 @@ public class AdventureBackpack {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         GeneralReference.init();
-
-        // ConditionalFluidEffect.init();
-        // ModItems.conditionalInit();
-        // ModRecipes.conditionalInit();
     }
 }
