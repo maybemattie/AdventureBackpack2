@@ -22,7 +22,6 @@ public class ItemPistonBoots extends ArmorAB {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        if (ConfigHandler.pistonBootsAutoStep) player.stepHeight = 1.001F;
         if (ConfigHandler.pistonBootsSprintBoost != 0 && player.isSprinting()) player.addPotionEffect(
                 new PotionEffect(Potion.moveSpeed.getId(), 1, ConfigHandler.pistonBootsSprintBoost - 1));
     }

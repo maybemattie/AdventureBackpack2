@@ -113,17 +113,12 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public void pistonBootsUnequipped(LivingEvent.LivingUpdateEvent event) {
-        if (event.entityLiving instanceof EntityPlayer) {
+        if (event.entityLiving instanceof EntityPlayer && ConfigHandler.pistonBootsAutoStep) {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             if (Wearing.isWearingBoots(player)) {
-                if (!pistonBootsStepHeight) {
-                    pistonBootsStepHeight = true;
-                }
+                player.stepHeight = 1.001F;
             } else {
-                if (pistonBootsStepHeight) {
-                    player.stepHeight = 0.5001F;
-                    pistonBootsStepHeight = false;
-                }
+                player.stepHeight = 0.5001F;
             }
         }
     }
