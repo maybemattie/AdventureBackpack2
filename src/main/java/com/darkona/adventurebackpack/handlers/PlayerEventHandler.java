@@ -109,8 +109,6 @@ public class PlayerEventHandler {
         }
     }
 
-    private boolean pistonBootsStepHeight = false;
-
     @SubscribeEvent
     public void pistonBootsUnequipped(LivingEvent.LivingUpdateEvent event) {
         if (event.entityLiving instanceof EntityPlayer && ConfigHandler.pistonBootsAutoStep) {
