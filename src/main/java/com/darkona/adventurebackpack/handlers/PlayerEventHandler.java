@@ -21,6 +21,9 @@ import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerWakeUpEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.darkona.adventurebackpack.block.BlockSleepingBag;
 import com.darkona.adventurebackpack.common.ServerActions;
 import com.darkona.adventurebackpack.config.ConfigHandler;
@@ -50,6 +53,8 @@ import cpw.mods.fml.common.gameevent.TickEvent;
  * @see com.darkona.adventurebackpack.client.ClientActions
  */
 public class PlayerEventHandler {
+
+    public static List<String> stepBoostedPlayers = new ArrayList<>();
 
     @SubscribeEvent
     public void registerBackpackProperty(EntityEvent.EntityConstructing event) {
@@ -105,25 +110,6 @@ public class PlayerEventHandler {
 
             if (Wearing.isWearingBoots(player) && player.onGround) {
                 ServerActions.pistonBootsJump(player);
-            }
-        }
-    }
-
-    private boolean pistonBootsStepHeight = false;
-
-    @SubscribeEvent
-    public void pistonBootsUnequipped(LivingEvent.LivingUpdateEvent event) {
-        boolean isAutoStepEnabled = ConfigHandler.pistonBootsAutoStep;
-        if (event.entityLiving instanceof EntityPlayer && (isAutoStepEnabled || pistonBootsStepHeight)) {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            if (Wearing.isWearingBoots(player)) {
-                if (isAutoStepEnabled) {
-                    player.stepHeight = 1.0001F;
-                    pistonBootsStepHeight = true;
-                }
-            } else if (pistonBootsStepHeight) {
-                player.stepHeight = 0.5001F;
-                pistonBootsStepHeight = false;
             }
         }
     }
@@ -323,6 +309,19 @@ public class PlayerEventHandler {
                         BackpackProperty.get(player).setWakingUpInPortableBag(false);
                     }
                 }
+            }
+        }
+        if (player != null && !player.isDead && player instanceof EntityPlayer) {
+            String playerName = player.getGameProfile().getName();
+            boolean stepBoosted = stepBoostedPlayers.contains(playerName);
+            if (Wearing.isWearingBoots(player)) {
+                player.stepHeight = 1.001F;
+                if (ConfigHandler.pistonBootsAutoStep && !stepBoosted) {
+                    stepBoostedPlayers.add(playerName);
+                }
+            } else if (stepBoosted) {
+                player.stepHeight = 0.501F;
+                stepBoostedPlayers.remove(playerName);
             }
         }
     }
