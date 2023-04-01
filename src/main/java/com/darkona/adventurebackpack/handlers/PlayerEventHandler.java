@@ -1,7 +1,6 @@
 package com.darkona.adventurebackpack.handlers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -54,7 +53,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
  */
 public class PlayerEventHandler {
 
-    public static List<String> stepBoostedPlayers = new ArrayList<>();
+    public static HashSet<String> stepBoostedPlayers = new HashSet<String>();
 
     @SubscribeEvent
     public void registerBackpackProperty(EntityEvent.EntityConstructing event) {
