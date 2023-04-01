@@ -1,5 +1,7 @@
 package com.darkona.adventurebackpack.handlers;
 
+import java.util.HashSet;
+
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
@@ -50,6 +52,8 @@ import cpw.mods.fml.common.gameevent.TickEvent;
  * @see com.darkona.adventurebackpack.client.ClientActions
  */
 public class PlayerEventHandler {
+
+    public static HashSet<String> stepBoostedPlayers = new HashSet<String>();
 
     @SubscribeEvent
     public void registerBackpackProperty(EntityEvent.EntityConstructing event) {
@@ -105,18 +109,6 @@ public class PlayerEventHandler {
 
             if (Wearing.isWearingBoots(player) && player.onGround) {
                 ServerActions.pistonBootsJump(player);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void pistonBootsUnequipped(LivingEvent.LivingUpdateEvent event) {
-        if (event.entityLiving instanceof EntityPlayer && ConfigHandler.pistonBootsAutoStep) {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            if (Wearing.isWearingBoots(player)) {
-                player.stepHeight = 1.001F;
-            } else {
-                player.stepHeight = 0.5001F;
             }
         }
     }
@@ -316,6 +308,19 @@ public class PlayerEventHandler {
                         BackpackProperty.get(player).setWakingUpInPortableBag(false);
                     }
                 }
+            }
+        }
+        if (player != null && !player.isDead && player instanceof EntityPlayer) {
+            String playerName = player.getGameProfile().getName();
+            boolean stepBoosted = stepBoostedPlayers.contains(playerName);
+            if (Wearing.isWearingBoots(player)) {
+                player.stepHeight = 1.001F;
+                if (ConfigHandler.pistonBootsAutoStep && !stepBoosted) {
+                    stepBoostedPlayers.add(playerName);
+                }
+            } else if (stepBoosted) {
+                player.stepHeight = 0.501F;
+                stepBoostedPlayers.remove(playerName);
             }
         }
     }
