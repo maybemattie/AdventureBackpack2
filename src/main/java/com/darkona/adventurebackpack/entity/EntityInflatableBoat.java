@@ -26,11 +26,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 
-/**
- * Created on 05/01/2015
- *
- * @author Darkona
- */
 public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTanks, */ IEntityAdditionalSpawnData {
 
     private FluidTank fuelTank;
