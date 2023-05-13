@@ -38,7 +38,6 @@ public class EntityFriendlySpider extends EntityCreature {
     private int jumpTicks;
     private EntityPlayer owner;
     private boolean tamed = false;
-    private final EntityAIControlledByPlayer aiControlledByPlayer;
 
     @Override
     protected void entityInit() {
@@ -58,7 +57,7 @@ public class EntityFriendlySpider extends EntityCreature {
         super(world);
         this.setSize(1.4F, 0.9F);
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, this.aiControlledByPlayer = new EntityAIControlledByPlayer(this, 0.3F));
+        this.tasks.addTask(2, new EntityAIControlledByPlayer(this, 0.3F));
         this.tasks.addTask(6, new EntityAIWander(this, 0.7D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
