@@ -52,10 +52,6 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
 
     // boat is in EARLY ALPHA stage
 
-    public boolean isMotorized() {
-        return motorized;
-    }
-
     public EntityInflatableBoat(World world) {
         super(world);
     }
@@ -63,6 +59,10 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
     public EntityInflatableBoat(World world, double posX, double posY, double posZ, boolean motorized) {
         super(world, posX, posY, posZ);
         setMotorized(motorized);
+    }
+
+    public boolean isMotorized() {
+        return motorized;
     }
 
     public boolean isInflated() {
