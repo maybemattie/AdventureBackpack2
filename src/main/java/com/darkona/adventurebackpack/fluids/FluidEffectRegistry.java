@@ -7,8 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
-import adventurebackpack.api.FluidEffect;
-
 import com.darkona.adventurebackpack.fluids.effects.LavaEffect;
 import com.darkona.adventurebackpack.fluids.effects.MelonJuiceEffect;
 import com.darkona.adventurebackpack.fluids.effects.MilkEffect;
@@ -17,6 +15,8 @@ import com.darkona.adventurebackpack.util.LogHelper;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableMap;
+
+import adventurebackpack.api.FluidEffect;
 
 /**
  * Created on 12/10/2014

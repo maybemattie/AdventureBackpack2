@@ -13,6 +13,7 @@ import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.item.ItemJuiceBottle;
 import com.darkona.adventurebackpack.item.ItemMachete;
 import com.darkona.adventurebackpack.item.ItemPistonBoots;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**

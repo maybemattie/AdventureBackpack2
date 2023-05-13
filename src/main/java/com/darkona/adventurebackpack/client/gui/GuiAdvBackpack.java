@@ -13,9 +13,6 @@ import net.minecraftforge.fluids.FluidTank;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.guihook.IContainerTooltipHandler;
-
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.common.Constants.Source;
@@ -30,6 +27,8 @@ import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.TinkersUtils;
 
+import codechicken.nei.guihook.GuiContainerManager;
+import codechicken.nei.guihook.IContainerTooltipHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

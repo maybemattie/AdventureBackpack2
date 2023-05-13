@@ -7,9 +7,9 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 
-import adventurebackpack.api.FluidEffect;
-
 import com.darkona.adventurebackpack.util.Utils;
+
+import adventurebackpack.api.FluidEffect;
 
 /**
  * Created on 12/10/2014

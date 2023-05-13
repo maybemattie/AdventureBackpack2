@@ -24,8 +24,6 @@ import net.minecraftforge.fluids.FluidTank;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.render.TextureUtils;
-
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.inventory.IInventoryTanks;
@@ -35,6 +33,7 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.reference.ToolHandler;
 import com.darkona.adventurebackpack.util.*;
 
+import codechicken.lib.render.TextureUtils;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 

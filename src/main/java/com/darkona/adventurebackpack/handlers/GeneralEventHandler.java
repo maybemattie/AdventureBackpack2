@@ -27,6 +27,7 @@ import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 /**

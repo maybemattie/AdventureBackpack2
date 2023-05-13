@@ -5,6 +5,7 @@ import com.darkona.adventurebackpack.block.BlockCampFire;
 import com.darkona.adventurebackpack.block.BlockSleepingBag;
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.block.TileCampfire;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /**

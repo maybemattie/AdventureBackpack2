@@ -3,9 +3,9 @@ package com.darkona.adventurebackpack.nei;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
 
-import codechicken.nei.recipe.DefaultOverlayHandler;
-
 import com.darkona.adventurebackpack.inventory.SlotBackpack;
+
+import codechicken.nei.recipe.DefaultOverlayHandler;
 
 public class BackpackOverlayHandler extends DefaultOverlayHandler {
 

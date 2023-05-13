@@ -3,6 +3,7 @@ package com.darkona.adventurebackpack.init;
 import com.darkona.adventurebackpack.AdventureBackpack;
 import com.darkona.adventurebackpack.entity.EntityFriendlySpider;
 import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
+
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 /**

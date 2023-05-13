@@ -17,6 +17,7 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.mojang.authlib.GameProfile;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 
 /**

@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
 import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
+
+import codechicken.lib.vec.Vector3;
 
 public class ModelCoalJetpack extends ModelWearable {
 

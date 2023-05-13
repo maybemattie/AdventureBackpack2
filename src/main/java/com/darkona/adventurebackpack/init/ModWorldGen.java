@@ -19,6 +19,7 @@ import net.minecraftforge.common.ChestGenHooks;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.BackpackUtils;
+
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
 /**

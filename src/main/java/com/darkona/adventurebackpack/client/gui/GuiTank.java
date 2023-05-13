@@ -12,12 +12,12 @@ import net.minecraftforge.fluids.FluidTank;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.render.TextureUtils;
-
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.util.LogHelper;
 import com.darkona.adventurebackpack.util.TipUtils;
+
+import codechicken.lib.render.TextureUtils;
 
 /**
  * Created by Darkona on 12/10/2014.
