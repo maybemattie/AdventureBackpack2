@@ -39,6 +39,16 @@ public class EntityFriendlySpider extends EntityCreature {
     private EntityPlayer owner;
     private boolean tamed = false;
 
+    public EntityFriendlySpider(World world) {
+        super(world);
+        this.setSize(1.4F, 0.9F);
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(2, new EntityAIControlledByPlayer(this, 0.3F));
+        this.tasks.addTask(6, new EntityAIWander(this, 0.7D));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+    }
+
     @Override
     protected void entityInit() {
         super.entityInit();
@@ -51,16 +61,6 @@ public class EntityFriendlySpider extends EntityCreature {
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.15D);
         this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
-    }
-
-    public EntityFriendlySpider(World world) {
-        super(world);
-        this.setSize(1.4F, 0.9F);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIControlledByPlayer(this, 0.3F));
-        this.tasks.addTask(6, new EntityAIWander(this, 0.7D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
     }
 
     @Override
