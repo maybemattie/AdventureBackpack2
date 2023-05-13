@@ -17,7 +17,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
 
 import com.darkona.adventurebackpack.init.ModItems;
 
@@ -28,7 +27,6 @@ import io.netty.buffer.ByteBuf;
 
 public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTanks, */ IEntityAdditionalSpawnData {
 
-    private FluidTank fuelTank;
     private boolean isBoatEmpty;
     private double speedMultiplier;
     private int boatPosRotationIncrements;
@@ -65,7 +63,6 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
     public EntityInflatableBoat(World world, double posX, double posY, double posZ, boolean motorized) {
         super(world, posX, posY, posZ);
         setMotorized(motorized);
-        fuelTank = new FluidTank(6000);
     }
 
     public boolean isInflated() {
