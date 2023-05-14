@@ -244,7 +244,7 @@ public class ModelClockworkCrossbow extends ModelBase {
         arrow.setRotationPoint(xbowBody.rotationPointX, xbowBody.rotationPointY, xbowBody.rotationPointZ);
         GL11.glPushMatrix();
         GL11.glScalef(1.0f, 1.0f, 2f);
-        arrow.render(1 / 14);
+        arrow.render((float) (1 / 14.0));
         GL11.glPopMatrix();
     }
 
