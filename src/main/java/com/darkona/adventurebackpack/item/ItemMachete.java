@@ -21,7 +21,7 @@ import com.google.common.collect.Sets;
 
 public class ItemMachete extends ToolAB {
 
-    private static final Set BREAKABLE_BLOCKS = Sets.newHashSet(
+    private static final Set<Block> BREAKABLE_BLOCKS = Sets.newHashSet(
             Blocks.pumpkin,
             Blocks.web,
             Blocks.leaves,
