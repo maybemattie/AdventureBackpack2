@@ -319,11 +319,6 @@ public class EntityFriendlySpider extends EntityCreature {
     }
 
     @Override
-    public double getMountedYOffset() {
-        return super.getMountedYOffset();
-    }
-
-    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         if (this.riddenByEntity != null) {
             this.prevRotationYaw = this.rotationYaw = this.riddenByEntity.rotationYaw;

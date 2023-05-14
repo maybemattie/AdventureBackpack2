@@ -52,36 +52,6 @@ public class NyanMovingSound extends MovingSound {
     }
 
     @Override
-    public int getRepeatDelay() {
-        return super.getRepeatDelay();
-    }
-
-    @Override
-    public float getVolume() {
-        return super.getVolume();
-    }
-
-    @Override
-    public float getPitch() {
-        return super.getPitch();
-    }
-
-    @Override
-    public float getXPosF() {
-        return super.getXPosF();
-    }
-
-    @Override
-    public float getYPosF() {
-        return super.getYPosF();
-    }
-
-    @Override
-    public float getZPosF() {
-        return super.getZPosF();
-    }
-
-    @Override
     public AttenuationType getAttenuationType() {
         return AttenuationType.LINEAR;
     }
