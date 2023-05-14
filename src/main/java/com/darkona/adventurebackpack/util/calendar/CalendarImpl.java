@@ -4,6 +4,7 @@ package com.darkona.adventurebackpack.util.calendar;
  * Copyright © by Ulrich and David Greve (2005)
  */
 public class CalendarImpl {
+
     public static int getWeekday(int absDate) {
         return (absDate % 7);
     }

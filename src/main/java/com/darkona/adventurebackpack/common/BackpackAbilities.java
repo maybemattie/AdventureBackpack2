@@ -1,6 +1,5 @@
 package com.darkona.adventurebackpack.common;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
@@ -62,8 +61,8 @@ public class BackpackAbilities {
         try {
             /*
              * Invoke executes any method of a given class. The names of the methods can help understanding what
-             * happens. You have to indicate exactly the classes that the method should use as parameters,
-             * so be very careful with "getMethod".
+             * happens. You have to indicate exactly the classes that the method should use as parameters, so be very
+             * careful with "getMethod".
              */
             this.getClass().getMethod("tile" + skinName, World.class, TileAdventureBackpack.class)
                     .invoke(backpackAbilities, world, backpack);
@@ -252,9 +251,9 @@ public class BackpackAbilities {
     public void itemIronGolem(EntityPlayer player, World world, ItemStack backpack) {}
 
     /**
-     * The Cactus Backpack fills with water slowly or rapidly depending on where the player is.
-     * If it's raining, it will fill 1mB of water each tick. If the player is in water it will fill 2mB each tick.
-     * The quantities can be combined.
+     * The Cactus Backpack fills with water slowly or rapidly depending on where the player is. If it's raining, it will
+     * fill 1mB of water each tick. If the player is in water it will fill 2mB each tick. The quantities can be
+     * combined.
      *
      * @param player   The player. No, seriously.
      * @param world    The world the player is in.

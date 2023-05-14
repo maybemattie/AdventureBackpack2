@@ -54,6 +54,7 @@ public class Constants {
      * Coal jetpack
      */
     public static class Jetpack {
+
         public static final int MAX_TEMPERATURE = 200;
 
         public static final int WATER_CAPACITY = BUCKET * 6;
@@ -74,6 +75,7 @@ public class Constants {
      * Copter Pack
      */
     public static class Copter {
+
         public static final int FUEL_CAPACITY = BUCKET * 16;
 
         // Inventory Slots

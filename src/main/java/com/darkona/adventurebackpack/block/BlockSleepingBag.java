@@ -1,13 +1,11 @@
 package com.darkona.adventurebackpack.block;
 
-import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -103,11 +101,8 @@ public class BlockSleepingBag extends BlockDirectional {
             storedSpawn.setInteger(TAG_SPAWN_POS_Z, spawn.posZ);
             tag.setTag(TAG_STORED_SPAWN, storedSpawn);
             LogHelper.info(
-                    "Stored spawn data for " + player.getDisplayName()
-                            + ": "
-                            + spawn
-                            + " dimID: "
-                            + player.worldObj.provider.dimensionId);
+                    "Stored spawn data for " + player
+                            .getDisplayName() + ": " + spawn + " dimID: " + player.worldObj.provider.dimensionId);
         } else {
             LogHelper.warn("Cannot store spawn data for " + player.getDisplayName());
         }
@@ -123,11 +118,8 @@ public class BlockSleepingBag extends BlockDirectional {
             player.setSpawnChunk(coords, false, player.worldObj.provider.dimensionId);
             tag.removeTag(TAG_STORED_SPAWN);
             LogHelper.info(
-                    "Restored spawn data for " + player.getDisplayName()
-                            + ": "
-                            + coords
-                            + " dimID: "
-                            + player.worldObj.provider.dimensionId);
+                    "Restored spawn data for " + player
+                            .getDisplayName() + ": " + coords + " dimID: " + player.worldObj.provider.dimensionId);
         } else {
             LogHelper.warn("No spawn data to restore for " + player.getDisplayName());
         }
@@ -178,8 +170,7 @@ public class BlockSleepingBag extends BlockDirectional {
                     }
 
                     if (entityplayer1 != null) {
-                        player.addChatComponentMessage(
-                                new ChatComponentTranslation("tile.bed.occupied"));
+                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied"));
                         return false;
                     }
 
@@ -232,14 +223,7 @@ public class BlockSleepingBag extends BlockDirectional {
                     d1 = (d1 + (double) z + 0.5D) / 2.0D;
                 }
 
-                world.newExplosion(
-                        null,
-                        (float) x + 0.5F,
-                        (float) y + 0.5F,
-                        (float) z + 0.5F,
-                        5.0F,
-                        true,
-                        true);
+                world.newExplosion(null, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, 5.0F, true, true);
 
                 return false;
             }

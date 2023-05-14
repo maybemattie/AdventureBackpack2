@@ -6,8 +6,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
 /**
- * You must extend this class to add player effects when drinking different fluids.
- * The timeInSeconds and timeInTicks may serve to set the duration of the effect.
+ * You must extend this class to add player effects when drinking different fluids. The timeInSeconds and timeInTicks
+ * may serve to set the duration of the effect.
  */
 public abstract class FluidEffect {
 
