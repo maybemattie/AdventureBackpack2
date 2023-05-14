@@ -50,11 +50,10 @@ public class Constants {
     public static final String TAG_HOLDING_SPACE = "holdingSpace";
     public static final String TAG_SLEEPING_IN_BAG = "sleepingInBag";
 
+    /**
+     * Coal jetpack
+     */
     public class Jetpack {
-
-        /**
-         * ### Coal Jetpack ###
-         */
         public static final int MAX_TEMPERATURE = 200;
 
         public static final int WATER_CAPACITY = BUCKET * 6;
@@ -71,11 +70,10 @@ public class Constants {
         public static final String TAG_STEAM_TANK = "steamTank";
     }
 
+    /**
+     * Copter Pack
+     */
     public class Copter {
-
-        /**
-         * ### Copter Pack ###
-         */
         public static final int FUEL_CAPACITY = BUCKET * 16;
 
         // Inventory Slots
