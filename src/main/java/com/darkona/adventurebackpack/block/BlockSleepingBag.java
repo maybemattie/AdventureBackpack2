@@ -179,7 +179,7 @@ public class BlockSleepingBag extends BlockDirectional {
 
                     if (entityplayer1 != null) {
                         player.addChatComponentMessage(
-                                new ChatComponentTranslation("tile.bed.occupied", new Object[0]));
+                                new ChatComponentTranslation("tile.bed.occupied"));
                         return false;
                     }
 
@@ -209,9 +209,9 @@ public class BlockSleepingBag extends BlockDirectional {
                     return true;
                 } else {
                     if (enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
-                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep", new Object[0]));
+                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep"));
                     } else if (enumstatus == EntityPlayer.EnumStatus.NOT_SAFE) {
-                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe", new Object[0]));
+                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe"));
                     }
 
                     return false;
