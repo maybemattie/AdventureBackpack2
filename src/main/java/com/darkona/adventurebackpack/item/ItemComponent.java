@@ -122,9 +122,7 @@ public class ItemComponent extends ItemAB {
                 }
             }
 
-            if (flag) {
-                return stack;
-            } else {
+            if (!flag) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     i = movingobjectposition.blockX;
                     int j = movingobjectposition.blockY;
@@ -157,8 +155,8 @@ public class ItemComponent extends ItemAB {
                         --stack.stackSize;
                     }
                 }
-                return stack;
             }
+            return stack;
         }
     }
 }
