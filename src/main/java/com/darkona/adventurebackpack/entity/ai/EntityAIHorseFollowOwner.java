@@ -15,12 +15,12 @@ public class EntityAIHorseFollowOwner extends EntityAIBase {
 
     private final EntityHorse theHorse;
     private EntityPlayer theOwner;
-    World theWorld;
+    final World theWorld;
     private final double speed;
     private PathNavigate petPathfinder;
     private int tickCounter;
-    float maxDist;
-    float minDist;
+    final float maxDist;
+    final float minDist;
     private boolean avoidWater;
 
     public EntityAIHorseFollowOwner(EntityHorse horse, double speed, float minDist, float maxDist) {

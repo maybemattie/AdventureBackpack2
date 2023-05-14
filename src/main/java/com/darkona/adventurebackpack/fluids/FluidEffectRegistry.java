@@ -20,7 +20,7 @@ import adventurebackpack.api.FluidEffect;
 
 public class FluidEffectRegistry {
 
-    static BiMap<String, FluidEffect> EFFECT_REGISTRY = HashBiMap.create();
+    static final BiMap<String, FluidEffect> EFFECT_REGISTRY = HashBiMap.create();
 
     public static FluidEffect LAVA_EFFECT;
     public static FluidEffect MILK_EFFECT;
