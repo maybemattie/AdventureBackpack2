@@ -16,7 +16,7 @@ public class CalendarImpl {
         return (absDate % 7);
     }
 
-    private int month_list[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    private int[] month_list = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public int getLastDayOfGregorianMonth(int month, int year) {
         if ((month == 2) && ((year % 4) == 0)

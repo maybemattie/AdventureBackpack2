@@ -202,7 +202,7 @@ public class ServerActions {
         if (isTile && world.getTileEntity(cX, cY, cZ) instanceof TileAdventureBackpack) {
             TileAdventureBackpack te = (TileAdventureBackpack) world.getTileEntity(cX, cY, cZ);
             if (!te.isSleepingBagDeployed()) {
-                int can[] = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, true);
+                int[] can = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, true);
                 if (can[0] > -1) {
                     if (te.deploySleepingBag(player, world, can[0], can[1], can[2], can[3])) {
                         player.closeScreen();
@@ -216,7 +216,7 @@ public class ServerActions {
             }
             player.closeScreen();
         } else if (!isTile && Wearing.isWearingBackpack(player)) {
-            int can[] = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, false);
+            int[] can = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, false);
             if (can[0] > -1) {
                 InventoryBackpack inv = Wearing.getWearingBackpackInv(player);
                 if (inv.deploySleepingBag(player, world, can[0], can[1], can[2], can[3])) {
