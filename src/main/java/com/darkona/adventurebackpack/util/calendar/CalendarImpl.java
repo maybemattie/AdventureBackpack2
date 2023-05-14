@@ -85,11 +85,7 @@ public class CalendarImpl {
     }
 
     public boolean hebrewLeapYear(int year) {
-        if ((((year * 7) + 1) % 19) < 7) {
-            return true;
-        } else {
-            return false;
-        }
+        return (((year * 7) + 1) % 19) < 7;
     }
 
     public int getLastMonthOfJewishYear(int year) {
@@ -181,19 +177,11 @@ public class CalendarImpl {
     }
 
     private boolean longHeshvan(int year) {
-        if ((daysInHebrewYear(year) % 10) == 5) {
-            return true;
-        } else {
-            return false;
-        }
+        return (daysInHebrewYear(year) % 10) == 5;
     }
 
     private boolean shortKislev(int year) {
-        if ((daysInHebrewYear(year) % 10) == 3) {
-            return true;
-        } else {
-            return false;
-        }
+        return (daysInHebrewYear(year) % 10) == 3;
     }
 
     public int absoluteFromJewishDate(CalendarDate date) {

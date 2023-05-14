@@ -50,10 +50,7 @@ public class EntityAIHorseFollowOwner extends EntityAIBase {
             }
         }
         if (!Wearing.isWearingTheRightBackpack(theOwner, BackpackTypes.HORSE)) return false;
-        if (theHorse.getDistanceSqToEntity(theOwner) < minDist * minDist * 20) {
-            return false;
-        }
-        return true;
+        return !(theHorse.getDistanceSqToEntity(theOwner) < minDist * minDist * 20);
     }
 
     @Override

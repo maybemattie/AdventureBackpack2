@@ -42,11 +42,7 @@ public class CalendarDate {
     }
 
     public boolean areDatesEqual(CalendarDate date) {
-        if ((day == date.getDay()) && (month == date.getMonth()) && (year == date.getYear())) {
-            return true;
-        } else {
-            return false;
-        }
+        return (day == date.getDay()) && (month == date.getMonth()) && (year == date.getYear());
     }
 
     public int getHashCode() {
