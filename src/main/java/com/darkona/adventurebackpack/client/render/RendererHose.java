@@ -14,7 +14,6 @@ import com.darkona.adventurebackpack.config.ConfigHandler;
 public class RendererHose implements IItemRenderer {
 
     private static RenderItem renderHose = new RenderItem();
-    private FontRenderer fontRenderer;
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
@@ -29,11 +28,10 @@ public class RendererHose implements IItemRenderer {
     @Override
     public void renderItem(ItemRenderType type, ItemStack hose, Object... data) {
         if (type == ItemRenderType.INVENTORY) {
-            // ====================Render the item===================== //
             GL11.glColor4f(1, 1, 1, 1);
             IIcon icon = hose.getItem().getIcon(hose, 0);
             renderHose.renderIcon(0, 0, icon, 16, 16);
-            fontRenderer = Minecraft.getMinecraft().fontRenderer;
+            FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
             if (hose.hasTagCompound()) {
                 String amount = Integer.toString(hose.getTagCompound().getInteger("amount"));
