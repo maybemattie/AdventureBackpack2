@@ -13,12 +13,12 @@ public class ChineseCalendar {
     private int chineseDate;
     private int sectionalTerm;
     private int principleTerm;
-    private static char[] daysInGregorianMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-    private static String[] monthNames = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov",
-            "Dec" };
-    private static String[] stemNames = { "Wood", "Wood", "Fire", "Fire", "Earth", "Earth", "Metal", "Metal", "Water",
-            "Water" };
-    private static String[] branchNames = { "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep",
+    private static final char[] daysInGregorianMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    private static final String[] monthNames = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+            "Nov", "Dec" };
+    private static final String[] stemNames = { "Wood", "Wood", "Fire", "Fire", "Earth", "Earth", "Metal", "Metal",
+            "Water", "Water" };
+    private static final String[] branchNames = { "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake", "Horse", "Sheep",
             "Monkey", "Rooster", "Dog", "Boar" };
 
     public static void generateChineseCalendar(String[] arg) {
@@ -109,7 +109,7 @@ public class ChineseCalendar {
         return w;
     }
 
-    private static char[] chineseMonths = {
+    private static final char[] chineseMonths = {
             // Chinese month map, 2 bytes per year, from 1900 to 2100, 402 bytes.
             // The first 4 bits represents the leap month of the year.
             // The rest 12 bits are flags indicate if the corresponding month
@@ -138,9 +138,9 @@ public class ChineseCalendar {
             0xb4, 0x09, 0x68, 0x89, 0x54, 0x0b, 0xa4, 0x0a, 0xa5, 0x6a, 0x95, 0x04, 0xad, 0x08, 0x6a, 0x44, 0xda, 0x04,
             0x74, 0x05, 0xb0, 0x25, 0x54, 0x03 };
     // Base date: 01-Jan-1901, 4598/11/11 in Chinese calendar
-    private static int baseYear = 1901;
-    private static int baseIndex = 0;
-    private static int baseChineseYear = 4598 - 1;
+    private static final int baseYear = 1901;
+    private static final int baseIndex = 0;
+    private static final int baseChineseYear = 4598 - 1;
 
     public int computeChineseFields() {
         // Gregorian year out of the computation range
@@ -195,7 +195,7 @@ public class ChineseCalendar {
         return 0;
     }
 
-    private static int[] bigLeapMonthYears = {
+    private static final int[] bigLeapMonthYears = {
             // The leap months in the following years have 30 days
             6, 14, 19, 25, 33, 36, 38, 41, 44, 52, 55, 79, 117, 136, 147, 150, 155, 158, 185, 193 };
 
@@ -245,7 +245,7 @@ public class ChineseCalendar {
         return n;
     }
 
-    private static char[][] sectionalTermMap = {
+    private static final char[][] sectionalTermMap = {
             { 7, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5 }, // Jan
             { 5, 4, 5, 5, 5, 4, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4, 4, 3, 3, 4, 4, 3, 3, 3 }, // Feb
             { 6, 6, 6, 7, 6, 6, 6, 6, 5, 6, 6, 6, 5, 5, 6, 6, 5, 5, 5, 6, 5, 5, 5, 5, 4, 5, 5, 5, 5 }, // Mar
@@ -259,7 +259,7 @@ public class ChineseCalendar {
             { 8, 8, 8, 8, 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7, 7, 7, 6, 6, 7, 7, 7 }, // Nov
             { 7, 8, 8, 8, 7, 7, 8, 8, 7, 7, 7, 8, 7, 7, 7, 7, 6, 7, 7, 7, 6, 6, 7, 7, 6, 6, 6, 7, 7 } // Dec
     };
-    private static char[][] sectionalTermYear = { { 13, 49, 85, 117, 149, 185, 201, 250, 250 }, // Jan
+    private static final char[][] sectionalTermYear = { { 13, 49, 85, 117, 149, 185, 201, 250, 250 }, // Jan
             { 13, 45, 81, 117, 149, 185, 201, 250, 250 }, // Feb
             { 13, 48, 84, 112, 148, 184, 200, 201, 250 }, // Mar
             { 13, 45, 76, 108, 140, 172, 200, 201, 250 }, // Apr
@@ -272,7 +272,7 @@ public class ChineseCalendar {
             { 28, 60, 92, 124, 160, 192, 200, 201, 250 }, // Nov
             { 17, 53, 85, 124, 156, 188, 200, 201, 250 } // Dec
     };
-    private static char[][] principleTermMap = {
+    private static final char[][] principleTermMap = {
             { 21, 21, 21, 21, 21, 20, 21, 21, 21, 20, 20, 21, 21, 20, 20, 20, 20, 20, 20, 20, 20, 19, 20, 20, 20, 19,
                     19, 20 },
             { 20, 19, 19, 20, 20, 19, 19, 19, 19, 19, 19, 19, 19, 18, 19, 19, 19, 18, 18, 19, 19, 18, 18, 18, 18, 18,
@@ -297,7 +297,7 @@ public class ChineseCalendar {
                     22, 22, 22 },
             { 22, 22, 23, 23, 22, 22, 22, 23, 22, 22, 22, 22, 21, 22, 22, 22, 21, 21, 22, 22, 21, 21, 21, 22, 21, 21,
                     21, 21, 22 } };
-    private static char[][] principleTermYear = { { 13, 45, 81, 113, 149, 185, 201 }, // Jan
+    private static final char[][] principleTermYear = { { 13, 45, 81, 113, 149, 185, 201 }, // Jan
             { 21, 57, 93, 125, 161, 193, 201 }, // Feb
             { 21, 56, 88, 120, 152, 188, 200, 201 }, // Mar
             { 21, 49, 81, 116, 144, 176, 200, 201 }, // Apr

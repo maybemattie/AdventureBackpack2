@@ -21,13 +21,13 @@ import codechicken.lib.render.TextureUtils;
 
 public class GuiTank {
 
-    private int height;
-    private int width;
-    private int startX;
-    private int startY;
+    private final int height;
+    private final int width;
+    private final int startX;
+    private final int startY;
     private int offsetX = 0;
     private int offsetY = 0;
-    private int resolution;
+    private final int resolution;
     private int liquidPerPixel;
     private float zLevel;
     private FluidTank tank;

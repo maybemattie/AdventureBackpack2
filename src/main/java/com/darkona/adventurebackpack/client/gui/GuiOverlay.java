@@ -50,10 +50,10 @@ public class GuiOverlay extends Gui {
     private static final int BUFF_ICON_BASE_V_OFFSET = 198;
     private static final int BUFF_ICONS_PER_ROW = 8;
 
-    private static RenderItem itemRender = new RenderItem();
+    private static final RenderItem itemRender = new RenderItem();
 
-    private Minecraft mc;
-    private FontRenderer fontRenderer;
+    private final Minecraft mc;
+    private final FontRenderer fontRenderer;
 
     private int screenWidth;
 

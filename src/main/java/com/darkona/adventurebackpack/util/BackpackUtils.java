@@ -22,7 +22,7 @@ import com.darkona.adventurebackpack.reference.BackpackTypes;
 
 public class BackpackUtils {
 
-    private static Timer timer = new Timer(); // TODO remove timer, find the dupe, fix the dupe
+    private static final Timer timer = new Timer(); // TODO remove timer, find the dupe, fix the dupe
 
     public enum Reasons {
         SUCCESSFUL,
@@ -52,7 +52,7 @@ public class BackpackUtils {
 
     private static class DelayUnequipTask extends TimerTask {
 
-        private EntityPlayer player;
+        private final EntityPlayer player;
 
         DelayUnequipTask(EntityPlayer player) {
             this.player = player;

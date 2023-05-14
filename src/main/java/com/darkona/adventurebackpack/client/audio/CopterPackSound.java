@@ -15,7 +15,7 @@ import com.darkona.adventurebackpack.util.Wearing;
 
 public class CopterPackSound extends MovingSound {
 
-    private EntityPlayer thePlayer;
+    private final EntityPlayer thePlayer;
     private boolean repeat = true;
     private int repeatDelay = 0;
     private float pitch;

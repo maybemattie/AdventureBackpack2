@@ -51,8 +51,8 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
     private static final int[] MAIN_INVENTORY_SLOTS = Utils.createSlotArray(0, Constants.INVENTORY_MAIN_SIZE);
 
     private BackpackTypes type = BackpackTypes.STANDARD;
-    private FluidTank leftTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
-    private FluidTank rightTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
+    private final FluidTank leftTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
+    private final FluidTank rightTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
     private NBTTagCompound extendedProperties = new NBTTagCompound();
 
     private NBTTagList ench;

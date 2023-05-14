@@ -10,10 +10,10 @@ import com.darkona.adventurebackpack.util.Wearing;
 
 public class BoilingBoilerSound extends MovingSound {
 
-    private EntityPlayer thePlayer;
+    private final EntityPlayer thePlayer;
     private boolean repeat = true;
     private int repeatDelay = 0;
-    private float pitch;
+    private final float pitch;
 
     public BoilingBoilerSound(EntityPlayer player) {
         super(new ResourceLocation(ModInfo.MOD_ID, "s_boiling"));

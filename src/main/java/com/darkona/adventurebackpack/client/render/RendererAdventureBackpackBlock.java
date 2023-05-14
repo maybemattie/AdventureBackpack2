@@ -13,7 +13,7 @@ import com.darkona.adventurebackpack.util.Resources;
 
 public class RendererAdventureBackpackBlock extends TileEntitySpecialRenderer {
 
-    private ModelBackpackBlock model;
+    private final ModelBackpackBlock model;
 
     public RendererAdventureBackpackBlock() {
         this.model = new ModelBackpackBlock();

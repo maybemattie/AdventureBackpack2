@@ -36,11 +36,11 @@ public class ContainerBackpack extends ContainerAdventure {
     private static final int CRAFT_RESULT = BUCKET_RIGHT + 2 + (MATRIX_DIMENSION * MATRIX_DIMENSION);
     private static final int[] CRAFT_MATRIX_EMULATION = findCraftMatrixEmulationIDs();
 
-    private InventoryCraftingBackpack craftMatrix = new InventoryCraftingBackpack(
+    private final InventoryCraftingBackpack craftMatrix = new InventoryCraftingBackpack(
             this,
             MATRIX_DIMENSION,
             MATRIX_DIMENSION);
-    private IInventory craftResult = new InventoryCraftResult();
+    private final IInventory craftResult = new InventoryCraftResult();
 
     public ContainerBackpack(EntityPlayer player, IInventoryBackpack backpack, Source source) {
         super(player, backpack, source);

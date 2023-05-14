@@ -434,9 +434,9 @@ public class BackpackAbilities {
         inv.markDirty();
     }
 
-    private FluidStack milkStack = new FluidStack(FluidRegistry.getFluid("milk"), 1);
-    private FluidStack soupStack = new FluidStack(FluidRegistry.getFluid("mushroomstew"), 1);
-    private FluidStack lavaStack = new FluidStack(FluidRegistry.LAVA, 1);
+    private final FluidStack milkStack = new FluidStack(FluidRegistry.getFluid("milk"), 1);
+    private final FluidStack soupStack = new FluidStack(FluidRegistry.getFluid("mushroomstew"), 1);
+    private final FluidStack lavaStack = new FluidStack(FluidRegistry.LAVA, 1);
 
     /**
      * The Cow Backpack fills itself with milk when there is wheat in the backpack's inventory, but it will do so slowly

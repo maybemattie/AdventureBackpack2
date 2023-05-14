@@ -38,13 +38,13 @@ public class GuiAdvBackpack extends GuiWithTanks {
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiBackpackNew");
     private static final int TINKERS_SLOT = 38; // ContainerBackpack.CRAFT_MATRIX_EMULATION[4]
 
-    private static GuiImageButtonNormal bedButton = new GuiImageButtonNormal(5, 91, 18, 18);
-    private static GuiImageButtonNormal equipButton = new GuiImageButtonNormal(5, 91, 18, 18);
-    private static GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(5, 91, 18, 18);
-    private static GuiTank tankLeft = new GuiTank(25, 7, 100, 16, ConfigHandler.typeTankRender);
-    private static GuiTank tankRight = new GuiTank(207, 7, 100, 16, ConfigHandler.typeTankRender);
+    private static final GuiImageButtonNormal bedButton = new GuiImageButtonNormal(5, 91, 18, 18);
+    private static final GuiImageButtonNormal equipButton = new GuiImageButtonNormal(5, 91, 18, 18);
+    private static final GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(5, 91, 18, 18);
+    private static final GuiTank tankLeft = new GuiTank(25, 7, 100, 16, ConfigHandler.typeTankRender);
+    private static final GuiTank tankRight = new GuiTank(207, 7, 100, 16, ConfigHandler.typeTankRender);
 
-    private IInventoryBackpack inventory;
+    private final IInventoryBackpack inventory;
 
     private boolean isHoldingSpace;
 

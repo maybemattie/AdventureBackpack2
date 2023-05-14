@@ -13,10 +13,10 @@ import com.darkona.adventurebackpack.util.Wearing;
 
 public class EntityAIHorseFollowOwner extends EntityAIBase {
 
-    private EntityHorse theHorse;
+    private final EntityHorse theHorse;
     private EntityPlayer theOwner;
     World theWorld;
-    private double speed;
+    private final double speed;
     private PathNavigate petPathfinder;
     private int tickCounter;
     float maxDist;

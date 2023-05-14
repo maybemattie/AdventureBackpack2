@@ -47,7 +47,7 @@ public class ItemMachete extends ToolAB {
             Blocks.wool);
 
     @SuppressWarnings("FieldCanBeLocal")
-    private float field_150934_a;
+    private final float field_150934_a;
 
     public ItemMachete() {
 

@@ -32,7 +32,7 @@ public class EntityFriendlySpider extends EntityCreature {
     private float prevRearingAmount;
     private int jumpTicks;
     private EntityPlayer owner;
-    private boolean tamed = false;
+    private final boolean tamed = false;
 
     public EntityFriendlySpider(World world) {
         super(world);

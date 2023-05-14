@@ -6,9 +6,9 @@ public class ModDates {
 
     private static String holiday;
 
-    private static int year = Calendar.getInstance().get(Calendar.YEAR);
-    private static int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-    private static int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    private static final int year = Calendar.getInstance().get(Calendar.YEAR);
+    private static final int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+    private static final int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
     public static void init() {
         holiday = setHoliday();

@@ -19,8 +19,8 @@ import com.darkona.adventurebackpack.common.Constants;
 
 public class InventoryCoalJetpack extends InventoryAdventure {
 
-    private FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
-    private FluidTank steamTank = new FluidTank(Constants.Jetpack.STEAM_CAPACITY);
+    private final FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
+    private final FluidTank steamTank = new FluidTank(Constants.Jetpack.STEAM_CAPACITY);
 
     private boolean inUse = false;
     private boolean status = false;

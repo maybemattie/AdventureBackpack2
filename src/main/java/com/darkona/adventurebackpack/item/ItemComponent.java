@@ -24,8 +24,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemComponent extends ItemAB {
 
-    private HashMap<String, IIcon> componentIcons = new HashMap<>();
-    private String[] names = { "sleepingBag", "backpackTank", "hoseHead", "macheteHandle", "copterEngine",
+    private final HashMap<String, IIcon> componentIcons = new HashMap<>();
+    private final String[] names = { "sleepingBag", "backpackTank", "hoseHead", "macheteHandle", "copterEngine",
             "copterBlades", "inflatableBoat", "inflatableBoatMotorized", "hydroBlades", };
 
     public ItemComponent() {

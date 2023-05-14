@@ -21,7 +21,7 @@ public class RendererStack extends ModelRenderer {
 
     private static final Minecraft MC = Minecraft.getMinecraft();
 
-    private boolean isLowerSlot;
+    private final boolean isLowerSlot;
     private ItemStack stack;
     private ToolHandler toolHandler = ToolHandler.VANILLA;
 

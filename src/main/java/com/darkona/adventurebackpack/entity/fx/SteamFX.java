@@ -10,7 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class SteamFX extends EntityFX {
 
-    private float smokeParticleScale;
+    private final float smokeParticleScale;
 
     public SteamFX(World world, double x, double y, double z, double velX, double velY, double velZ) {
         this(world, x, y, z, velX, velY, velZ, 1.0F);

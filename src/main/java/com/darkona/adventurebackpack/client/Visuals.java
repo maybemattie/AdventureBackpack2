@@ -83,8 +83,8 @@ public class Visuals {
         }
     }
 
-    private static Minecraft mc = Minecraft.getMinecraft();
-    private static World theWorld = mc.theWorld;
+    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final World theWorld = mc.theWorld;
 
     public static EntityFX spawnParticle(String particleName, double x, double y, double z, double motionX,
             double motionY, double motionZ) {

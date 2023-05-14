@@ -13,7 +13,7 @@ import com.darkona.adventurebackpack.config.ConfigHandler;
 
 public class RendererHose implements IItemRenderer {
 
-    private static RenderItem renderHose = new RenderItem();
+    private static final RenderItem renderHose = new RenderItem();
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {

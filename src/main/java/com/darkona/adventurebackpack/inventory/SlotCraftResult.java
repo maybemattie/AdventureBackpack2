@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 public class SlotCraftResult extends SlotCrafting {
 
-    private ContainerBackpack eventHandler;
+    private final ContainerBackpack eventHandler;
 
     public SlotCraftResult(ContainerBackpack container, EntityPlayer player, IInventory craftMatrix,
             IInventory inventory, int slotIndex, int posX, int posY) {

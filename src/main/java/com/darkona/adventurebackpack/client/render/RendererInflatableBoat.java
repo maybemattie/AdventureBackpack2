@@ -13,8 +13,8 @@ import com.darkona.adventurebackpack.util.Resources;
 
 public class RendererInflatableBoat extends Render {
 
-    private ResourceLocation boatTexture = Resources.modelTextures("inflatableBoat");
-    private ModelInflatableBoat boatModel = new ModelInflatableBoat();
+    private final ResourceLocation boatTexture = Resources.modelTextures("inflatableBoat");
+    private final ModelInflatableBoat boatModel = new ModelInflatableBoat();
 
     public RendererInflatableBoat() {
         this.shadowSize = 0.5F;

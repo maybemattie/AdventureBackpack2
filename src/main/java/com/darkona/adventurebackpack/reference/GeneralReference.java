@@ -16,8 +16,8 @@ import com.darkona.adventurebackpack.util.LogHelper;
 
 public class GeneralReference {
 
-    private static HashMap<String, Float> liquidFuels = new HashMap<>();
-    private static Set<Integer> dimensionBlacklist = new HashSet<>();
+    private static final HashMap<String, Float> liquidFuels = new HashMap<>();
+    private static final Set<Integer> dimensionBlacklist = new HashSet<>();
 
     private static final float MAX_RATE = 20.0f;
     private static final float MIN_RATE = 0.05f;

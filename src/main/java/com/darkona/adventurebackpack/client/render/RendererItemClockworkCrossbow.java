@@ -14,7 +14,7 @@ import com.darkona.adventurebackpack.util.Resources;
 public class RendererItemClockworkCrossbow implements IItemRenderer {
 
     private final ModelClockworkCrossbow model;
-    private ResourceLocation modelTexture = Resources.modelTextures("clockworkCrossbow");
+    private final ResourceLocation modelTexture = Resources.modelTextures("clockworkCrossbow");
 
     public RendererItemClockworkCrossbow() {
         model = new ModelClockworkCrossbow();

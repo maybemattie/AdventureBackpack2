@@ -17,7 +17,7 @@ import com.darkona.adventurebackpack.item.ItemCopterPack;
 
 public class InventoryCopterPack extends InventoryAdventure {
 
-    private FluidTank fuelTank = new FluidTank(Constants.Copter.FUEL_CAPACITY);
+    private final FluidTank fuelTank = new FluidTank(Constants.Copter.FUEL_CAPACITY);
 
     private byte status = ItemCopterPack.OFF_MODE;
     private int tickCounter = 0;
