@@ -98,7 +98,7 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
         double d0 = 0.0D;
 
         for (int i = 0; i < b0; ++i) {
-            double d1 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0 - 0.125D;
+            double d1 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i) / b0 - 0.125D;
             double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0 - 0.125D;
             AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(
                     this.boundingBox.minX,

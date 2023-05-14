@@ -338,7 +338,7 @@ public class BackpackAbilities {
                             player,
                             "mob.slime.small",
                             0.6F,
-                            (world.rand.nextFloat() - world.rand.nextFloat()) * 1F);
+                            (world.rand.nextFloat() - world.rand.nextFloat()));
                     slimeTime = 5;
                 }
                 inv.setLastTime(slimeTime);
