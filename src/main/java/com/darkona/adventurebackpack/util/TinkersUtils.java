@@ -20,11 +20,6 @@ import com.mojang.authlib.GameProfile;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 
-/**
- * Created on 03.02.2018
- *
- * @author Ugachaga
- */
 public final class TinkersUtils {
 
     public static final ResourceLocation GUI_ICONS = new ResourceLocation("tinker", "textures/gui/icons.png");

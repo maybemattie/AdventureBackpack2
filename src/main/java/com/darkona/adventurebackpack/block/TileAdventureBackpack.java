@@ -46,9 +46,6 @@ import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class TileAdventureBackpack extends TileAdventure implements IInventoryBackpack, ISidedInventory {
 
     private static final int[] MAIN_INVENTORY_SLOTS = Utils.createSlotArray(0, Constants.INVENTORY_MAIN_SIZE);

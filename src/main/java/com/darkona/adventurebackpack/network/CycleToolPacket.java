@@ -9,11 +9,6 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 
-/**
- * Created by Darkona on 12/10/2014.
- *
- * @
- */
 public class CycleToolPacket implements IMessageHandler<CycleToolPacket.CycleToolMessage, IMessage> {
 
     public static final byte TOGGLE_HOSE_TANK = 0;

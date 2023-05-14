@@ -19,11 +19,6 @@ import com.darkona.adventurebackpack.CreativeTabAB;
 import com.darkona.adventurebackpack.init.ModMaterials;
 import com.google.common.collect.Sets;
 
-/**
- * Created on 10/10/2014
- *
- * @author Darkona
- */
 public class ItemMachete extends ToolAB {
 
     private static final Set BREAKABLE_BLOCKS = Sets.newHashSet(

@@ -16,11 +16,6 @@ import com.darkona.adventurebackpack.reference.GeneralReference;
 
 import cpw.mods.fml.common.registry.GameData;
 
-/**
- * Created on 24.03.2017
- *
- * @author Ugachaga
- */
 public final class TipUtils {
 
     private TipUtils() {}

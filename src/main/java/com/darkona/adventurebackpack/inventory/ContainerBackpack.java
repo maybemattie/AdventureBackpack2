@@ -22,11 +22,6 @@ import com.darkona.adventurebackpack.common.Constants.Source;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.util.TinkersUtils;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class ContainerBackpack extends ContainerAdventure {
 
     private static final int BACK_INV_ROWS = 6;

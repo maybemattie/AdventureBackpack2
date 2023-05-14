@@ -13,11 +13,6 @@ import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.LogHelper;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 16/10/2014
- *
- * @author Darkona
- */
 public class CopterPackSound extends MovingSound {
 
     private EntityPlayer thePlayer;

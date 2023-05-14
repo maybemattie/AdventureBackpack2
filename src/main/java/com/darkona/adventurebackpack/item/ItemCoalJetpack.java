@@ -39,11 +39,6 @@ import com.darkona.adventurebackpack.util.TipUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 15/01/2015
- *
- * @author Darkona
- */
 public class ItemCoalJetpack extends ItemAdventure {
 
     public ItemCoalJetpack() {

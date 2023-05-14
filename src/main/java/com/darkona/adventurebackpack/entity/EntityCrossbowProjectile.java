@@ -5,11 +5,6 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-/**
- * Created on 09/01/2015
- *
- * @author Darkona
- */
 public class EntityCrossbowProjectile extends Entity implements IProjectile {
 
     public EntityCrossbowProjectile(World p_i1776_1_) {

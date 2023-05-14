@@ -32,11 +32,6 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
-/**
- * Created on 03.02.2018
- *
- * @author Ugachaga
- */
 public class WailaTileAdventureBackpack implements IWailaDataProvider {
 
     public static void init() {

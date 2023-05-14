@@ -22,11 +22,6 @@ import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 11/10/2014
- *
- * @author Darkona
- */
 public class ItemComponent extends ItemAB {
 
     private HashMap<String, IIcon> componentIcons = new HashMap<>();

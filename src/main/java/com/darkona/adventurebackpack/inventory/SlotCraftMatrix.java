@@ -4,11 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-/**
- * Created on 04.02.2018
- *
- * @author Ugachaga
- */
 public class SlotCraftMatrix extends SlotAdventure {
 
     SlotCraftMatrix(IInventory craftMatrix, int slotIndex, int posX, int posY) {

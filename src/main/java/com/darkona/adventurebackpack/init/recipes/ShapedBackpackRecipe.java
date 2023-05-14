@@ -14,11 +14,6 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.LogHelper;
 
-/**
- * Created on 03.03.2018
- *
- * @author Ugachaga
- */
 public class ShapedBackpackRecipe extends ShapedOreRecipe {
 
     static {

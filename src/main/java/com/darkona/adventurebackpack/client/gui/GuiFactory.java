@@ -7,11 +7,6 @@ import net.minecraft.client.gui.GuiScreen;
 
 import cpw.mods.fml.client.IModGuiFactory;
 
-/**
- * Created on 10/10/2014
- *
- * @author Darkona
- */
 public class GuiFactory implements IModGuiFactory {
 
     @Override

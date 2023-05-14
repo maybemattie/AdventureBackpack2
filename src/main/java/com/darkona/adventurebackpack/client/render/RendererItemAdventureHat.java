@@ -11,9 +11,6 @@ import org.lwjgl.opengl.GL11;
 import com.darkona.adventurebackpack.client.models.ModelAdventureHat;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created by Darkona on 11/10/2014.
- */
 public class RendererItemAdventureHat implements IItemRenderer {
 
     private final ModelAdventureHat model;

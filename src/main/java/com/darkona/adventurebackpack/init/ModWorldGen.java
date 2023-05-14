@@ -22,11 +22,6 @@ import com.darkona.adventurebackpack.util.BackpackUtils;
 
 import cpw.mods.fml.common.registry.VillagerRegistry;
 
-/**
- * Created on 24/12/2014
- *
- * @author Darkona
- */
 public class ModWorldGen {
 
     public static void init() {

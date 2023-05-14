@@ -8,9 +8,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 
-/**
- * InflatableBoat - Darkona Created using Tabula 4.1.0
- */
 public class ModelInflatableBoat extends ModelBase {
 
     public ModelRenderer boatSides1;

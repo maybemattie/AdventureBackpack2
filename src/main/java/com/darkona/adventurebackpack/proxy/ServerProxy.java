@@ -11,11 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import com.darkona.adventurebackpack.util.LogHelper;
 
-/**
- * Created on 22/12/2014
- *
- * @author Darkona
- */
 public class ServerProxy implements IProxy {
 
     private static final Map<UUID, NBTTagCompound> extendedEntityData = new HashMap<>();

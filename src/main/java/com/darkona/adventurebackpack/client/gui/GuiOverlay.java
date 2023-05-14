@@ -37,11 +37,6 @@ import codechicken.lib.render.TextureUtils;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * Created on 09/01/2015
- *
- * @author Darkona
- */
 public class GuiOverlay extends Gui {
 
     private static final ResourceLocation GUI_ICONS = new ResourceLocation("textures/gui/icons.png");

@@ -19,11 +19,6 @@ import com.darkona.adventurebackpack.reference.ToolHandler;
 
 import codechicken.lib.vec.Vector3;
 
-/**
- * Created on 17/12/2014
- *
- * @author Darkona
- */
 public class ModelBackpackArmor extends ModelWearable {
 
     public static final ModelBackpackArmor instance = new ModelBackpackArmor();

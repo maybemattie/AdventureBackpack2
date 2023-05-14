@@ -13,11 +13,6 @@ import net.minecraftforge.common.util.ForgeDirection;
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.init.ModBlocks;
 
-/**
- * Created on 31.01.2018
- *
- * @author Ugachaga
- */
 public class CoordsUtils {
 
     private CoordsUtils() {}

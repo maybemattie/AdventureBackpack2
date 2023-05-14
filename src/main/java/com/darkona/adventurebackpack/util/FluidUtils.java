@@ -4,11 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-/**
- * Created on 17/10/2014
- *
- * @author Darkona
- */
 public class FluidUtils {
 
     public static boolean isContainerForFluid(ItemStack container, Fluid fluid) {

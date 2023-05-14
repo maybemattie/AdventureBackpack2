@@ -7,11 +7,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.darkona.adventurebackpack.client.Icons;
 
-/**
- * Created on 11/01/2015
- *
- * @author Darkona
- */
 public class FluidMushroomStew extends Fluid {
 
     public FluidMushroomStew() {

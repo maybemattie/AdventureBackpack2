@@ -7,11 +7,6 @@ import net.minecraftforge.client.IItemRenderer;
 
 import com.darkona.adventurebackpack.reference.LoadedMods;
 
-/**
- * Created on 30.01.2018
- *
- * @author Ugachaga
- */
 public final class GregtechUtils {
 
     private static final String CLASS_RENDERER = "gregtech.common.render.GT_MetaGenerated_Tool_Renderer";

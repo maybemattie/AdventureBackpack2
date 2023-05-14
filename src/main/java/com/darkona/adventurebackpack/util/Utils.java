@@ -8,11 +8,6 @@ import com.darkona.adventurebackpack.reference.BackpackTypes;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class Utils {
 
     public static boolean inServer() {

@@ -16,11 +16,6 @@ import org.lwjgl.opengl.GL12;
 import com.darkona.adventurebackpack.item.IBackWearableItem;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 25/12/2014
- *
- * @author Darkona
- */
 public class RendererWearableEquipped extends RendererLivingEntity {
 
     public ResourceLocation texture;

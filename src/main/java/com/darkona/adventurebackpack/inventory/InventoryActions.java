@@ -12,11 +12,6 @@ import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.util.FluidUtils;
 
-/**
- * Created on 16/10/2014
- *
- * @author Darkona
- */
 public class InventoryActions {
 
     /**

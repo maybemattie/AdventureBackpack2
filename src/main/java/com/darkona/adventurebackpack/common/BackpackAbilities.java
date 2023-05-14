@@ -33,9 +33,6 @@ import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
 /**
- * Created on 12/10/2014
- *
- * @author Darkona
  * @see com.darkona.adventurebackpack.block.TileAdventureBackpack
  * @see com.darkona.adventurebackpack.item.ItemAdventureBackpack
  * @see com.darkona.adventurebackpack.block.BlockAdventureBackpack

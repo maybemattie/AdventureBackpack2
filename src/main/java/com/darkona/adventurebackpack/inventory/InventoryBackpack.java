@@ -27,11 +27,6 @@ import com.darkona.adventurebackpack.init.ModBlocks;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.CoordsUtils;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class InventoryBackpack extends InventoryAdventure implements IInventoryBackpack {
 
     private static final String TAG_IS_SLEEPING_BAG = "sleepingBag";

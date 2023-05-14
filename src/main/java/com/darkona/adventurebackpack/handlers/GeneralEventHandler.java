@@ -30,11 +30,6 @@ import com.darkona.adventurebackpack.util.Wearing;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * Created on 17/10/2014
- *
- * @author Darkona
- */
 public class GeneralEventHandler {
 
     @SubscribeEvent

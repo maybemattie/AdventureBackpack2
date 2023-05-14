@@ -46,9 +46,7 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 /**
- * Created on 11/10/2014 Handle ALL the events!
- *
- * @author Darkona
+ * This class handles ALL events of the mod.
  * @see com.darkona.adventurebackpack.client.ClientActions
  */
 public class PlayerEventHandler {

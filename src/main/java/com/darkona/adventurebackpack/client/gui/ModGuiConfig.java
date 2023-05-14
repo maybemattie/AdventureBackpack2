@@ -14,9 +14,6 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
 
-/**
- * Created by Darkona on 10/10/2014.
- */
 public class ModGuiConfig extends GuiConfig {
 
     public ModGuiConfig(GuiScreen guiScreen) {

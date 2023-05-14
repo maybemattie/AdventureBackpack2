@@ -18,11 +18,6 @@ import com.darkona.adventurebackpack.util.Utils;
 
 import codechicken.lib.vec.Vector3;
 
-/**
- * Created on 31/12/2014
- *
- * @author Darkona
- */
 public class ModelCopterPack extends ModelWearable {
 
     public static ModelCopterPack instance = new ModelCopterPack();

@@ -40,11 +40,6 @@ import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 
-/**
- * Created on 10/10/2014
- *
- * @author Darkona
- */
 public class ClientProxy implements IProxy {
 
     public static RendererWearableEquipped rendererWearableEquipped = new RendererWearableEquipped();

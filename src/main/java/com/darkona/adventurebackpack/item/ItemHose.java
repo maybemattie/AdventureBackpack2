@@ -44,9 +44,6 @@ import com.darkona.adventurebackpack.util.Wearing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class ItemHose extends ItemAB {
 
     private IIcon drinkIcon;

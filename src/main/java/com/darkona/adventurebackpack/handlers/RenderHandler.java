@@ -8,11 +8,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 25/12/2014
- *
- * @author Darkona
- */
 public class RenderHandler {
 
     @SubscribeEvent

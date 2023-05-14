@@ -20,11 +20,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 17/10/2014
- *
- * @author Darkona
- */
 public class ClientEventHandler {
 
     @SubscribeEvent

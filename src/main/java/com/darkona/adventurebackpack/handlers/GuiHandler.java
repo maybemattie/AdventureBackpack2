@@ -18,11 +18,6 @@ import com.darkona.adventurebackpack.util.Wearing;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class GuiHandler implements IGuiHandler {
 
     public static final byte JETPACK_WEARING = 6;

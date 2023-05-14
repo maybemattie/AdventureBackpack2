@@ -3,11 +3,6 @@ package com.darkona.adventurebackpack.item;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-/**
- * Created on 11/10/2014
- *
- * @author Darkona
- */
 public class ItemAdventureSuit extends ArmorAB {
 
     public ItemAdventureSuit() {

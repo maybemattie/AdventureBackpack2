@@ -11,11 +11,6 @@ import org.lwjgl.opengl.GL11;
 
 import com.darkona.adventurebackpack.config.ConfigHandler;
 
-/**
- * Created on 13/10/2014
- *
- * @author Darkona
- */
 public class RendererHose implements IItemRenderer {
 
     private static RenderItem renderHose = new RenderItem();

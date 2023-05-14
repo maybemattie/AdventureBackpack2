@@ -20,11 +20,6 @@ import com.darkona.adventurebackpack.util.CoordsUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 05/01/2015
- *
- * @author Darkona
- */
 public class BlockCampFire extends BlockContainer {
 
     private IIcon icon;

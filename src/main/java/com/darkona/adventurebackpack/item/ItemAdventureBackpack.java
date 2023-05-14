@@ -50,11 +50,6 @@ import com.darkona.adventurebackpack.util.Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class ItemAdventureBackpack extends ItemAdventure {
 
     public ItemAdventureBackpack() {

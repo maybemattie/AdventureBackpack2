@@ -41,11 +41,6 @@ import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 23/12/2014
- *
- * @author Darkona
- */
 public class ServerActions {
 
     public static final boolean HOSE_SWITCH = false;

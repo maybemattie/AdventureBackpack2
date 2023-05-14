@@ -32,11 +32,6 @@ import codechicken.nei.guihook.IContainerTooltipHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 @SideOnly(Side.CLIENT)
 public class GuiAdvBackpack extends GuiWithTanks {
 

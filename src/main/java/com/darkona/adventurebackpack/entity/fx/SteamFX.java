@@ -7,11 +7,6 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 19/01/2015
- *
- * @author Darkona
- */
 @SideOnly(Side.CLIENT)
 public class SteamFX extends EntityFX {
 

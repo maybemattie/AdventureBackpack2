@@ -12,11 +12,6 @@ import com.darkona.adventurebackpack.fluids.FluidEffectRegistry;
 import com.darkona.adventurebackpack.init.ModFluids;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 19/10/2014
- *
- * @author Darkona
- */
 public class ItemJuiceBottle extends ItemAB {
 
     public ItemJuiceBottle() {

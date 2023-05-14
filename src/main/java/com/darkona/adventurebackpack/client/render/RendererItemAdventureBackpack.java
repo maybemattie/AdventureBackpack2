@@ -12,11 +12,6 @@ import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class RendererItemAdventureBackpack implements IItemRenderer {
 
     private final ModelBackpackBlock model;

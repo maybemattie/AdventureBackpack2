@@ -11,11 +11,6 @@ import net.minecraft.world.World;
 import com.darkona.adventurebackpack.init.ModItems;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 
-/**
- * Created on 24/12/2014
- *
- * @author Darkona
- */
 public class AbstractBackpackRecipeTwo implements IRecipe // TODO unused class
 {
 

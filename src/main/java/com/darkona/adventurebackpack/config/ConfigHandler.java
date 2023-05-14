@@ -9,11 +9,6 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * Created on 10/10/2014.
- *
- * @author Javier Darkona
- */
 public class ConfigHandler {
 
     public static Configuration config;

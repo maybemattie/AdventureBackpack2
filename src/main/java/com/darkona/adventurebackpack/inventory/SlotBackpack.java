@@ -6,9 +6,6 @@ import net.minecraft.item.ItemStack;
 
 import com.darkona.adventurebackpack.config.ConfigHandler;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class SlotBackpack extends SlotAdventure {
 
     private static final String[] FORBIDDEN_CLASSES = {

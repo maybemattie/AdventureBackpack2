@@ -1,10 +1,5 @@
 package com.darkona.adventurebackpack.util.calendar;
 
-/**
- * Created on 22/12/2014
- *
- * @author Javier Darkona
- */
 public class JewishCalendar {
 
     public static boolean isHannukah(int year, int month, int day) {

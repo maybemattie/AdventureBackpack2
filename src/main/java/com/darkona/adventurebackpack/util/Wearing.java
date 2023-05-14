@@ -15,11 +15,6 @@ import com.darkona.adventurebackpack.item.*;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 
-/**
- * Created on 11/10/2014
- *
- * @author Darkona
- */
 public class Wearing {
 
     public enum WearableType {

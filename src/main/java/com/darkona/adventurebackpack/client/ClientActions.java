@@ -18,9 +18,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 /**
- * Created on 11/10/2014
- *
- * @author Darkona
  * @see com.darkona.adventurebackpack.handlers.PlayerEventHandler
  * @see com.darkona.adventurebackpack.fluids.FluidEffectRegistry
  * @see com.darkona.adventurebackpack.common.BackpackAbilities

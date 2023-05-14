@@ -9,9 +9,6 @@ import net.minecraft.world.World;
 
 import com.darkona.adventurebackpack.config.ConfigHandler;
 
-/**
- * Created by Darkona on 11/10/2014.
- */
 public class ItemPistonBoots extends ArmorAB {
 
     public ItemPistonBoots() {

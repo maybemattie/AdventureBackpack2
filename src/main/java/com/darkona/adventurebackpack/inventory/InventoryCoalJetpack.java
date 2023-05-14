@@ -17,11 +17,6 @@ import net.minecraftforge.fluids.FluidTank;
 
 import com.darkona.adventurebackpack.common.Constants;
 
-/**
- * Created on 15/01/2015
- *
- * @author Darkona
- */
 public class InventoryCoalJetpack extends InventoryAdventure {
 
     private FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);

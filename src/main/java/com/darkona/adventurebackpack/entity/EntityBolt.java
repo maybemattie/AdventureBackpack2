@@ -5,11 +5,6 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-/**
- * Created on 07/01/2015
- *
- * @author Darkona
- */
 public class EntityBolt extends Entity implements IProjectile {
 
     public EntityBolt(World world) {

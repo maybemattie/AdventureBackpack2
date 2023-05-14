@@ -14,11 +14,6 @@ import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.reference.GeneralReference;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 03/01/2015
- *
- * @author Darkona
- */
 public class GuiCopterPack extends GuiWithTanks {
 
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiCopterPack");

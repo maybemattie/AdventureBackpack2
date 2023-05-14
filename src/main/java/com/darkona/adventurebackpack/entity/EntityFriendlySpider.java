@@ -27,11 +27,6 @@ import net.minecraft.world.World;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 11/01/2015
- *
- * @author Darkona
- */
 public class EntityFriendlySpider extends EntityCreature {
 
     private float prevRearingAmount;

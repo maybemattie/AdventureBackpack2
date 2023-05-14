@@ -10,9 +10,6 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created by Darkona on 10/10/2014.
- */
 public class ItemAB extends Item {
 
     ItemAB() {

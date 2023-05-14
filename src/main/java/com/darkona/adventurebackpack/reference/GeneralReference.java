@@ -14,11 +14,6 @@ import net.minecraftforge.fluids.FluidRegistry;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.util.LogHelper;
 
-/**
- * Created on 16/01/2015
- *
- * @author Darkona
- */
 public class GeneralReference {
 
     private static HashMap<String, Float> liquidFuels = new HashMap<>();

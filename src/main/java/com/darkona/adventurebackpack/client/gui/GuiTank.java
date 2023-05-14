@@ -19,9 +19,6 @@ import com.darkona.adventurebackpack.util.TipUtils;
 
 import codechicken.lib.render.TextureUtils;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class GuiTank {
 
     private int height;

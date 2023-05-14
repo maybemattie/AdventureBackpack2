@@ -16,9 +16,6 @@ import net.minecraft.util.Vec3;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
 
     private BackpackTypes type;
