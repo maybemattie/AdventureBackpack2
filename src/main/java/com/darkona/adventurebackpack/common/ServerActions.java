@@ -262,8 +262,6 @@ public class ServerActions {
                 .getBoolean("boiling");
 
         if (!player.worldObj.isRemote && isBoiling) {
-            // ModNetwork.sendToNearby(new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player),
-            // player); //TODO difference?
             ModNetwork.net.sendTo(
                     new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player),
                     (EntityPlayerMP) player);
