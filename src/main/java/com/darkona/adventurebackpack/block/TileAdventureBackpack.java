@@ -339,7 +339,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
             BackpackAbilities.backpackAbilities.executeTileAbility(this.worldObj, this);
         }
 
-        // Check for backpack luminosity and a deployed sleeping bag, just in case because i'm super paranoid.
+        // Check for backpack luminosity and a deployed sleeping bag
         if (checkTime == 0) {
             int lastLumen = luminosity;
             int left = (leftTank.getFluid() != null) ? leftTank.getFluid().getFluid().getLuminosity() : 0;

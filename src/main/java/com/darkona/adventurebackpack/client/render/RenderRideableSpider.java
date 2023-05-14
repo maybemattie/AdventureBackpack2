@@ -29,7 +29,7 @@ public class RenderRideableSpider extends RenderLiving {
     }
 
     /**
-     * Queries whether should render the specified pass or not.
+     * Queries if it should render the specified pass or not.
      */
     protected int shouldRenderPass(EntityFriendlySpider p_77032_1_, int p_77032_2_, float p_77032_3_) {
         if (p_77032_2_ != 0) {

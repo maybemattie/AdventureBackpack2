@@ -85,7 +85,7 @@ public class CoordsUtils {
      * @param except Wether to include the origin of the search as a valid block.
      * @param steps  Number of steps of the recursive recursiveness that recurses through the recursion. It is the first
      *               size of the spiral, should be one (1) always at the first call.
-     * @param pass   Pass switch for the witchcraft I can't quite explain. Set to 0 always at the beggining.
+     * @param pass   Pass switch for the witchcraft I can't quite explain. Set to 0 always at the beginning.
      * @param type   True = for player, False = for backpack
      * @return The coordinates of the block in the chunk of the world of the game of the server of the owner of the
      *         computer, where you can place something above it.

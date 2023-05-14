@@ -40,7 +40,7 @@ public class GuiTank {
      * @param H          The height in pixels of the tank.
      * @param W          The width in pixels of the tank.
      * @param resolution The resolution of the fluid painted in the tank. Higher values mean smaller and more numerous
-     *                   boxes. Values can be 1, 2, 4, 8, 16. Other values are untested, but i guess they should always
+     *                   boxes. Values can be 1, 2, 4, 8, 16. Other values are untested, but they should probably always
      *                   be integer divisors of the width, with modulus 0;
      */
     public GuiTank(int X, int Y, int H, int W, int resolution) {
@@ -166,8 +166,8 @@ public class GuiTank {
      * @param x    The startX coordinate where to start drawing the box.
      * @param y    The startY coordinate where to start drawing the box.
      * @param icon The icon to draw from.
-     * @param w    The Width of the drawed box.
-     * @param h    The height of the drawed box.
+     * @param w    The Width of the drawn box.
+     * @param h    The height of the drawn box.
      * @param srcX The startX coordinate from the icon to start drawing from. Starts at 0.
      * @param srcY The startY coordinate from the icon to start drawing from. Starts at 0.
      * @param srcW The width of the selection in the icon to draw from. Starts at 0.

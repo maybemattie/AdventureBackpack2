@@ -102,20 +102,17 @@ public class BackpackAbilities {
     }
 
     /**
-     * This backpack will feed you while you stay in the sun, slowly. At the very least you shouldn't starve.
+     * This backpack will slowly feed you while you stay in the sun.
      */
     public void itemSunflower(EntityPlayer player, World world, ItemStack backpack) {
         InventoryBackpack inv = new InventoryBackpack(backpack);
 
         if (inv.getLastTime() <= 0) {
-            if (world.isDaytime() &&
-            /* !world.isRemote && */
-                    world.canBlockSeeTheSky(
-                            MathHelper.floor_double(player.posX),
-                            MathHelper.floor_double(player.posY + 1),
-                            MathHelper.floor_double(player.posZ))) {
+            if (world.isDaytime() && world.canBlockSeeTheSky(
+                    MathHelper.floor_double(player.posX),
+                    MathHelper.floor_double(player.posY + 1),
+                    MathHelper.floor_double(player.posZ))) {
                 player.getFoodStats().addStats(2, 0.2f);
-                // LogHelper.info("OMNOMNOMNOM");
             }
             inv.setLastTime(Utils.secondsToTicks(120));
         } else {
@@ -125,7 +122,7 @@ public class BackpackAbilities {
     }
 
     /**
-     * Nana nana nana nana Bat - Batpack! See in the dark!
+     * Batpack allows to ee in the dark.
      */
     public void itemBat(EntityPlayer player, World world, ItemStack backpack) {
         // Compared to the code from Machinemuse, different potion IDs are used to avoid conflicting with their modular
@@ -304,8 +301,8 @@ public class BackpackAbilities {
     }
 
     /**
-     * Squishy! The Slime Backpack has an incredibly useless "ability". Makes the player leave a slimy trail of
-     * particles whenever he or she is running, and make that splishy splashy squishy sound on each step as well!.
+     * The Slime Backpack makes the player leave a slimy trail whenever they are running, and makes the slimy sound on
+     * each step.
      */
     public void itemSlime(EntityPlayer player, World world, ItemStack backpack) {
         // lastTime is in Ticks for this backpack.
@@ -386,9 +383,7 @@ public class BackpackAbilities {
     }
 
     /**
-     * Sneaky! Scare your friends! Or your enemies! Sneak on another player to make them jump in confusion as they think
-     * one of those green bastards is behind him/her. You can only do it once every so often. A couple of minutes.
-     * Remember, you must be sneaking.
+     * Allows to make a creeper sound every couple of minutes when sneaking.
      *
      * @see com.darkona.adventurebackpack.handlers.PlayerEventHandler
      */
@@ -435,8 +430,7 @@ public class BackpackAbilities {
 
     /**
      * The Cow Backpack fills itself with milk when there is wheat in the backpack's inventory, but it will do so slowly
-     * and will eat the wheat. It's like having a cow in your backpack. Each 16 wheat makes a bucket. It only happens
-     * when it is being worn. For not-player related milk generation go get a cow. Moo!
+     * and will eat the wheat. Each 16 wheat makes a bucket. It only happens when it's being worn.
      */
     public void itemCow(EntityPlayer player, World world, ItemStack backpack) {
         if (world.isRemote) return; // TODO not syncing properly with client if GUI is open (see unused
@@ -584,7 +578,7 @@ public class BackpackAbilities {
     }
 
     /**
-     * The Blaze Backpack will make you inmune to fire and lava and burning and heat and... not really. You're supposed
+     * The Blaze Backpack will make you immune to fire and lava and burning and heat and... not really. You're supposed
      * to die a fiery death if you are not careful, but this backpack will protect you against those burning fire
      * elemental inhabitants of the Nether. Any blast of fire directed your way will be stopped, deflected or whatever.
      */
@@ -654,7 +648,7 @@ public class BackpackAbilities {
     }
 
     /**
-     * Like real life cactii, this backpack will fill slowly while it's raining with refreshing water.
+     * Like real life cacti, this backpack will fill slowly while it's raining with refreshing water.
      */
     public void tileCactus(World world, TileAdventureBackpack backpack) {
         fillWithRain(world, backpack, new FluidStack(FluidRegistry.WATER, 2), 5);

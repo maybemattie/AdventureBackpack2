@@ -40,7 +40,6 @@ public class BackpackProperty implements IExtendedEntityProperties {
     }
 
     private static void syncToNear(EntityPlayerMP player) {
-        // Thanks diesieben07!!!
         try {
             player.getServerForPlayer().getEntityTracker().func_151248_b(
                     player,
