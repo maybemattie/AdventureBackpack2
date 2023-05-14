@@ -24,8 +24,6 @@ public class Constants {
      * ### Adventure Backpack ###
      */
     public static final int BASIC_TANK_CAPACITY = BUCKET * 4;
-    // public static final int ADVANCED_TANK_CAPACITY = BUCKET * 8; // upgrade system?
-    // public static final int HEROIC_TANK_CAPACITY = BUCKET * 12;
 
     // Inventory Slots
     public static final int INVENTORY_SIZE = 54;
