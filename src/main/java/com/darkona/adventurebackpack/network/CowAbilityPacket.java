@@ -28,9 +28,8 @@ public class CowAbilityPacket implements IMessageHandler<CowAbilityPacket.CowAbi
                 ContainerBackpack cont = ((ContainerBackpack) player.openContainer);
                 cont.detectAndSendChanges();
                 IInventoryBackpack inv = cont.getInventoryBackpack();
-                switch (message.action) {
-                    case CONSUME_WHEAT:
-                        inv.consumeInventoryItem(Items.wheat);
+                if (message.action == CONSUME_WHEAT) {
+                    inv.consumeInventoryItem(Items.wheat);
                 }
             }
         }
