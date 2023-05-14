@@ -66,7 +66,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glScalef(1.5f, 1.5f, 1.5f);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -88,7 +88,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glScalef(1.0f, 1.0f, 1.0f);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -116,7 +116,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(0.0f, 1.2f, -.6f);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -143,7 +143,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glRotatef(180, 0, 1, 0);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();

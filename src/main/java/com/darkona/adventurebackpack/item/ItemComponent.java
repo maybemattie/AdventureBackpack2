@@ -106,7 +106,7 @@ public class ItemComponent extends ItemAB {
             List list = world.getEntitiesWithinAABBExcludingEntity(
                     player,
                     player.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
-                            .expand((double) f9, (double) f9, (double) f9));
+                            .expand(f9, f9, f9));
             int i;
 
             for (i = 0; i < list.size(); ++i) {
@@ -114,7 +114,7 @@ public class ItemComponent extends ItemAB {
 
                 if (entity.canBeCollidedWith()) {
                     float f10 = entity.getCollisionBorderSize();
-                    AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f10, (double) f10, (double) f10);
+                    AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f10, f10, f10);
 
                     if (axisalignedbb.isVecInside(vec3)) {
                         flag = true;
@@ -140,7 +140,7 @@ public class ItemComponent extends ItemAB {
                             motorized);
 
                     inflatableBoat.rotationYaw = (float) (((MathHelper
-                            .floor_double((double) (player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1) * 90);
+                            .floor_double((player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1) * 90);
                     if (!world.getCollidingBoundingBoxes(
                             inflatableBoat,
                             inflatableBoat.boundingBox.expand(-0.1, -0.1, -0.1)).isEmpty()) {

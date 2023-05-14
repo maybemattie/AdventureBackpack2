@@ -233,10 +233,10 @@ public class BlockSleepingBag extends BlockDirectional {
                 }
 
                 world.newExplosion(
-                        (Entity) null,
-                        (double) ((float) x + 0.5F),
-                        (double) ((float) y + 0.5F),
-                        (double) ((float) z + 0.5F),
+                        null,
+                        (float) x + 0.5F,
+                        (float) y + 0.5F,
+                        (float) z + 0.5F,
                         5.0F,
                         true,
                         true);

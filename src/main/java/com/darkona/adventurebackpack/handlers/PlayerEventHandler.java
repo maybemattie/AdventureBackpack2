@@ -129,8 +129,8 @@ public class PlayerEventHandler {
             }
 
             if (event.entityLiving instanceof EntityFriendlySpider) {
-                if (((EntityFriendlySpider) event.entityLiving).riddenByEntity != null
-                        && ((EntityFriendlySpider) event.entityLiving).riddenByEntity instanceof EntityPlayer
+                if (event.entityLiving.riddenByEntity != null
+                        && event.entityLiving.riddenByEntity instanceof EntityPlayer
                         && event.distance < 5) {
                     event.setCanceled(true);
                 }
