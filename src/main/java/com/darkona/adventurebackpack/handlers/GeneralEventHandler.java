@@ -106,6 +106,7 @@ public class GeneralEventHandler {
                         for (Object entry : horse.tasks.taskEntries) {
                             if (((EntityAITasks.EntityAITaskEntry) entry).action instanceof EntityAIHorseFollowOwner) {
                                 set = false;
+                                break;
                             }
                         }
                     }

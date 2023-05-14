@@ -436,24 +436,24 @@ public class ChineseCalendar {
         table[0] = title;
         table[1] = header;
         int wk = 2;
-        String line = "";
+        StringBuilder line = new StringBuilder();
         for (int i = 1; i < dayOfWeek; i++) {
-            line += "     " + ' ';
+            line.append("     " + ' ');
         }
         int days = daysInGregorianMonth(gregorianYear, gregorianMonth);
         for (int i = gregorianDate; i <= days; i++) {
-            line += getDateString() + ' ';
+            line.append(getDateString()).append(' ');
             rollUpOneDay();
             if (dayOfWeek == 1) {
-                table[wk] = line;
-                line = "";
+                table[wk] = line.toString();
+                line = new StringBuilder();
                 wk++;
             }
         }
         for (int i = dayOfWeek; i <= 7; i++) {
-            line += "     " + ' ';
+            line.append("     " + ' ');
         }
-        table[wk] = line;
+        table[wk] = line.toString();
         for (int i = wk + 1; i < table.length; i++) {
             table[i] = blank;
         }
