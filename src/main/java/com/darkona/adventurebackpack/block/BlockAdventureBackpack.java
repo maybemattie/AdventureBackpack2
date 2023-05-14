@@ -326,7 +326,7 @@ public class BlockAdventureBackpack extends BlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof IInventory) {
+        if (te instanceof IInventory) {
             IInventory inventory = (IInventory) te;
 
             for (int i = 0; i < inventory.getSizeInventory(); i++) {

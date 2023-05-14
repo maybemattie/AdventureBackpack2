@@ -159,7 +159,7 @@ public class ItemHose extends ItemAB {
 
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int inv_slot, boolean isCurrent) {
-        if (entity == null || !(entity instanceof EntityPlayer)) return;
+        if (!(entity instanceof EntityPlayer)) return;
 
         EntityPlayer player = (EntityPlayer) entity;
         if (world.isRemote && player.getItemInUse() != null && player.getItemInUse().getItem().equals(this)) return;
@@ -196,7 +196,7 @@ public class ItemHose extends ItemAB {
         inv.openInventory();
         FluidTank tank = getHoseTank(stack) == 0 ? inv.getLeftTank() : inv.getRightTank();
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof IFluidHandler) {
+        if (te instanceof IFluidHandler) {
             IFluidHandler exTank = (IFluidHandler) te;
             int accepted;
             switch (getHoseMode(stack)) {
