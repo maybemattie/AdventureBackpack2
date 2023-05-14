@@ -54,7 +54,7 @@ public final class TinkersUtils {
 
     private static void createCraftingStationInstance() {
         try {
-            Class craftingLogic = Class.forName(CLASS_CRAFTING_LOGIC);
+            Class<?> craftingLogic = Class.forName(CLASS_CRAFTING_LOGIC);
             Object craftingLogicInstance = craftingLogic.getConstructor().newInstance();
             InventoryPlayer invPlayer = getInventoryPlayer();
 
