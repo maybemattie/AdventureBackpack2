@@ -75,7 +75,7 @@ public class BlockSleepingBag extends BlockDirectional {
     }
 
     /**
-     * Returns whether or not this bed block is the head of the bed.
+     * Returns whether this bed block is the head of the bed.
      */
     private static boolean isBlockHeadOfBed(int meta) {
         return (meta & 8) != 0;
@@ -190,7 +190,7 @@ public class BlockSleepingBag extends BlockDirectional {
 
                 if (enumstatus == EntityPlayer.EnumStatus.OK) {
                     setBedOccupied(world, x, y, z, true);
-                    // This is so the wake up event can detect it. It fires before the player wakes up.
+                    // This is so the wake-up event can detect it. It fires before the player wakes up.
                     // and the bed location isn't set until then, normally.
 
                     if (isSleepingInPortableBag(player)) {

@@ -153,10 +153,9 @@ public class CalendarImpl {
             alternativeDay = day;
         }
 
-        /* If Rosh HaShanah would occur on Sunday, Wednesday, */
-        /* or Friday */
+        /* If Rosh HaShanah occurs on Sunday, Wednesday, or Friday */
         if (((alternativeDay % 7) == 0) || ((alternativeDay % 7) == 3) || ((alternativeDay % 7) == 5))
-        /* Then postpone it one (more) day and return */
+        /* Then postpone it one more day and return */
         {
             alternativeDay++;
         }

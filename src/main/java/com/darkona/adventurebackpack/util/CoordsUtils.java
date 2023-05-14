@@ -271,15 +271,15 @@ public class CoordsUtils {
     }
 
     /**
-     * Compares two coordinates. Heh.
+     * Compares two coordinates.
      *
      * @param cX1 First coordinate X.
      * @param cY1 First coordinate Y.
      * @param cZ1 First coordinate Z.
      * @param cX2 Second coordinate X.
      * @param cY2 Second coordinate Y.
-     * @param cZ2 Second coordinate Z. I really didn't need to type all that, its obvious.
-     * @return If both coordinates are the same, returns true. This is the least helpful javadoc ever.
+     * @param cZ2 Second coordinate Z.
+     * @return true if both coordinates are the same
      */
     private static boolean areCoordinatesTheSame(int cX1, int cY1, int cZ1, int cX2, int cY2, int cZ2) {
         return (cX1 == cX2 && cY1 == cY2 && cZ1 == cZ2);

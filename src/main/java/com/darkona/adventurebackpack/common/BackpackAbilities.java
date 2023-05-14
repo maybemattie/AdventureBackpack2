@@ -61,15 +61,14 @@ public class BackpackAbilities {
         String skinName = BackpackTypes.getSkinName(backpack.getType());
         try {
             /*
-             * This is witchery, witchery I say! But seriously, if you want to know how this works just pay very close
-             * attention: invoke will execute any method of a given class, okay? so this should be obvious. Look at the
-             * names of the methods in this class and you'll figure it out. You have to indicate exactly the classes
-             * that the method should use as parameters so be very careful with "getMethod".
+             * Invoke executes any method of a given class. The names of the methods can help understanding what
+             * happens. You have to indicate exactly the classes that the method should use as parameters,
+             * so be very careful with "getMethod".
              */
             this.getClass().getMethod("tile" + skinName, World.class, TileAdventureBackpack.class)
                     .invoke(backpackAbilities, world, backpack);
         } catch (Exception oops) {
-            // Seriously, nobody cares if this can't work, this is just so the game won't explode.
+            // If it doesn't work, that's fine. The catch is there just so the game doesn't explode.
         }
     }
 
@@ -90,7 +89,7 @@ public class BackpackAbilities {
      * it won't work, there's a different method for that, isInWater
      *
      * @param player The player
-     * @return True if the player is outside and it's raining.
+     * @return True if the player is outside, and it's raining.
      */
     private boolean isUnderRain(EntityPlayer player) {
         return player.worldObj.canLightningStrikeAt(
@@ -130,8 +129,8 @@ public class BackpackAbilities {
      * Nana nana nana nana Bat - Batpack! See in the dark!
      */
     public void itemBat(EntityPlayer player, World world, ItemStack backpack) {
-        // Shameless rip-off from Machinemuse. Thanks Claire, I don't have to reinvent the wheel thanks to you.
-        // I will use a different potion id to avoid conflicting with her modular suits
+        // Compared to the code from Machinemuse, different potion IDs are used to avoid conflicting with their modular
+        // suits.
 
         PotionEffect nightVision = null;
 
@@ -253,14 +252,14 @@ public class BackpackAbilities {
     public void itemIronGolem(EntityPlayer player, World world, ItemStack backpack) {}
 
     /**
-     * Mirroring real life cactii, the Cactus Backpack fills with water slowly or rapidly depending where is the player.
-     * If it's raining it will fill 1milibucket of water each tick. If the player is in water it will fill 2milibuckets
-     * of water each tick. The quantities can be combined.
+     * The Cactus Backpack fills with water slowly or rapidly depending on where the player is.
+     * If it's raining, it will fill 1mB of water each tick. If the player is in water it will fill 2mB each tick.
+     * The quantities can be combined.
      *
      * @param player   The player. No, seriously.
      * @param world    The world the player is in.
-     * @param backpack The backpack the player is wearing. This should be rechecked like 20 times by now, so I'm not
-     *                 checking.
+     * @param backpack The backpack the player is wearing. This fact is checked multiple times in other methods, so no
+     *                 check here.
      */
     public void itemCactus(EntityPlayer player, World world, ItemStack backpack) {
         // lastTime is in ticks for this backpack.
@@ -287,10 +286,7 @@ public class BackpackAbilities {
     }
 
     /**
-     * The Pig Backpack will annoy you and your friends! This beautiful design by 豚, will do as the pigs do when they
-     * are frolicking around in the green pastures and terrifying slaughterhouses of the Minecraft world, after a random
-     * number of seconds. It's not so frequent as I'd like. Translation for pigs: Oink oink oink Oink! squee oink oink
-     * Minecraft Oink oink. "Oink" oink oink.
+     * The Pig Backpack will randomly oink after a number of seconds.
      *
      * @param player   The player
      * @param world    The world object
@@ -551,9 +547,8 @@ public class BackpackAbilities {
     }
 
     /**
-     * The Wolf Backpack is a handy one if you're out in the wild. It checks around for any wolves that may lurk around.
-     * If any of them gets mad at you, it will smell the scent of it's kin on you and promptly forget about the whole
-     * deal. Smelling like dog is awesome.
+     * The Wolf Backpack checks around for any wolves. If any of them get mad at you, it will smell the scent of its kin
+     * on you and promptly forget about the whole deal.
      */
     @SuppressWarnings("unchecked")
     public void itemWolf(EntityPlayer player, World world, ItemStack backpack) {

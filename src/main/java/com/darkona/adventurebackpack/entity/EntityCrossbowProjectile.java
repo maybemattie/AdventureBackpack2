@@ -27,7 +27,7 @@ public class EntityCrossbowProjectile extends Entity implements IProjectile {
     protected void writeEntityToNBT(NBTTagCompound p_70014_1_) {}
 
     /**
-     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
+     * Similar to setArrowHeading, it points the throwable entity to an x, y, z direction.
      */
     @Override
     public void setThrowableHeading(double p_70186_1_, double p_70186_3_, double p_70186_5_, float p_70186_7_,
