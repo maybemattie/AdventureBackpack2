@@ -77,7 +77,7 @@ public class FluidEffectRegistry {
     }
 
     public static ArrayList<FluidEffect> getEffectsForFluid(Fluid fluid) {
-        ArrayList<FluidEffect> effectsForFluid = new ArrayList<FluidEffect>();
+        ArrayList<FluidEffect> effectsForFluid = new ArrayList<>();
         for (FluidEffect effect : EFFECT_REGISTRY.values()) {
             if (fluid == effect.fluid) {
                 effectsForFluid.add(effect);

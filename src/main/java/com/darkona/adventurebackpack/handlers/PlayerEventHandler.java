@@ -51,7 +51,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
  */
 public class PlayerEventHandler {
 
-    public static HashSet<String> stepBoostedPlayers = new HashSet<String>();
+    public static HashSet<String> stepBoostedPlayers = new HashSet<>();
 
     @SubscribeEvent
     public void registerBackpackProperty(EntityEvent.EntityConstructing event) {
