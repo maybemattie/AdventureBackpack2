@@ -55,7 +55,7 @@ public final class TinkersUtils {
     private static void createCraftingStationInstance() {
         try {
             Class craftingLogic = Class.forName(CLASS_CRAFTING_LOGIC);
-            Object craftingLogicInstance = craftingLogic.newInstance();
+            Object craftingLogicInstance = craftingLogic.getConstructor().newInstance();
             InventoryPlayer invPlayer = getInventoryPlayer();
 
             craftingStation = Class.forName(CLASS_CRAFTING_STATION);
@@ -84,7 +84,7 @@ public final class TinkersUtils {
         if (Utils.inClient()) {
             try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
-                toolRendererInstance = toolRenderer.newInstance();
+                toolRendererInstance = toolRenderer.getConstructor().newInstance();
             } catch (Exception e) {
                 LogHelper.error("Error getting instance of Tinkers Tool Renderer: " + e);
             }

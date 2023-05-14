@@ -29,7 +29,7 @@ public final class ThaumcraftUtils {
         if (Utils.inClient()) {
             try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
-                toolRendererInstance = toolRenderer.newInstance();
+                toolRendererInstance = toolRenderer.getConstructor().newInstance();
             } catch (Exception e) {
                 LogHelper.error("Error getting instance of Thaumcraft Wands Renderer: " + e);
             }

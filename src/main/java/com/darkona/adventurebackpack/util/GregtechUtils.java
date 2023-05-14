@@ -30,7 +30,7 @@ public final class GregtechUtils {
         if (Utils.inClient()) {
             try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
-                toolRendererInstance = toolRenderer.newInstance();
+                toolRendererInstance = toolRenderer.getConstructor().newInstance();
             } catch (Exception e) {
                 LogHelper.error("Error getting instance of Gregtech Tools Renderer: " + e);
             }
