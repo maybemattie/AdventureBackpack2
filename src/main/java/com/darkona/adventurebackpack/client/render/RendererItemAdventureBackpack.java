@@ -24,12 +24,9 @@ public class RendererItemAdventureBackpack implements IItemRenderer {
     public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type) {
         switch (type) {
             case INVENTORY:
-                return true;
             case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
             case EQUIPPED_FIRST_PERSON:
+            case EQUIPPED:
                 return true;
             case FIRST_PERSON_MAP:
                 return false;
@@ -42,14 +39,11 @@ public class RendererItemAdventureBackpack implements IItemRenderer {
             IItemRenderer.ItemRendererHelper helper) {
         switch (type) {
             case INVENTORY:
-                return true;
             case ENTITY:
                 return true;
             case EQUIPPED:
-                return false;
-            case EQUIPPED_FIRST_PERSON:
-                return false;
             case FIRST_PERSON_MAP:
+            case EQUIPPED_FIRST_PERSON:
                 return false;
         }
         return false;

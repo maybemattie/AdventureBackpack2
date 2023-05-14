@@ -72,9 +72,6 @@ public class GuiTank {
             case 2:
                 drawMethodTwo();
                 break;
-            case 3:
-                drawMethodThree();
-                break;
             default:
                 drawMethodThree();
                 break;
