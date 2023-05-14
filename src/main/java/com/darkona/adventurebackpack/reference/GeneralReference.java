@@ -25,8 +25,6 @@ public class GeneralReference {
     public static void init() {
         parseLiquidFuelsConfig();
         parseDimensionBlacklistConfig();
-
-        if (LoadedMods.DEV_ENV) liquidFuels.put("holywater", 0.0f);
     }
 
     private static void parseDimensionBlacklistConfig() {
