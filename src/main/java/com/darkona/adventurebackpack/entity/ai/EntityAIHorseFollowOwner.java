@@ -73,9 +73,11 @@ public class EntityAIHorseFollowOwner extends EntityAIBase {
         theHorse.getNavigator().setAvoidsWater(this.avoidWater);
     }
 
+    /**
+     * This function is likely unfinished.
+     */
     @Override
     public void updateTask() {
-        // theHorse.getLookHelper().setLookPositionWithEntity(theOwner, 10.0F, this.theHorse.getVerticalFaceSpeed());
         if (--tickCounter <= 0) {
             tickCounter = 10;
             if (!theHorse.getLeashed()) {
