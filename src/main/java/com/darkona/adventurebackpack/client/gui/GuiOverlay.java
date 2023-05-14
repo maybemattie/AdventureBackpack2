@@ -56,7 +56,6 @@ public class GuiOverlay extends Gui {
     private FontRenderer fontRenderer;
 
     private int screenWidth;
-    private int screenHeight;
 
     public GuiOverlay(Minecraft mc) {
         super();
@@ -73,7 +72,7 @@ public class GuiOverlay extends Gui {
 
         EntityPlayer player = mc.thePlayer;
         screenWidth = event.resolution.getScaledWidth();
-        screenHeight = event.resolution.getScaledHeight();
+        int screenHeight = event.resolution.getScaledHeight();
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_TRANSFORM_BIT);
 
         if (ConfigHandler.bossBarIndent != 0) {
