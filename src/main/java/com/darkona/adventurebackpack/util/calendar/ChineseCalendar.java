@@ -36,10 +36,10 @@ public class ChineseCalendar {
         c.computeSolarTerms();
         if (cmd.equalsIgnoreCase("year")) {
             String[] t = c.getYearTable();
-            for (int i = 0; i < t.length; i++) System.out.println(t[i]);
+            for (String s : t) System.out.println(s);
         } else if (cmd.equalsIgnoreCase("month")) {
             String[] t = c.getMonthTable();
-            for (int i = 0; i < t.length; i++) System.out.println(t[i]);
+            for (String s : t) System.out.println(s);
         } else {
             System.out.println(c);
         }
@@ -216,8 +216,8 @@ public class ChineseCalendar {
                 d = 0; // wrong m specified
             } else {
                 d = 29;
-                for (int i = 0; i < bigLeapMonthYears.length; i++) {
-                    if (bigLeapMonthYears[i] == index) {
+                for (int bigLeapMonthYear : bigLeapMonthYears) {
+                    if (bigLeapMonthYear == index) {
                         d = 30;
                         break;
                     }

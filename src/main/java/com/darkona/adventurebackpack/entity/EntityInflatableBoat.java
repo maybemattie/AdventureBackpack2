@@ -294,8 +294,8 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
                         this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
                 if (list != null && !list.isEmpty()) {
-                    for (int k1 = 0; k1 < list.size(); ++k1) {
-                        Entity entity = (Entity) list.get(k1);
+                    for (Object o : list) {
+                        Entity entity = (Entity) o;
 
                         if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
                             entity.applyEntityCollision(this);
