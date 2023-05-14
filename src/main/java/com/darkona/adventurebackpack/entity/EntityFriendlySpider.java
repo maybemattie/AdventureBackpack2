@@ -104,16 +104,12 @@ public class EntityFriendlySpider extends EntityCreature {
             return false;
         } else if (super.attackEntityFrom(damageSource, amount)) {
             Entity entity = damageSource.getEntity();
-
             if (this.riddenByEntity != entity && this.ridingEntity != entity) {
                 if (entity != this) {
                     this.entityToAttack = entity;
                 }
-
-                return true;
-            } else {
-                return true;
             }
+            return true;
         } else {
             return false;
         }
