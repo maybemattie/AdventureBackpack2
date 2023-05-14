@@ -579,9 +579,8 @@ public class BackpackAbilities {
                     wolf.setAngry(false);
                     wolf.setAttackTarget(null);
                     wolf.setRevengeTarget(null);
-                    Iterator<?> i2 = wolf.targetTasks.taskEntries.iterator();
-                    while (i2.hasNext()) {
-                        ((EntityAIBase) i2.next()).resetTask();
+                    for (Object o : wolf.targetTasks.taskEntries) {
+                        ((EntityAIBase) o).resetTask();
                     }
                 }
             }

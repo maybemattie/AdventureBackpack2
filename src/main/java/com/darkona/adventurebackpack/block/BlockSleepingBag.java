@@ -163,10 +163,9 @@ public class BlockSleepingBag extends BlockDirectional {
             if (world.provider.canRespawnHere() && world.getBiomeGenForCoords(x, z) != BiomeGenBase.hell) {
                 if (isBedOccupied(meta)) {
                     EntityPlayer entityplayer1 = null;
-                    Iterator iterator = world.playerEntities.iterator();
 
-                    while (iterator.hasNext()) {
-                        EntityPlayer entityplayer2 = (EntityPlayer) iterator.next();
+                    for (Object o : world.playerEntities) {
+                        EntityPlayer entityplayer2 = (EntityPlayer) o;
 
                         if (entityplayer2.isPlayerSleeping()) {
                             ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
