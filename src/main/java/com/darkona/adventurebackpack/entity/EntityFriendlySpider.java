@@ -393,11 +393,11 @@ public class EntityFriendlySpider extends EntityCreature {
 
             if (i <= 1) {
                 this.field_111105_a = Potion.moveSpeed.id;
-            } else if (i <= 2) {
+            } else if (i == 2) {
                 this.field_111105_a = Potion.damageBoost.id;
-            } else if (i <= 3) {
+            } else if (i == 3) {
                 this.field_111105_a = Potion.regeneration.id;
-            } else if (i <= 4) {
+            } else {
                 this.field_111105_a = Potion.invisibility.id;
             }
         }
