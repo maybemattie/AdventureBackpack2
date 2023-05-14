@@ -4,14 +4,6 @@ package com.darkona.adventurebackpack.util.calendar;
  * Copyright © by Ulrich and David Greve (2005)
  */
 public class CalendarImpl {
-    /*
-     * public static int getWeekday(int absDate) public int getLastDayOfGregorianMonth(int month, int year) public int
-     * absoluteFromGregorianDate(CalendarDate date) public CalendarDate gregorianDateFromAbsolute(int absDate) public
-     * int getLastMonthOfJewishYear(int year) public int getLastDayOfJewishMonth(int month, int year) public int
-     * absoluteFromJewishDate(CalendarDate date) public CalendarDate jewishDateFromAbsolute(int absDate)
-     */
-
-    // ------------------------------------------------
     public static int getWeekday(int absDate) {
         return (absDate % 7);
     }
