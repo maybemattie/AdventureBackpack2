@@ -105,7 +105,7 @@ public class BlockSleepingBag extends BlockDirectional {
             LogHelper.info(
                     "Stored spawn data for " + player.getDisplayName()
                             + ": "
-                            + spawn.toString()
+                            + spawn
                             + " dimID: "
                             + player.worldObj.provider.dimensionId);
         } else {
@@ -125,7 +125,7 @@ public class BlockSleepingBag extends BlockDirectional {
             LogHelper.info(
                     "Restored spawn data for " + player.getDisplayName()
                             + ": "
-                            + coords.toString()
+                            + coords
                             + " dimID: "
                             + player.worldObj.provider.dimensionId);
         } else {
@@ -203,7 +203,7 @@ public class BlockSleepingBag extends BlockDirectional {
                         ChunkCoordinates campfire = CoordsUtils
                                 .findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
                         if (campfire != null) {
-                            LogHelper.info("Campfire Found, saving coordinates. " + campfire.toString());
+                            LogHelper.info("Campfire Found, saving coordinates. " + campfire);
                             BackpackProperty.get(player).setCampFire(campfire);
                         }
                     }

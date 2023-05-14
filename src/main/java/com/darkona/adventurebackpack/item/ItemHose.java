@@ -75,7 +75,7 @@ public class ItemHose extends ItemAB {
             tooltips.add("");
             tooltips.add(l10n("hose.dump1"));
             tooltips.add(l10n("hose.dump2"));
-            tooltips.add(EnumChatFormatting.RED.toString() + l10n("hose.dump.warn"));
+            tooltips.add(EnumChatFormatting.RED + l10n("hose.dump.warn"));
         } else {
             tooltips.add(TipUtils.holdCtrl());
         }

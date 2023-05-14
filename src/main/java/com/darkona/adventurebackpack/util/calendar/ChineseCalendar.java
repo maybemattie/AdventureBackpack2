@@ -41,7 +41,7 @@ public class ChineseCalendar {
             String[] t = c.getMonthTable();
             for (int i = 0; i < t.length; i++) System.out.println(t[i]);
         } else {
-            System.out.println(c.toString());
+            System.out.println(c);
         }
     }
 
