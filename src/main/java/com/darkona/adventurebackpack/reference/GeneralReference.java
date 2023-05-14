@@ -70,7 +70,7 @@ public class GeneralReference {
                     rate = MAX_RATE;
                     LogHelper.error("Cannot parse consumption rate for " + fluid + ". Setting MAX rate");
                 }
-                rate = rate < MIN_RATE ? MIN_RATE : (rate > MAX_RATE ? MAX_RATE : rate);
+                rate = rate < MIN_RATE ? MIN_RATE : (Math.min(rate, MAX_RATE));
                 liquidFuels.put(fluid, rate);
                 LogHelper.info("Registered " + fluid + " as Copter fuel with consumption rate " + rate);
             } else {

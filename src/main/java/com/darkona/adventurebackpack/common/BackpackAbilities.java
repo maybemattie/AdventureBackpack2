@@ -462,7 +462,7 @@ public class BackpackAbilities {
             }
         }
 
-        int eatTime = (inv.getLastTime() - 1 >= 0) ? inv.getLastTime() - 1 : 0;
+        int eatTime = Math.max(inv.getLastTime() - 1, 0);
         if (inv.hasItem(Items.wheat) && eatTime <= 0 && milkTime <= 0) {
             eatTime = 20;
             // LogHelper.info("Consuming Wheat in " + ((world.isRemote) ? "Client" : "Server"));
@@ -515,7 +515,7 @@ public class BackpackAbilities {
             }
         }
 
-        int eatTime = (inv.getLastTime() - 1 >= 0) ? inv.getLastTime() - 1 : 0;
+        int eatTime = Math.max(inv.getLastTime() - 1, 0);
         if (inv.hasItem(Items.wheat) && eatTime <= 0 && milkTime <= 0) {
             eatTime = 20;
             // LogHelper.info("Consuming Wheat in " + ((world.isRemote) ? "Client" : "Server"));

@@ -241,7 +241,7 @@ public class ItemCoalJetpack extends ItemAdventure {
         }
         inv.setTemperature(temperature);
         inv.setCoolTicks(coolTicks);
-        inv.setBurnTicks(burnTicks <= 0 ? 0 : burnTicks);
+        inv.setBurnTicks(Math.max(burnTicks, 0));
     }
 
     @Override
