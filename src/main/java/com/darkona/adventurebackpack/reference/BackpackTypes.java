@@ -23,11 +23,6 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
-/**
- * Created on 15.08.2017
- *
- * @author Ugachaga
- */
 @SuppressWarnings("unused")
 public enum BackpackTypes {
 

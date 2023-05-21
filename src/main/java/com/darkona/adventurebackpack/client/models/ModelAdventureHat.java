@@ -6,9 +6,9 @@ import net.minecraft.entity.Entity;
 
 public class ModelAdventureHat extends ModelBiped {
 
-    private ModelRenderer wing;
-    private ModelRenderer top;
-    private ModelRenderer thing;
+    private final ModelRenderer wing;
+    private final ModelRenderer top;
+    private final ModelRenderer thing;
 
     public static ModelAdventureHat instance = new ModelAdventureHat();
 

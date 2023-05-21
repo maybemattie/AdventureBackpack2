@@ -39,11 +39,6 @@ import com.darkona.adventurebackpack.util.TipUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 15/01/2015
- *
- * @author Darkona
- */
 public class ItemCoalJetpack extends ItemAdventure {
 
     public ItemCoalJetpack() {
@@ -246,7 +241,7 @@ public class ItemCoalJetpack extends ItemAdventure {
         }
         inv.setTemperature(temperature);
         inv.setCoolTicks(coolTicks);
-        inv.setBurnTicks(burnTicks <= 0 ? 0 : burnTicks);
+        inv.setBurnTicks(Math.max(burnTicks, 0));
     }
 
     @Override

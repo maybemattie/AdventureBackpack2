@@ -15,11 +15,6 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 
-/**
- * Created on 16/10/2014
- *
- * @author Darkona
- */
 public class CowAbilityPacket implements IMessageHandler<CowAbilityPacket.CowAbilityMessage, IMessage> {
 
     public static final byte CONSUME_WHEAT = 0;
@@ -33,9 +28,8 @@ public class CowAbilityPacket implements IMessageHandler<CowAbilityPacket.CowAbi
                 ContainerBackpack cont = ((ContainerBackpack) player.openContainer);
                 cont.detectAndSendChanges();
                 IInventoryBackpack inv = cont.getInventoryBackpack();
-                switch (message.action) {
-                    case CONSUME_WHEAT:
-                        inv.consumeInventoryItem(Items.wheat);
+                if (message.action == CONSUME_WHEAT) {
+                    inv.consumeInventoryItem(Items.wheat);
                 }
             }
         }

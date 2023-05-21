@@ -13,11 +13,6 @@ import com.darkona.adventurebackpack.util.GregtechUtils;
 import com.darkona.adventurebackpack.util.ThaumcraftUtils;
 import com.darkona.adventurebackpack.util.TinkersUtils;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class SlotTool extends SlotAdventure {
 
     private static final String[] VALID_TOOL_NAMES = { "axe", "crowbar", "drill", "grafter", "hammer", "scoop",

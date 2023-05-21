@@ -41,11 +41,6 @@ import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 23/12/2014
- *
- * @author Darkona
- */
 public class ServerActions {
 
     public static final boolean HOSE_SWITCH = false;
@@ -55,9 +50,9 @@ public class ServerActions {
      * Cycles tools. In a cycle. The tool in your hand with the tools in the special tool playerSlot of the backpack, to
      * be precise.
      *
-     * @param player    Duh
-     * @param isWheelUp A boolean indicating the direction of the switch. Nobody likes to swith always in the same
-     *                  direction all the timeInSeconds. That's stupid.
+     * @param player    the player
+     * @param isWheelUp indicates the direction of the switch. Nobody likes to always switch always in the same
+     *                  direction all the timeInSeconds.
      */
     public static void cycleTool(EntityPlayer player, boolean isWheelUp) {
         if (!GeneralReference.isDimensionAllowed(player)) return;
@@ -178,7 +173,7 @@ public class ServerActions {
                 entityarrow.canBePickedUp = 2;
             } else {
                 /*
-                 * From here, instead of leaking an arrow to the player inventory, which may be full and then it would
+                 * From here, instead of leaking an arrow to the player inventory, which may be full, and then it would
                  * be pointless, leak an arrow straight from the backpack ^_^ It could be possible to switch a whole
                  * stack with the player inventory, fire the arrow, and then switch back, but that's stupid. That's how
                  * you make a quiver (for vanilla bows at least, or anything that uses the events and vanilla arrows)
@@ -207,7 +202,7 @@ public class ServerActions {
         if (isTile && world.getTileEntity(cX, cY, cZ) instanceof TileAdventureBackpack) {
             TileAdventureBackpack te = (TileAdventureBackpack) world.getTileEntity(cX, cY, cZ);
             if (!te.isSleepingBagDeployed()) {
-                int can[] = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, true);
+                int[] can = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, true);
                 if (can[0] > -1) {
                     if (te.deploySleepingBag(player, world, can[0], can[1], can[2], can[3])) {
                         player.closeScreen();
@@ -221,7 +216,7 @@ public class ServerActions {
             }
             player.closeScreen();
         } else if (!isTile && Wearing.isWearingBackpack(player)) {
-            int can[] = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, false);
+            int[] can = CoordsUtils.canDeploySleepingBag(world, player, cX, cY, cZ, false);
             if (can[0] > -1) {
                 InventoryBackpack inv = Wearing.getWearingBackpackInv(player);
                 if (inv.deploySleepingBag(player, world, can[0], can[1], can[2], can[3])) {
@@ -242,7 +237,7 @@ public class ServerActions {
 
     /**
      * Adds vertical inertia to the movement in the Y axis of the player, and makes Newton's Laws cry. In other words,
-     * makes you jump higher. Also it plays a nice sound effect that will probably get annoying after a while.
+     * makes you jump higher. It also plays a nice sound effect that will probably get annoying after a while.
      *
      * @param player - The player performing the jump.
      */
@@ -267,8 +262,6 @@ public class ServerActions {
                 .getBoolean("boiling");
 
         if (!player.worldObj.isRemote && isBoiling) {
-            // ModNetwork.sendToNearby(new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player),
-            // player); //TODO difference?
             ModNetwork.net.sendTo(
                     new EntitySoundPacket.Message(EntitySoundPacket.BOILING_BUBBLES, player),
                     (EntityPlayerMP) player);

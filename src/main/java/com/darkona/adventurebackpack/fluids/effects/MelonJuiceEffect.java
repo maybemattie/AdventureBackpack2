@@ -6,14 +6,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-import adventurebackpack.api.FluidEffect;
-
 import com.darkona.adventurebackpack.init.ModFluids;
 import com.darkona.adventurebackpack.util.Utils;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
+import adventurebackpack.api.FluidEffect;
+
 public class MelonJuiceEffect extends FluidEffect {
 
     public MelonJuiceEffect() {

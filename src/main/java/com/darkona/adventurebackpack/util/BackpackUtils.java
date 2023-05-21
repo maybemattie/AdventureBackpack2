@@ -20,14 +20,9 @@ import com.darkona.adventurebackpack.init.ModItems;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 
-/**
- * Created on 08/01/2015
- *
- * @author Darkona
- */
 public class BackpackUtils {
 
-    private static Timer timer = new Timer(); // TODO remove timer, find the dupe, fix the dupe
+    private static final Timer timer = new Timer(); // TODO remove timer, find the dupe, fix the dupe
 
     public enum Reasons {
         SUCCESSFUL,
@@ -57,7 +52,7 @@ public class BackpackUtils {
 
     private static class DelayUnequipTask extends TimerTask {
 
-        private EntityPlayer player;
+        private final EntityPlayer player;
 
         DelayUnequipTask(EntityPlayer player) {
             this.player = player;

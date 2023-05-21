@@ -9,11 +9,6 @@ import net.minecraft.world.World;
 
 import com.darkona.adventurebackpack.entity.fx.SteamFX;
 
-/**
- * Created on 17/10/2014
- *
- * @author Darkona
- */
 public class Visuals {
 
     public static void NyanParticles(EntityPlayer player, World world) {
@@ -88,8 +83,8 @@ public class Visuals {
         }
     }
 
-    private static Minecraft mc = Minecraft.getMinecraft();
-    private static World theWorld = mc.theWorld;
+    private static final Minecraft mc = Minecraft.getMinecraft();
+    private static final World theWorld = mc.theWorld;
 
     public static EntityFX spawnParticle(String particleName, double x, double y, double z, double motionX,
             double motionY, double motionZ) {

@@ -12,9 +12,6 @@ import com.darkona.adventurebackpack.client.render.RendererStack;
 import com.darkona.adventurebackpack.reference.ToolHandler;
 import com.darkona.adventurebackpack.util.Utils;
 
-/**
- * clockworkCrossbow - Darkona Created using Tabula 4.1.0
- */
 public class ModelClockworkCrossbow extends ModelBase {
 
     public ModelRenderer xbowBody;
@@ -247,7 +244,7 @@ public class ModelClockworkCrossbow extends ModelBase {
         arrow.setRotationPoint(xbowBody.rotationPointX, xbowBody.rotationPointY, xbowBody.rotationPointZ);
         GL11.glPushMatrix();
         GL11.glScalef(1.0f, 1.0f, 2f);
-        arrow.render(1 / 14);
+        arrow.render((float) (1 / 14.0));
         GL11.glPopMatrix();
     }
 

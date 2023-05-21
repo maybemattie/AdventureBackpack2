@@ -17,13 +17,9 @@ import net.minecraftforge.common.util.FakePlayer;
 
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.mojang.authlib.GameProfile;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 
-/**
- * Created on 03.02.2018
- *
- * @author Ugachaga
- */
 public final class TinkersUtils {
 
     public static final ResourceLocation GUI_ICONS = new ResourceLocation("tinker", "textures/gui/icons.png");
@@ -58,8 +54,8 @@ public final class TinkersUtils {
 
     private static void createCraftingStationInstance() {
         try {
-            Class craftingLogic = Class.forName(CLASS_CRAFTING_LOGIC);
-            Object craftingLogicInstance = craftingLogic.newInstance();
+            Class<?> craftingLogic = Class.forName(CLASS_CRAFTING_LOGIC);
+            Object craftingLogicInstance = craftingLogic.getConstructor().newInstance();
             InventoryPlayer invPlayer = getInventoryPlayer();
 
             craftingStation = Class.forName(CLASS_CRAFTING_STATION);
@@ -88,7 +84,7 @@ public final class TinkersUtils {
         if (Utils.inClient()) {
             try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
-                toolRendererInstance = toolRenderer.newInstance();
+                toolRendererInstance = toolRenderer.getConstructor().newInstance();
             } catch (Exception e) {
                 LogHelper.error("Error getting instance of Tinkers Tool Renderer: " + e);
             }

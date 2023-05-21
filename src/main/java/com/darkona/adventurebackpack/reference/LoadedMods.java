@@ -7,11 +7,6 @@ import com.darkona.adventurebackpack.util.LogHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 
-/**
- * Created on 24.02.2018
- *
- * @author Ugachaga
- */
 public final class LoadedMods {
 
     public static final boolean DEV_ENV = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");

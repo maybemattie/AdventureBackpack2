@@ -10,11 +10,6 @@ import net.minecraftforge.fluids.FluidTank;
 
 import com.darkona.adventurebackpack.common.Constants.Source;
 
-/**
- * Created on 03/01/2015
- *
- * @author Darkona
- */
 public class ContainerCopter extends ContainerAdventure {
 
     private static final int COPTER_INV_START = PLAYER_INV_END + 1;

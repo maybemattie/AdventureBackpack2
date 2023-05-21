@@ -12,11 +12,6 @@ import net.minecraft.nbt.NBTTagList;
 
 import com.darkona.adventurebackpack.util.BackpackUtils;
 
-/**
- * Created on 15.07.2017
- *
- * @author Ugachaga
- */
 @SuppressWarnings("WeakerAccess")
 abstract class InventoryAdventure implements IInventoryTanks {
     // when porting to java 8+ most this methods should move to IInventoryTanks

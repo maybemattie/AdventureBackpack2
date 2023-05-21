@@ -14,20 +14,15 @@ import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.reference.GeneralReference;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 03/01/2015
- *
- * @author Darkona
- */
 public class GuiCopterPack extends GuiWithTanks {
 
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiCopterPack");
 
-    private static GuiImageButtonNormal equipButton = new GuiImageButtonNormal(150, 64, 18, 18);
-    private static GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(150, 64, 18, 18);
-    private static GuiTank fuelTank = new GuiTank(8, 8, 72, 32, ConfigHandler.typeTankRender);
+    private static final GuiImageButtonNormal equipButton = new GuiImageButtonNormal(150, 64, 18, 18);
+    private static final GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(150, 64, 18, 18);
+    private static final GuiTank fuelTank = new GuiTank(8, 8, 72, 32, ConfigHandler.typeTankRender);
 
-    private InventoryCopterPack inventory;
+    private final InventoryCopterPack inventory;
 
     public GuiCopterPack(EntityPlayer player, InventoryCopterPack inv, Source source) {
         super(new ContainerCopter(player, inv, source));

@@ -50,11 +50,6 @@ import com.darkona.adventurebackpack.util.Utils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class ItemAdventureBackpack extends ItemAdventure {
 
     public ItemAdventureBackpack() {
@@ -162,7 +157,7 @@ public class ItemAdventureBackpack extends ItemAdventure {
         int Y = (int) player.posY;
         if (Y < 1) Y = 1;
 
-        int positions[] = { 0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6 };
+        int[] positions = { 0, -1, 1, -2, 2, -3, 3, -4, 4, -5, 5, -6, 6 };
 
         for (int shiftY : positions) {
             if (Y + shiftY >= 1) {

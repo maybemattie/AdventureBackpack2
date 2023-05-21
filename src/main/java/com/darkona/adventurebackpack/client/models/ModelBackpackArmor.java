@@ -10,8 +10,6 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
 import com.darkona.adventurebackpack.client.render.RendererStack;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
@@ -19,11 +17,8 @@ import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ToolHandler;
 
-/**
- * Created on 17/12/2014
- *
- * @author Darkona
- */
+import codechicken.lib.vec.Vector3;
+
 public class ModelBackpackArmor extends ModelWearable {
 
     public static final ModelBackpackArmor instance = new ModelBackpackArmor();

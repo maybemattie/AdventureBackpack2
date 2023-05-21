@@ -1,9 +1,7 @@
 package com.darkona.adventurebackpack.util.calendar;
 
 /**
- * Created on 22/12/2014 Copyright © by Ulrich and David Greve (2005)
- *
- * @author Darkona
+ * Copyright © by Ulrich and David Greve (2005)
  */
 public class CalendarDate {
 
@@ -44,11 +42,7 @@ public class CalendarDate {
     }
 
     public boolean areDatesEqual(CalendarDate date) {
-        if ((day == date.getDay()) && (month == date.getMonth()) && (year == date.getYear())) {
-            return true;
-        } else {
-            return false;
-        }
+        return (day == date.getDay()) && (month == date.getMonth()) && (year == date.getYear());
     }
 
     public int getHashCode() {

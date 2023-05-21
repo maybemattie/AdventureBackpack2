@@ -37,11 +37,6 @@ import com.darkona.adventurebackpack.util.Wearing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 31/12/2014
- *
- * @author Darkona
- */
 public class ItemCopterPack extends ItemAdventure {
 
     public static byte OFF_MODE = 0;

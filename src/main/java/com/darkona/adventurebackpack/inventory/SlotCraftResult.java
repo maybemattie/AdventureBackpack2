@@ -5,14 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 
-/**
- * Created on 04.02.2018
- *
- * @author Ugachaga
- */
 public class SlotCraftResult extends SlotCrafting {
 
-    private ContainerBackpack eventHandler;
+    private final ContainerBackpack eventHandler;
 
     public SlotCraftResult(ContainerBackpack container, EntityPlayer player, IInventory craftMatrix,
             IInventory inventory, int slotIndex, int posX, int posY) {

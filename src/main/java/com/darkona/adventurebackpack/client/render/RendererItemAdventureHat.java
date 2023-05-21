@@ -1,7 +1,6 @@
 package com.darkona.adventurebackpack.client.render;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
@@ -11,9 +10,6 @@ import org.lwjgl.opengl.GL11;
 import com.darkona.adventurebackpack.client.models.ModelAdventureHat;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created by Darkona on 11/10/2014.
- */
 public class RendererItemAdventureHat implements IItemRenderer {
 
     private final ModelAdventureHat model;
@@ -26,12 +22,9 @@ public class RendererItemAdventureHat implements IItemRenderer {
     public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type) {
         switch (type) {
             case INVENTORY:
-                return true;
             case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
             case EQUIPPED_FIRST_PERSON:
+            case EQUIPPED:
                 return true;
             case FIRST_PERSON_MAP:
                 return false;
@@ -44,12 +37,9 @@ public class RendererItemAdventureHat implements IItemRenderer {
             IItemRenderer.ItemRendererHelper helper) {
         switch (type) {
             case INVENTORY:
-                return true;
-            case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
             case EQUIPPED_FIRST_PERSON:
+            case EQUIPPED:
+            case ENTITY:
                 return true;
             case FIRST_PERSON_MAP:
                 return false;
@@ -75,7 +65,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glScalef(1.5f, 1.5f, 1.5f);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -97,7 +87,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glScalef(1.0f, 1.0f, 1.0f);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -125,7 +115,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glTranslatef(0.0f, 1.2f, -.6f);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
 
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -152,7 +142,7 @@ public class RendererItemAdventureHat implements IItemRenderer {
                 GL11.glPushMatrix();
                 GL11.glRotatef(180, 0, 1, 0);
 
-                model.render((Entity) null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
+                model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.05F);
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();

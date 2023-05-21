@@ -11,13 +11,10 @@ import org.lwjgl.opengl.GL11;
 import com.darkona.adventurebackpack.client.models.ModelClockworkCrossbow;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created by Darkona on 11/10/2014.
- */
 public class RendererItemClockworkCrossbow implements IItemRenderer {
 
     private final ModelClockworkCrossbow model;
-    private ResourceLocation modelTexture = Resources.modelTextures("clockworkCrossbow");
+    private final ResourceLocation modelTexture = Resources.modelTextures("clockworkCrossbow");
 
     public RendererItemClockworkCrossbow() {
         model = new ModelClockworkCrossbow();

@@ -15,14 +15,9 @@ import net.minecraftforge.fluids.FluidTank;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.item.ItemCopterPack;
 
-/**
- * Created on 02/01/2015
- *
- * @author Darkona
- */
 public class InventoryCopterPack extends InventoryAdventure {
 
-    private FluidTank fuelTank = new FluidTank(Constants.Copter.FUEL_CAPACITY);
+    private final FluidTank fuelTank = new FluidTank(Constants.Copter.FUEL_CAPACITY);
 
     private byte status = ItemCopterPack.OFF_MODE;
     private int tickCounter = 0;

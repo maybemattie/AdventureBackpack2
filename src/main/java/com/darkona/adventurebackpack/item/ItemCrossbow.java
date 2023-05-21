@@ -11,11 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-/**
- * Created on 05/01/2015
- *
- * @author Darkona
- */
 public class ItemCrossbow extends ItemAB {
 
     public ItemCrossbow() {

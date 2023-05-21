@@ -13,11 +13,6 @@ import com.darkona.adventurebackpack.util.Resources;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 11/10/2014.
- *
- * @author Javier Darkona
- */
 public class ArmorAB extends ItemArmor {
 
     /**

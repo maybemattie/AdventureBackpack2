@@ -7,11 +7,6 @@ import net.minecraft.item.ItemStack;
 import com.darkona.adventurebackpack.inventory.ContainerAdventure;
 import com.darkona.adventurebackpack.util.EnchUtils;
 
-/**
- * Created on 01.03.2018
- *
- * @author Ugachaga
- */
 @SuppressWarnings("WeakerAccess")
 public abstract class ItemAdventure extends ItemAB implements IBackWearableItem {
 

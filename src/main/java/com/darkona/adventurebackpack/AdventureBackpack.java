@@ -30,11 +30,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-/**
- * Created on 10/10/2014
- *
- * @author Javier Darkona
- */
 @Mod(
         modid = ModInfo.MOD_ID,
         name = ModInfo.MOD_NAME,

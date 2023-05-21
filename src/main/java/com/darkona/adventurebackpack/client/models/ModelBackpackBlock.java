@@ -9,20 +9,15 @@ import net.minecraftforge.fluids.FluidTank;
 
 import org.lwjgl.opengl.GL11;
 
+import com.darkona.adventurebackpack.common.Constants;
+import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
+import com.darkona.adventurebackpack.reference.BackpackTypes;
+
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.RenderUtils;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Vector3;
 
-import com.darkona.adventurebackpack.common.Constants;
-import com.darkona.adventurebackpack.inventory.IInventoryBackpack;
-import com.darkona.adventurebackpack.reference.BackpackTypes;
-
-/**
- * Created on 17/12/2014
- *
- * @author Darkona
- */
 public class ModelBackpackBlock extends ModelBase {
 
     public ModelRenderer mainBody;

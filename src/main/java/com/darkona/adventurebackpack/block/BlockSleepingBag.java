@@ -1,13 +1,11 @@
 package com.darkona.adventurebackpack.block;
 
-import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -34,11 +32,6 @@ import com.darkona.adventurebackpack.util.Wearing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 14/10/2014
- *
- * @author Darkona
- */
 public class BlockSleepingBag extends BlockDirectional {
 
     private static final int[][] footBlockToHeadBlockMap = new int[][] { { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 0 } };
@@ -80,7 +73,7 @@ public class BlockSleepingBag extends BlockDirectional {
     }
 
     /**
-     * Returns whether or not this bed block is the head of the bed.
+     * Returns whether this bed block is the head of the bed.
      */
     private static boolean isBlockHeadOfBed(int meta) {
         return (meta & 8) != 0;
@@ -108,11 +101,8 @@ public class BlockSleepingBag extends BlockDirectional {
             storedSpawn.setInteger(TAG_SPAWN_POS_Z, spawn.posZ);
             tag.setTag(TAG_STORED_SPAWN, storedSpawn);
             LogHelper.info(
-                    "Stored spawn data for " + player.getDisplayName()
-                            + ": "
-                            + spawn.toString()
-                            + " dimID: "
-                            + player.worldObj.provider.dimensionId);
+                    "Stored spawn data for " + player
+                            .getDisplayName() + ": " + spawn + " dimID: " + player.worldObj.provider.dimensionId);
         } else {
             LogHelper.warn("Cannot store spawn data for " + player.getDisplayName());
         }
@@ -128,11 +118,8 @@ public class BlockSleepingBag extends BlockDirectional {
             player.setSpawnChunk(coords, false, player.worldObj.provider.dimensionId);
             tag.removeTag(TAG_STORED_SPAWN);
             LogHelper.info(
-                    "Restored spawn data for " + player.getDisplayName()
-                            + ": "
-                            + coords.toString()
-                            + " dimID: "
-                            + player.worldObj.provider.dimensionId);
+                    "Restored spawn data for " + player
+                            .getDisplayName() + ": " + coords + " dimID: " + player.worldObj.provider.dimensionId);
         } else {
             LogHelper.warn("No spawn data to restore for " + player.getDisplayName());
         }
@@ -168,10 +155,9 @@ public class BlockSleepingBag extends BlockDirectional {
             if (world.provider.canRespawnHere() && world.getBiomeGenForCoords(x, z) != BiomeGenBase.hell) {
                 if (isBedOccupied(meta)) {
                     EntityPlayer entityplayer1 = null;
-                    Iterator iterator = world.playerEntities.iterator();
 
-                    while (iterator.hasNext()) {
-                        EntityPlayer entityplayer2 = (EntityPlayer) iterator.next();
+                    for (Object o : world.playerEntities) {
+                        EntityPlayer entityplayer2 = (EntityPlayer) o;
 
                         if (entityplayer2.isPlayerSleeping()) {
                             ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
@@ -184,8 +170,7 @@ public class BlockSleepingBag extends BlockDirectional {
                     }
 
                     if (entityplayer1 != null) {
-                        player.addChatComponentMessage(
-                                new ChatComponentTranslation("tile.bed.occupied", new Object[0]));
+                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.occupied"));
                         return false;
                     }
 
@@ -196,7 +181,7 @@ public class BlockSleepingBag extends BlockDirectional {
 
                 if (enumstatus == EntityPlayer.EnumStatus.OK) {
                     setBedOccupied(world, x, y, z, true);
-                    // This is so the wake up event can detect it. It fires before the player wakes up.
+                    // This is so the wake-up event can detect it. It fires before the player wakes up.
                     // and the bed location isn't set until then, normally.
 
                     if (isSleepingInPortableBag(player)) {
@@ -208,16 +193,16 @@ public class BlockSleepingBag extends BlockDirectional {
                         ChunkCoordinates campfire = CoordsUtils
                                 .findBlock3D(world, x, y, z, ModBlocks.blockCampFire, 8, 2);
                         if (campfire != null) {
-                            LogHelper.info("Campfire Found, saving coordinates. " + campfire.toString());
+                            LogHelper.info("Campfire Found, saving coordinates. " + campfire);
                             BackpackProperty.get(player).setCampFire(campfire);
                         }
                     }
                     return true;
                 } else {
                     if (enumstatus == EntityPlayer.EnumStatus.NOT_POSSIBLE_NOW) {
-                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep", new Object[0]));
+                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.noSleep"));
                     } else if (enumstatus == EntityPlayer.EnumStatus.NOT_SAFE) {
-                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe", new Object[0]));
+                        player.addChatComponentMessage(new ChatComponentTranslation("tile.bed.notSafe"));
                     }
 
                     return false;
@@ -238,14 +223,7 @@ public class BlockSleepingBag extends BlockDirectional {
                     d1 = (d1 + (double) z + 0.5D) / 2.0D;
                 }
 
-                world.newExplosion(
-                        (Entity) null,
-                        (double) ((float) x + 0.5F),
-                        (double) ((float) y + 0.5F),
-                        (double) ((float) z + 0.5F),
-                        5.0F,
-                        true,
-                        true);
+                world.newExplosion(null, (float) x + 0.5F, (float) y + 0.5F, (float) z + 0.5F, 5.0F, true, true);
 
                 return false;
             }

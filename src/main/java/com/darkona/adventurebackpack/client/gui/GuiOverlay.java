@@ -24,8 +24,6 @@ import net.minecraftforge.fluids.FluidTank;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.render.TextureUtils;
-
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.inventory.IInventoryTanks;
@@ -35,14 +33,10 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.reference.ToolHandler;
 import com.darkona.adventurebackpack.util.*;
 
+import codechicken.lib.render.TextureUtils;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * Created on 09/01/2015
- *
- * @author Darkona
- */
 public class GuiOverlay extends Gui {
 
     private static final ResourceLocation GUI_ICONS = new ResourceLocation("textures/gui/icons.png");
@@ -56,13 +50,12 @@ public class GuiOverlay extends Gui {
     private static final int BUFF_ICON_BASE_V_OFFSET = 198;
     private static final int BUFF_ICONS_PER_ROW = 8;
 
-    private static RenderItem itemRender = new RenderItem();
+    private static final RenderItem itemRender = new RenderItem();
 
-    private Minecraft mc;
-    private FontRenderer fontRenderer;
+    private final Minecraft mc;
+    private final FontRenderer fontRenderer;
 
     private int screenWidth;
-    private int screenHeight;
 
     public GuiOverlay(Minecraft mc) {
         super();
@@ -79,7 +72,7 @@ public class GuiOverlay extends Gui {
 
         EntityPlayer player = mc.thePlayer;
         screenWidth = event.resolution.getScaledWidth();
-        screenHeight = event.resolution.getScaledHeight();
+        int screenHeight = event.resolution.getScaledHeight();
         GL11.glPushAttrib(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_LIGHTING_BIT | GL11.GL_TRANSFORM_BIT);
 
         if (ConfigHandler.bossBarIndent != 0) {

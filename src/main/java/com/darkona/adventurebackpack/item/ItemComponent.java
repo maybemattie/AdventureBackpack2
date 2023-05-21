@@ -22,15 +22,10 @@ import com.darkona.adventurebackpack.entity.EntityInflatableBoat;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 11/10/2014
- *
- * @author Darkona
- */
 public class ItemComponent extends ItemAB {
 
-    private HashMap<String, IIcon> componentIcons = new HashMap<>();
-    private String[] names = { "sleepingBag", "backpackTank", "hoseHead", "macheteHandle", "copterEngine",
+    private final HashMap<String, IIcon> componentIcons = new HashMap<>();
+    private final String[] names = { "sleepingBag", "backpackTank", "hoseHead", "macheteHandle", "copterEngine",
             "copterBlades", "inflatableBoat", "inflatableBoatMotorized", "hydroBlades", };
 
     public ItemComponent() {
@@ -111,7 +106,7 @@ public class ItemComponent extends ItemAB {
             List list = world.getEntitiesWithinAABBExcludingEntity(
                     player,
                     player.boundingBox.addCoord(vec32.xCoord * d3, vec32.yCoord * d3, vec32.zCoord * d3)
-                            .expand((double) f9, (double) f9, (double) f9));
+                            .expand(f9, f9, f9));
             int i;
 
             for (i = 0; i < list.size(); ++i) {
@@ -119,7 +114,7 @@ public class ItemComponent extends ItemAB {
 
                 if (entity.canBeCollidedWith()) {
                     float f10 = entity.getCollisionBorderSize();
-                    AxisAlignedBB axisalignedbb = entity.boundingBox.expand((double) f10, (double) f10, (double) f10);
+                    AxisAlignedBB axisalignedbb = entity.boundingBox.expand(f10, f10, f10);
 
                     if (axisalignedbb.isVecInside(vec3)) {
                         flag = true;
@@ -127,9 +122,7 @@ public class ItemComponent extends ItemAB {
                 }
             }
 
-            if (flag) {
-                return stack;
-            } else {
+            if (!flag) {
                 if (movingobjectposition.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     i = movingobjectposition.blockX;
                     int j = movingobjectposition.blockY;
@@ -147,7 +140,7 @@ public class ItemComponent extends ItemAB {
                             motorized);
 
                     inflatableBoat.rotationYaw = (float) (((MathHelper
-                            .floor_double((double) (player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1) * 90);
+                            .floor_double((player.rotationYaw * 4.0 / 360.0) + 0.5D) & 3) - 1) * 90);
                     if (!world.getCollidingBoundingBoxes(
                             inflatableBoat,
                             inflatableBoat.boundingBox.expand(-0.1, -0.1, -0.1)).isEmpty()) {
@@ -162,8 +155,8 @@ public class ItemComponent extends ItemAB {
                         --stack.stackSize;
                     }
                 }
-                return stack;
             }
+            return stack;
         }
     }
 }

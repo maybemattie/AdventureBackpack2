@@ -2,16 +2,13 @@ package com.darkona.adventurebackpack.init;
 
 import java.util.Calendar;
 
-/**
- * Created by Ugachaga on 06.07.2017.
- */
 public class ModDates {
 
     private static String holiday;
 
-    private static int year = Calendar.getInstance().get(Calendar.YEAR);
-    private static int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-    private static int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    private static final int year = Calendar.getInstance().get(Calendar.YEAR);
+    private static final int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+    private static final int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
     public static void init() {
         holiday = setHoliday();
@@ -24,11 +21,6 @@ public class ModDates {
 
     private static String setHoliday() {
         // here and below commented lines: textures are missing.
-        /*
-         * if (ChineseCalendar.isChineseNewYear(year, month, day)) { return "ChinaNewYear"; } if
-         * (JewishCalendar.isHannukah(year, month, day)) { return "Hannukah"; } if (month == calculateEaster(year)[0] &&
-         * day == calculateEaster(year)[1]) { return "Easter"; }
-         */
 
         String result = "Standard";
         if (month == 1) {
@@ -38,37 +30,16 @@ public class ModDates {
         if (month == 2) {
             if (day == 1) result = "Shuttle"; // Columbia
             if (day == 14) result = "Valentines";
-            // if (day == 23) result = "Fatherland";
         }
         if (month == 3) {
             if (day == 17) result = "Patrick";
         }
         if (month == 4) {
             if (day == 1) result = "Fools";
-            // if (day == 25) result = "Italy";
         }
-        if (month == 5) {
-            // if (day == 8 || day == 9 || day == 10) result = "Liberation";
-        }
-        if (month == 6) {}
-
         if (month == 7) {
             if (day == 4) result = "USA";
             if (day == 24) result = "Bolivar";
-            // if (day == 14) result = "Bastille";
-        }
-        if (month == 8) {}
-
-        if (month == 9) {
-            // if (day == 19) result = "Pirate";
-        }
-        if (month == 10) {
-            // if (day == 3) result = "Germany";
-            // if (day == 12) result = "Columbus";
-            // if (day == 31) result = "Halloween";
-        }
-        if (month == 11) {
-            // if (day == 2) result = "Muertos";
         }
         if (month == 12) {
             if (day >= 22 && day <= 26) result = "Christmas";

@@ -9,11 +9,6 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 08/01/2015
- *
- * @author Darkona
- */
 public interface IBackWearableItem {
 
     void onEquippedUpdate(World world, EntityPlayer player, ItemStack stack);

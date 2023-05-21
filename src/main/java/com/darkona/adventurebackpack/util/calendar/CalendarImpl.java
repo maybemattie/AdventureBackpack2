@@ -1,24 +1,15 @@
 package com.darkona.adventurebackpack.util.calendar;
 
 /**
- * Created on 22/12/2014 Copyright © by Ulrich and David Greve (2005)
- *
- * @author Darkona
+ * Copyright © by Ulrich and David Greve (2005)
  */
 public class CalendarImpl {
-    /*
-     * public static int getWeekday(int absDate) public int getLastDayOfGregorianMonth(int month, int year) public int
-     * absoluteFromGregorianDate(CalendarDate date) public CalendarDate gregorianDateFromAbsolute(int absDate) public
-     * int getLastMonthOfJewishYear(int year) public int getLastDayOfJewishMonth(int month, int year) public int
-     * absoluteFromJewishDate(CalendarDate date) public CalendarDate jewishDateFromAbsolute(int absDate)
-     */
 
-    // ------------------------------------------------
     public static int getWeekday(int absDate) {
         return (absDate % 7);
     }
 
-    private int month_list[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    private final int[] month_list = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
     public int getLastDayOfGregorianMonth(int month, int year) {
         if ((month == 2) && ((year % 4) == 0)
@@ -87,11 +78,7 @@ public class CalendarImpl {
     }
 
     public boolean hebrewLeapYear(int year) {
-        if ((((year * 7) + 1) % 19) < 7) {
-            return true;
-        } else {
-            return false;
-        }
+        return (((year * 7) + 1) % 19) < 7;
     }
 
     public int getLastMonthOfJewishYear(int year) {
@@ -167,10 +154,9 @@ public class CalendarImpl {
             alternativeDay = day;
         }
 
-        /* If Rosh HaShanah would occur on Sunday, Wednesday, */
-        /* or Friday */
+        /* If Rosh HaShanah occurs on Sunday, Wednesday, or Friday */
         if (((alternativeDay % 7) == 0) || ((alternativeDay % 7) == 3) || ((alternativeDay % 7) == 5))
-        /* Then postpone it one (more) day and return */
+        /* Then postpone it one more day and return */
         {
             alternativeDay++;
         }
@@ -183,19 +169,11 @@ public class CalendarImpl {
     }
 
     private boolean longHeshvan(int year) {
-        if ((daysInHebrewYear(year) % 10) == 5) {
-            return true;
-        } else {
-            return false;
-        }
+        return (daysInHebrewYear(year) % 10) == 5;
     }
 
     private boolean shortKislev(int year) {
-        if ((daysInHebrewYear(year) % 10) == 3) {
-            return true;
-        } else {
-            return false;
-        }
+        return (daysInHebrewYear(year) % 10) == 3;
     }
 
     public int absoluteFromJewishDate(CalendarDate date) {

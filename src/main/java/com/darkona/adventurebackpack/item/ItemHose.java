@@ -44,9 +44,6 @@ import com.darkona.adventurebackpack.util.Wearing;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class ItemHose extends ItemAB {
 
     private IIcon drinkIcon;
@@ -78,7 +75,7 @@ public class ItemHose extends ItemAB {
             tooltips.add("");
             tooltips.add(l10n("hose.dump1"));
             tooltips.add(l10n("hose.dump2"));
-            tooltips.add(EnumChatFormatting.RED.toString() + l10n("hose.dump.warn"));
+            tooltips.add(EnumChatFormatting.RED + l10n("hose.dump.warn"));
         } else {
             tooltips.add(TipUtils.holdCtrl());
         }
@@ -162,7 +159,7 @@ public class ItemHose extends ItemAB {
 
     @Override
     public void onUpdate(ItemStack stack, World world, Entity entity, int inv_slot, boolean isCurrent) {
-        if (entity == null || !(entity instanceof EntityPlayer)) return;
+        if (!(entity instanceof EntityPlayer)) return;
 
         EntityPlayer player = (EntityPlayer) entity;
         if (world.isRemote && player.getItemInUse() != null && player.getItemInUse().getItem().equals(this)) return;
@@ -199,7 +196,7 @@ public class ItemHose extends ItemAB {
         inv.openInventory();
         FluidTank tank = getHoseTank(stack) == 0 ? inv.getLeftTank() : inv.getRightTank();
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof IFluidHandler) {
+        if (te instanceof IFluidHandler) {
             IFluidHandler exTank = (IFluidHandler) te;
             int accepted;
             switch (getHoseMode(stack)) {

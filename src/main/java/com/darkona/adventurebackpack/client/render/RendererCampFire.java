@@ -10,14 +10,9 @@ import org.lwjgl.opengl.GL12;
 import com.darkona.adventurebackpack.client.models.ModelCampFire;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 05/01/2015
- *
- * @author Darkona
- */
 public class RendererCampFire extends TileEntitySpecialRenderer {
 
-    private ModelCampFire model;
+    private final ModelCampFire model;
 
     public RendererCampFire() {
         this.model = new ModelCampFire();

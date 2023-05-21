@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
 import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
+
+import codechicken.lib.vec.Vector3;
 
 public class ModelCoalJetpack extends ModelWearable {
 
@@ -130,7 +130,7 @@ public class ModelCoalJetpack extends ModelWearable {
 
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
-        if (entity != null && entity instanceof EntityPlayer) {
+        if (entity instanceof EntityPlayer) {
             GL11.glPushMatrix();
 
             GL11.glTranslatef(bipedBody.offsetX, bipedBody.offsetY, bipedBody.offsetZ);

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 
+import com.darkona.adventurebackpack.client.gui.GuiAdvBackpack;
+
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IStackPositioner;
 import codechicken.nei.recipe.GuiRecipe;
-
-import com.darkona.adventurebackpack.client.gui.GuiAdvBackpack;
 
 public class BackpackStackPositioner implements IStackPositioner {
 

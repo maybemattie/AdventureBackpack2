@@ -27,13 +27,9 @@ import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * Created on 17/10/2014
- *
- * @author Darkona
- */
 public class GeneralEventHandler {
 
     @SubscribeEvent
@@ -110,6 +106,7 @@ public class GeneralEventHandler {
                         for (Object entry : horse.tasks.taskEntries) {
                             if (((EntityAITasks.EntityAITaskEntry) entry).action instanceof EntityAIHorseFollowOwner) {
                                 set = false;
+                                break;
                             }
                         }
                     }

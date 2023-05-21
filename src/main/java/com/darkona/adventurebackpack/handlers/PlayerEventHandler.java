@@ -46,14 +46,13 @@ import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 
 /**
- * Created on 11/10/2014 Handle ALL the events!
- *
- * @author Darkona
+ * This class handles ALL events of the mod.
+ * 
  * @see com.darkona.adventurebackpack.client.ClientActions
  */
 public class PlayerEventHandler {
 
-    public static HashSet<String> stepBoostedPlayers = new HashSet<String>();
+    public static HashSet<String> stepBoostedPlayers = new HashSet<>();
 
     @SubscribeEvent
     public void registerBackpackProperty(EntityEvent.EntityConstructing event) {
@@ -131,8 +130,8 @@ public class PlayerEventHandler {
             }
 
             if (event.entityLiving instanceof EntityFriendlySpider) {
-                if (((EntityFriendlySpider) event.entityLiving).riddenByEntity != null
-                        && ((EntityFriendlySpider) event.entityLiving).riddenByEntity instanceof EntityPlayer
+                if (event.entityLiving.riddenByEntity != null
+                        && event.entityLiving.riddenByEntity instanceof EntityPlayer
                         && event.distance < 5) {
                     event.setCanceled(true);
                 }

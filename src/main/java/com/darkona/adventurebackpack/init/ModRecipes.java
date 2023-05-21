@@ -17,11 +17,6 @@ import com.darkona.adventurebackpack.util.LogHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-/**
- * Created on 20/10/2014
- *
- * @author Darkona
- */
 public class ModRecipes {
 
     public static void init() {

@@ -12,11 +12,6 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.darkona.adventurebackpack.inventory.IInventoryTanks;
 
-/**
- * Created on 26.02.2018
- *
- * @author Ugachaga
- */
 @SuppressWarnings("WeakerAccess")
 abstract class TileAdventure extends TileEntity implements IInventoryTanks {
     // when porting to java 8+ most this methods should move to IInventoryTanks

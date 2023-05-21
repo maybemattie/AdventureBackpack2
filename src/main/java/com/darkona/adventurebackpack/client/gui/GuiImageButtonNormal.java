@@ -1,16 +1,11 @@
 package com.darkona.adventurebackpack.client.gui;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class GuiImageButtonNormal {
 
-    private int X;
-    private int Y;
-    private int W;
-    private int H;
+    private final int X;
+    private final int Y;
+    private final int W;
+    private final int H;
 
     public GuiImageButtonNormal(int U, int V, int W, int H) {
         this.X = U;

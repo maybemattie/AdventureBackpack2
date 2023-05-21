@@ -6,11 +6,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 
-/**
- * Created on 19/10/2014
- *
- * @author Darkona
- */
 public class ModelFullArmor extends ModelBiped {
 
     public ModelFullArmor() {

@@ -8,17 +8,12 @@ import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 16/01/2015
- *
- * @author Darkona
- */
 public class LeakingBoilerSound extends MovingSound {
 
-    private EntityPlayer thePlayer;
+    private final EntityPlayer thePlayer;
     private boolean repeat = true;
     private int repeatDelay = 0;
-    private float pitch;
+    private final float pitch;
 
     public LeakingBoilerSound(EntityPlayer player) {
         super(new ResourceLocation(ModInfo.MOD_ID, "s_background2"));

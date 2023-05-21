@@ -6,11 +6,6 @@ import com.darkona.adventurebackpack.init.ModDates;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.reference.ModInfo;
 
-/**
- * Created on 10/10/2014
- *
- * @author Darkona
- */
 public class Resources {
 
     private static final String TEXTURE_LOCATION = ModInfo.MOD_ID;

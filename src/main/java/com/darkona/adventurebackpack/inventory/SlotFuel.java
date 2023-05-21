@@ -4,11 +4,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-/**
- * Created on 17/01/2015
- *
- * @author Darkona
- */
 public class SlotFuel extends SlotAdventure {
 
     SlotFuel(IInventory inventory, int slotIndex, int posX, int posY) {

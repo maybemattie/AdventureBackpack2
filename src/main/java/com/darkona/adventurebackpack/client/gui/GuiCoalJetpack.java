@@ -15,21 +15,16 @@ import com.darkona.adventurebackpack.inventory.ContainerJetpack;
 import com.darkona.adventurebackpack.inventory.InventoryCoalJetpack;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 15/01/2015
- *
- * @author Darkona
- */
 public class GuiCoalJetpack extends GuiWithTanks {
 
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiCoalJetpack");
 
-    private static GuiImageButtonNormal equipButton = new GuiImageButtonNormal(150, 64, 18, 18);
-    private static GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(150, 64, 18, 18);
-    private static GuiTank waterTank = new GuiTank(8, 8, 72, 16, ConfigHandler.typeTankRender);
-    private static GuiTank steamTank = new GuiTank(116, 8, 72, 16, ConfigHandler.typeTankRender);
+    private static final GuiImageButtonNormal equipButton = new GuiImageButtonNormal(150, 64, 18, 18);
+    private static final GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(150, 64, 18, 18);
+    private static final GuiTank waterTank = new GuiTank(8, 8, 72, 16, ConfigHandler.typeTankRender);
+    private static final GuiTank steamTank = new GuiTank(116, 8, 72, 16, ConfigHandler.typeTankRender);
 
-    private InventoryCoalJetpack inventory;
+    private final InventoryCoalJetpack inventory;
 
     private int boiling = 0;
 

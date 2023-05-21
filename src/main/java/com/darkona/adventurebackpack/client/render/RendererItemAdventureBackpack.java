@@ -12,11 +12,6 @@ import com.darkona.adventurebackpack.inventory.InventoryBackpack;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Resources;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class RendererItemAdventureBackpack implements IItemRenderer {
 
     private final ModelBackpackBlock model;
@@ -29,12 +24,9 @@ public class RendererItemAdventureBackpack implements IItemRenderer {
     public boolean handleRenderType(ItemStack item, IItemRenderer.ItemRenderType type) {
         switch (type) {
             case INVENTORY:
-                return true;
             case ENTITY:
-                return true;
-            case EQUIPPED:
-                return true;
             case EQUIPPED_FIRST_PERSON:
+            case EQUIPPED:
                 return true;
             case FIRST_PERSON_MAP:
                 return false;
@@ -47,14 +39,11 @@ public class RendererItemAdventureBackpack implements IItemRenderer {
             IItemRenderer.ItemRendererHelper helper) {
         switch (type) {
             case INVENTORY:
-                return true;
             case ENTITY:
                 return true;
             case EQUIPPED:
-                return false;
-            case EQUIPPED_FIRST_PERSON:
-                return false;
             case FIRST_PERSON_MAP:
+            case EQUIPPED_FIRST_PERSON:
                 return false;
         }
         return false;

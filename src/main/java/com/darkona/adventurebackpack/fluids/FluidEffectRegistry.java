@@ -7,8 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 
-import adventurebackpack.api.FluidEffect;
-
 import com.darkona.adventurebackpack.fluids.effects.LavaEffect;
 import com.darkona.adventurebackpack.fluids.effects.MelonJuiceEffect;
 import com.darkona.adventurebackpack.fluids.effects.MilkEffect;
@@ -18,14 +16,11 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ImmutableMap;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
+import adventurebackpack.api.FluidEffect;
+
 public class FluidEffectRegistry {
 
-    static BiMap<String, FluidEffect> EFFECT_REGISTRY = HashBiMap.create();
+    static final BiMap<String, FluidEffect> EFFECT_REGISTRY = HashBiMap.create();
 
     public static FluidEffect LAVA_EFFECT;
     public static FluidEffect MILK_EFFECT;
@@ -82,7 +77,7 @@ public class FluidEffectRegistry {
     }
 
     public static ArrayList<FluidEffect> getEffectsForFluid(Fluid fluid) {
-        ArrayList<FluidEffect> effectsForFluid = new ArrayList<FluidEffect>();
+        ArrayList<FluidEffect> effectsForFluid = new ArrayList<>();
         for (FluidEffect effect : EFFECT_REGISTRY.values()) {
             if (fluid == effect.fluid) {
                 effectsForFluid.add(effect);

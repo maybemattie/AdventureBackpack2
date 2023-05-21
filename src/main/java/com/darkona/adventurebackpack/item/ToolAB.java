@@ -13,9 +13,6 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created by Darkona on 11/10/2014.
- */
 public class ToolAB extends ItemTool {
 
     ToolAB(ToolMaterial material, Set breakableBlocks) {

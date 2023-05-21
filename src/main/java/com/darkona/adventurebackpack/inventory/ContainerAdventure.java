@@ -11,11 +11,6 @@ import net.minecraft.item.ItemStack;
 
 import com.darkona.adventurebackpack.common.Constants.Source;
 
-/**
- * Created on 10.04.2017
- *
- * @author Ugachaga
- */
 @SuppressWarnings("WeakerAccess")
 public abstract class ContainerAdventure extends Container {
 

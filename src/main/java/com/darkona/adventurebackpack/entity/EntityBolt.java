@@ -5,11 +5,6 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-/**
- * Created on 07/01/2015
- *
- * @author Darkona
- */
 public class EntityBolt extends Entity implements IProjectile {
 
     public EntityBolt(World world) {
@@ -32,7 +27,7 @@ public class EntityBolt extends Entity implements IProjectile {
     protected void writeEntityToNBT(NBTTagCompound compound) {}
 
     /**
-     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
+     * Similar to setArrowHeading, it points the throwable entity to an x, y, z direction.
      */
     @Override
     public void setThrowableHeading(double x, double y, double z, float speedMultiplier, float whatever) {}

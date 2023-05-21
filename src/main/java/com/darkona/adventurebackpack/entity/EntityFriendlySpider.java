@@ -27,18 +27,22 @@ import net.minecraft.world.World;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 11/01/2015
- *
- * @author Darkona
- */
 public class EntityFriendlySpider extends EntityCreature {
 
     private float prevRearingAmount;
     private int jumpTicks;
     private EntityPlayer owner;
-    private boolean tamed = false;
-    private final EntityAIControlledByPlayer aiControlledByPlayer;
+    private final boolean tamed = false;
+
+    public EntityFriendlySpider(World world) {
+        super(world);
+        this.setSize(1.4F, 0.9F);
+        this.tasks.addTask(0, new EntityAISwimming(this));
+        this.tasks.addTask(2, new EntityAIControlledByPlayer(this, 0.3F));
+        this.tasks.addTask(6, new EntityAIWander(this, 0.7D));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(8, new EntityAILookIdle(this));
+    }
 
     @Override
     protected void entityInit() {
@@ -52,16 +56,6 @@ public class EntityFriendlySpider extends EntityCreature {
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.15D);
         this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(40.0D);
-    }
-
-    public EntityFriendlySpider(World world) {
-        super(world);
-        this.setSize(1.4F, 0.9F);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, this.aiControlledByPlayer = new EntityAIControlledByPlayer(this, 0.3F));
-        this.tasks.addTask(6, new EntityAIWander(this, 0.7D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
     }
 
     @Override
@@ -110,16 +104,12 @@ public class EntityFriendlySpider extends EntityCreature {
             return false;
         } else if (super.attackEntityFrom(damageSource, amount)) {
             Entity entity = damageSource.getEntity();
-
             if (this.riddenByEntity != entity && this.ridingEntity != entity) {
                 if (entity != this) {
                     this.entityToAttack = entity;
                 }
-
-                return true;
-            } else {
-                return true;
             }
+            return true;
         } else {
             return false;
         }
@@ -222,7 +212,7 @@ public class EntityFriendlySpider extends EntityCreature {
             b0 &= -2;
         }
 
-        this.dataWatcher.updateObject(16, Byte.valueOf(b0));
+        this.dataWatcher.updateObject(16, b0);
     }
 
     @Override
@@ -329,11 +319,6 @@ public class EntityFriendlySpider extends EntityCreature {
     }
 
     @Override
-    public double getMountedYOffset() {
-        return super.getMountedYOffset();
-    }
-
-    @Override
     public void moveEntityWithHeading(float strafe, float forward) {
         if (this.riddenByEntity != null) {
             this.prevRotationYaw = this.rotationYaw = this.riddenByEntity.rotationYaw;
@@ -408,11 +393,11 @@ public class EntityFriendlySpider extends EntityCreature {
 
             if (i <= 1) {
                 this.field_111105_a = Potion.moveSpeed.id;
-            } else if (i <= 2) {
+            } else if (i == 2) {
                 this.field_111105_a = Potion.damageBoost.id;
-            } else if (i <= 3) {
+            } else if (i == 3) {
                 this.field_111105_a = Potion.regeneration.id;
-            } else if (i <= 4) {
+            } else {
                 this.field_111105_a = Potion.invisibility.id;
             }
         }
@@ -469,6 +454,6 @@ public class EntityFriendlySpider extends EntityCreature {
 
     @Override
     public boolean isPotionApplicable(PotionEffect p_70687_1_) {
-        return p_70687_1_.getPotionID() == Potion.poison.id ? false : super.isPotionApplicable(p_70687_1_);
+        return p_70687_1_.getPotionID() != Potion.poison.id && super.isPotionApplicable(p_70687_1_);
     }
 }

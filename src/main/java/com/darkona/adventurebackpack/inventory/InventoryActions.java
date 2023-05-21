@@ -12,18 +12,13 @@ import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.util.FluidUtils;
 
-/**
- * Created on 16/10/2014
- *
- * @author Darkona
- */
 public class InventoryActions {
 
     /**
-     * What a complicated mess. I hated every minute of coding this. This code takes a fluid container item. If its
-     * filled, it empties it out into a tank. If its empty, it drains the tank into the item. Then it puts the resulting
-     * filled or empty item into a different slot, consuming the first one. If there is no empty container, such as the
-     * Forestry Cells, it simply fills the tank.
+     * What a complicated mess. I hated every minute of coding this. This code takes a fluid container item. If it's
+     * filled, it empties it out into a tank. If it's empty, it drains the tank into the item. Then it puts the
+     * resulting filled or empty item into a different slot, consuming the first one. If there is no empty container,
+     * such as the Forestry Cells, it simply fills the tank.
      *
      * @param inventory The inventory type thing that will have its tank updated.
      * @param tank      The tank that's going to be updated.
@@ -49,10 +44,9 @@ public class InventoryActions {
 
         // CONTAINER ===========> TANK
         if (FluidContainerRegistry.isFilledContainer(stackIn)) {
-            int fill = tank.fill(FluidContainerRegistry.getFluidForFilledItem(stackIn), false); // See if the tank can
-                                                                                                // accept moar fluid
-
-            if (fill > 0) // If can accept the fluid
+            // See if the tank can accept more fluid
+            int fill = tank.fill(FluidContainerRegistry.getFluidForFilledItem(stackIn), false);
+            if (fill > 0) // If it can accept the fluid
             {
                 if (FluidContainerRegistry.getContainerCapacity(stackIn) + tank.getFluidAmount()
                         <= tank.getCapacity()) {

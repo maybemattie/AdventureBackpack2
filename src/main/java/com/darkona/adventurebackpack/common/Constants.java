@@ -2,11 +2,6 @@ package com.darkona.adventurebackpack.common;
 
 import net.minecraftforge.fluids.FluidContainerRegistry;
 
-/**
- * Created on 11/10/2014.
- *
- * @author Javier Darkona
- */
 public class Constants {
 
     public enum Source // TODO move to separate class?
@@ -29,8 +24,6 @@ public class Constants {
      * ### Adventure Backpack ###
      */
     public static final int BASIC_TANK_CAPACITY = BUCKET * 4;
-    // public static final int ADVANCED_TANK_CAPACITY = BUCKET * 8; // upgrade system?
-    // public static final int HEROIC_TANK_CAPACITY = BUCKET * 12;
 
     // Inventory Slots
     public static final int INVENTORY_SIZE = 54;
@@ -57,11 +50,11 @@ public class Constants {
     public static final String TAG_HOLDING_SPACE = "holdingSpace";
     public static final String TAG_SLEEPING_IN_BAG = "sleepingInBag";
 
-    public class Jetpack {
+    /**
+     * Coal jetpack
+     */
+    public static class Jetpack {
 
-        /**
-         * ### Coal Jetpack ###
-         */
         public static final int MAX_TEMPERATURE = 200;
 
         public static final int WATER_CAPACITY = BUCKET * 6;
@@ -78,11 +71,11 @@ public class Constants {
         public static final String TAG_STEAM_TANK = "steamTank";
     }
 
-    public class Copter {
+    /**
+     * Copter Pack
+     */
+    public static class Copter {
 
-        /**
-         * ### Copter Pack ###
-         */
         public static final int FUEL_CAPACITY = BUCKET * 16;
 
         // Inventory Slots

@@ -16,12 +16,9 @@ import net.minecraft.util.Vec3;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
 
-    private BackpackTypes type;
+    private final BackpackTypes type;
 
     public final IEntitySelector field_98218_a = new AvoidEntitySelector(this);
 
@@ -30,10 +27,10 @@ public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
      */
     public EntityCreature theEntity;
 
-    private double farSpeed;
-    private double nearSpeed;
+    private final double farSpeed;
+    private final double nearSpeed;
     private Entity closestLivingEntity;
-    private float distanceFromEntity;
+    private final float distanceFromEntity;
 
     /**
      * The PathEntity of our com.darkona.adventurebackpack.entity
@@ -43,12 +40,12 @@ public class EntityAIAvoidPlayerWithBackpack extends EntityAIBase {
     /**
      * The PathNavigate of our com.darkona.adventurebackpack.entity
      */
-    private PathNavigate entityPathNavigate;
+    private final PathNavigate entityPathNavigate;
 
     /**
      * The class of the com.darkona.adventurebackpack.entity we should avoid
      */
-    private Class targetEntityClass;
+    private final Class targetEntityClass;
 
     public EntityAIAvoidPlayerWithBackpack(EntityCreature par1EntityCreature, Class par2Class, float par3, double par4,
             double par6, BackpackTypes type) {

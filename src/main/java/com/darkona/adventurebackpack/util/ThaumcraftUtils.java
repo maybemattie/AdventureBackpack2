@@ -5,11 +5,6 @@ import net.minecraftforge.client.IItemRenderer;
 
 import com.darkona.adventurebackpack.reference.LoadedMods;
 
-/**
- * Created on 06.02.2018
- *
- * @author Ugachaga
- */
 public final class ThaumcraftUtils {
 
     public static final boolean DIAL_BOTTOM = setDialBottom();
@@ -34,7 +29,7 @@ public final class ThaumcraftUtils {
         if (Utils.inClient()) {
             try {
                 toolRenderer = Class.forName(CLASS_RENDERER);
-                toolRendererInstance = toolRenderer.newInstance();
+                toolRendererInstance = toolRenderer.getConstructor().newInstance();
             } catch (Exception e) {
                 LogHelper.error("Error getting instance of Thaumcraft Wands Renderer: " + e);
             }

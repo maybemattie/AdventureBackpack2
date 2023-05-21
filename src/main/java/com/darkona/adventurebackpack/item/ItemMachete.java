@@ -19,14 +19,9 @@ import com.darkona.adventurebackpack.CreativeTabAB;
 import com.darkona.adventurebackpack.init.ModMaterials;
 import com.google.common.collect.Sets;
 
-/**
- * Created on 10/10/2014
- *
- * @author Darkona
- */
 public class ItemMachete extends ToolAB {
 
-    private static final Set BREAKABLE_BLOCKS = Sets.newHashSet(
+    private static final Set<Block> BREAKABLE_BLOCKS = Sets.newHashSet(
             Blocks.pumpkin,
             Blocks.web,
             Blocks.leaves,
@@ -52,7 +47,7 @@ public class ItemMachete extends ToolAB {
             Blocks.wool);
 
     @SuppressWarnings("FieldCanBeLocal")
-    private float field_150934_a;
+    private final float field_150934_a;
 
     public ItemMachete() {
 

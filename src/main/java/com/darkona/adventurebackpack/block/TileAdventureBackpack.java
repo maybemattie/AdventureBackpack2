@@ -46,16 +46,13 @@ import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created by Darkona on 12/10/2014.
- */
 public class TileAdventureBackpack extends TileAdventure implements IInventoryBackpack, ISidedInventory {
 
     private static final int[] MAIN_INVENTORY_SLOTS = Utils.createSlotArray(0, Constants.INVENTORY_MAIN_SIZE);
 
     private BackpackTypes type = BackpackTypes.STANDARD;
-    private FluidTank leftTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
-    private FluidTank rightTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
+    private final FluidTank leftTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
+    private final FluidTank rightTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
     private NBTTagCompound extendedProperties = new NBTTagCompound();
 
     private NBTTagList ench;
@@ -342,7 +339,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
             BackpackAbilities.backpackAbilities.executeTileAbility(this.worldObj, this);
         }
 
-        // Check for backpack luminosity and a deployed sleeping bag, just in case because i'm super paranoid.
+        // Check for backpack luminosity and a deployed sleeping bag
         if (checkTime == 0) {
             int lastLumen = luminosity;
             int left = (leftTank.getFluid() != null) ? leftTank.getFluid().getFluid().getLuminosity() : 0;

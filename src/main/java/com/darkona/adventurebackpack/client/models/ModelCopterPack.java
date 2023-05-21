@@ -11,18 +11,13 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 
-import codechicken.lib.vec.Vector3;
-
 import com.darkona.adventurebackpack.inventory.InventoryCopterPack;
 import com.darkona.adventurebackpack.item.ItemCopterPack;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.Utils;
 
-/**
- * Created on 31/12/2014
- *
- * @author Darkona
- */
+import codechicken.lib.vec.Vector3;
+
 public class ModelCopterPack extends ModelWearable {
 
     public static ModelCopterPack instance = new ModelCopterPack();
@@ -221,7 +216,7 @@ public class ModelCopterPack extends ModelWearable {
 
         if (entity == null) Axis.isHidden = true;
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        if (entity != null && entity instanceof EntityPlayer) {
+        if (entity instanceof EntityPlayer) {
             GL11.glPushMatrix();
 
             GL11.glTranslatef(bipedBody.offsetX, bipedBody.offsetY, bipedBody.offsetZ);

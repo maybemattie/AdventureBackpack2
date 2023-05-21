@@ -45,11 +45,6 @@ import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 12/10/2014.
- *
- * @author Javier Darkona
- */
 public class BlockAdventureBackpack extends BlockContainer {
 
     public BlockAdventureBackpack() {
@@ -331,7 +326,7 @@ public class BlockAdventureBackpack extends BlockContainer {
     @Override
     public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof IInventory) {
+        if (te instanceof IInventory) {
             IInventory inventory = (IInventory) te;
 
             for (int i = 0; i < inventory.getSizeInventory(); i++) {

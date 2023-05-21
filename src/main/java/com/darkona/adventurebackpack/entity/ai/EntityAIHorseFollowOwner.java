@@ -11,21 +11,16 @@ import net.minecraft.world.World;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.Wearing;
 
-/**
- * Created on 09/01/2015
- *
- * @author Darkona
- */
 public class EntityAIHorseFollowOwner extends EntityAIBase {
 
-    private EntityHorse theHorse;
+    private final EntityHorse theHorse;
     private EntityPlayer theOwner;
-    World theWorld;
-    private double speed;
+    final World theWorld;
+    private final double speed;
     private PathNavigate petPathfinder;
     private int tickCounter;
-    float maxDist;
-    float minDist;
+    final float maxDist;
+    final float minDist;
     private boolean avoidWater;
 
     public EntityAIHorseFollowOwner(EntityHorse horse, double speed, float minDist, float maxDist) {
@@ -55,10 +50,7 @@ public class EntityAIHorseFollowOwner extends EntityAIBase {
             }
         }
         if (!Wearing.isWearingTheRightBackpack(theOwner, BackpackTypes.HORSE)) return false;
-        if (theHorse.getDistanceSqToEntity(theOwner) < minDist * minDist * 20) {
-            return false;
-        }
-        return true;
+        return !(theHorse.getDistanceSqToEntity(theOwner) < minDist * minDist * 20);
     }
 
     @Override
@@ -81,9 +73,11 @@ public class EntityAIHorseFollowOwner extends EntityAIBase {
         theHorse.getNavigator().setAvoidsWater(this.avoidWater);
     }
 
+    /**
+     * This function is likely unfinished.
+     */
     @Override
     public void updateTask() {
-        // theHorse.getLookHelper().setLookPositionWithEntity(theOwner, 10.0F, this.theHorse.getVerticalFaceSpeed());
         if (--tickCounter <= 0) {
             tickCounter = 10;
             if (!theHorse.getLeashed()) {

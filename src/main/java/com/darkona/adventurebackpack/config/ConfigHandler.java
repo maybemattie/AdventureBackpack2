@@ -9,11 +9,6 @@ import com.darkona.adventurebackpack.reference.ModInfo;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-/**
- * Created on 10/10/2014.
- *
- * @author Javier Darkona
- */
 public class ConfigHandler {
 
     public static Configuration config;
@@ -54,7 +49,7 @@ public class ConfigHandler {
     public static boolean enableItemFilters = false;
     public static String[] forbiddenDimensions;
     public static String[] copterFuels;
-    private static String[] defaultFuels = { "biodiesel, 1.0", "biofuel, 1.0", "bioethanol, 1.5", "creosote, 7.0",
+    private static final String[] defaultFuels = { "biodiesel, 1.0", "biofuel, 1.0", "bioethanol, 1.5", "creosote, 7.0",
             "fuel, 0.8", "lava, 5.0", "liquid_light_oil, 3.0", "liquid_medium_oil, 3.0", "liquid_heavy_oil, 3.0",
             "liquid_light_fuel, 1.0", "liquid_heavy_fuel, 1.3", "nitrofuel, 0.4", "oil, 3.0", "rocket_fuel, 0.8" };
 
@@ -62,7 +57,7 @@ public class ConfigHandler {
     public static String[] nameInternalID;
     public static String[] nameInternalIDs;
     public static String[] nameUnlocalized;
-    private static String[] nameDefault = {};
+    private static final String[] nameDefault = {};
 
     public static boolean consumeDragonEgg = false;
     public static boolean recipeAdventuresSet = true;

@@ -13,9 +13,6 @@ import net.minecraftforge.fluids.FluidTank;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.guihook.IContainerTooltipHandler;
-
 import com.darkona.adventurebackpack.block.TileAdventureBackpack;
 import com.darkona.adventurebackpack.common.Constants;
 import com.darkona.adventurebackpack.common.Constants.Source;
@@ -30,27 +27,24 @@ import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.TinkersUtils;
 
+import codechicken.nei.guihook.GuiContainerManager;
+import codechicken.nei.guihook.IContainerTooltipHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 @SideOnly(Side.CLIENT)
 public class GuiAdvBackpack extends GuiWithTanks {
 
     private static final ResourceLocation TEXTURE = Resources.guiTextures("guiBackpackNew");
     private static final int TINKERS_SLOT = 38; // ContainerBackpack.CRAFT_MATRIX_EMULATION[4]
 
-    private static GuiImageButtonNormal bedButton = new GuiImageButtonNormal(5, 91, 18, 18);
-    private static GuiImageButtonNormal equipButton = new GuiImageButtonNormal(5, 91, 18, 18);
-    private static GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(5, 91, 18, 18);
-    private static GuiTank tankLeft = new GuiTank(25, 7, 100, 16, ConfigHandler.typeTankRender);
-    private static GuiTank tankRight = new GuiTank(207, 7, 100, 16, ConfigHandler.typeTankRender);
+    private static final GuiImageButtonNormal bedButton = new GuiImageButtonNormal(5, 91, 18, 18);
+    private static final GuiImageButtonNormal equipButton = new GuiImageButtonNormal(5, 91, 18, 18);
+    private static final GuiImageButtonNormal unequipButton = new GuiImageButtonNormal(5, 91, 18, 18);
+    private static final GuiTank tankLeft = new GuiTank(25, 7, 100, 16, ConfigHandler.typeTankRender);
+    private static final GuiTank tankRight = new GuiTank(207, 7, 100, 16, ConfigHandler.typeTankRender);
 
-    private IInventoryBackpack inventory;
+    private final IInventoryBackpack inventory;
 
     private boolean isHoldingSpace;
 

@@ -5,11 +5,6 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
-/**
- * Created on 14/10/2014
- *
- * @author Darkona
- */
 public class Keybindings {
 
     private static final String KEYS_CATEGORY = "keys.adventureBackpack.category";

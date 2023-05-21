@@ -27,11 +27,6 @@ import com.darkona.adventurebackpack.init.ModBlocks;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
 import com.darkona.adventurebackpack.util.CoordsUtils;
 
-/**
- * Created on 12/10/2014
- *
- * @author Darkona
- */
 public class InventoryBackpack extends InventoryAdventure implements IInventoryBackpack {
 
     private static final String TAG_IS_SLEEPING_BAG = "sleepingBag";
@@ -40,8 +35,8 @@ public class InventoryBackpack extends InventoryAdventure implements IInventoryB
     private static final String TAG_SLEEPING_BAG_Z = "sleepingBagZ";
 
     private BackpackTypes type = BackpackTypes.STANDARD;
-    private FluidTank leftTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
-    private FluidTank rightTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
+    private final FluidTank leftTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
+    private final FluidTank rightTank = new FluidTank(Constants.BASIC_TANK_CAPACITY);
     private NBTTagCompound extendedProperties = new NBTTagCompound();
 
     private boolean sleepingBagDeployed = false;

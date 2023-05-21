@@ -17,7 +17,6 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidTank;
 
 import com.darkona.adventurebackpack.init.ModItems;
 
@@ -26,14 +25,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 
-/**
- * Created on 05/01/2015
- *
- * @author Darkona
- */
 public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTanks, */ IEntityAdditionalSpawnData {
 
-    private FluidTank fuelTank;
     private boolean isBoatEmpty;
     private double speedMultiplier;
     private int boatPosRotationIncrements;
@@ -59,10 +52,6 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
 
     // boat is in EARLY ALPHA stage
 
-    public boolean isMotorized() {
-        return motorized;
-    }
-
     public EntityInflatableBoat(World world) {
         super(world);
     }
@@ -70,7 +59,10 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
     public EntityInflatableBoat(World world, double posX, double posY, double posZ, boolean motorized) {
         super(world, posX, posY, posZ);
         setMotorized(motorized);
-        fuelTank = new FluidTank(6000);
+    }
+
+    public boolean isMotorized() {
+        return motorized;
     }
 
     public boolean isInflated() {
@@ -106,7 +98,7 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
         double d0 = 0.0D;
 
         for (int i = 0; i < b0; ++i) {
-            double d1 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 0) / b0 - 0.125D;
+            double d1 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i) / b0 - 0.125D;
             double d3 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (i + 1) / b0 - 0.125D;
             AxisAlignedBB axisalignedbb = AxisAlignedBB.getBoundingBox(
                     this.boundingBox.minX,
@@ -131,7 +123,7 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
             d4 = Math.sin((double) this.rotationYaw * Math.PI / 180.0D);
 
             for (j = 0; (double) j < 1.0D + horizontalMotion * 60.0D; ++j) {
-                double d5 = (double) (this.rand.nextFloat() * 2.0F - 1.0F);
+                double d5 = this.rand.nextFloat() * 2.0F - 1.0F;
                 double d6 = (double) (this.rand.nextInt(2) * 2 - 1) * 0.7D;
                 double d8;
                 double d9;
@@ -208,10 +200,10 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
             if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityLivingBase) {
                 EntityLivingBase entitylivingbase = (EntityLivingBase) this.riddenByEntity;
                 float f = this.riddenByEntity.rotationYaw + -entitylivingbase.moveStrafing * 90.0F;
-                this.motionX += -Math.sin((double) (f * (float) Math.PI / 180.0F)) * this.speedMultiplier
+                this.motionX += -Math.sin(f * (float) Math.PI / 180.0F) * this.speedMultiplier
                         * (double) entitylivingbase.moveForward
                         * 0.05000000074505806D;
-                this.motionZ += Math.cos((double) (f * (float) Math.PI / 180.0F)) * this.speedMultiplier
+                this.motionZ += Math.cos(f * (float) Math.PI / 180.0F) * this.speedMultiplier
                         * (double) entitylivingbase.moveForward
                         * 0.05000000074505806D;
             }
@@ -275,12 +267,12 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
              */
 
             this.rotationPitch = 0.0F;
-            d4 = (double) this.rotationYaw;
+            d4 = this.rotationYaw;
             d11 = this.prevPosX - this.posX;
             d12 = this.prevPosZ - this.posZ;
 
             if (d11 * d11 + d12 * d12 > 0.001D) {
-                d4 = (double) ((float) (Math.atan2(d12, d11) * 180.0D / Math.PI));
+                d4 = (float) (Math.atan2(d12, d11) * 180.0D / Math.PI);
             }
 
             double d7 = MathHelper.wrapAngleTo180_double(d4 - (double) this.rotationYaw);
@@ -302,8 +294,8 @@ public class EntityInflatableBoat extends EntityBoat implements /* IInventoryTan
                         this.boundingBox.expand(0.20000000298023224D, 0.0D, 0.20000000298023224D));
 
                 if (list != null && !list.isEmpty()) {
-                    for (int k1 = 0; k1 < list.size(); ++k1) {
-                        Entity entity = (Entity) list.get(k1);
+                    for (Object o : list) {
+                        Entity entity = (Entity) o;
 
                         if (entity != this.riddenByEntity && entity.canBePushed() && entity instanceof EntityBoat) {
                             entity.applyEntityCollision(this);

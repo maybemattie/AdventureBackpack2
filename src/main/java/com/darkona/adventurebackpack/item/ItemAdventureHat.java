@@ -10,9 +10,6 @@ import com.darkona.adventurebackpack.client.models.ModelAdventureHat;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/**
- * Created by Darkona on 11/10/2014.
- */
 public class ItemAdventureHat extends ArmorAB {
 
     public ItemAdventureHat() {
