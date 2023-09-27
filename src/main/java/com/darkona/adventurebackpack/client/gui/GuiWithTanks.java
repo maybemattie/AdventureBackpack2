@@ -10,6 +10,10 @@ import com.darkona.adventurebackpack.common.Constants.Source;
 import com.darkona.adventurebackpack.config.Keybindings;
 import com.darkona.adventurebackpack.init.ModNetwork;
 import com.darkona.adventurebackpack.network.EquipUnequipBackWearablePacket;
+import com.darkona.adventurebackpack.reference.LoadedMods;
+import com.darkona.adventurebackpack.util.TConstructTab;
+
+import tconstruct.client.tabs.TabRegistry;
 
 public abstract class GuiWithTanks extends GuiContainer {
 
@@ -83,4 +87,14 @@ public abstract class GuiWithTanks extends GuiContainer {
 
         super.handleMouseInput();
     }
+
+    @Override
+    public void initGui() {
+        super.initGui();
+        if (LoadedMods.TCONSTRUCT && source == Source.WEARING) {
+            TabRegistry.updateTabValues(guiLeft, guiTop, TConstructTab.class);
+            TabRegistry.addTabsToList(this.buttonList);
+        }
+    }
+
 }
