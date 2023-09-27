@@ -2,5 +2,5 @@
 
 dependencies {
     api("com.github.GTNewHorizons:waila:1.6.0:dev")
-    api("com.github.GTNewHorizons:NotEnoughItems:2.3.52-GTNH:dev")
+    api("com.github.GTNewHorizons:NotEnoughItems:2.4.3-GTNH:dev")
 }
