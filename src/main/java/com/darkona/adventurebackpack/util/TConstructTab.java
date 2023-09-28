@@ -22,7 +22,7 @@ public class TConstructTab extends AbstractTab {
     ResourceLocation texture = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
 
     public TConstructTab() {
-        super(5, 0, 0, BackpackUtils.createBackpackStack(BackpackTypes.STANDARD));
+        super(0, 0, 0, BackpackUtils.createBackpackStack(BackpackTypes.STANDARD));
     }
 
     @Override
