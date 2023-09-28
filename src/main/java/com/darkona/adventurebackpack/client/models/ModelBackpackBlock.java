@@ -1,6 +1,13 @@
 package com.darkona.adventurebackpack.client.models;
 
-import static com.darkona.adventurebackpack.reference.BackpackTypes.*;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.HORSE;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.IRON_GOLEM;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.OCELOT;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.PIG;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.QUARTZ;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.SLIME;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.SNOW;
+import static com.darkona.adventurebackpack.reference.BackpackTypes.VILLAGER;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
