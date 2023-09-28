@@ -30,7 +30,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
-import tconstruct.client.tabs.TabRegistry;
 
 @Mod(
         modid = ModInfo.MOD_ID,
@@ -75,7 +74,7 @@ public class AdventureBackpack {
         ModRecipes.init();
         ModWorldGen.init();
         if (LoadedMods.WAILA) WailaTileAdventureBackpack.init();
-        if (LoadedMods.TCONSTRUCT) TabRegistry.registerTab(new TConstructTab());
+        if (LoadedMods.TCONSTRUCT) TConstructTab.registerTab();
 
         // GUIs
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());

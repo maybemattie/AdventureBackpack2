@@ -13,8 +13,6 @@ import com.darkona.adventurebackpack.network.EquipUnequipBackWearablePacket;
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.util.TConstructTab;
 
-import tconstruct.client.tabs.TabRegistry;
-
 public abstract class GuiWithTanks extends GuiContainer {
 
     protected EntityPlayer player;
@@ -92,8 +90,8 @@ public abstract class GuiWithTanks extends GuiContainer {
     public void initGui() {
         super.initGui();
         if (LoadedMods.TCONSTRUCT && source == Source.WEARING) {
-            TabRegistry.updateTabValues(guiLeft, guiTop, TConstructTab.class);
-            TabRegistry.addTabsToList(this.buttonList);
+            TConstructTab.updateTabValues(guiLeft, guiTop, TConstructTab.Tab.class);
+            TConstructTab.addTabsToList(this.buttonList);
         }
     }
 

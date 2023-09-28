@@ -1,5 +1,7 @@
 package com.darkona.adventurebackpack.util;
 
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.RenderHelper;
@@ -13,77 +15,118 @@ import org.lwjgl.opengl.GL12;
 import com.darkona.adventurebackpack.init.ModNetwork;
 import com.darkona.adventurebackpack.network.GUIPacket;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
+import com.darkona.adventurebackpack.reference.LoadedMods;
 
+import cpw.mods.fml.common.Optional;
 import tconstruct.client.tabs.AbstractTab;
+import tconstruct.client.tabs.TabRegistry;
 
-public class TConstructTab extends AbstractTab {
+public class TConstructTab {
 
-    RenderItem itemRenderer = new RenderItem();
-    ResourceLocation texture = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
+    private static boolean enabled = false;
 
-    public TConstructTab() {
-        super(0, 0, 0, BackpackUtils.createBackpackStack(BackpackTypes.STANDARD));
+    static {
+        enabled = LoadedMods.TCONSTRUCT;
     }
 
-    @Override
-    public void onTabClicked() {
-        EntityClientPlayerMP playerMP = Minecraft.getMinecraft().thePlayer;
-        byte backpackType = 0;
-        if (Wearing.getWearingBackpack(playerMP) != null) backpackType = GUIPacket.BACKPACK_GUI;
-        else if (Wearing.getWearingCopter(playerMP) != null) backpackType = GUIPacket.COPTER_GUI;
-        else if (Wearing.getWearingJetpack(playerMP) != null) backpackType = GUIPacket.JETPACK_GUI;
-        else return;
-        ModNetwork.net.sendToServer(new GUIPacket.GUImessage(backpackType, GUIPacket.FROM_WEARING));
-
+    public static void registerTab() {
+        if (enabled) {
+            registerTabImpl(new Tab());
+        }
     }
 
-    @Override
-    public boolean shouldAddToList() {
-        return Wearing.isWearingWearable(Minecraft.getMinecraft().thePlayer);
+    @Optional.Method(modid = "TConstruct")
+    private static void registerTabImpl(AbstractTab tab) {
+        TabRegistry.registerTab(tab);
     }
 
-    /**
-     * Draws this button to the screen. Code from TinkersConstruct and modified for dynamic and depth-enabled backpack
-     * rendering
-     */
-    @Override
-    public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-        if (this.visible) {
-            ItemStack renderStack = Wearing.getWearingWearable(Minecraft.getMinecraft().thePlayer);
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+    private static void updateTabValuesImpl(int cornerX, int cornerY, Class<?> selectedButton) {
+        TabRegistry.updateTabValues(cornerX, cornerY, selectedButton);
+    }
 
-            int yTexPos = this.enabled ? 3 : 32;
-            int ySize = this.enabled ? 25 : 32;
-            int xOffset = this.id == 2 ? 0 : 1;
-            int yPos = this.yPosition + (this.enabled ? 3 : 0);
+    public static void updateTabValues(int cornerX, int cornerY, Class<?> selectedButton) {
+        if (enabled) updateTabValuesImpl(cornerX, cornerY, selectedButton);
+    }
 
-            mc.renderEngine.bindTexture(this.texture);
-            this.drawTexturedModalRect(this.xPosition, yPos, xOffset * 28, yTexPos, 28, ySize);
+    public static void addTabsToListImpl(List buttonList) {
+        TabRegistry.addTabsToList(buttonList);
+    }
 
-            RenderHelper.enableGUIStandardItemLighting();
-            this.zLevel = 100.0F;
-            this.itemRenderer.zLevel = 100.0F;
-            GL11.glEnable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
-            this.itemRenderer.renderItemAndEffectIntoGUI(
-                    mc.fontRenderer,
-                    mc.renderEngine,
-                    renderStack,
-                    xPosition + 6,
-                    yPosition + 8);
-            this.itemRenderer.renderItemOverlayIntoGUI(
-                    mc.fontRenderer,
-                    mc.renderEngine,
-                    renderStack,
-                    xPosition + 6,
-                    yPosition + 8);
-            GL11.glDisable(GL11.GL_DEPTH_TEST);
-            GL11.glDisable(GL11.GL_LIGHTING);
-            GL11.glEnable(GL11.GL_BLEND);
-            this.itemRenderer.zLevel = 0.0F;
-            this.zLevel = 0.0F;
-            RenderHelper.disableStandardItemLighting();
+    public static void addTabsToList(List buttonList) {
+        if (enabled) addTabsToListImpl(buttonList);
+    }
+
+    @Optional.Interface(iface = "tconstruct.client.tabs.AbstractTab", modid = "TConstruct")
+    public static class Tab extends AbstractTab {
+
+        public static final RenderItem itemRenderer = new RenderItem();
+        public static final ResourceLocation texture = new ResourceLocation(
+                "textures/gui/container/creative_inventory/tabs.png");
+
+        public Tab() {
+            super(0, 0, 0, BackpackUtils.createBackpackStack(BackpackTypes.STANDARD));
+        }
+
+        @Override
+        public void onTabClicked() {
+            EntityClientPlayerMP playerMP = Minecraft.getMinecraft().thePlayer;
+            byte backpackType = 0;
+            if (Wearing.getWearingBackpack(playerMP) != null) backpackType = GUIPacket.BACKPACK_GUI;
+            else if (Wearing.getWearingCopter(playerMP) != null) backpackType = GUIPacket.COPTER_GUI;
+            else if (Wearing.getWearingJetpack(playerMP) != null) backpackType = GUIPacket.JETPACK_GUI;
+            else return;
+            ModNetwork.net.sendToServer(new GUIPacket.GUImessage(backpackType, GUIPacket.FROM_WEARING));
+
+        }
+
+        @Override
+        public boolean shouldAddToList() {
+            return Wearing.isWearingWearable(Minecraft.getMinecraft().thePlayer);
+        }
+
+        /**
+         * Draws this button to the screen. Code from TinkersConstruct and modified for dynamic and depth-enabled
+         * backpack rendering
+         */
+        @Override
+        public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+            if (this.visible) {
+                ItemStack renderStack = Wearing.getWearingWearable(Minecraft.getMinecraft().thePlayer);
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+                int yTexPos = this.enabled ? 3 : 32;
+                int ySize = this.enabled ? 25 : 32;
+                int xOffset = this.id == 2 ? 0 : 1;
+                int yPos = this.yPosition + (this.enabled ? 3 : 0);
+
+                mc.renderEngine.bindTexture(texture);
+                this.drawTexturedModalRect(this.xPosition, yPos, xOffset * 28, yTexPos, 28, ySize);
+
+                RenderHelper.enableGUIStandardItemLighting();
+                this.zLevel = 100.0F;
+                itemRenderer.zLevel = 100.0F;
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+                GL11.glEnable(GL11.GL_DEPTH_TEST);
+                itemRenderer.renderItemAndEffectIntoGUI(
+                        mc.fontRenderer,
+                        mc.renderEngine,
+                        renderStack,
+                        xPosition + 6,
+                        yPosition + 8);
+                itemRenderer.renderItemOverlayIntoGUI(
+                        mc.fontRenderer,
+                        mc.renderEngine,
+                        renderStack,
+                        xPosition + 6,
+                        yPosition + 8);
+                GL11.glDisable(GL11.GL_DEPTH_TEST);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                GL11.glEnable(GL11.GL_BLEND);
+                itemRenderer.zLevel = 0.0F;
+                this.zLevel = 0.0F;
+                RenderHelper.disableStandardItemLighting();
+            }
         }
     }
 }
