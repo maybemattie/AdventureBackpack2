@@ -21,7 +21,6 @@ import com.darkona.adventurebackpack.reference.GeneralReference;
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.reference.WailaTileAdventureBackpack;
-import com.darkona.adventurebackpack.util.TConstructTab;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -74,7 +73,6 @@ public class AdventureBackpack {
         ModRecipes.init();
         ModWorldGen.init();
         if (LoadedMods.WAILA) WailaTileAdventureBackpack.init();
-        if (LoadedMods.TCONSTRUCT) TConstructTab.registerTab();
 
         // GUIs
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new GuiHandler());

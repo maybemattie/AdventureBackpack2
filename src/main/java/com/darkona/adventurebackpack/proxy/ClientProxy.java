@@ -35,6 +35,7 @@ import com.darkona.adventurebackpack.init.ModBlocks;
 import com.darkona.adventurebackpack.init.ModItems;
 import com.darkona.adventurebackpack.playerProperties.BackpackProperty;
 import com.darkona.adventurebackpack.reference.LoadedMods;
+import com.darkona.adventurebackpack.util.TConstructTab;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -51,6 +52,7 @@ public class ClientProxy implements IProxy {
     public void init() {
         initRenderers();
         registerKeybindings();
+        if (LoadedMods.TCONSTRUCT) TConstructTab.registerTab();
         MinecraftForge.EVENT_BUS.register(new GuiOverlay(Minecraft.getMinecraft()));
 
         if (LoadedMods.NEI) {
