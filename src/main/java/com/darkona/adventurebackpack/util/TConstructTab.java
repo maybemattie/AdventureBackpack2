@@ -23,7 +23,7 @@ import tconstruct.client.tabs.TabRegistry;
 
 public class TConstructTab {
 
-    private static boolean enabled = false;
+    private static boolean enabled;
 
     static {
         enabled = LoadedMods.TCONSTRUCT;
@@ -70,7 +70,7 @@ public class TConstructTab {
         @Override
         public void onTabClicked() {
             EntityClientPlayerMP playerMP = Minecraft.getMinecraft().thePlayer;
-            byte backpackType = 0;
+            byte backpackType;
             if (Wearing.getWearingBackpack(playerMP) != null) backpackType = GUIPacket.BACKPACK_GUI;
             else if (Wearing.getWearingCopter(playerMP) != null) backpackType = GUIPacket.COPTER_GUI;
             else if (Wearing.getWearingJetpack(playerMP) != null) backpackType = GUIPacket.JETPACK_GUI;
