@@ -15,48 +15,24 @@ import org.lwjgl.opengl.GL12;
 import com.darkona.adventurebackpack.init.ModNetwork;
 import com.darkona.adventurebackpack.network.GUIPacket;
 import com.darkona.adventurebackpack.reference.BackpackTypes;
-import com.darkona.adventurebackpack.reference.LoadedMods;
 
-import cpw.mods.fml.common.Optional;
 import tconstruct.client.tabs.AbstractTab;
 import tconstruct.client.tabs.TabRegistry;
 
 public class TConstructTab {
 
-    private static boolean enabled;
-
-    static {
-        enabled = LoadedMods.TCONSTRUCT;
-    }
-
     public static void registerTab() {
-        if (enabled) {
-            registerTabImpl(new Tab());
-        }
-    }
-
-    @Optional.Method(modid = "TConstruct")
-    private static void registerTabImpl(AbstractTab tab) {
-        TabRegistry.registerTab(tab);
-    }
-
-    private static void updateTabValuesImpl(int cornerX, int cornerY, Class<?> selectedButton) {
-        TabRegistry.updateTabValues(cornerX, cornerY, selectedButton);
+        TabRegistry.registerTab(new Tab());
     }
 
     public static void updateTabValues(int cornerX, int cornerY, Class<?> selectedButton) {
-        if (enabled) updateTabValuesImpl(cornerX, cornerY, selectedButton);
+        TabRegistry.updateTabValues(cornerX, cornerY, selectedButton);
     }
 
-    public static void addTabsToListImpl(List buttonList) {
+    public static void addTabsToList(List<?> buttonList) {
         TabRegistry.addTabsToList(buttonList);
     }
 
-    public static void addTabsToList(List buttonList) {
-        if (enabled) addTabsToListImpl(buttonList);
-    }
-
-    @Optional.Interface(iface = "tconstruct.client.tabs.AbstractTab", modid = "TConstruct")
     public static class Tab extends AbstractTab {
 
         public static final RenderItem itemRenderer = new RenderItem();
