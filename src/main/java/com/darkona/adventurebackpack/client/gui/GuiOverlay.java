@@ -31,7 +31,11 @@ import com.darkona.adventurebackpack.item.ItemHose;
 import com.darkona.adventurebackpack.reference.LoadedMods;
 import com.darkona.adventurebackpack.reference.ModInfo;
 import com.darkona.adventurebackpack.reference.ToolHandler;
-import com.darkona.adventurebackpack.util.*;
+import com.darkona.adventurebackpack.util.GregtechUtils;
+import com.darkona.adventurebackpack.util.LogHelper;
+import com.darkona.adventurebackpack.util.ThaumcraftUtils;
+import com.darkona.adventurebackpack.util.TinkersUtils;
+import com.darkona.adventurebackpack.util.Wearing;
 
 import codechicken.lib.render.TextureUtils;
 import cpw.mods.fml.common.eventhandler.EventPriority;
