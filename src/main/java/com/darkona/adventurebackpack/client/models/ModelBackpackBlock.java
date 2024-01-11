@@ -272,6 +272,7 @@ public class ModelBackpackBlock extends ModelBase {
 
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float scale,
             IInventoryBackpack backpack) {
+        final CCRenderState state = CCRenderState.instance();
         // scale*=0.9;
         boolean sleepingbag = backpack.isSleepingBagDeployed();
         FluidTank tankLeft = backpack.getLeftTank();
@@ -289,9 +290,9 @@ public class ModelBackpackBlock extends ModelBase {
                     (tankLeftTop.rotationPointY * 0.1f + 0.05f),
                     (tankLeftTop.rotationPointZ * 0.1f + 0.15f));
             GL11.glPushMatrix();
-            CCRenderState.reset();
-            CCRenderState.pullLightmap();
-            CCRenderState.useNormals = true;
+            state.reset();
+            state.pullLightmap();
+            state.useNormals = true;
             RenderUtils.renderFluidCuboid(
                     tankLeft.getFluid(),
                     new Cuboid6(0f, 0.39f, 0f, 0.15f, 0f, 0.15f).add(victor),
@@ -306,9 +307,9 @@ public class ModelBackpackBlock extends ModelBase {
                     (tankRightTop.rotationPointY * 0.1f + 0.05f),
                     (tankRightTop.rotationPointZ * 0.1f + 0.15f));
             GL11.glPushMatrix();
-            CCRenderState.reset();
-            CCRenderState.pullLightmap();
-            CCRenderState.useNormals = true;
+            state.reset();
+            state.pullLightmap();
+            state.useNormals = true;
             RenderUtils.renderFluidCuboid(
                     tankRight.getFluid(),
                     new Cuboid6(0, 0.39, 0, 0.15, 0, 0.15).add(victor),
@@ -319,6 +320,7 @@ public class ModelBackpackBlock extends ModelBase {
     }
 
     private void renderFluidsInTanks(FluidTank tankLeft, FluidTank tankRight, float scale) {
+        final CCRenderState state = CCRenderState.instance();
         // Size of the cuboid
         // Y-- is up, Y++ is down
         float minX = 0f;
@@ -338,9 +340,9 @@ public class ModelBackpackBlock extends ModelBase {
                     (tankLeftTop.rotationPointY * 0.1f + 0.1f),
                     (tankLeftTop.rotationPointZ * 0.1f + 0.13f));
             // ChickenStuff
-            CCRenderState.reset();
-            CCRenderState.pullLightmap();
-            CCRenderState.useNormals = true;
+            state.reset();
+            state.pullLightmap();
+            state.useNormals = true;
 
             Cuboid6 left = new Cuboid6(minX, minY, minZ, maxX, maxY, maxZ);
             // Thanks Chickenbones!
@@ -360,9 +362,9 @@ public class ModelBackpackBlock extends ModelBase {
                     (tankRightTop.rotationPointY * 0.1f + 0.1f),
                     (tankRightTop.rotationPointZ * 0.1f + 0.13f));
             // ChickenStuff
-            CCRenderState.reset();
-            CCRenderState.pullLightmap();
-            CCRenderState.useNormals = true;
+            state.reset();
+            state.pullLightmap();
+            state.useNormals = true;
 
             Cuboid6 right = new Cuboid6(minX, minY, minZ, maxX, maxY, maxZ);
             RenderUtils.renderFluidCuboid(
