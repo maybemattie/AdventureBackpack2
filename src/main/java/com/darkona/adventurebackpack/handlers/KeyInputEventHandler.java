@@ -29,6 +29,15 @@ public class KeyInputEventHandler {
 
     @SubscribeEvent
     public void handleKeyInputEvent(InputEvent.KeyInputEvent event) {
+        this.onInput();
+    }
+
+    @SubscribeEvent
+    public void handleMouseInputEvent(InputEvent.MouseInputEvent event) {
+        this.onInput();
+    }
+
+    public void onInput() {
         Key pressedKey = getPressedKeyBinding();
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayer player = mc.thePlayer;
