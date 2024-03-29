@@ -2,7 +2,7 @@
 
 dependencies {
     api("com.github.GTNewHorizons:waila:1.7.1:dev")
-    api("com.github.GTNewHorizons:NotEnoughItems:2.5.24-GTNH:dev")
+    api("com.github.GTNewHorizons:NotEnoughItems:2.5.25-GTNH:dev")
     
-    devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.11.12-GTNH:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.11.13-GTNH:dev")
 }
