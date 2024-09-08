@@ -9,7 +9,7 @@ import com.darkona.adventurebackpack.reference.LoadedMods;
 
 public final class GregtechUtils {
 
-    private static final String CLASS_RENDERER = "gregtech.common.render.GT_MetaGenerated_Tool_Renderer";
+    private static final String CLASS_RENDERER = "gregtech.common.render.MetaGeneratedToolRenderer";
 
     private static final String TOOLS_NAME = "gt.metatool.01";
     private static final int[] ROTATED_45_TOOLS = { 16, 26, 30, 130 };
