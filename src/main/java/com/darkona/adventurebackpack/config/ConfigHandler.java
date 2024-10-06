@@ -23,6 +23,7 @@ public class ConfigHandler {
     public static boolean portableSleepingBag = true;
     public static boolean tinkerToolsMaintenance = true;
 
+    public static boolean enableBackRendering = true;
     public static boolean enableFullnessBar = false;
     public static boolean enableTemperatureBar = false;
     public static boolean enableToolsRender = true;
@@ -128,6 +129,11 @@ public class ConfigHandler {
                 "Allows to maintenance (repair/upgarde) Tinkers Construct tools in backpacks as if it's Crafting Station");
 
         // Graphics
+        enableBackRendering = config.getBoolean(
+                "Show Backpack on Back",
+                "graphics",
+                true,
+                "Whether or not to render the backpack when wearing it.");
         typeTankRender = config.getInt(
                 "Tank Render Type",
                 "graphics",
