@@ -14,12 +14,12 @@ public abstract class ItemAdventure extends ItemAB implements IBackWearableItem 
         super();
         setFull3D();
         setMaxStackSize(1);
+        setMaxDamage(1000);
     }
 
-    @Override
-    public boolean isDamageable() {
-        return false;
-    }
+    /*
+     * @Override public boolean isDamageable() { return false; }
+     */
 
     @Override
     public int getItemEnchantability() {
@@ -36,6 +36,7 @@ public abstract class ItemAdventure extends ItemAB implements IBackWearableItem 
 
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        return EnchUtils.isSoulBook(book);
+        return EnchUtils.isSoulBook(book) || EnchUtils.isTranslucencyBook(book);
+
     }
 }

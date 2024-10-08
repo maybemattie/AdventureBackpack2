@@ -15,6 +15,7 @@ import org.lwjgl.opengl.GL12;
 
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.item.IBackWearableItem;
+import com.darkona.adventurebackpack.util.EnchUtils;
 import com.darkona.adventurebackpack.util.Wearing;
 
 public class RendererWearableEquipped extends RendererLivingEntity {
@@ -39,6 +40,9 @@ public class RendererWearableEquipped extends RendererLivingEntity {
             return;
         }
         if (!ConfigHandler.enableBackRendering) {
+            return;
+        }
+        if (EnchUtils.isTranslucent(wearable)) {
             return;
         }
         GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
