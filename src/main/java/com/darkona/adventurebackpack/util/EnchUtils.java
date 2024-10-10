@@ -1,6 +1,7 @@
 package com.darkona.adventurebackpack.util;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -43,54 +44,30 @@ public final class EnchUtils {
     }
 
     public static boolean isSoulBounded(ItemStack stack) {
-        NBTTagList stackEnch = stack.getEnchantmentTagList();
-        if (SOUL_BOUND_ID >= 0 && stackEnch != null) {
-            for (int i = 0; i < stackEnch.tagCount(); i++) {
-                int id = stackEnch.getCompoundTagAt(i).getInteger("id");
-                if (id == SOUL_BOUND_ID) return true;
-            }
-        }
-        return false;
+        if (SOUL_BOUND_ID > 0)
+            return EnchantmentHelper.getEnchantmentLevel(SOUL_BOUND_ID, stack) > 0;
+        else
+            return false;
+
     }
 
-    public static boolean isTranslucent(ItemStack stack) {
-        NBTTagList stackEnch = stack.getEnchantmentTagList();
-        if (TRANSLUCENCY_ID >= 0 && stackEnch != null) {
-            for (int i = 0; i < stackEnch.tagCount(); i++) {
-                int id = stackEnch.getCompoundTagAt(i).getInteger("id");
-                int lvl = stackEnch.getCompoundTagAt(i).getInteger("lvl");
-                if (id == TRANSLUCENCY_ID && lvl == 2) return true;
-            }
-        }
-        return false;
+    public static int getTranslucencyLevel(ItemStack stack) {
+        if (TRANSLUCENCY_ID > 0)
+            return EnchantmentHelper.getEnchantmentLevel(TRANSLUCENCY_ID, stack);
+        else
+            return 0;
     }
 
     public static boolean isSoulBook(ItemStack book) {
-        if (SOUL_BOUND_ID >= 0 && book.hasTagCompound()) {
-            NBTTagCompound bookData = book.stackTagCompound;
-            if (bookData.hasKey("StoredEnchantments")) {
-                NBTTagList bookEnch = bookData.getTagList("StoredEnchantments", NBT.TAG_COMPOUND);
-                if (!bookEnch.getCompoundTagAt(1).getBoolean("id")) // only pure soulbook allowed
-                {
-                    int id = bookEnch.getCompoundTagAt(0).getInteger("id");
-                    return id == SOUL_BOUND_ID;
-                }
-            }
+        if (EnchantmentHelper.getEnchantments(book).size() == 1){ // only pure soulbook allowed
+            return EnchantmentHelper.getEnchantments(book).get(SOUL_BOUND_ID) != null;
         }
         return false;
     }
 
     public static boolean isTranslucencyBook(ItemStack book) {
-        if (TRANSLUCENCY_ID >= 0 && book.hasTagCompound()) {
-            NBTTagCompound bookData = book.stackTagCompound;
-            if (bookData.hasKey("StoredEnchantments")) {
-                NBTTagList bookEnch = bookData.getTagList("StoredEnchantments", NBT.TAG_COMPOUND);
-                if (!bookEnch.getCompoundTagAt(1).getBoolean("id")) // only pure book allowed
-                {
-                    int id = bookEnch.getCompoundTagAt(0).getInteger("id");
-                    return id == TRANSLUCENCY_ID;
-                }
-            }
+        if (EnchantmentHelper.getEnchantments(book).size() == 1){
+            return EnchantmentHelper.getEnchantments(book).get(TRANSLUCENCY_ID) != null;
         }
         return false;
     }

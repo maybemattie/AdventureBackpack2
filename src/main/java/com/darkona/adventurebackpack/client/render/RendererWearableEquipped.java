@@ -42,7 +42,7 @@ public class RendererWearableEquipped extends RendererLivingEntity {
         if (!ConfigHandler.enableBackRendering) {
             return;
         }
-        if (EnchUtils.isTranslucent(wearable)) {
+        if (EnchUtils.getTranslucencyLevel(wearable) == 2) {
             return;
         }
         GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
