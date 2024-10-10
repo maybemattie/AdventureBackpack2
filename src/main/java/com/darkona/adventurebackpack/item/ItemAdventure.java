@@ -22,6 +22,11 @@ public abstract class ItemAdventure extends ItemAB implements IBackWearableItem 
     }
 
     @Override
+    public boolean isItemTool(ItemStack stack) {
+        return true;
+    }
+
+    @Override
     public int getItemEnchantability() {
         return 0;
     }
@@ -36,6 +41,7 @@ public abstract class ItemAdventure extends ItemAB implements IBackWearableItem 
 
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
-        return EnchUtils.isSoulBook(book);
+        return EnchUtils.isSoulBook(book) || EnchUtils.isTranslucencyBook(book);
+
     }
 }

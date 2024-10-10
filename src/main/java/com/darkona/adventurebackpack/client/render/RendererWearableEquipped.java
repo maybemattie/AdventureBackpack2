@@ -13,7 +13,9 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.item.IBackWearableItem;
+import com.darkona.adventurebackpack.util.EnchUtils;
 import com.darkona.adventurebackpack.util.Wearing;
 
 public class RendererWearableEquipped extends RendererLivingEntity {
@@ -35,6 +37,12 @@ public class RendererWearableEquipped extends RendererLivingEntity {
             float pitch) {
         final ItemStack wearable = Wearing.getWearingWearable((EntityPlayer) entity);
         if (wearable == null) {
+            return;
+        }
+        if (!ConfigHandler.enableBackRendering) {
+            return;
+        }
+        if (EnchUtils.getTranslucencyLevel(wearable) == 2) {
             return;
         }
         GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);

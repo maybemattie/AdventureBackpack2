@@ -14,6 +14,7 @@ public class ConfigHandler {
     public static Configuration config;
 
     public static boolean allowSoulBound = true;
+    public static boolean allowTranslucency = true;
     public static boolean backpackDeathPlace = true;
     public static boolean backpackAbilities = true;
     public static boolean enableCampfireSpawn = false;
@@ -23,6 +24,7 @@ public class ConfigHandler {
     public static boolean portableSleepingBag = true;
     public static boolean tinkerToolsMaintenance = true;
 
+    public static boolean enableBackRendering = true;
     public static boolean enableFullnessBar = false;
     public static boolean enableTemperatureBar = false;
     public static boolean enableToolsRender = true;
@@ -99,6 +101,8 @@ public class ConfigHandler {
         // Gameplay
         allowSoulBound = config
                 .getBoolean("Allow SoulBound", "gameplay", true, "Allow SoulBound enchant on wearable packs");
+        allowTranslucency = config
+                .getBoolean("Allow Translucency", "gameplay", true, "Allow Translucency enchant on wearable packs");
         backpackAbilities = config.getBoolean(
                 "Backpack Abilities",
                 "gameplay",
@@ -128,6 +132,11 @@ public class ConfigHandler {
                 "Allows to maintenance (repair/upgarde) Tinkers Construct tools in backpacks as if it's Crafting Station");
 
         // Graphics
+        enableBackRendering = config.getBoolean(
+                "Show Backpack on Back",
+                "graphics",
+                true,
+                "Whether or not to render the backpack when wearing it.");
         typeTankRender = config.getInt(
                 "Tank Render Type",
                 "graphics",
