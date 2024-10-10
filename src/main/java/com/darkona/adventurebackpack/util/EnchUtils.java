@@ -3,9 +3,6 @@ package com.darkona.adventurebackpack.util;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants.NBT;
 
 import com.darkona.adventurebackpack.config.ConfigHandler;
 import com.darkona.adventurebackpack.reference.LoadedMods;
@@ -44,29 +41,25 @@ public final class EnchUtils {
     }
 
     public static boolean isSoulBounded(ItemStack stack) {
-        if (SOUL_BOUND_ID > 0)
-            return EnchantmentHelper.getEnchantmentLevel(SOUL_BOUND_ID, stack) > 0;
-        else
-            return false;
+        if (SOUL_BOUND_ID > 0) return EnchantmentHelper.getEnchantmentLevel(SOUL_BOUND_ID, stack) > 0;
+        else return false;
 
     }
 
     public static int getTranslucencyLevel(ItemStack stack) {
-        if (TRANSLUCENCY_ID > 0)
-            return EnchantmentHelper.getEnchantmentLevel(TRANSLUCENCY_ID, stack);
-        else
-            return 0;
+        if (TRANSLUCENCY_ID > 0) return EnchantmentHelper.getEnchantmentLevel(TRANSLUCENCY_ID, stack);
+        else return 0;
     }
 
     public static boolean isSoulBook(ItemStack book) {
-        if (EnchantmentHelper.getEnchantments(book).size() == 1){ // only pure soulbook allowed
+        if (EnchantmentHelper.getEnchantments(book).size() == 1) { // only pure soulbook allowed
             return EnchantmentHelper.getEnchantments(book).get(SOUL_BOUND_ID) != null;
         }
         return false;
     }
 
     public static boolean isTranslucencyBook(ItemStack book) {
-        if (EnchantmentHelper.getEnchantments(book).size() == 1){
+        if (EnchantmentHelper.getEnchantments(book).size() == 1) {
             return EnchantmentHelper.getEnchantments(book).get(TRANSLUCENCY_ID) != null;
         }
         return false;
