@@ -1,8 +1,8 @@
 // Add your dependencies here
 
 dependencies {
-    api("com.github.GTNewHorizons:waila:1.8.1:dev")
-    api("com.github.GTNewHorizons:NotEnoughItems:2.6.42-GTNH:dev")
+    api("com.github.GTNewHorizons:waila:1.8.2:dev")
+    api("com.github.GTNewHorizons:NotEnoughItems:2.6.46-GTNH:dev")
     
-    devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.12.11-GTNH:dev")
+    devOnlyNonPublishable("com.github.GTNewHorizons:TinkersConstruct:1.12.14-GTNH:dev")
 }
