@@ -84,7 +84,7 @@ public class GuiCopterPack extends GuiWithTanks {
         if (isFilled) {
             Float rate = GeneralReference.getFuelRate(tank.getFluid().getFluid().getName().toLowerCase());
             String conLev = (rate != null) ? rate.toString() : "0";
-            offsetY += 10;
+            offsetY += 5;
             fontRendererObj.drawString("Consumption: " + conLev, 1 + offsetX, offsetY, 0x373737, false);
         }
 
