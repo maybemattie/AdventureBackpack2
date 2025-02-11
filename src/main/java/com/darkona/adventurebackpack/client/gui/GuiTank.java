@@ -95,7 +95,11 @@ public class GuiTank {
             for (int i = (startX + offsetX); i < (startX + offsetX) + width; i += resolution) {
                 for (int j = maxY - resolution; j >= maxY - pixelsY; j -= resolution) {
                     GL11.glPushMatrix();
-                    GL11.glColor4f(1, 1, 1, 1);
+                    int rgb = fluid.getFluid().getColor();
+                    int red = (rgb >> 16) & 0xFF;
+                    int green = (rgb >> 8) & 0xFF;
+                    int blue = rgb & 0xFF;
+                    GL11.glColor4f(red / 256f, green / 256f, blue / 256f, 1f);
                     gui.drawTexturedModelRectFromIcon(i, j, icon, resolution, resolution);
                     GL11.glPopMatrix();
                 }
@@ -116,7 +120,11 @@ public class GuiTank {
                 int iconY = 7;
                 for (int j = maxY; j >= top; j--) {
                     GL11.glPushMatrix();
-                    GL11.glColor4f(1, 1, 1, 1);
+                    int rgb = fluid.getFluid().getColor();
+                    int red = (rgb >> 16) & 0xFF;
+                    int green = (rgb >> 8) & 0xFF;
+                    int blue = rgb & 0xFF;
+                    GL11.glColor4f(red / 256f, green / 256f, blue / 256f, 1f);
                     drawFluidPixelFromIcon(i, j, icon, resolution, 1, 0, iconY, resolution, 0, zLevel);
                     iconY = (iconY == 0) ? 7 : iconY - 1;
                     GL11.glPopMatrix();
@@ -136,10 +144,14 @@ public class GuiTank {
                 for (int j = (startY + offsetY) + height - 1; j >= top; j--) {
                     for (int i = (startX + offsetX); i <= (startX + offsetX) + width - 1; i++) {
                         GL11.glPushMatrix();
+                        int rgb = fluid.getFluid().getColor();
+                        int red = (rgb >> 16) & 0xFF;
+                        int green = (rgb >> 8) & 0xFF;
+                        int blue = rgb & 0xFF;
                         if (j >= top + 5) {
-                            GL11.glColor4f(0.9f, 0.9f, 0.9f, 1);
+                            GL11.glColor4f(red / 256f * 0.9f, green / 256f * 0.9f, blue / 256f * 0.9f, 1f);
                         } else {
-                            GL11.glColor4f(1, 1, 1, 1);
+                            GL11.glColor4f(red / 256f, green / 256f, blue / 256f, 1f);
                         }
                         drawFluidPixelFromIcon(i, j, icon, 1, 1, 0, 0, 0, 0, zLevel);
                         GL11.glPopMatrix();
