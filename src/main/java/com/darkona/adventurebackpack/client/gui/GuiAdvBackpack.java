@@ -184,7 +184,7 @@ public class GuiAdvBackpack extends GuiWithTanks {
     public List<String> getHiddenTooltip() {
         ArrayList<String> tooltips = new ArrayList<>();
         if (inventory.isHidden()) {
-            tooltips.add("Unhide backpack");
+            tooltips.add("Show backpack");
         } else {
             tooltips.add("Hide backpack");
         }
