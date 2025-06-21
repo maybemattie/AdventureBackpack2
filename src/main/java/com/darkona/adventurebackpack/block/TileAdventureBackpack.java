@@ -1,19 +1,6 @@
 package com.darkona.adventurebackpack.block;
 
-import static com.darkona.adventurebackpack.common.Constants.BUCKET_IN_LEFT;
-import static com.darkona.adventurebackpack.common.Constants.BUCKET_IN_RIGHT;
-import static com.darkona.adventurebackpack.common.Constants.BUCKET_OUT_LEFT;
-import static com.darkona.adventurebackpack.common.Constants.BUCKET_OUT_RIGHT;
-import static com.darkona.adventurebackpack.common.Constants.TAG_DISABLE_CYCLING;
-import static com.darkona.adventurebackpack.common.Constants.TAG_DISABLE_NVISION;
-import static com.darkona.adventurebackpack.common.Constants.TAG_EXTENDED_COMPOUND;
-import static com.darkona.adventurebackpack.common.Constants.TAG_INVENTORY;
-import static com.darkona.adventurebackpack.common.Constants.TAG_LEFT_TANK;
-import static com.darkona.adventurebackpack.common.Constants.TAG_RIGHT_TANK;
-import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
-import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
-import static com.darkona.adventurebackpack.common.Constants.TOOL_LOWER;
-import static com.darkona.adventurebackpack.common.Constants.TOOL_UPPER;
+import static com.darkona.adventurebackpack.common.Constants.*;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -59,6 +46,8 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
     private boolean disableCycling;
     private boolean disableNVision;
     private int lastTime = 0;
+
+    private boolean isHidden;
 
     private boolean sleepingBagDeployed;
     private int sbdir;
@@ -135,6 +124,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
         disableCycling = backpackTag.getBoolean(TAG_DISABLE_CYCLING);
         disableNVision = backpackTag.getBoolean(TAG_DISABLE_NVISION);
         lastTime = backpackTag.getInteger("lastTime");
+        isHidden = backpackTag.getBoolean(TAG_HIDDEN_BACKPACK);
     }
 
     @Override
@@ -162,6 +152,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
         backpackTag.setBoolean(TAG_DISABLE_CYCLING, disableCycling);
         backpackTag.setBoolean(TAG_DISABLE_NVISION, disableNVision);
         backpackTag.setInteger("lastTime", lastTime);
+        backpackTag.setBoolean(TAG_HIDDEN_BACKPACK, isHidden());
 
         compound.setTag(TAG_WEARABLE_COMPOUND, backpackTag);
     }
@@ -380,5 +371,10 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
 
         compound.setTag(TAG_WEARABLE_COMPOUND, newBackpackTag);
         compound.removeTag("backpackData");
+    }
+
+    @Override
+    public boolean isHidden() {
+        return isHidden;
     }
 }
