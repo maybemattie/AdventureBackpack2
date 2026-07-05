@@ -47,7 +47,7 @@ public class RendererWearableEquipped extends RendererLivingEntity {
         }
 
         // If hidden, stop render
-        if (Wearing.getWearingBackpackInv((EntityPlayer) entity).isHidden()) return;
+        if (ConfigHandler.enableHideBackpack && Wearing.getWearingBackpackInv((EntityPlayer) entity).isHidden()) return;
 
         GL11.glPushAttrib(GL11.GL_TRANSFORM_BIT);
         ItemStack wearableCopy = wearable.copy();

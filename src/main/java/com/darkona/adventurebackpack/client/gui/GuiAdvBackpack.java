@@ -93,8 +93,9 @@ public class GuiAdvBackpack extends GuiWithTanks {
             else equipButton.draw(this, 77, 208);
         }
 
+        // If hide ability is enabled,
         // If already hidden, show unhide button, else show hide button
-        if (source == Source.WEARING) {
+        if (ConfigHandler.enableHideBackpack && source == Source.WEARING) {
             if (inventory.isHidden()) {
                 if (unhideButton.inButton(this, mouseX, mouseY)) unhideButton.draw(this, 134, 208);
                 else unhideButton.draw(this, 115, 208);
@@ -148,7 +149,7 @@ public class GuiAdvBackpack extends GuiWithTanks {
                 int posZ = MathHelper.floor_double(player.posZ);
                 ModNetwork.net.sendToServer(new SleepingBagPacket.SleepingBagMessage(false, posX, posY, posZ));
             }
-        } else if (hideButton.inButton(this, mouseX, mouseY)) {
+        } else if (ConfigHandler.enableHideBackpack && hideButton.inButton(this, mouseX, mouseY)) {
             if (source != Source.WEARING) return;
             ModNetwork.net.sendToServer(new HiddenPacket.HiddenPacketMessage(this.inventory.isHidden()));
             if (inventory.isHidden()) {
@@ -217,12 +218,14 @@ public class GuiAdvBackpack extends GuiWithTanks {
                                 currenttip.add(TipUtils.l10n("backpack.unequip.key2"));
                             }
                 }
-            }
 
-            // Hidden tooltip
-            if (GuiContainerManager.shouldShowTooltip(gui) && currenttip.isEmpty()) {
-                if (!hideButton.inButton(backpackGui, mouseX, mouseY)) return currenttip;
-                currenttip.addAll(((GuiAdvBackpack) gui).getHiddenTooltip());
+                // Hidden tooltip
+                if (ConfigHandler.enableHideBackpack && GuiContainerManager.shouldShowTooltip(gui)
+                        && currenttip.isEmpty()) {
+                    if (hideButton.inButton(backpackGui, mouseX, mouseY)) {
+                        currenttip.addAll(((GuiAdvBackpack) gui).getHiddenTooltip());
+                    }
+                }
             }
 
             return currenttip;
