@@ -1,5 +1,6 @@
 package com.darkona.adventurebackpack.inventory;
 
+import static com.darkona.adventurebackpack.common.Constants.*;
 import static com.darkona.adventurebackpack.common.Constants.BUCKET_IN_LEFT;
 import static com.darkona.adventurebackpack.common.Constants.BUCKET_IN_RIGHT;
 import static com.darkona.adventurebackpack.common.Constants.BUCKET_OUT_LEFT;
@@ -13,7 +14,6 @@ import static com.darkona.adventurebackpack.common.Constants.TAG_LEFT_TANK;
 import static com.darkona.adventurebackpack.common.Constants.TAG_RIGHT_TANK;
 import static com.darkona.adventurebackpack.common.Constants.TAG_TYPE;
 import static com.darkona.adventurebackpack.common.Constants.TAG_WEARABLE_COMPOUND;
-import static com.darkona.adventurebackpack.common.Constants.*;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
