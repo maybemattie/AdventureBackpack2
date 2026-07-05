@@ -32,6 +32,7 @@ import com.darkona.adventurebackpack.network.PlayerActionPacket;
 import com.darkona.adventurebackpack.network.messages.EntityParticlePacket;
 import com.darkona.adventurebackpack.network.messages.EntitySoundPacket;
 import com.darkona.adventurebackpack.proxy.ClientProxy;
+import com.darkona.adventurebackpack.reference.GeneralReference;
 import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.Resources;
 import com.darkona.adventurebackpack.util.TipUtils;
@@ -58,7 +59,7 @@ public class ItemCoalJetpack extends ItemAdventure {
     public void addInformation(ItemStack stack, EntityPlayer player, List tooltips, boolean advanced) {
         FluidTank waterTank = new FluidTank(Constants.Jetpack.WATER_CAPACITY);
         FluidTank steamTank = new FluidTank(Constants.Jetpack.STEAM_CAPACITY);
-        NBTTagCompound jetpackTag = BackpackUtils.getWearableCompound(stack);
+        NBTTagCompound jetpackTag = BackpackUtils.getOrCreateWearableCompound(stack);
 
         if (GuiScreen.isShiftKeyDown()) {
             NBTTagList itemList = jetpackTag.getTagList(Constants.TAG_INVENTORY, NBT.TAG_COMPOUND);
@@ -188,7 +189,7 @@ public class ItemCoalJetpack extends ItemAdventure {
             if (inv.getSteamTank().getFluidAmount() < inv.getSteamTank().getCapacity()) {
                 if (inv.getWaterTank().getFluid() != null) {
                     int steam = inv.getWaterTank().drain((temperature / 100), true).amount;
-                    inv.getSteamTank().fill(new FluidStack(FluidRegistry.getFluid("steam"), steam * 4), true);
+                    inv.getSteamTank().fill(new FluidStack(GeneralReference.getSteamFluid(), steam * 4), true);
                     inv.dirtyTanks();
                 }
             }
@@ -265,7 +266,7 @@ public class ItemCoalJetpack extends ItemAdventure {
     }
 
     private int getTemperature(ItemStack jetpack) {
-        return BackpackUtils.getWearableCompound(jetpack).getInteger("temperature");
+        return BackpackUtils.getOrCreateWearableCompound(jetpack).getInteger("temperature");
     }
 
     @Override

@@ -81,6 +81,7 @@ abstract class InventoryAdventure implements IInventoryTanks {
 
     @Override
     public void markDirty() {
+        dirtyInventory();
         saveToNBT(containerStack.stackTagCompound);
     }
 
@@ -138,7 +139,7 @@ abstract class InventoryAdventure implements IInventoryTanks {
     }
 
     protected NBTTagCompound getWearableCompound() {
-        return BackpackUtils.getWearableCompound(containerStack);
+        return BackpackUtils.getOrCreateWearableCompound(containerStack);
     }
 
     protected void setInventoryFromTagList(NBTTagList items) {

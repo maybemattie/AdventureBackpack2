@@ -28,6 +28,7 @@ public abstract class ContainerAdventure extends Container {
     private final int[] fluidsAmount;
     private int itemsCount;
     private boolean requestedUpdate;
+    public boolean skipFluidSlots;
 
     protected ContainerAdventure(EntityPlayer player, IInventoryTanks inventory, Source source) {
         this.player = player;
@@ -58,7 +59,7 @@ public abstract class ContainerAdventure extends Container {
             // check if parent item is gone
             ItemStack parentItem = inventory.getParentItem();
             if (parentItem != null) {
-                if (player.getCurrentEquippedItem() != parentItem) {
+                if (!ItemStack.areItemStacksEqual(player.getCurrentEquippedItem(), parentItem)) {
                     player.closeScreen();
                     return;
                 }

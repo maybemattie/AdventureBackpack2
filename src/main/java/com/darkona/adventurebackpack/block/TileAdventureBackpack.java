@@ -1,7 +1,5 @@
 package com.darkona.adventurebackpack.block;
 
-import static com.darkona.adventurebackpack.common.Constants.*;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -32,6 +30,8 @@ import com.darkona.adventurebackpack.util.BackpackUtils;
 import com.darkona.adventurebackpack.util.CoordsUtils;
 import com.darkona.adventurebackpack.util.Utils;
 import com.darkona.adventurebackpack.util.Wearing;
+
+import static com.darkona.adventurebackpack.common.Constants.*;
 
 public class TileAdventureBackpack extends TileAdventure implements IInventoryBackpack, ISidedInventory {
 
@@ -123,7 +123,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
         extendedProperties = backpackTag.getCompoundTag(TAG_EXTENDED_COMPOUND);
         disableCycling = backpackTag.getBoolean(TAG_DISABLE_CYCLING);
         disableNVision = backpackTag.getBoolean(TAG_DISABLE_NVISION);
-        lastTime = backpackTag.getInteger("lastTime");
+        lastTime = backpackTag.getInteger(TAG_LAST_TIME);
         isHidden = backpackTag.getBoolean(TAG_HIDDEN_BACKPACK);
     }
 
@@ -151,7 +151,7 @@ public class TileAdventureBackpack extends TileAdventure implements IInventoryBa
         backpackTag.setTag(TAG_EXTENDED_COMPOUND, extendedProperties);
         backpackTag.setBoolean(TAG_DISABLE_CYCLING, disableCycling);
         backpackTag.setBoolean(TAG_DISABLE_NVISION, disableNVision);
-        backpackTag.setInteger("lastTime", lastTime);
+        backpackTag.setInteger(TAG_LAST_TIME, lastTime);
         backpackTag.setBoolean(TAG_HIDDEN_BACKPACK, isHidden());
 
         compound.setTag(TAG_WEARABLE_COMPOUND, backpackTag);

@@ -36,7 +36,7 @@ public class ContainerBackpack extends ContainerAdventure {
     private static final int CRAFT_RESULT = BUCKET_RIGHT + 2 + (MATRIX_DIMENSION * MATRIX_DIMENSION);
     private static final int[] CRAFT_MATRIX_EMULATION = findCraftMatrixEmulationIDs();
 
-    private final InventoryCraftingBackpack craftMatrix = new InventoryCraftingBackpack(
+    protected final InventoryCraftingBackpack craftMatrix = new InventoryCraftingBackpack(
             this,
             MATRIX_DIMENSION,
             MATRIX_DIMENSION);
@@ -90,6 +90,7 @@ public class ContainerBackpack extends ContainerAdventure {
 
     @Override
     public void detectAndSendChanges() {
+        syncCraftMatrixWithInventory(true);
         syncCraftResultToServer();
         super.detectAndSendChanges();
     }
@@ -112,7 +113,7 @@ public class ContainerBackpack extends ContainerAdventure {
     protected boolean transferStackToPack(ItemStack stack) {
         if (SlotTool.isValidTool(stack)) {
             if (!mergeToolSlot(stack)) if (SlotBackpack.isValidItem(stack)) return mergeBackpackInv(stack);
-        } else if (SlotFluid.isContainer(stack) && !isHoldingSpace()) {
+        } else if (SlotFluid.isContainer(stack) && !isHoldingSpace() && !skipFluidSlots) {
             return transferFluidContainer(stack);
         } else if (SlotBackpack.isValidItem(stack)) {
             return mergeBackpackInv(stack);

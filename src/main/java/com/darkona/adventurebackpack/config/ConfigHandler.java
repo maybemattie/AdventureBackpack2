@@ -15,6 +15,7 @@ public class ConfigHandler {
 
     public static boolean allowSoulBound = true;
     public static boolean allowTranslucency = true;
+    public static boolean allowStickyItems = true;
     public static boolean backpackDeathPlace = true;
     public static boolean backpackAbilities = true;
     public static boolean enableCampfireSpawn = false;
@@ -29,7 +30,7 @@ public class ConfigHandler {
     public static boolean enableTemperatureBar = false;
     public static boolean enableToolsRender = true;
     public static int typeTankRender = 2;
-    public static boolean tanksHoveringText = true;
+    public static boolean showGuiTooltips = true;
 
     public static boolean statusOverlay = true;
     public static boolean statusOverlayLeft = true;
@@ -86,6 +87,7 @@ public class ConfigHandler {
     public static boolean allowBonusGen = false;
     public static boolean allowGolemGen = true;
     public static boolean allowPigmanGen = false;
+    public static boolean disableVillagerTrade = true;
 
     public static boolean chatSpam = true;
 
@@ -104,6 +106,11 @@ public class ConfigHandler {
                 .getBoolean("Allow SoulBound", "gameplay", true, "Allow SoulBound enchant on wearable packs");
         allowTranslucency = config
                 .getBoolean("Allow Translucency", "gameplay", true, "Allow Translucency enchant on wearable packs");
+        allowStickyItems = config.getBoolean(
+                "Allow Sticky Items",
+                "gameplay",
+                true,
+                "Allow Sticky Items potion effect on wearable packs");
         backpackAbilities = config.getBoolean(
                 "Backpack Abilities",
                 "gameplay",
@@ -160,7 +167,7 @@ public class ConfigHandler {
                 "graphics",
                 true,
                 "Enable rendering for tools in the backpack tool slots");
-        tanksHoveringText = config.getBoolean("Hovering Text", "graphics", true, "Show hovering text on fluid tanks?");
+        showGuiTooltips = config.getBoolean("Hovering Text", "graphics", true, "Show tooltips in GUIs?");
 
         // Graphics.Status
         statusOverlay = config
@@ -325,6 +332,8 @@ public class ConfigHandler {
                 "worldgen",
                 false,
                 "Allow generation of Pigman Backpacks in dungeon loot and villager trades");
+        disableVillagerTrade = config
+                .getBoolean("Disable Villager Trade", "worldgen", true, "Disables trade for Villager Backpacks");
 
         // Experimental
         bossBarIndent = config.getInt(
